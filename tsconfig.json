@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "lib": ["es5", "es2015.promise", "dom", "es2015"],
     "esModuleInterop": true,
     "module": "commonjs",
     "noImplicitAny": true,
@@ -8,9 +9,15 @@
     "baseUrl": ".",
     "paths": {
       "*": ["node_modules/*"]
-    }
+    },
+    "types": [
+      "node",
+      "jest",
+      "webdriver",
+      "webdriverio/async",
+    ]
   },
   "include": [
     "src/**/*"
-  ]
+  ],
 }
