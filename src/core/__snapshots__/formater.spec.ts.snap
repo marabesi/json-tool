@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`json utility tool should format json with two space 1`] = `
+"{
+  \\"a\\": true,
+  \\"b\\": false
+}"
+`;
