@@ -8,7 +8,8 @@
     "watch": "tsc -w",
     "lint": "eslint -c .eslintrc --ext .ts ./src",
     "start": "npm run build && electron ./dist/main.js",
-    "test": "jest"
+    "test": "jest",
+    "package": "electron-packager ./dist --all --out ./out"
   },
   "repository": "https://github.com/marabesi/json-utility-tool",
   "keywords": [
@@ -25,6 +26,7 @@
     "@types/jest": "^27.0.1",
     "@typescript-eslint/eslint-plugin": "^4.31.0",
     "electron": "^13.2.3",
+    "electron-packager": "^15.4.0",
     "eslint": "^7.32.0",
     "jest": "^27.1.1",
     "spectron": "^15.0.0",
