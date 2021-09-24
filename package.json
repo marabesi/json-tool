@@ -1,15 +1,15 @@
 {
-  "name": "electron-quick-start",
+  "name": "json-utility-tool",
   "version": "1.0.0",
   "description": "A minimal Electron application",
   "main": "main.js",
   "scripts": {
-    "build": "tsc",
+    "build": "rimraf ./dist && tsc && cp package.json ./dist ",
     "watch": "tsc -w",
     "lint": "eslint -c .eslintrc --ext .ts ./src",
     "start": "npm run build && electron ./dist/main.js",
     "test": "jest",
-    "package": "electron-packager ./dist --all --out ./out"
+    "package": "npm run build && electron-packager ./dist --all --out ./out --overwrite"
   },
   "repository": "https://github.com/marabesi/json-utility-tool",
   "keywords": [
@@ -29,8 +29,10 @@
     "electron-packager": "^15.4.0",
     "eslint": "^7.32.0",
     "jest": "^27.1.1",
+    "rimraf": "^3.0.2",
     "spectron": "^15.0.0",
     "ts-jest": "^27.0.5",
+    "ts-node": "^10.2.1",
     "typescript": "^4.4.3"
   },
   "dependencies": {
