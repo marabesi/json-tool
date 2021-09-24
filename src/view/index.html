@@ -7,10 +7,15 @@
     <title>Hello World!</title>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
+    <div>
+      <div>
+        <input placeholder="spaces" type="text" name="spaces" />
+      </div>
+      <div>
+        <textarea placeholder="place your json here" cols="30" rows="30"></textarea>
+        <button>format</button>
+      </div>
+    </div>
 
     <!-- You can also require other files to run in this process -->
     <script src="./renderer.js"></script>

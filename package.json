@@ -4,12 +4,12 @@
   "description": "A minimal Electron application",
   "main": "main.js",
   "scripts": {
-    "build": "rimraf ./dist && tsc && cp package.json ./dist ",
+    "build": "rimraf ./dist && tsc && cp -R package.json src/view ./dist ",
     "watch": "tsc -w",
     "lint": "eslint -c .eslintrc --ext .ts ./src",
     "start": "npm run build && electron ./dist/main.js",
     "test": "jest",
-    "package": "npm run build && electron-packager ./dist --all --out ./out --overwrite"
+    "package": "npm run build && rimraf out/ && electron-packager ./dist --all --out ./out --overwrite"
   },
   "repository": "https://github.com/marabesi/json-utility-tool",
   "keywords": [
