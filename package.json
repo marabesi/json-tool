@@ -10,7 +10,7 @@
     "start": "npm run build && electron ./dist/main.js",
     "test": "jest"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/marabesi/json-utility-tool",
   "keywords": [
     "Electron",
     "quick",
@@ -28,5 +28,8 @@
     "jest": "^27.1.1",
     "ts-jest": "^27.0.5",
     "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "format-to-json": "^2.1.2"
   }
 }
