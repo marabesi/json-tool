@@ -4,17 +4,26 @@
     <meta charset="UTF-8">
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Hello World!</title>
+    <link href="tailwind.css" rel="stylesheet">
+    <title>Json utility tool</title>
   </head>
-  <body>
-    <div>
+  <body class="bg-gray-600">
+    <div class="container p-2 w-full">
       <div>
-        <input placeholder="spaces" type="text" name="spaces" />
+        <select name="spaces">
+          <option value="2">2</option>
+          <option value="4">4</option>
+        </select>
       </div>
-      <div>
-        <textarea placeholder="place your json here" cols="30" rows="30"></textarea>
-        <button>format</button>
+      <div class="flex">
+        <div class="w-3/6 flex flex-col min-h-full">
+          <textarea class="min-h-full" placeholder="place your json here"></textarea>
+        </div>
+        <div class="w-3/6 flex flex-col min-h-full">
+          <textarea class="min-h-full" placeholder="place your json here"></textarea>
+        </div>
       </div>
+      <button>format</button>
     </div>
 
     <!-- You can also require other files to run in this process -->
