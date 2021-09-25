@@ -1,24 +1,21 @@
+import path from 'path'
 import {Application} from 'spectron'
-// @ts-ignore
 import { setupBrowser } from '@testing-library/webdriverio'
 
 const app: Application = new Application({
-  path: '/home/marabesi/Documents/json-utility-tool/node_modules/electron/dist/electron',
+  path: path.resolve(`${__dirname}/../out/json-utility-tool-linux-x64/json-utility-tool`),
   port: 9157
 })
 
 describe('Application launch', function () {
-  test('validate json', async () => {
-    await app.start()
-
-    try {
-      // @ts-ignore
-      const { getByRole } = setupBrowser(app.client);
-      await getByRole("textarea", { name: /Hello/i });
-    } catch (error) {
-      console.error(error.message)
-    }
-
+  afterEach(async ()=> {
     await app.stop()
+  })
+
+  test('label to place the json string', async () => {
+    await app.start()
+    // @ts-ignore
+    const { findByText } = setupBrowser(app.client);
+    await findByText("format");
   })
 })

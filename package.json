@@ -8,7 +8,7 @@
     "watch": "tsc -w",
     "lint": "eslint -c .eslintrc --ext .ts ./src",
     "start": "npm run build && electron ./dist/main.js",
-    "test": "jest",
+    "test": "npm run package && jest",
     "package": "npm run build && rimraf out/ && electron-packager ./dist --all --out ./out --overwrite"
   },
   "repository": "https://github.com/marabesi/json-utility-tool",
