@@ -1,7 +1,0 @@
-{
-  "testEnvironment": "node",
-  "testMatch": [
-    "<rootDir>/src/**/*.spec.ts"
-  ],
-  "preset": "ts-jest"
-}

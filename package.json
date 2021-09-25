@@ -1,48 +1,62 @@
 {
-  "name": "json-utility-tool",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
-  "main": "main.js",
-  "scripts": {
-    "build": "rimraf ./dist && tsc && cp -R package.json src/view ./dist && tailwindcss -i ./src/view/tailwind.css -o ./dist/view/tailwind.css",
-    "watch": "tsc -w",
-    "lint": "eslint -c .eslintrc --ext .ts ./src",
-    "start": "npm run build && electron ./dist/main.js",
-    "test": "npm run package && jest",
-    "package": "npm run build && rimraf out/ && electron-packager ./dist --all --out ./out --overwrite"
-  },
-  "repository": "https://github.com/marabesi/json-utility-tool",
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
-  ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
-  "devDependencies": {
-    "@testing-library/webdriverio": "^3.0.4",
-    "@types/jest": "^27.0.2",
-    "@types/webdriverio": "^4.13.3",
-    "@typescript-eslint/eslint-plugin": "^4.31.0",
-    "autoprefixer": "^10.3.5",
-    "electron": "^13.2.3",
-    "electron-packager": "^15.4.0",
-    "electron-reload": "^2.0.0-alpha.1",
-    "eslint": "^7.32.0",
-    "jest": "^27.1.1",
-    "postcss": "^8.3.8",
-    "rimraf": "^3.0.2",
-    "spectron": "^15.0.0",
-    "tailwindcss": "^2.2.15",
-    "ts-jest": "^27.0.5",
-    "ts-node": "^10.2.1",
-    "typescript": "^4.4.3",
-    "wdio": "^5.1.0"
-  },
+  "name": "json-tool",
+  "version": "0.1.0",
+  "private": true,
+  "main": "public/main.js",
   "dependencies": {
-    "@wdio/cli": "^7.13.1",
-    "format-to-json": "^2.1.2"
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^12.20.27",
+    "@types/react": "^17.0.24",
+    "@types/react-dom": "^17.0.9",
+    "format-to-json": "^2.1.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "typescript": "^4.4.3",
+    "web-vitals": "^1.1.2"
+  },
+  "devDependencies": {
+    "@craco/craco": "^6.3.0",
+    "@testing-library/webdriverio": "^3.0.4",
+    "@types/webdriverio": "^4.13.3",
+    "autoprefixer": "^9.8.6",
+    "concurrently": "^6.2.1",
+    "electron": "^13.2.3",
+    "electron-is-dev": "^2.0.0",
+    "electron-packager": "^15.4.0",
+    "postcss": "^7.0.38",
+    "spectron": "^15.0.0",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14",
+    "wait-on": "^6.0.0"
+  },
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "craco eject",
+    "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
+    "package": "npm run build && electron-packager ./build --all --out ./out --overwrite",
+    "electron": "wait-on tcp:3000 && electron ."
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
