@@ -19,6 +19,7 @@ jobs:
         run: |
           /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
           echo ">>> Started xvfb"
+          apt-get install wine
       - name: install
         run: npm install
       - name: test
@@ -28,7 +29,7 @@ jobs:
           DISPLAY: ':99.0'
       - name: package
         run: npm run package
-      - name: Distribute
+      - name: distribute
         uses: actions/upload-artifact@v2
         with:
           name: archive-electron-platform
