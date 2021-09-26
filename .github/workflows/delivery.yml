@@ -30,8 +30,8 @@ jobs:
           DISPLAY: ':99.0'
       - name: package
         run: npm run package
-      - name: distribute
-        uses: actions/upload-artifact@v2
-        with:
-          name: archive-electron-platform
-          path: out/
+      # - name: distribute
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: archive-electron-platform
+      #     path: out/
