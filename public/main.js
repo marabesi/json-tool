@@ -10,24 +10,21 @@ function createWindow () {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    show: false,
     webPreferences: {
       nodeIntegration: true
     }
   })
 
-  // and load the index.html of the app.
+  mainWindow.maximize();
+  mainWindow.show();
 
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  // and load the index.html of the app.
   mainWindow.loadURL(
     isDev
       ? 'http://localhost:3000'
       : `file://${path.join(__dirname, '/index.html')}`
   );
-  // Open the DevTools.
-  if (isDev) {
-    //mainWindow.webContents.openDevTools({ mode: 'detach' });
-  }
 }
 
 // This method will be called when Electron has finished
