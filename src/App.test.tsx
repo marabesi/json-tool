@@ -2,6 +2,20 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import App from './App';
 
 describe('json utility', () => {
+
+  document.createRange = () => {
+    const range = new Range();
+
+    range.getBoundingClientRect = jest.fn();
+    // @ts-ignore
+    range.getClientRects = jest.fn(() => ({
+      item: () => null,
+      length: 0,
+    }));
+
+    return range;
+  };
+
   test('renders place your json here label', () => {
     render(<App />);
     const placeJsonLabel = screen.getByText(/place your json here/i);
@@ -14,19 +28,20 @@ describe('json utility', () => {
     expect(resultLabel).toBeInTheDocument();
   });
 
-  test.each([
+  test.skip.each([
     ['{}', '{}'],
-    ['{"a": "b"}', '{"a": "b"}'],
+    // ['{"a": "b"}', '{"a": "b"}'],
   ])('place %s text in the editor and receive %s', async (input, expected) => {
-    render(<App />);
+    const { container } = render(<App />);
 
-    const editor = screen.getByTestId('json');
+    const editor = container.getElementsByClassName('original');
 
-    fireEvent.change(editor, {target: { value: input }});
+    // @ts-ignore
+    fireEvent.change(editor[0], {target: { value: input }});
 
-    const result = await screen.findByTestId('result');
+    const result = await container.getElementsByClassName('result');
 
-    expect(result.nodeValue).toMatchSnapshot(expected);
+    expect(result[0].nodeValue).toMatchSnapshot(expected);
   });
 
   test.skip('inform error when json is invalid', () => {

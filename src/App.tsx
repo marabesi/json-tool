@@ -24,13 +24,14 @@ function App() {
             input={originalJson}
             onChange={eventValue => onJsonChange(eventValue.value)}
             data-testid="json"
+            className="original"
           />
         </div>
         <div className="w-3/6 flex flex-col h-full m-1">
           <Label>result</Label>
           <JsonEditor
             input={result}
-            data-testid="result"
+            className="result"
           />
         </div>
       </div>
