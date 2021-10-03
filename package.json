@@ -1,6 +1,7 @@
 {
   "name": "json-tool",
   "version": "0.1.0",
+  "homepage": "./",
   "private": true,
   "main": "main.js",
   "dependencies": {
@@ -35,7 +36,7 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "craco build",
+    "build": "craco build && cp -R node_modules/ build/",
     "test": "craco test",
     "eject": "craco eject",
     "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
