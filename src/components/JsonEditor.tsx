@@ -24,7 +24,13 @@ export default function JsonEditor({ input, onChange, className, ...rest }: Prop
   //     value={input}
   //     {...rest}
   //   />
-  // )
+  const handleChange = (editor: any, data: any, value: any) => {
+    if (onChange) {
+      onChange({ value })
+      return;
+    }
+  }
+
   return (
     <CodeMirror
       value={input}
@@ -33,18 +39,8 @@ export default function JsonEditor({ input, onChange, className, ...rest }: Prop
         lineNumbers: false,
         theme: 'material',
       }}
-      onBeforeChange={(editor, data, value) => {
-        if (onChange) {
-          onChange({ value })
-          return;
-        }
-      }}
-      onChange={(editor, data, value) => {
-        if (onChange) {
-          onChange({ value })
-          return;
-        }
-      }}
+      onBeforeChange={handleChange}
+      onChange={handleChange}
       className={className}
       {...rest}
     />
