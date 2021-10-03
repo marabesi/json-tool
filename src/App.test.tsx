@@ -4,14 +4,14 @@ import App from './App';
 describe('json utility', () => {
   test('renders place your json here label', () => {
     render(<App />);
-    const linkElement = screen.getByText(/place your json here/i);
-    expect(linkElement).toBeInTheDocument();
+    const placeJsonLabel = screen.getByText(/place your json here/i);
+    expect(placeJsonLabel).toBeInTheDocument();
   });
 
   test('renders resulting formatted json label', () => {
     render(<App />);
-    const linkElement = screen.getByText(/result/i);
-    expect(linkElement).toBeInTheDocument();
+    const resultLabel = screen.getByText(/result/i);
+    expect(resultLabel).toBeInTheDocument();
   });
 
   test.each([
