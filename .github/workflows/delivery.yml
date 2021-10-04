@@ -31,8 +31,8 @@ jobs:
           DISPLAY: ':99.0'
       - name: package
         run: npm run package
-#      - name: distribute for linux 64
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: archive-electron-platform
-#          path: out/json-tool-linux-x64
+      - name: distribute for linux 64
+        uses: actions/upload-artifact@v2
+        with:
+          name: archive-electron-platform
+          path: out/json-tool-linux-x64
