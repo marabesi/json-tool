@@ -26,9 +26,6 @@ modules:
       env:
         npm_config_nodedir: /usr/lib/sdk/node14
     sources:
-      # - type: archive
-      #   url: https://github.com/marabesi/json-utility-tool/archive/refs/tags/v0.0.1.tar.gz
-      #   sha256: 4687a98a30662b834f6927234b3dab65341e6ee8efe2cf37c759e891a03a8bc9
       - type: dir
         path: ./out/json-tool-linux-x64
       - type: script
@@ -37,4 +34,5 @@ modules:
           - zypak-wrapper.sh /app/main/json-tool "$@"
     build-commands:
       - |
+      - cp -a . /app/main
       - install -Dm755 -t /app/bin run.sh
