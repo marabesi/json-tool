@@ -1,4 +1,4 @@
-app-id: org.flathub.json-utility-tool
+app-id: org.marabesi.json-utility-tool
 runtime: org.freedesktop.Platform
 runtime-version: '20.08'
 sdk: org.freedesktop.Sdk
