@@ -20,7 +20,7 @@ build-options:
   env:
     NPM_CONFIG_LOGLEVEL: info
 modules:
-  - name: electron-sample-app
+  - name: json-utility-tool
     buildsystem: simple
     build-options:
       env:
@@ -30,12 +30,11 @@ modules:
       #   url: https://github.com/marabesi/json-utility-tool/archive/refs/tags/v0.0.1.tar.gz
       #   sha256: 4687a98a30662b834f6927234b3dab65341e6ee8efe2cf37c759e891a03a8bc9
       - type: dir
-        path: .
+        path: ./out/json-tool-linux-x64
       - type: script
         dest-filename: run.sh
         commands:
-          - zypak-wrapper.sh /app/main/electron-sample-app "$@"
+          - zypak-wrapper.sh /app/main/json-tool "$@"
     build-commands:
       - |
-      - cp -a out/json-tool-linux-x64 /app/main
-      - install -Dm755 -t /app/bin/ run.sh
+      - install -Dm755 -t /app/bin run.sh
