@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "homepage": "./",
   "private": true,
-  "main": "main.js",
+  "main": "electron.js",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
@@ -29,12 +29,13 @@
     "autoprefixer": "^9.8.7",
     "concurrently": "^6.2.1",
     "electron": "^13.2.3",
-    "electron-packager": "^15.4.0",
+    "electron-builder": "^22.13.1",
     "postcss": "^7.0.38",
     "spectron": "^15.0.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14",
     "wait-on": "^6.0.0"
   },
+  "postinstall": "electron-builder install-app-deps",
   "scripts": {
     "start": "craco start",
     "build": "craco build",
@@ -42,7 +43,7 @@
     "eject": "craco eject",
     "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
     "setup": "npm run build && cp package.json ./build",
-    "package": "npm run setup && electron-packager ./build --platform=linux --out ./out --overwrite",
+    "package": "npm run setup && electron-builder -l",
     "electron": "npm run setup && wait-on tcp:3000 && electron build/"
   },
   "eslintConfig": {
@@ -62,5 +63,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "build": {
+    "appId": "org.marabesi.json-utility-tool"
   }
 }
