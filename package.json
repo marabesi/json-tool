@@ -41,8 +41,9 @@
     "test": "craco test",
     "eject": "craco eject",
     "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
-    "package": "npm run build && cp package.json  ./build && electron-packager ./build --platform=linux --out ./out --overwrite",
-    "electron": "wait-on tcp:3000 && electron build/"
+    "setup": "npm run build && cp package.json ./build",
+    "package": "npm run setup && electron-packager ./build --platform=linux --out ./out --overwrite",
+    "electron": "npm run setup && wait-on tcp:3000 && electron build/"
   },
   "eslintConfig": {
     "extends": [
