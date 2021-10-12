@@ -1,5 +1,6 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import {  fireEvent, render, screen, act } from '@testing-library/react';
 import App from './App';
+import userEvent from '@testing-library/user-event'
 
 describe('json utility', () => {
 
@@ -54,5 +55,20 @@ describe('json utility', () => {
     const result = screen.getByTestId('error');
 
     expect(result).toEqual('invalid json');
+  });
+
+  test('should paste json string from copy area into the editor', async () => {
+    const { container } = render(<App />);
+
+    const editorByClassname = container.getElementsByClassName('original');
+    const editor = editorByClassname[0];
+
+    await act(async () => {
+      userEvent.paste(editor, '{}');
+    });
+
+    const result = await container.getElementsByClassName('result');
+
+    expect(result[0].innerHTML).toEqual('{}')
   });
 })

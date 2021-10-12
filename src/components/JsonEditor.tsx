@@ -1,4 +1,4 @@
-import {Controlled as CodeMirror} from 'react-codemirror2'
+// import {Controlled as CodeMirror} from 'react-codemirror2'
 
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
@@ -17,13 +17,6 @@ interface Props{
 }
 
 export default function JsonEditor({ input, onChange, className, ...rest }: Props) {
-  // return (
-  //   <textarea
-  //     className={[className, 'h-full'].join(' ')}
-  //     onChange={eventValue => onChange ? onChange({ value: eventValue.target.value }) : null}
-  //     value={input}
-  //     {...rest}
-  //   />
   const handleChange = (editor: any, data: any, value: any) => {
     if (onChange) {
       onChange({ value })
@@ -32,17 +25,26 @@ export default function JsonEditor({ input, onChange, className, ...rest }: Prop
   }
 
   return (
-    <CodeMirror
+    <textarea
+      className={[className, 'h-full'].join(' ')}
+      onChange={eventValue => handleChange(null, null,  eventValue.target.value)}
       value={input}
-      options={{
-        mode: 'application/json',
-        lineNumbers: false,
-        theme: 'material',
-      }}
-      onBeforeChange={handleChange}
-      onChange={handleChange}
-      className={className}
       {...rest}
     />
   );
+
+  // return (
+  //   <CodeMirror
+  //     value={input}
+  //     options={{
+  //       mode: 'application/json',
+  //       lineNumbers: false,
+  //       theme: 'material',
+  //     }}
+  //     onBeforeChange={handleChange}
+  //     onChange={handleChange}
+  //     className={className}
+  //     {...rest}
+  //   />
+  // );
 }
