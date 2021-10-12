@@ -6,8 +6,15 @@ import Formatter from './core/formatter'
 function App() {
   const [originalJson, setOriginalResult] = useState('');
   const [result, setResult] = useState('');
+  const [error, setError] = useState<string>('');
 
   const onJsonChange = async (value: string) => {
+    try {
+      JSON.parse(value);
+    } catch (e: any) {
+      setError('invalid json');
+    }
+
     const format = new Formatter(value);
     const result = await format.format();
 
@@ -34,6 +41,9 @@ function App() {
             className="result"
           />
         </div>
+      </div>
+      <div>
+        {error && <p data-testid="error">{error}</p>}
       </div>
     </div>
   );

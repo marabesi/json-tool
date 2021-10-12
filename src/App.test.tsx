@@ -29,6 +29,12 @@ describe('json utility', () => {
     expect(resultLabel).toBeInTheDocument();
   });
 
+  test('error message is hidden by default', () => {
+    render(<App />);
+    const errorLabel = screen.queryByTestId(/error/);
+    expect(errorLabel).toBeNull();
+  });
+
   test.each([
     ['{}', '{}'],
     ['{"a": "b"}', '{"a": "b"}'],
@@ -46,16 +52,18 @@ describe('json utility', () => {
     expect(result[0].nodeValue).toMatchSnapshot(expected);
   });
 
-  test.skip('inform error when json is invalid', () => {
-    render(<App />);
+  test('inform error when json is invalid', async () => {
+    const { container } = render(<App />);
 
-    const editor = screen.getByTestId('json');
+    const editor = container.getElementsByClassName('original');
 
-    fireEvent.change(editor, {target: { value: 'bla bla' }});
+    await act(async () => {
+      fireEvent.change(editor[0], {target: { value: 'bla bla' }});
+    });
 
     const result = screen.getByTestId('error');
 
-    expect(result).toEqual('invalid json');
+    expect(result.innerHTML).toEqual('invalid json');
   });
 
   test('should paste json string from copy area into the editor', async () => {
