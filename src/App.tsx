@@ -9,6 +9,8 @@ function App() {
   const [error, setError] = useState<string>('');
 
   const onJsonChange = async (value: string) => {
+    setError('');
+
     try {
       JSON.parse(value);
     } catch (e: any) {

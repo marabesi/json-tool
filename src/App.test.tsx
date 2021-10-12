@@ -66,6 +66,24 @@ describe('json utility', () => {
     expect(result.innerHTML).toEqual('invalid json');
   });
 
+  test('hides the error after a valid json is given', async () => {
+    const { container } = render(<App />);
+
+    const editor = container.getElementsByClassName('original');
+
+    await act(async () => {
+      fireEvent.change(editor[0], {target: { value: 'bla bla' }});
+    });
+
+    await act(async () => {
+      fireEvent.change(editor[0], {target: { value: '{}' }});
+    });
+
+    const result = screen.queryByTestId('error');
+
+    expect(result).toBeNull();
+  });
+
   test('should paste json string from copy area into the editor', async () => {
     const { container } = render(<App />);
 
