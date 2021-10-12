@@ -4,8 +4,8 @@ import Label from './components/Label';
 import Formatter from './core/formatter'
 
 function App() {
-  const [originalJson, setOriginalResult] = useState('');
-  const [result, setResult] = useState('');
+  const [originalJson, setOriginalResult] = useState<string>('');
+  const [result, setResult] = useState<string>('');
   const [error, setError] = useState<string>('');
 
   const onJsonChange = async (value: string) => {
