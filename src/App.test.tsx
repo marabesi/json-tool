@@ -29,16 +29,17 @@ describe('json utility', () => {
     expect(resultLabel).toBeInTheDocument();
   });
 
-  test.skip.each([
+  test.each([
     ['{}', '{}'],
-    // ['{"a": "b"}', '{"a": "b"}'],
+    ['{"a": "b"}', '{"a": "b"}'],
   ])('place %s text in the editor and receive %s', async (input, expected) => {
     const { container } = render(<App />);
 
     const editor = container.getElementsByClassName('original');
 
-    // @ts-ignore
-    fireEvent.change(editor[0], {target: { value: input }});
+    await act(async () => {
+      await fireEvent.change(editor[0], {target: { value: input }});
+    });
 
     const result = await container.getElementsByClassName('result');
 
