@@ -41,6 +41,7 @@ function App() {
           <JsonEditor
             input={result}
             className="result"
+            data-testid="result"
           />
         </div>
       </div>

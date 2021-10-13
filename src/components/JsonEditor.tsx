@@ -25,6 +25,7 @@ export default function JsonEditor({ input, onChange, className, ...rest }: Prop
       value={input}
       language="json"
       placeholder="Please enter JS code."
+      className={[className, 'h-full'].join(' ')}
       onChange={(evn) => handleChange(null, null, evn.target.value)}
       padding={15}
       style={{
@@ -32,29 +33,7 @@ export default function JsonEditor({ input, onChange, className, ...rest }: Prop
         backgroundColor: "#f5f5f5",
         fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
       }}
+      {...rest}
     />
   );
-  // return (
-  //   <textarea
-  //     className={[className, 'h-full'].join(' ')}
-  //     onChange={eventValue => handleChange(null, null,  eventValue.target.value)}
-  //     value={input}
-  //     {...rest}
-  //   />
-  // );
-
-  // return (
-  //   <CodeMirror
-  //     value={input}
-  //     options={{
-  //       mode: 'application/json',
-  //       lineNumbers: false,
-  //       theme: 'material',
-  //     }}
-  //     onBeforeChange={handleChange}
-  //     onChange={handleChange}
-  //     className={className}
-  //     {...rest}
-  //   />
-  // );
 }

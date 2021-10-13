@@ -67,5 +67,10 @@
   },
   "build": {
     "appId": "org.marabesi.json-utility-tool"
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/?!(.*)"
+    ]
   }
 }
