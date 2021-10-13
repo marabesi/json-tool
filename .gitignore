@@ -31,3 +31,4 @@ yarn-error.log*
 build-dir/
 
 cypress/videos/
+cypress/screenshots/
