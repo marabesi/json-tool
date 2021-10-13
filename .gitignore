@@ -29,3 +29,5 @@ yarn-error.log*
 
 .flatpak-builder/
 build-dir/
+
+cypress/videos/
