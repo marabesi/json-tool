@@ -1,6 +1,6 @@
 import {  fireEvent, render, screen, act } from '@testing-library/react';
 import App from './App';
-import userEvent from '@testing-library/user-event'
+import userEvent from '@testing-library/user-event';
 
 describe('json utility', () => {
 
@@ -26,7 +26,7 @@ describe('json utility', () => {
     ['{}', '{}'],
     ['{"a": "b"}', '{"a": "b"}'],
   ])('place %s text in the editor and receive %s', async (input, expected) => {
-    const { container } = render(<App />);
+    render(<App />);
 
     const editor = screen.getByTestId('json');
 
@@ -34,9 +34,9 @@ describe('json utility', () => {
       await fireEvent.change(editor, {target: { value: input }});
     });
 
-    const result = await container.getElementsByClassName('result');
+    const result = screen.getByTestId('result');
 
-    expect(result[0].nodeValue).toMatchSnapshot(expected);
+    expect(result.nodeValue).toMatchSnapshot(expected);
   });
 
   test('inform error when json is invalid', async () => {
@@ -59,7 +59,7 @@ describe('json utility', () => {
   ])('hides the error after a valid json is given', async (originalCode: string, afterChangeCode: string) => {
     render(<App />);
 
-    const editor = screen.getByTestId('json')
+    const editor = screen.getByTestId('json');
 
     await act(async () => {
       fireEvent.change(editor, {target: { value: originalCode }});
