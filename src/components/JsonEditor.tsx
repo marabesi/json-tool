@@ -24,7 +24,7 @@ export default function JsonEditor({ input, onChange, className, ...rest }: Prop
     <CodeEditor
       value={input}
       language="json"
-      placeholder="Please enter JS code."
+      placeholder=""
       className={[className, 'h-full'].join(' ')}
       onChange={(evn) => handleChange(null, null, evn.target.value)}
       padding={15}
