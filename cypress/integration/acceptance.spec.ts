@@ -3,14 +3,14 @@ describe('json utility tool', () => {
 
   it('format valid json string', () => {
     cy.visit(url);
-    cy.get('textarea[data-testid="json"]').type('{}');
-    cy.get('textarea[data-testid="result"]').should('have.value', '{}');
+    cy.get('[data-testid="json"]').type('{}');
+    cy.get('[data-testid="result"]').should('have.value', '{}');
   });
 
   it('shows an error message when json is invalid', () => {
     cy.visit(url);
-    cy.get('textarea[data-testid="json"]').type('this is not a json');
-    cy.get('textarea[data-testid="result"]').should('have.value', 'this is not a json');
-    cy.get('p[data-testid="error"]').should('have.text', 'invalid json');
+    cy.get('[data-testid="json"]').type('this is not a json');
+    cy.get('[data-testid="result"]').should('have.value', 'this is not a json');
+    cy.get('[data-testid="error"]').should('have.text', 'invalid json');
   });
 });
