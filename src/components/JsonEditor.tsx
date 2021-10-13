@@ -1,8 +1,4 @@
-// import {Controlled as CodeMirror} from 'react-codemirror2'
-
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/material.css';
-import 'codemirror/mode/javascript/javascript';
+import CodeEditor from '@uiw/react-textarea-code-editor';
 
 type Event = {
   value: string;
@@ -25,13 +21,27 @@ export default function JsonEditor({ input, onChange, className, ...rest }: Prop
   }
 
   return (
-    <textarea
-      className={[className, 'h-full'].join(' ')}
-      onChange={eventValue => handleChange(null, null,  eventValue.target.value)}
+    <CodeEditor
       value={input}
-      {...rest}
+      language="json"
+      placeholder="Please enter JS code."
+      onChange={(evn) => handleChange(null, null, evn.target.value)}
+      padding={15}
+      style={{
+        fontSize: 12,
+        backgroundColor: "#f5f5f5",
+        fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
+      }}
     />
   );
+  // return (
+  //   <textarea
+  //     className={[className, 'h-full'].join(' ')}
+  //     onChange={eventValue => handleChange(null, null,  eventValue.target.value)}
+  //     value={input}
+  //     {...rest}
+  //   />
+  // );
 
   // return (
   //   <CodeMirror
