@@ -12,7 +12,9 @@ function App() {
     setError('');
 
     try {
-      JSON.parse(value);
+      if (value) {
+        JSON.parse(value);
+      }
     } catch (e: any) {
       setError('invalid json');
     }

@@ -66,17 +66,20 @@ describe('json utility', () => {
     expect(result.innerHTML).toEqual('invalid json');
   });
 
-  test('hides the error after a valid json is given', async () => {
+  test.each([
+    ['bla bla', '{}'],
+    ['not a json', ''],
+  ])('hides the error after a valid json is given', async (originalCode: string, afterChangeCode: string) => {
     const { container } = render(<App />);
 
     const editor = container.getElementsByClassName('original');
 
     await act(async () => {
-      fireEvent.change(editor[0], {target: { value: 'bla bla' }});
+      fireEvent.change(editor[0], {target: { value: originalCode }});
     });
 
     await act(async () => {
-      fireEvent.change(editor[0], {target: { value: '{}' }});
+      fireEvent.change(editor[0], {target: { value: afterChangeCode }});
     });
 
     const result = screen.queryByTestId('error');
