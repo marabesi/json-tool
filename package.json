@@ -30,6 +30,7 @@
     "cypress": "^8.6.0",
     "electron": "^13.2.3",
     "electron-builder": "^22.13.1",
+    "husky": "^7.0.2",
     "postcss": "^7.0.38",
     "spectron": "^15.0.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14",
@@ -72,5 +73,10 @@
     "transformIgnorePatterns": [
       "<rootDir>/node_modules/?!(.*)"
     ]
+  },
+  "rusky": {
+    "hooks": {
+      "pre-push": "npm run test:all"
+    }
   }
 }
