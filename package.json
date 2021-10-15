@@ -76,7 +76,7 @@
   },
   "rusky": {
     "hooks": {
-      "pre-push": "npm run test:all"
+      "pre-commit": "npm run test:all"
     }
   }
 }
