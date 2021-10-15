@@ -1,5 +1,5 @@
 describe('json utility tool', () => {
-  const url = 'http://localhost:3000';
+  const url = '/';
 
   it('format valid json string', () => {
     cy.visit(url);
