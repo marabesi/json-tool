@@ -36,6 +36,10 @@ function App() {
     }
   }
 
+  const cleanup = async () => {
+    await onJsonChange('');
+  }
+
   return (
     <div className="h-screen bg-gray-500 p-5">
       <button
@@ -43,6 +47,12 @@ function App() {
         data-testid="paste-from-clipboard"
       >
         paste from clipboard
+      </button>
+      <button
+        onClick={cleanup}
+        data-testid="clean"
+      >
+        clean
       </button>
       <div className="flex h-3/6">
         <div className="w-3/6 flex flex-col h-full m-1">

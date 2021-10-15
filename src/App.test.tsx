@@ -113,4 +113,23 @@ describe('json utility', () => {
     expect(screen.getByTestId('json')).toHaveValue('{}');
     expect(screen.getByTestId('result')).toHaveValue('{}');
   });
+
+  test('should clean editors once clean is clicked', async () => {
+    render(<App />);
+
+    const editor = screen.getByTestId('json');
+
+    await act(async () => {
+      userEvent.paste(editor, '{}');
+    });
+
+    await act(async () => {
+      userEvent.click(screen.getByTestId('clean'))
+    });
+
+    const result = screen.getByTestId('result');
+
+    expect(editor).toHaveValue('');
+    expect(result).toHaveValue('');
+  });
 })
