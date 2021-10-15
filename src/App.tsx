@@ -26,8 +26,24 @@ function App() {
     setResult(result);
   }
 
+  const pasteFromClipboard = async () => {
+    const clipboardItems = await navigator.clipboard.read()
+    for (const clipboardItem of clipboardItems) {
+      for (const type of clipboardItem.types) {
+        const blob = await clipboardItem.getType(type);
+        await onJsonChange(await blob.text());
+      }
+    }
+  }
+
   return (
     <div className="h-screen bg-gray-500 p-5">
+      <button
+        onClick={pasteFromClipboard}
+        data-testid="paste-from-clipboard"
+      >
+        paste from clipboard
+      </button>
       <div className="flex h-3/6">
         <div className="w-3/6 flex flex-col h-full m-1">
           <Label>place your json here</Label>

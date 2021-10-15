@@ -1,6 +1,7 @@
 import {  fireEvent, render, screen, act } from '@testing-library/react';
 import App from './App';
 import userEvent from '@testing-library/user-event';
+import { Blob } from 'buffer'
 
 describe('json utility', () => {
 
@@ -86,5 +87,30 @@ describe('json utility', () => {
     const result = screen.getByTestId('result');
 
     expect(result).toHaveValue('{}');
+  });
+
+  test('should paste json string from copy area into the editor on clicking the button', async () => {
+    render(<App />);
+    global.navigator.clipboard = {
+      async read() {
+        const blob = new Blob([JSON.stringify({})], { type: 'text/plain' });
+
+        return Promise.resolve([
+          {
+            [blob.type]: blob,
+            types: [ blob.type ],
+            getType: () => blob
+          }
+        ]);
+      }
+    }
+
+    await act(async () => {
+      const fromClipboard = screen.getByTestId('paste-from-clipboard');
+      fromClipboard.click();
+    });
+
+    expect(screen.getByTestId('json')).toHaveValue('{}');
+    expect(screen.getByTestId('result')).toHaveValue('{}');
   });
 })
