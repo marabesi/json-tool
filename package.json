@@ -40,6 +40,7 @@
     "start": "BROWSER=none craco start",
     "build": "craco build",
     "test": "craco test src/",
+    "test:all": "cypress run && craco test src/",
     "eject": "craco eject",
     "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
     "setup": "npm run build && cp package.json ./build",

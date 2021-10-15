@@ -16,15 +16,16 @@ describe('json utility tool', () => {
 
   it('should place text from clipboard in the editor on click button', () => {
     cy.visit(url);
-    const desiredJson = '{"name":"json from clipboard"}';
+    const inputJson = '{"name":"json from clipboard"}';
+    const desiredJson = '{\n  "name": "json from clipboard"\n}';
 
     cy.window()
       .its('navigator.clipboard')
-      .invoke('writeText', desiredJson);
+      .invoke('writeText', inputJson);
 
     cy.get('[data-testid="paste-from-clipboard"]').click();
 
-    cy.get('[data-testid="json"]').should('have.value', desiredJson);
+    cy.get('[data-testid="json"]').should('have.value', inputJson);
     cy.get('[data-testid="result"]').should('have.value', desiredJson);
   });
 });
