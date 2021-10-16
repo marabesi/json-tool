@@ -83,9 +83,9 @@
       "<rootDir>/node_modules/?!(.*)"
     ]
   },
-  "rusky": {
+  "husky": {
     "hooks": {
-      "pre-commit": "npm run lint && npm run test:all"
+      "pre-push": "npm run lint && npm run test:all"
     }
   }
 }
