@@ -92,19 +92,22 @@ describe('json utility', () => {
   test('should paste json string from copy area into the editor on clicking the button', async () => {
     render(<App />);
 
-    global.navigator.clipboard = {
-      async read() {
-        const blob = new Blob([JSON.stringify({})], { type: 'text/plain' });
+    Object.assign(global.navigator,
+      {
+        clipboard :{
+          async read() {
+            const blob = new Blob([JSON.stringify({})], { type: 'text/plain' });
 
-        return Promise.resolve([
-          {
-            [blob.type]: blob,
-            types: [ blob.type ],
-            getType: () => blob
+            return Promise.resolve([
+              {
+                [blob.type]: blob,
+                types: [ blob.type ],
+                getType: () => blob
+              }
+            ]);
           }
-        ]);
-      }
-    };
+        }
+      });
 
     await act(async () => {
       const fromClipboard = screen.getByTestId('paste-from-clipboard');
