@@ -66,7 +66,7 @@ function App() {
           />
         </div>
         <div className="w-3/6 flex flex-col h-full m-1">
-          <Label>result</Label>
+          <Label data-testid="label-result">result</Label>
           <JsonEditor
             input={result}
             className="result"

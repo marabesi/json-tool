@@ -6,6 +6,11 @@ describe('json utility tool', () => {
     cy.get('[data-testid="label-json"]').should('have.text', 'place your json here');
   });
 
+  it('label to inform the result of formatting', () => {
+    cy.visit(url);
+    cy.get('[data-testid="label-result"]').should('have.text', 'result');
+  });
+
   it('format valid json string', () => {
     cy.visit(url);
     cy.get('[data-testid="json"]').type('{}');

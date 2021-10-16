@@ -11,6 +11,12 @@ describe('json utility', () => {
     expect(placeJsonLabel).toBeInTheDocument();
   });
 
+  test('renders result label', () => {
+    render(<App />);
+    const resultLabel = screen.getByTestId('label-result');
+    expect(resultLabel).toBeInTheDocument();
+  });
+
   test('renders resulting formatted json label', () => {
     render(<App />);
     const resultLabel = screen.getByText(/result/i);
