@@ -13,7 +13,7 @@ interface Props{
 }
 
 export default function JsonEditor({ input, onChange, className, ...rest }: Props) {
-  const handleChange = (editor: any, data: any, value: any) => {
+  const handleChange = (value: string) => {
     if (onChange) {
       onChange({ value });
       return;
@@ -26,7 +26,7 @@ export default function JsonEditor({ input, onChange, className, ...rest }: Prop
       language="json"
       placeholder=""
       className={[className, 'h-full'].join(' ')}
-      onChange={(evn) => handleChange(null, null, evn.target.value)}
+      onChange={(evn) => handleChange(evn.target.value)}
       padding={15}
       style={{
         fontSize: 12,
