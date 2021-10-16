@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 interface Props {
   children?: ReactNode
@@ -6,7 +6,10 @@ interface Props {
 
 export default function Label({ children }: Props) {
   return (
-    <label className="text-white">
+    <label
+      className="text-white"
+      data-testid="label"
+    >
       {children}
     </label>
   );
