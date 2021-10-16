@@ -91,6 +91,7 @@ describe('json utility', () => {
 
   test('should paste json string from copy area into the editor on clicking the button', async () => {
     render(<App />);
+
     global.navigator.clipboard = {
       async read() {
         const blob = new Blob([JSON.stringify({})], { type: 'text/plain' });
