@@ -43,18 +43,21 @@ function App() {
 
   return (
     <div className="h-screen bg-gray-500 p-5">
-      <Button
-        onClick={pasteFromClipboard}
-        data-testid="paste-from-clipboard"
-      >
-        paste from clipboard
-      </Button>
-      <Button
-        onClick={cleanup}
-        data-testid="clean"
-      >
-        clean
-      </Button>
+      <div className="flex w-full justify-start items-center">
+        <Button
+          onClick={pasteFromClipboard}
+          data-testid="paste-from-clipboard"
+          className="m-5 ml-0"
+        >
+          paste from clipboard
+        </Button>
+        <Button
+          onClick={cleanup}
+          data-testid="clean"
+        >
+          clean
+        </Button>
+      </div>
       <div className="flex h-3/6">
         <div className="w-3/6 flex flex-col h-full m-1">
           <Label data-testid="label-json">place your json here</Label>
