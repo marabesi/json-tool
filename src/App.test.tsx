@@ -1,7 +1,7 @@
 import {  fireEvent, render, screen, act } from '@testing-library/react';
 import App from './App';
 import userEvent from '@testing-library/user-event';
-import { Blob } from 'buffer'
+import { Blob } from 'buffer';
 
 describe('json utility', () => {
 
@@ -104,7 +104,7 @@ describe('json utility', () => {
           }
         ]);
       }
-    }
+    };
 
     await act(async () => {
       const fromClipboard = screen.getByTestId('paste-from-clipboard');
@@ -125,7 +125,7 @@ describe('json utility', () => {
     });
 
     await act(async () => {
-      userEvent.click(screen.getByTestId('clean'))
+      userEvent.click(screen.getByTestId('clean'));
     });
 
     const result = screen.getByTestId('result');
@@ -133,4 +133,4 @@ describe('json utility', () => {
     expect(editor).toHaveValue('');
     expect(result).toHaveValue('');
   });
-})
+});

@@ -9,5 +9,5 @@ export default function Label({ children }: Props) {
     <label className="text-white">
       {children}
     </label>
-  )
+  );
 }

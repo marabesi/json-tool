@@ -8,7 +8,7 @@ export default class Formatter {
       expand: true,
       escape: false,
       indent: 2
-    })
-    return formatted.result
+    });
+    return formatted.result;
   }
 }

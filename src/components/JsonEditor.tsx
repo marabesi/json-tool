@@ -15,10 +15,10 @@ interface Props{
 export default function JsonEditor({ input, onChange, className, ...rest }: Props) {
   const handleChange = (editor: any, data: any, value: any) => {
     if (onChange) {
-      onChange({ value })
+      onChange({ value });
       return;
     }
-  }
+  };
 
   return (
     <CodeEditor

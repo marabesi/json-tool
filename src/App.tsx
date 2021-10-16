@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import JsonEditor from './components/JsonEditor'
+import { useState } from 'react';
+import JsonEditor from './components/JsonEditor';
 import Label from './components/Label';
-import Formatter from './core/formatter'
+import Formatter from './core/formatter';
 
 function App() {
   const [originalJson, setOriginalResult] = useState<string>('');
@@ -24,21 +24,21 @@ function App() {
 
     setOriginalResult(value);
     setResult(result);
-  }
+  };
 
   const pasteFromClipboard = async () => {
-    const clipboardItems = await navigator.clipboard.read()
+    const clipboardItems = await navigator.clipboard.read();
     for (const clipboardItem of clipboardItems) {
       for (const type of clipboardItem.types) {
         const blob = await clipboardItem.getType(type);
         await onJsonChange(await blob.text());
       }
     }
-  }
+  };
 
   const cleanup = async () => {
     await onJsonChange('');
-  }
+  };
 
   return (
     <div className="h-screen bg-gray-500 p-5">

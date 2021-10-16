@@ -30,6 +30,8 @@
     "cypress": "^8.6.0",
     "electron": "^13.2.3",
     "electron-builder": "^22.13.1",
+    "eslint": "^7.32.0",
+    "eslint-plugin-react": "^7.26.1",
     "husky": "^7.0.2",
     "postcss": "^7.0.38",
     "spectron": "^15.0.0",
@@ -46,13 +48,20 @@
     "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
     "setup": "npm run build && cp package.json ./build",
     "package": "npm run setup && electron-builder -l -p never",
-    "electron": "npm run setup && wait-on tcp:3000 && electron build/"
+    "electron": "npm run setup && wait-on tcp:3000 && electron build/",
+    "lint": "eslint ./src/**/*.{ts,tsx}"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
-    ]
+      "react-app/jest",
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:react/jsx-runtime"
+    ],
+    "rules": {
+      "semi": [2, "always"]
+    }
   },
   "browserslist": {
     "production": [
@@ -76,7 +85,7 @@
   },
   "rusky": {
     "hooks": {
-      "pre-commit": "npm run test:all"
+      "pre-commit": "npm run lint && npm run test:all"
     }
   }
 }
