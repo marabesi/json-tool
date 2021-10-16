@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Button from './components/Button';
 import JsonEditor from './components/JsonEditor';
 import Label from './components/Label';
 import Formatter from './core/formatter';
@@ -42,18 +43,18 @@ function App() {
 
   return (
     <div className="h-screen bg-gray-500 p-5">
-      <button
+      <Button
         onClick={pasteFromClipboard}
         data-testid="paste-from-clipboard"
       >
         paste from clipboard
-      </button>
-      <button
+      </Button>
+      <Button
         onClick={cleanup}
         data-testid="clean"
       >
         clean
-      </button>
+      </Button>
       <div className="flex h-3/6">
         <div className="w-3/6 flex flex-col h-full m-1">
           <Label>place your json here</Label>
