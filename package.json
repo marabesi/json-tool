@@ -38,12 +38,12 @@
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14",
     "wait-on": "^6.0.0"
   },
-  "postinstall": "electron-builder install-app-deps",
+  "postinstall": "electron-builder install-app-deps && husky install",
   "scripts": {
     "start": "BROWSER=none craco start",
     "build": "craco build",
     "test": "craco test src/",
-    "test:all": "CYPRESS_BASE_URL=http://localhost:3000 cypress run && craco test src/",
+    "test:all": "CYPRESS_BASE_URL=http://localhost:3000 cypress run && npm run test -- --watchAll=false",
     "eject": "craco eject",
     "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
     "setup": "npm run build && cp package.json ./build",
@@ -60,7 +60,10 @@
       "plugin:react/jsx-runtime"
     ],
     "rules": {
-      "semi": [2, "always"]
+      "semi": [
+        2,
+        "always"
+      ]
     }
   },
   "browserslist": {
@@ -82,10 +85,5 @@
     "transformIgnorePatterns": [
       "<rootDir>/node_modules/?!(.*)"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "npm run lint && npm run test:all"
-    }
   }
 }
