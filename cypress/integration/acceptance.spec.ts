@@ -1,6 +1,11 @@
 describe('json utility tool', () => {
   const url = '/';
 
+  it('label to inform where to place the json', () => {
+    cy.visit(url);
+    cy.get('[data-testid="label-json"]').should('have.text', 'place your json here');
+  });
+
   it('format valid json string', () => {
     cy.visit(url);
     cy.get('[data-testid="json"]').type('{}');

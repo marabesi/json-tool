@@ -57,7 +57,7 @@ function App() {
       </Button>
       <div className="flex h-3/6">
         <div className="w-3/6 flex flex-col h-full m-1">
-          <Label>place your json here</Label>
+          <Label data-testid="label-json">place your json here</Label>
           <JsonEditor
             input={originalJson}
             onChange={eventValue => onJsonChange(eventValue.value)}

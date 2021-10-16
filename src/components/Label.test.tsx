@@ -11,7 +11,7 @@ describe('label component', () => {
   });
 
   test('renders empty label', () => {
-    render(<Label />);
+    render(<Label data-testid="label" />);
     expect(screen.queryByTestId('label')).toBeInTheDocument();
   });
 });

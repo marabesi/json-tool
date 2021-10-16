@@ -1,4 +1,4 @@
-import {  fireEvent, render, screen, act } from '@testing-library/react';
+import { fireEvent, render, screen, act } from '@testing-library/react';
 import App from './App';
 import userEvent from '@testing-library/user-event';
 import { Blob } from 'buffer';
@@ -7,7 +7,7 @@ describe('json utility', () => {
 
   test('renders place your json here label', () => {
     render(<App />);
-    const placeJsonLabel = screen.getByText(/place your json here/i);
+    const placeJsonLabel = screen.getByTestId('label-json');
     expect(placeJsonLabel).toBeInTheDocument();
   });
 
