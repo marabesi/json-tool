@@ -58,14 +58,13 @@ function App() {
           clean
         </Button>
       </div>
-      <div className="flex h-3/6">
+      <div className="flex h-5/6">
         <div className="w-3/6 flex flex-col h-full m-1">
           <Label data-testid="label-json">place your json here</Label>
           <JsonEditor
             input={originalJson}
             onChange={eventValue => onJsonChange(eventValue.value)}
             data-testid="json"
-            className="original"
           />
         </div>
         <div className="w-3/6 flex flex-col h-full m-1">
@@ -77,7 +76,7 @@ function App() {
           />
         </div>
       </div>
-      <div>
+      <div className="bg-red-600 m-1 text-center text-white">
         {error && <p data-testid="error">{error}</p>}
       </div>
     </div>
