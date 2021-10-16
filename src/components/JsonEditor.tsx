@@ -31,6 +31,7 @@ export default function JsonEditor({ input, onChange, className, ...rest }: Prop
       style={{
         fontSize: 12,
         backgroundColor: "#f5f5f5",
+        overflowY: 'scroll',
         fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
       }}
       {...rest}
