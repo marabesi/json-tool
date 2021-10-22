@@ -4,6 +4,15 @@
   "homepage": "./",
   "private": true,
   "main": "electron.js",
+  "author": {
+    "name": "Matheus Marabesi",
+    "url": "https://marabesi.com"
+  },
+  "description": "Tool to interact with JSON",
+  "categories": [
+    "Formatters",
+    "Programming Languages"
+  ],
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
@@ -47,7 +56,7 @@
     "eject": "craco eject",
     "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
     "setup": "npm run build && cp package.json ./build",
-    "package": "npm run setup && electron-builder -l -p never",
+    "package": "npm run setup && electron-builder --linux AppImage snap -p never",
     "electron": "npm run setup && wait-on tcp:3000 && electron build/",
     "lint": "eslint ./src/**/*.{ts,tsx}"
   },
