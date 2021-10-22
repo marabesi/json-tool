@@ -1,8 +1,8 @@
-[![Node CI](https://github.com/marabesi/json-utility-tool/actions/workflows/delivery.yml/badge.svg)](https://github.com/marabesi/json-utility-tool/actions/workflows/delivery.yml)
+[![Node CI](https://github.com/marabesi/json-tool/actions/workflows/delivery.yml/badge.svg)](https://github.com/marabesi/json-tool/actions/workflows/delivery.yml)
 
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/json-tool)
 
-# json-utility-tool
+# json-tool
 
 ## Format
 

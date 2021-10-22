@@ -1,4 +1,4 @@
-app-id: org.marabesi.json-utility-tool
+app-id: org.marabesi.json-tool
 runtime: org.freedesktop.Platform
 runtime-version: '20.08'
 sdk: org.freedesktop.Sdk
@@ -18,7 +18,7 @@ build-options:
   env:
     NPM_CONFIG_LOGLEVEL: info
 modules:
-  - name: json-utility-tool
+  - name: json-tool
     buildsystem: simple
     build-options:
       env:

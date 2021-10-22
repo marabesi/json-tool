@@ -3,7 +3,7 @@ import {Application} from 'spectron'
 import { setupBrowser } from '@testing-library/webdriverio'
 
 const app: Application = new Application({
-  path: path.resolve(`${__dirname}/../out/json-utility-tool-linux-x64/json-utility-tool`),
+  path: path.resolve(`${__dirname}/../out/json-tool-linux-x64/json-tool`),
   port: 9157
 })
 

@@ -88,7 +88,7 @@
     ]
   },
   "build": {
-    "appId": "org.marabesi.json-utility-tool"
+    "appId": "org.marabesi.json-tool"
   },
   "jest": {
     "transformIgnorePatterns": [
