@@ -40,6 +40,7 @@
     "electron": "^13.2.3",
     "electron-builder": "^22.13.1",
     "eslint": "^7.32.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-react": "^7.26.1",
     "husky": "^7.0.2",
     "postcss": "^7.0.38",
@@ -58,7 +59,7 @@
     "setup": "npm run build && cp package.json ./build",
     "package": "npm run setup && electron-builder --linux AppImage snap -p never",
     "electron": "npm run setup && wait-on tcp:3000 && electron build/",
-    "lint": "eslint ./src/**/*.{ts,tsx}"
+    "lint": "eslint ./**/*.{ts,tsx}"
   },
   "eslintConfig": {
     "extends": [
@@ -66,7 +67,8 @@
       "react-app/jest",
       "eslint:recommended",
       "plugin:react/recommended",
-      "plugin:react/jsx-runtime"
+      "plugin:react/jsx-runtime",
+      "plugin:cypress/recommended"
     ],
     "rules": {
       "semi": [
