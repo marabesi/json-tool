@@ -1,6 +1,6 @@
 {
   "name": "json-tool",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "./",
   "private": true,
   "main": "electron.js",
@@ -57,7 +57,7 @@
     "eject": "craco eject",
     "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
     "setup": "npm run build && cp package.json ./build",
-    "package": "npm run setup && electron-builder --linux AppImage snap",
+    "package": "npm run setup && electron-builder --linux snap",
     "electron": "npm run setup && wait-on tcp:3000 && electron build/",
     "lint": "eslint ./**/*.{ts,tsx}"
   },

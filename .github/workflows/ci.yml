@@ -38,6 +38,8 @@ jobs:
           start: npm start
       - name: package
         run: npm run package
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
       - name: distribute for linux 64
         uses: actions/upload-artifact@v2
         with:
