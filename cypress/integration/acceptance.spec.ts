@@ -39,6 +39,22 @@ describe('json utility tool', () => {
     cy.get('[data-testid="result"]').should('have.value', desiredJson);
   });
 
+  it('should copy text from clipboard in the editor on click button', () => {
+    cy.visit(url);
+
+    const inputJson = '{"name":"json from clipboard"}';
+    const desiredJson = '{\n  "name": "json from clipboard"\n}';
+
+    cy.get('[data-testid="json"]').type(inputJson, { parseSpecialCharSequences: false });
+    cy.get('[data-testid="copy-json"]').click();
+
+     cy.window().then((win) => {
+      win.navigator.clipboard.readText().then((text) => {
+        assert.equal(text, desiredJson);
+      });
+    });
+  });
+
   it('should clean both editors source and result', () => {
     cy.visit(url);
     const inputJson = '{"name":"json from clipboard"}';

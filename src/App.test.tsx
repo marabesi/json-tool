@@ -2,6 +2,7 @@ import { fireEvent, render, screen, act } from '@testing-library/react';
 import App from './App';
 import userEvent from '@testing-library/user-event';
 import { Blob } from 'buffer';
+import Formatter from './core/formatter';
 
 describe('json utility', () => {
 
@@ -122,6 +123,34 @@ describe('json utility', () => {
 
     expect(screen.getByTestId('json')).toHaveValue('{}');
     expect(screen.getByTestId('result')).toHaveValue('{}');
+  });
+
+  test('should copy json string from result editor to transfer area on clicking the button', async () => {
+    render(<App />);
+
+    Object.assign(global.navigator, {
+      clipboard :{
+        async writeText(text: string) {
+          return text;
+        }
+      }
+    });
+
+    jest.spyOn(global.navigator.clipboard, 'writeText');
+
+    const editor = screen.getByTestId('json');
+
+    await act(async () => {
+      userEvent.paste(editor, '{"a":"a"}');
+    });
+
+    await act(async () => {
+      userEvent.click(screen.getByTestId('copy-json'));
+    });
+
+    const formatter = new Formatter('{"a":"a"}');
+
+    expect(global.navigator.clipboard.writeText).toHaveBeenCalledWith(await formatter.format());
   });
 
   test('should clean editors once clean is clicked', async () => {
