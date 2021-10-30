@@ -11,6 +11,12 @@ describe('json tool', () => {
       cy.visit(url);
       cy.get('[data-testid="label-result"]').should('have.text', 'result');
     });
+
+    it('shoulde have 2 as the default space size', () => {
+      cy.visit(url);
+
+      cy.get('[data-testid="space-size"]').should('have.value', '2');
+    });
   });
 
   describe('Basic behavior', () => {

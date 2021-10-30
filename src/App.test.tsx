@@ -171,4 +171,121 @@ describe('json utility', () => {
     expect(editor).toHaveValue('');
     expect(result).toHaveValue('');
   });
+
+  describe('custom spacing for formatting json', () => {
+    test('should have space of 2 as default', async () => {
+      render(<App />);
+  
+      const space = screen.getByTestId('space-size');
+  
+      expect(space).toHaveValue("2");
+    });
+
+    test('should do nothing is spacing is empty', async () => {
+      render(<App />);
+  
+      const space = screen.getByTestId('space-size');
+  
+      await act(async () => {
+        fireEvent.change(space, { target: { value: '' }});
+      });
+  
+      const editor = screen.getByTestId('json');
+
+      await act(async () => {
+        fireEvent.change(editor, { target: { value: '{"a":"a"}' }});
+      });
+
+      const result = (screen.getByTestId('result') as HTMLInputElement);
+
+      expect(result.value).toBe('');
+    });
+  
+    test.each([
+      "4",
+      "16"
+    ])('should change spacing for %s spaces', async (spacing: string) => {
+      render(<App />);
+  
+      const space = screen.getByTestId('space-size');
+  
+      await act(async () => {
+        fireEvent.change(space, { target: { value: '' }});
+      });
+  
+      await act(async () => {
+        fireEvent.change(space, { target: { value: spacing }});
+      });
+  
+  
+      expect(space).toHaveValue(spacing);
+    });
+
+    test.each([
+      ['4', '{"a":"a"}', `{
+    "a": "a"
+}`
+      ],
+      ['2', '{"a":"a"}', `{
+  "a": "a"
+}`
+      ],
+      ['8', '{"a":"a"}', `{
+        "a": "a"
+}`
+      ],
+      ['invalid', '{"a":"a"}', `{
+  "a": "a"
+}`
+      ],
+    ])('should format json with %s spaces', async (spacing: string, inputJson: string, outputJson: string) => {
+      render(<App />);
+  
+      const space = screen.getByTestId('space-size');
+  
+      await act(async () => {
+        fireEvent.change(space, { target: { value: '' }});
+      });
+  
+      await act(async () => {
+        fireEvent.change(space, { target: { value: spacing }});
+      });
+
+      const editor = screen.getByTestId('json');
+
+      await act(async () => {
+        fireEvent.change(editor, { target: { value: inputJson }});
+      });
+
+      const result = (screen.getByTestId('result') as HTMLInputElement);
+
+      expect(result.value).toBe(outputJson);
+    });
+
+    test('should reformat json if space changes', async () => {
+      render(<App />);
+  
+      const editor = screen.getByTestId('json');
+
+      await act(async () => {
+        fireEvent.change(editor, { target: { value: '{"a":"a"}' }});
+      });
+
+      const space = screen.getByTestId('space-size');
+  
+      await act(async () => {
+        fireEvent.change(space, { target: { value: '' }});
+      });
+  
+      await act(async () => {
+        fireEvent.change(space, { target: { value: 4 }});
+      });
+
+      const result = (screen.getByTestId('result') as HTMLInputElement);
+
+      expect(result.value).toBe(`{
+    "a": "a"
+}`);
+    });
+  });
 });

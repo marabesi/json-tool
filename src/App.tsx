@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Button from './components/Button';
 import JsonEditor from './components/JsonEditor';
 import Label from './components/Label';
@@ -8,9 +8,12 @@ function App() {
   const [originalJson, setOriginalResult] = useState<string>('');
   const [result, setResult] = useState<string>('');
   const [error, setError] = useState<string>('');
+  const [spacing, setSpacing] = useState<string>('2');
 
-  const onJsonChange = async (value: string) => {
+  const onJsonChange = useCallback(async (value: string) => {
     setError('');
+
+    if (!spacing) return;
 
     try {
       if (value) {
@@ -20,12 +23,22 @@ function App() {
       setError('invalid json');
     }
 
-    const format = new Formatter(value);
+    let format = new Formatter(value, 2);
+
+    const parseSpacing = parseInt(spacing);
+    if (!isNaN(parseSpacing)) {
+      format = new Formatter(value, parseSpacing);
+    }
+
     const result = await format.format();
 
     setOriginalResult(value);
     setResult(result);
-  };
+  }, [spacing]);
+
+  useEffect(() => {
+    onJsonChange(originalJson);
+  }, [spacing, originalJson, onJsonChange]);
 
   const pasteFromClipboard = async () => {
     const clipboardItems = await navigator.clipboard.read();
@@ -45,6 +58,8 @@ function App() {
     await navigator.clipboard.writeText(result);
   };
 
+  const updateSpacing = (newSpacing: string) => setSpacing(newSpacing);
+
   return (
     <div className="h-screen bg-gray-500 p-5">
       <div className="flex w-full justify-start items-center">
@@ -63,7 +78,13 @@ function App() {
             clean
           </Button>
         </div>
-        <div className="w-3/6">
+        <div className="w-3/6 flex justify-between">
+          <input
+            type="text"
+            data-testid="space-size"
+            value={spacing}
+            onChange={eventValue => updateSpacing(eventValue.target.value)}
+          />
           <Button
             data-testid="copy-json"
             onClick={writeToClipboard}
