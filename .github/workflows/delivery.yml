@@ -29,5 +29,5 @@ jobs:
       - uses: snapcore/action-publish@v1
         with:
           store_login: ${{ secrets.STORE_LOGIN }}
-          snap: "json-tool_${{ github.event.inputs.version }}_amd64.snap"
+          snap: "dist/json-tool_${{ github.event.inputs.version }}_amd64.snap"
           release: edge
