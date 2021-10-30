@@ -6,7 +6,13 @@ module.exports = {
   },
   darkMode: 'class',
   theme: {
-    extend: {},
+    extend: {
+      backgroundColor: theme => ({
+        ...theme,
+        'json-tool-yellow': '#ffe203',
+        'json-tool-blue': '#62d4fd',
+      }),
+    },
   },
   variants: {
     extend: {},
