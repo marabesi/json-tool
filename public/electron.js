@@ -6,11 +6,11 @@ const path = require('path')
 function createWindow () {
   const isDev = app.isPackaged === false
 
-  // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     show: false,
+    icon: `${__dirname}/logo512.png`,
     webPreferences: {
       nodeIntegration: true
     }
