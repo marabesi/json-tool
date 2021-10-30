@@ -11,6 +11,7 @@ function createWindow () {
     height: 600,
     show: false,
     icon: `${__dirname}/logo512.png`,
+    autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true
     }

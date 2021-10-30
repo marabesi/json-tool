@@ -1,6 +1,6 @@
 {
   "name": "json-tool",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "homepage": "./",
   "private": true,
   "main": "electron.js",
@@ -94,7 +94,8 @@
     "productName":"json-tool",
     "appId": "org.marabesi.json-tool",
     "linux": {
-      "category": "Utility"
+      "category": "Utility",
+      "icon": "logo512.png"
     }
   },
   "jest": {
