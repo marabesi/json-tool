@@ -4,11 +4,8 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Which version to publishto snapstore' 
+        description: 'Which version to publish to snapstore'
         required: true
-  create:
-    tags:
-      - v*
 
 jobs:
   build:
@@ -25,5 +22,12 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: install
         run: npm install
+      - name: build
+        run: npm run build
       - name: package
         run: npm run package
+      - uses: snapcore/action-publish@v1
+        with:
+          store_login: ${{ secrets.STORE_LOGIN }}
+          snap: "json-tool_${{ github.event.inputs.version }}_amd64.snap"
+          release: edge
