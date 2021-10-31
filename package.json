@@ -35,6 +35,7 @@
     "@types/node": "^16.10.5",
     "@types/webdriverio": "^4.13.3",
     "autoprefixer": "^9.8.7",
+    "babel-plugin-preval": "^5.0.0",
     "concurrently": "^6.2.1",
     "cypress": "^8.6.0",
     "electron": "^13.2.3",
@@ -44,6 +45,7 @@
     "eslint-plugin-react": "^7.26.1",
     "husky": "^7.0.2",
     "postcss": "^7.0.38",
+    "sass": "^1.43.4",
     "spectron": "^15.0.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14",
     "wait-on": "^6.0.0"
@@ -91,7 +93,7 @@
     ]
   },
   "build": {
-    "productName":"json-tool",
+    "productName": "json-tool",
     "appId": "org.marabesi.json-tool",
     "linux": {
       "category": "Utility",

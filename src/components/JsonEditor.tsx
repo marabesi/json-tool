@@ -1,8 +1,6 @@
 import CodeEditor from '@uiw/react-textarea-code-editor';
-import resolveConfig from 'tailwindcss/resolveConfig';
-const tailwindConfig = require('../tailwind.config');
 
-const fullConfig = resolveConfig(tailwindConfig);
+import fullConfig from '../tailwindResolver';
 
 type Event = {
   value: string;
@@ -34,7 +32,7 @@ export default function JsonEditor({ input, onChange, className, ...rest }: Prop
       padding={15}
       style={{
         fontSize: 12,
-        backgroundColor: fullConfig.theme.backgroundColor.gray['100'],
+        backgroundColor: fullConfig.theme.backgroundColor.gray['200'],
         overflowY: 'scroll',
         fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
       }}
