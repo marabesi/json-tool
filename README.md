@@ -1,22 +1,10 @@
-[![Node CI](https://github.com/marabesi/json-tool/actions/workflows/ci.yml/badge.svg)](https://github.com/marabesi/json-tool/actions/workflows/delivery.yml)
-
-[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/json-tool)
+[![Node CI](https://github.com/marabesi/json-tool/actions/workflows/ci.yml/badge.svg)](https://github.com/marabesi/json-tool/actions/workflows/delivery.yml) [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/marabesi) [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/json-tool)
 
 # json-tool
 
-## Format
+Are you tired of accessing **free websites just to format your json content**? Me too. Besides the "data protection" issue sometimes we just want to have it formatted to move on.
 
-As a user I want to be able to:
+**json-tool** allows you to quick format json content with a click of a button, and much more:
 
-1. format a json that comes from the copy area
-2. optionally I want to upload a json document and format it
-
-When trying to format the json, if it is invalid I would like to receive a message with the possible error.
-
-## Search
-
-As a user I want to be able to:
-
-1. Search through the json as a regular string
-2. Search for specific child nodes in a xpath like notation
-
+- JSON content validation, it shows an error message warning invalid json
+- Buttons to allow easy interaction with the clipboard
