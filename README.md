@@ -8,3 +8,7 @@ Are you tired of accessing **free websites just to format your json content**? M
 
 - JSON content validation, it shows an error message warning invalid json
 - Buttons to allow easy interaction with the clipboard
+
+![photo1](https://user-images.githubusercontent.com/2129872/139720232-3600e790-9038-4448-a300-aab48c2a6aca.png)
+![photo2](https://user-images.githubusercontent.com/2129872/139720367-056f83ed-2940-4039-a88c-ff12b3a3dd5c.png)
+![photo3](https://user-images.githubusercontent.com/2129872/139720380-2d39e105-9f29-4c49-82a9-dee76b1c2e30.png)
