@@ -181,7 +181,7 @@ describe('json utility', () => {
       expect(space).toHaveValue("2");
     });
 
-    test('should do nothing is spacing is empty', async () => {
+    test('should do nothing if spacing is empty', async () => {
       render(<App />);
   
       const space = screen.getByTestId('space-size');
