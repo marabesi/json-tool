@@ -1,5 +1,7 @@
 [![Node CI](https://github.com/marabesi/json-tool/actions/workflows/ci.yml/badge.svg)](https://github.com/marabesi/json-tool/actions/workflows/delivery.yml) [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/marabesi) [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/json-tool)
 
+[Announcing the JSON tool - A companion for formatting json content, focused in privacy](https://marabesi.com/web/productivity/utilities/2021/10/24/json-tool-a-companion-for-formatting-json-strings.html)
+
 # json-tool
 
 Are you tired of accessing **free websites just to format your json content**? Me too. Besides the "data protection" issue sometimes we just want to have it formatted to move on.
