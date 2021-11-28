@@ -94,7 +94,7 @@ function App() {
           <Button
             onClick={pasteFromClipboard}
             data-testid="paste-from-clipboard"
-            className="m-5 ml-0"
+            className="ml-0"
           >
             paste from clipboard
           </Button>
