@@ -58,6 +58,33 @@ function App() {
     await navigator.clipboard.writeText(result);
   };
 
+  const cleanWhiteSpaces = async () => {
+    let cleanString = '';
+    let stack = [];
+
+    for (let i = 0; i < originalJson.length; i++) {
+      const current = originalJson[i];
+
+      if (current === '"') {
+        stack.push(current);
+      }
+
+      if (stack.length === 3) {
+        cleanString += originalJson[i];
+      } else {
+        if (current !== ' ') {
+          cleanString += originalJson[i];
+        }
+      }
+
+      if (stack.length === 4) {
+        stack = [];
+      }
+    }
+
+    setResult(cleanString);
+  };
+
   const updateSpacing = (newSpacing: string) => setSpacing(newSpacing);
 
   return (
@@ -76,6 +103,12 @@ function App() {
             data-testid="clean"
           >
             clean
+          </Button>
+          <Button
+            onClick={cleanWhiteSpaces}
+            data-testid="clean-spaces"
+          >
+            clean spaces
           </Button>
         </div>
         <div className="w-3/6 flex justify-between">

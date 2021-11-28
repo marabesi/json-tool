@@ -172,6 +172,57 @@ describe('json utility', () => {
     expect(result).toHaveValue('');
   });
 
+  test.each([
+    ['{"name" : "json from clipboard"}', '{"name":"json from clipboard"}'],
+    ['    {"name" : "json from clipboard"}', '{"name":"json from clipboard"}'],
+    ['    {"name" : "json    from   clipboard"}', '{"name":"json    from   clipboard"}'],
+    ['    { "a" : "a", "b" : "b" }', '{"a":"a","b":"b"}'],
+    ['{ "a" : true,         "b" : "b" }', '{"a":true,"b":"b"}'],
+    ['{ "a" : true,"b" : 123 }', '{"a":true,"b":123}'],
+    ['{"private_key" : "-----BEGIN PRIVATE KEY-----\nMIIEvgI\n-----END PRIVATE KEY-----\n" }', '{"private_key":"-----BEGIN PRIVATE KEY-----\nMIIEvgI\n-----END PRIVATE KEY-----\n"}'],
+    [`{
+  "type": "aaaa",
+  "project_id": "any",
+  "private_key_id": "111111111111111111",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADG9w0BAQEFAASCBKgwggSkiEus62eZ\n-----END PRIVATE KEY-----\n",
+  "client_email": "banana@banana",
+  "client_id": "999",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/"
+}`, `{
+"type":"aaaa",
+"project_id":"any",
+"private_key_id":"111111111111111111",
+"private_key":"-----BEGIN PRIVATE KEY-----\nMIIEvgIBADG9w0BAQEFAASCBKgwggSkiEus62eZ\n-----END PRIVATE KEY-----\n",
+"client_email":"banana@banana",
+"client_id":"999",
+"auth_uri":"https://accounts.google.com/o/oauth2/auth",
+"token_uri":"https://oauth2.googleapis.com/token",
+"auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
+"client_x509_cert_url":"https://www.googleapis.com/robot/v1/metadata/x509/"
+}`
+    ],
+  ])('should clean json white spaces', async (inputJson: string, desiredJson: string) => {
+    render(<App />);
+
+    const editor = screen.getByTestId('json');
+
+    await act(async () => {
+      userEvent.paste(editor, inputJson);
+    });
+
+    await act(async () => {
+      userEvent.click(screen.getByTestId('clean-spaces'));
+    });
+
+    const result = screen.getByTestId('result');
+
+    expect(editor).toHaveValue(inputJson);
+    expect(result).toHaveValue(desiredJson);
+  });
+
   describe('custom spacing for formatting json', () => {
     test('should have space of 2 as default', async () => {
       render(<App />);
