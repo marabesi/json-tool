@@ -5,6 +5,8 @@ import Label from './components/Label';
 import CleanUp from './core/cleanUp';
 import Formatter from './core/formatter';
 
+const cleanUp = new CleanUp();
+
 function App() {
   const [originalJson, setOriginalResult] = useState<string>('');
   const [result, setResult] = useState<string>('');
@@ -60,13 +62,11 @@ function App() {
   };
 
   const cleanWhiteSpaces = () => {
-    const cleanUp = new CleanUp();
     const withoutSpaces = cleanUp.cleanWhiteSpaces(originalJson);
     setResult(withoutSpaces);
   };
 
   const cleanNewLines = () => {
-    const cleanUp = new CleanUp();
     const withoutNewLines = cleanUp.cleanNewLines(originalJson);
     setResult(withoutNewLines);
   };
