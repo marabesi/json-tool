@@ -31,7 +31,7 @@ jobs:
       - name: install
         run: npm install
       - name: test
-        run: npm run coverage
+        run: npm run coveralls
         env:
           CI: true
           DISPLAY: ':99.0'
