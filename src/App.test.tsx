@@ -204,6 +204,7 @@ describe('json utility', () => {
 "client_x509_cert_url":"https://www.googleapis.com/robot/v1/metadata/x509/"
 }`
     ],
+    ['{"key with spaces" : "json from clipboard"}', '{"key with spaces":"json from clipboard"}'],
   ])('should clean json white spaces', async (inputJson: string, desiredJson: string) => {
     render(<App />);
 

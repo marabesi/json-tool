@@ -2,6 +2,7 @@ export default class CleanUp {
 
   private IS_INSIDE_JSON_VALUE: number = 3;
   private ENDED_JSON_PAIR_KEY_VALUE: number = 4;
+  private STARTED_INSIDE_JSON_KEY: number = 1;
 
   cleanWhiteSpaces(originalJson: string): string {
     return this.cleanUpJsonFrom(' ', originalJson);
@@ -22,7 +23,7 @@ export default class CleanUp {
         stack.push(current);
       }
 
-      if (stack.length === this.IS_INSIDE_JSON_VALUE) {
+      if (stack.length === this.STARTED_INSIDE_JSON_KEY || stack.length === this.IS_INSIDE_JSON_VALUE) {
         cleanString += originalJson[i];
       } else {
         if (current !== stringToClean) {
