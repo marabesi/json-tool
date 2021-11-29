@@ -35,4 +35,4 @@ jobs:
         with:
           store_login: ${{ secrets.STORE_LOGIN }}
           snap: "dist/json-tool_${{ github.event.inputs.version }}_amd64.snap"
-          release: edge,beta,candidate,stable
+          release: beta,candidate,stable

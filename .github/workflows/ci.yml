@@ -46,8 +46,10 @@ jobs:
         run: npm run package
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-#       - name: distribute for linux 64
-#         uses: actions/upload-artifact@v2
-#         with:
-#           name: archive-electron-platform
-#           path: dist/json-tool-0.1.0.AppImage
+
+      - name: publish snap edge channel
+        uses: snapcore/action-publish@v1
+        with:
+          store_login: ${{ secrets.STORE_LOGIN }}
+          snap: "dist/json-tool_${{ github.event.inputs.version }}_amd64.snap"
+          release: edge
