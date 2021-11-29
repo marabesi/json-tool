@@ -47,9 +47,13 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
+      - name: fetch snap file
+        id: snap_file
+        run: echo "::set-output name=name::$(ls dist/*.snap | sed "s/dist\///g")"
+
       - name: publish snap edge channel
         uses: snapcore/action-publish@v1
         with:
           store_login: ${{ secrets.STORE_LOGIN }}
-          snap: "dist/json-tool_${{ github.event.inputs.version }}_amd64.snap"
+          snap: "dist/${{ steps.snap_file.outputs.name }}"
           release: edge
