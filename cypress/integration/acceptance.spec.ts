@@ -89,5 +89,18 @@ describe('json tool', () => {
       cy.get('[data-testid="json"]').should('have.value', jsonWithNewLines);
       cy.get('[data-testid="result"]').should('have.value', '{  "name" : "json from clipboard"}');
     });
+
+    it('should remove spaces and new lines from json', () => {
+      const jsonWithNewLinesAndSpaces = `{
+  "test" : "test",
+  "name" : "json from clipboard"}`;
+
+      cy.get('[data-testid="json"]').type(jsonWithNewLinesAndSpaces, { parseSpecialCharSequences: false });
+
+      cy.get('[data-testid="clean-new-lines-and-spaces"]').click();
+
+      // cy.get('[data-testid="json"]').should('have.value', jsonWithNewLinesAndSpaces);
+      cy.get('[data-testid="result"]').should('have.value', '{"test":"test","name":"json from clipboard"}');
+    });
   });
 });

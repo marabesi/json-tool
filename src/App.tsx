@@ -71,6 +71,11 @@ function App() {
     setResult(withoutNewLines);
   };
 
+  const cleanNewLinesAndSpaces = () => {
+    const withoutSpacesAndNewLines = cleanUp.cleanWhiteSpacesAndNewLines(originalJson);
+    setResult(withoutSpacesAndNewLines);
+  };
+
   const updateSpacing = (newSpacing: string) => setSpacing(newSpacing);
 
   return (
@@ -101,6 +106,12 @@ function App() {
             data-testid="clean-new-lines"
           >
             clean new lines
+          </Button>
+          <Button
+            onClick={cleanNewLinesAndSpaces}
+            data-testid="clean-new-lines-and-spaces"
+          >
+            clean new lines and spaces
           </Button>
         </div>
         <div className="w-3/6 flex justify-between">

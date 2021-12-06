@@ -13,6 +13,11 @@ export default class CleanUp {
     return this.cleanUpJsonFrom('\n', originalJson);
   }
 
+  cleanWhiteSpacesAndNewLines(originalJson: string): string {
+    const withoutSpaces = this.cleanWhiteSpaces(originalJson);
+    return this.cleanNewLines(withoutSpaces);
+  }
+
   private cleanUpJsonFrom(stringToClean: string, originalJson: string) {
     let cleanString = '';
     let stack = [];

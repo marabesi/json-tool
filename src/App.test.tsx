@@ -232,7 +232,7 @@ describe('json utility', () => {
   "name" : "json from clipboard",
   "last_name" : "another name"
 }`, '{  "name" : "json from clipboard",  "last_name" : "another name"}'],
-  ])('should clean json white spaces', async (inputJson: string, desiredJson: string) => {
+  ])('should clean json with new lines', async (inputJson: string, desiredJson: string) => {
     render(<App />);
 
     const editor = screen.getByTestId('json');
@@ -243,6 +243,30 @@ describe('json utility', () => {
 
     await act(async () => {
       userEvent.click(screen.getByTestId('clean-new-lines'));
+    });
+
+    const result = screen.getByTestId('result');
+
+    expect(editor).toHaveValue(inputJson);
+    expect(result).toHaveValue(desiredJson);
+  });
+
+  test.each([
+    [`{
+  "name" : "json from clipboard",
+  "last_name" : "another name"
+}`, '{"name":"json from clipboard","last_name":"another name"}'],
+  ])('should clean blank spaces and new lines in the json', async (inputJson: string, desiredJson: string) => {
+    render(<App />);
+
+    const editor = screen.getByTestId('json');
+
+    await act(async () => {
+      userEvent.paste(editor, inputJson);
+    });
+
+    await act(async () => {
+      userEvent.click(screen.getByTestId('clean-new-lines-and-spaces'));
     });
 
     const result = screen.getByTestId('result');
