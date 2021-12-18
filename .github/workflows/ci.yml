@@ -25,7 +25,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
 #        Electron build for windows
       - name: install wine
-        run: sudo apt-get install wine wine32
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get install wine wine32
 
       - name: export display
         run: |
