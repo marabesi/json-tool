@@ -59,9 +59,13 @@ describe('json tool', () => {
     });
 
     it('should clean both editors source and result', () => {
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(1000);
       cy.get('[data-testid="json"]').type(inputJson, { parseSpecialCharSequences: false });
   
       cy.get('[data-testid="clean"]').click();
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(1000);
   
       cy.get('[data-testid="json"]').should('have.value', '');
       cy.get('[data-testid="result"]').should('have.value', '');
