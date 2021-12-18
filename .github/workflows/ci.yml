@@ -50,7 +50,7 @@ jobs:
         env:
           CYPRESS_BASE_URL: 'http://localhost:3000'
         with:
-          wait-on: 'http://localhost:3000'
+          wait-on: 'http://0.0.0.0:3000'
           start: npm run serve
 
       - name: package for windows
