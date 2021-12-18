@@ -47,6 +47,7 @@
     "husky": "^7.0.2",
     "postcss": "^7.0.38",
     "sass": "^1.43.4",
+    "serve": "^13.0.2",
     "spectron": "^15.0.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14",
     "wait-on": "^6.0.0"
@@ -67,7 +68,8 @@
     "package-windows": "npm run setup && electron-builder --win --x64 -p never",
     "build-app-image": "npm run setup && electron-builder --linux AppImage -p never",
     "electron": "npm run setup && wait-on tcp:3000 && electron build/",
-    "lint": "eslint ./**/*.{ts,tsx}"
+    "lint": "eslint ./**/*.{ts,tsx}",
+    "serve": "serve -l 3000 build/"
   },
   "eslintConfig": {
     "extends": [

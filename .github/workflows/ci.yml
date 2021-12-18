@@ -16,8 +16,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - name: Setup kernel for react native, increase watchers
-        run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+      # - name: Setup kernel for react native, increase watchers
+      #   run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
       - name: Use Node.js
         uses: actions/setup-node@v2
@@ -51,7 +51,7 @@ jobs:
           CYPRESS_BASE_URL: 'http://localhost:3000'
         with:
           wait-on: 'http://localhost:3000'
-          start: npm start
+          start: npm run serve
 
       - name: package for windows
         run: npm run package-windows
