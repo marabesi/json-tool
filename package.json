@@ -69,7 +69,7 @@
     "build-app-image": "npm run setup && electron-builder --linux AppImage -p never",
     "electron": "npm run setup && wait-on tcp:3000 && electron build/",
     "lint": "eslint ./**/*.{ts,tsx}",
-    "serve": "serve -l 3000 build/"
+    "serve": "serve -l tcp://0.0.0.0:3000 build/"
   },
   "eslintConfig": {
     "extends": [
