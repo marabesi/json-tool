@@ -24,19 +24,23 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 #        Electron build for windows
-#      - name: install wine
-#        run: sudo apt-get install wine
+     - name: install wine
+        run: sudo apt-get install wine
+
       - name: export display
         run: |
           /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
           echo ">>> Started xvfb"
+
       - name: install
         run: npm install
+
       - name: test
         run: npm run coveralls
         env:
           CI: true
           DISPLAY: ':99.0'
+
       - name: Run cypress (acceptance tests)
         uses: cypress-io/github-action@v2
         env:
@@ -44,6 +48,10 @@ jobs:
         with:
           wait-on: 'http://localhost:3000'
           start: npm start
+
+      - name: package for windows
+        run: npm run package-windows
+
       - name: package
         run: npm run package
         env:
