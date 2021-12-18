@@ -58,7 +58,7 @@ describe('json tool', () => {
       });
     });
 
-    xit('should clean both editors source and result', () => {
+    it('should clean both editors source and result', () => {
       cy.get('[data-testid="json"]').type(inputJson, { parseSpecialCharSequences: false });
   
       cy.get('[data-testid="clean"]').click();
