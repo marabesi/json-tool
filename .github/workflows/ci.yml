@@ -27,7 +27,7 @@ jobs:
       - name: install wine
         run: |
           sudo dpkg --add-architecture i386
-          sudo apt-get install wine wine32
+          sudo apt-get install -f wine wine32
 
       - name: export display
         run: |
