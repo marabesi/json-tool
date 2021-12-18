@@ -16,6 +16,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
+      - name: Setup kernel for react native, increase watchers
+        run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:
