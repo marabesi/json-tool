@@ -25,7 +25,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 #        Electron build for windows
       - name: install wine
-        run: sudo apt-get install wine
+        run: sudo apt-get install wine wine32
 
       - name: export display
         run: |
@@ -41,13 +41,13 @@ jobs:
           CI: true
           DISPLAY: ':99.0'
 
-      - name: Run cypress (acceptance tests)
-        uses: cypress-io/github-action@v2
-        env:
-          CYPRESS_BASE_URL: 'http://localhost:3000'
-        with:
-          wait-on: 'http://localhost:3000'
-          start: npm start
+      # - name: Run cypress (acceptance tests)
+      #   uses: cypress-io/github-action@v2
+      #   env:
+      #     CYPRESS_BASE_URL: 'http://localhost:3000'
+      #   with:
+      #     wait-on: 'http://localhost:3000'
+      #     start: npm start
 
       - name: package for windows
         run: npm run package-windows

@@ -64,7 +64,7 @@
     "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
     "setup": "npm run build && cp package.json ./build",
     "package": "npm run setup && electron-builder --linux snap -p never",
-    "package-windows": "npm run setup && electron-builder --win",
+    "package-windows": "npm run setup && electron-builder --win --x64",
     "build-app-image": "npm run setup && electron-builder --linux AppImage -p never",
     "electron": "npm run setup && wait-on tcp:3000 && electron build/",
     "lint": "eslint ./**/*.{ts,tsx}"
