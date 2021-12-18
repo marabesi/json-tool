@@ -45,6 +45,11 @@ jobs:
           CI: true
           DISPLAY: ':99.0'
 
+      - name: package
+        run: npm run package
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
       - name: Run cypress (acceptance tests)
         uses: cypress-io/github-action@v2
         env:
@@ -55,11 +60,6 @@ jobs:
 
       - name: package for windows
         run: npm run package-windows
-
-      - name: package
-        run: npm run package
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: fetch snap file
         id: snap_file
