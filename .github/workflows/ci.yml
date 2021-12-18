@@ -13,18 +13,13 @@ env:
 jobs:
   build:
     runs-on: ubuntu-18.04
-    # strategy:
-    #   matrix:
-    #     node-version: [16.x]
 
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
-          # node-version: ${{ matrix.node-version }}
           node-version: 16
-#        Electron build for windows
       - name: install wine
         run: |
           sudo dpkg --add-architecture i386
@@ -61,13 +56,19 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
-      - name: fetch snap file
-        id: snap_file
-        run: echo "::set-output name=name::$(ls dist/*.snap | sed "s/dist\///g")"
+      - name: fetch file name
+        id: file_name
+        run: echo "::set-output name=name::$(ls dist/*.snap | sed "s/dist\///g" | sed "s/\.snap//g")"
+
+      - name: Archive windows binary
+        uses: actions/upload-artifact@v2
+        with:
+          name: "${{ steps.file_name.outputs.name }}"
+          path: "dist/${{ steps.file_name.outputs.name }}.exe"
 
       - name: publish snap edge channel
         uses: snapcore/action-publish@v1
         with:
           store_login: ${{ secrets.STORE_LOGIN }}
-          snap: "dist/${{ steps.snap_file.outputs.name }}"
+          snap: "dist/${{ steps.file_name.outputs.name }}.snap"
           release: edge
