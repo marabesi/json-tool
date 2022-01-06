@@ -61,10 +61,10 @@ describe('json tool', () => {
     it('should clean both editors source and result', () => {
       cy.get('[data-testid="json"]').type(inputJson, { parseSpecialCharSequences: false });
   
-      cy.get('[data-testid="clean"]').click();
-  
-      cy.get('[data-testid="json"]').should('have.value', '');
-      cy.get('[data-testid="result"]').should('have.value', '');
+      cy.get('[data-testid="clean"]').click().then(() => {
+        cy.get('[data-testid="json"]').should('have.value', '');
+        cy.get('[data-testid="result"]').should('have.value', '');
+      });
     });
 
     it('should remove white spaces from json', () => {
