@@ -40,7 +40,6 @@ describe('json tool', () => {
 
     cy.get('[data-testid="clean-new-lines-and-spaces"]').click();
 
-    // cy.get('[data-testid="json"]').should('have.value', jsonWithNewLinesAndSpaces);
     cy.get('[data-testid="result"]').should('have.value', '{"test":"test","name":"json from clipboard"}');
   });
 
@@ -83,7 +82,6 @@ describe('json tool', () => {
   });
 
   describe('Editors functionality', () => {
-
     it('should place text from clipboard in the editor on click button', () => {
       cy.window()
           .its('navigator.clipboard')
