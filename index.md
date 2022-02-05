@@ -1,37 +1,12 @@
-## Welcome to GitHub Pages
+## json-tool
 
-You can use the [editor on GitHub](https://github.com/marabesi/json-tool/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Are you tired of accessing free websites just to format your json content? Me too. Besides the
+"data protection" issue sometimes we just want to have it formatted to move on.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+json-tool allows you to quick format json content with a click of a button, and much more:
 
-### Markdown
+- JSON content validation, it shows an error message warning invalid json
+- Buttons to allow easy interaction with the clipboard
+- To keep up to date with new releases and more in depth details about the implementation, the code is published on github at https://github.com/marabesi/json-tool
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/marabesi/json-tool/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+To support the tool development, buy me a coffee at https://www.buymeacoffee.com/marabesi
