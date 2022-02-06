@@ -290,13 +290,13 @@ describe('json utility', () => {
       const space = screen.getByTestId('space-size');
   
       await act(async () => {
-        fireEvent.change(space, { target: { value: '' }});
+        fireEvent.input(space, { target: { value: '' }});
       });
   
       const editor = screen.getByTestId('json');
 
       await act(async () => {
-        fireEvent.change(editor, { target: { value: '{"a":"a"}' }});
+        fireEvent.input(editor, { target: { value: '{"a":"a"}' }});
       });
 
       const result = (screen.getByTestId('result') as HTMLInputElement);
@@ -313,11 +313,11 @@ describe('json utility', () => {
       const space = screen.getByTestId('space-size');
   
       await act(async () => {
-        fireEvent.change(space, { target: { value: '' }});
+        fireEvent.input(space, { target: { value: '' }});
       });
   
       await act(async () => {
-        fireEvent.change(space, { target: { value: spacing }});
+        fireEvent.input(space, { target: { value: spacing }});
       });
   
   
@@ -347,17 +347,17 @@ describe('json utility', () => {
       const space = screen.getByTestId('space-size');
   
       await act(async () => {
-        fireEvent.change(space, { target: { value: '' }});
+        fireEvent.input(space, { target: { value: '' }});
       });
   
       await act(async () => {
-        fireEvent.change(space, { target: { value: spacing }});
+        fireEvent.input(space, { target: { value: spacing }});
       });
 
       const editor = screen.getByTestId('json');
 
       await act(async () => {
-        fireEvent.change(editor, { target: { value: inputJson }});
+        fireEvent.input(editor, { target: { value: inputJson }});
       });
 
       const result = (screen.getByTestId('result') as HTMLInputElement);
@@ -371,17 +371,17 @@ describe('json utility', () => {
       const editor = screen.getByTestId('json');
 
       await act(async () => {
-        fireEvent.change(editor, { target: { value: '{"a":"a"}' }});
+        fireEvent.input(editor, { target: { value: '{"a":"a"}' }});
       });
 
       const space = screen.getByTestId('space-size');
   
       await act(async () => {
-        fireEvent.change(space, { target: { value: '' }});
+        fireEvent.input(space, { target: { value: '' }});
       });
   
       await act(async () => {
-        fireEvent.change(space, { target: { value: 4 }});
+        fireEvent.input(space, { target: { value: 4 }});
       });
 
       const result = (screen.getByTestId('result') as HTMLInputElement);
