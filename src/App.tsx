@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import Button from './components/Button';
+import InputText from './components/InputText';
 import JsonEditor from './components/JsonEditor';
 import Label from './components/Label';
 import CleanUp from './core/cleanUp';
@@ -115,11 +116,10 @@ function App() {
           </Button>
         </div>
         <div className="w-3/6 flex justify-between">
-          <input
-            type="text"
+          <InputText
             data-testid="space-size"
             value={spacing}
-            onChange={eventValue => updateSpacing(eventValue.target.value)}
+            onChange={eventValue => updateSpacing(eventValue)}
           />
           <Button
             data-testid="copy-json"
