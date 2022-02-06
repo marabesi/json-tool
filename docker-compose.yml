@@ -1,0 +1,14 @@
+version: '2'
+services:
+  json-tool:
+    stdin_open: true
+    environment:
+      - CI=true
+      - DISPLAY=':99.0'
+    build:
+      context: ./
+    volumes:
+      - ./:/app
+    command: npm run start
+    ports:
+      - 3000:3000
