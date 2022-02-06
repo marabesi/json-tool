@@ -279,15 +279,15 @@ describe('json utility', () => {
     test('should have space of 2 as default', async () => {
       render(<App />);
   
-      const space = screen.getByTestId('space-size');
+      const space = screen.getByDisplayValue('2');
   
-      expect(space).toHaveValue("2");
+      expect(space).toBeInTheDocument();
     });
 
     test('should do nothing if spacing is empty', async () => {
       render(<App />);
   
-      const space = screen.getByTestId('space-size');
+      const space = screen.getByDisplayValue('2');
   
       await act(async () => {
         fireEvent.input(space, { target: { value: '' }});
@@ -310,7 +310,7 @@ describe('json utility', () => {
     ])('should change spacing for %s spaces', async (spacing: string) => {
       render(<App />);
   
-      const space = screen.getByTestId('space-size');
+      const space = screen.getByDisplayValue('2');
   
       await act(async () => {
         fireEvent.input(space, { target: { value: '' }});
@@ -344,7 +344,7 @@ describe('json utility', () => {
     ])('should format json with %s spaces', async (spacing: string, inputJson: string, outputJson: string) => {
       render(<App />);
   
-      const space = screen.getByTestId('space-size');
+      const space = screen.getByDisplayValue('2');
   
       await act(async () => {
         fireEvent.input(space, { target: { value: '' }});
@@ -374,7 +374,7 @@ describe('json utility', () => {
         fireEvent.input(editor, { target: { value: '{"a":"a"}' }});
       });
 
-      const space = screen.getByTestId('space-size');
+      const space = screen.getByDisplayValue('2');
   
       await act(async () => {
         fireEvent.input(space, { target: { value: '' }});
