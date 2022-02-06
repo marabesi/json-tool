@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@craco/craco": "^6.3.0",
+    "@testing-library/dom": "^8.11.3",
     "@testing-library/webdriverio": "^3.0.4",
     "@types/node": "^16.10.5",
     "@types/webdriverio": "^4.13.3",
@@ -53,7 +54,7 @@
   },
   "postinstall": "electron-builder install-app-deps && husky install",
   "scripts": {
-    "start": "BROWSER=none craco start",
+    "start": "HOST=0.0.0.0 BROWSER=none craco start",
     "build": "craco build",
     "test": "craco test src/",
     "test:all": "npm run e2e && npm run test -- --watchAll=false",
