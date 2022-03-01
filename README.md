@@ -3,6 +3,8 @@
 
 [Announcing the JSON tool - A companion for formatting json content, focused in privacy](https://marabesi.com/web/productivity/utilities/2021/10/24/json-tool-a-companion-for-formatting-json-strings.html)
 
+[JSON tool product hunt](https://www.producthunt.com/posts/json-tool)
+
 # json-tool
 
 Are you tired of accessing **free websites just to format your json content**? Me too. Besides the "data protection" issue sometimes we just want to have it formatted to move on.
