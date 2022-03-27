@@ -81,6 +81,7 @@ function App() {
 
   return (
     <div className="h-screen bg-gray-500 p-5">
+      <a data-testid="buy-me-a-coffee" href="https://www.buymeacoffee.com/marabesi" target="_blank" rel="noreferrer">Buy me a coffee</a>
       <div className="flex w-full justify-start items-center">
         <div className="w-3/6">
           <Button

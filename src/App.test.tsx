@@ -30,6 +30,15 @@ describe('json utility', () => {
     expect(errorLabel).toBeNull();
   });
 
+  test('should render buy me a coffee link', () => {
+    render(<App />);
+    expect(screen.queryByTestId(/buy-me-a-coffee/)).toBeInTheDocument();
+    expect(screen.queryByTestId(/buy-me-a-coffee/)).toHaveAttribute('href', 'https://www.buymeacoffee.com/marabesi');
+    expect(screen.getByText(/Buy me a coffee/)).toBeInTheDocument();
+    expect(screen.getByText(/Buy me a coffee/)).toHaveAttribute('target', '_blank');
+    expect(screen.getByText(/Buy me a coffee/)).toHaveAttribute('rel', 'noreferrer');
+  });
+
   test.each([
     ['{}', '{}'],
     ['{"a": "b"}', '{"a": "b"}'],

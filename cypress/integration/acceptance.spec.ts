@@ -8,6 +8,11 @@ describe('json tool', () => {
     cy.visit(url);
   });
 
+  it('should render buy me a coffee link', () => {
+    cy.get('[data-testid="buy-me-a-coffee"]').should('be.visible');
+    cy.get('[data-testid="buy-me-a-coffee"]').should('have.attr', 'href', 'https://www.buymeacoffee.com/marabesi');
+  });
+
   it('should remove white spaces from json', () => {
     const jsonWithSpaces = '{"name" : "json from clipboard"}';
 
