@@ -8,18 +8,6 @@ describe('json tool', () => {
     cy.visit(url);
   });
 
-  it('should remove spaces and new lines from json', () => {
-    const jsonWithNewLinesAndSpaces = `{
-  "test" : "test",
-  "name" : "json from clipboard"}`;
-
-    cy.get('[data-testid="json"]').type(jsonWithNewLinesAndSpaces, { parseSpecialCharSequences: false });
-
-    cy.get('[data-testid="clean-new-lines-and-spaces"]').click();
-
-    cy.get('[data-testid="result"]').should('have.value', '{"test":"test","name":"json from clipboard"}');
-  });
-
   describe('Editors functionality', () => {
     it('should place text from clipboard in the editor on click button', () => {
       cy.window()
