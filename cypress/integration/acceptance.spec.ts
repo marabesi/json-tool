@@ -8,11 +8,6 @@ describe('json tool', () => {
     cy.visit(url);
   });
 
-  it('should render buy me a coffee link', () => {
-    cy.get('[data-testid="buy-me-a-coffee"]').should('be.visible');
-    cy.get('[data-testid="buy-me-a-coffee"]').should('have.attr', 'href', 'https://www.buymeacoffee.com/marabesi');
-  });
-
   it('should remove white spaces from json', () => {
     const jsonWithSpaces = '{"name" : "json from clipboard"}';
 
@@ -46,20 +41,6 @@ describe('json tool', () => {
     cy.get('[data-testid="clean-new-lines-and-spaces"]').click();
 
     cy.get('[data-testid="result"]').should('have.value', '{"test":"test","name":"json from clipboard"}');
-  });
-
-  describe('User interface information', () => {
-    it('label to inform where to place the json', () => {
-      cy.get('[data-testid="label-json"]').should('have.text', 'place your json here');
-    });
-
-    it('label to inform the result of formatting', () => {
-      cy.get('[data-testid="label-result"]').should('have.text', 'result');
-    });
-
-    it('shoulde have 2 as the default space size', () => {
-      cy.get('[data-testid="space-size"]').should('have.value', '2');
-    });
   });
 
   describe('Basic behavior', () => {
