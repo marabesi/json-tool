@@ -43,19 +43,6 @@ describe('json tool', () => {
     cy.get('[data-testid="result"]').should('have.value', '{"test":"test","name":"json from clipboard"}');
   });
 
-  describe('Basic behavior', () => {
-    it('format valid json string', () => {
-      cy.get('[data-testid="json"]').type('{}');
-      cy.get('[data-testid="result"]').should('have.value', '{}');
-    });
-
-    it('shows an error message when json is invalid', () => {
-      cy.get('[data-testid="json"]').type('this is not a json');
-      cy.get('[data-testid="result"]').should('have.value', 'this is not a json');
-      cy.get('[data-testid="error"]').should('have.text', 'invalid json');
-    });
-  });
-
   describe('clean editor', () => {
     it('should clean both editors source and result', () => {
       cy.get('[data-testid="json"]').type(inputJson, { parseSpecialCharSequences: false });
