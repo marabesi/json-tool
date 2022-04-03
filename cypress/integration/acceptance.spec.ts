@@ -32,17 +32,6 @@ describe('json tool', () => {
     cy.get('[data-testid="result"]').should('have.value', '{"test":"test","name":"json from clipboard"}');
   });
 
-  describe('clean editor', () => {
-    it('should clean both editors source and result', () => {
-      cy.get('[data-testid="json"]').type(inputJson, { parseSpecialCharSequences: false });
-
-      cy.get('[data-testid="clean"]').click();
-
-      cy.get('[data-testid="json"]').should('have.value', '');
-      cy.get('[data-testid="result"]').should('have.value', '');
-    });
-  });
-
   describe('Editors functionality', () => {
     it('should place text from clipboard in the editor on click button', () => {
       cy.window()
