@@ -8,7 +8,7 @@
     "name": "Matheus Marabesi",
     "url": "https://marabesi.com"
   },
-  "description": "Tool to interact with JSON",
+  "description": "json-tool allows you to quick format json content with a click of a button, and much more:\n\nJSON content validation, it shows an error message warning invalid json\nButtons to allow easy interaction with the clipboard\n",
   "categories": [
     "Formatters",
     "Programming Languages"
