@@ -1,4 +1,5 @@
 import { DetailedHTMLProps, ReactNode } from 'react';
+import Button from '@mui/material/Button';
 
 type ButtonProps = {
   onClick?: DetailedHTMLProps<any, any>
@@ -6,13 +7,17 @@ type ButtonProps = {
   className?: string
 }
 
-export default function Button({ children, className, ...rest }: ButtonProps) {
+export default function CustomButton({ children, className, onClick, ...rest }: ButtonProps) {
+  // @ts-ignore
+  const dataTestid = rest['data-testid'];
   return(
-    <button
-      className={['bg-white p-2 m-2', className].join(' ')}
-      {...rest}
-    >
-      {children}
-    </button>
+      <Button
+        variant="contained"
+        className={['', className].join(' ')}
+        onClick={onClick}
+        data-testid={dataTestid}
+      >
+        {children}
+      </Button>
   );
 }
