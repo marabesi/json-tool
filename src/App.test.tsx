@@ -4,8 +4,12 @@ import userEvent from '@testing-library/user-event';
 import { Blob } from 'buffer';
 import Formatter from './core/formatter';
 
-function grabCurrentEditor() {
-  return screen.getByTestId('json');
+function grabCurrentEditor(container: HTMLElement): HTMLElement {
+  const editor = container.querySelector('[data-testid=json]');
+  if (!editor) {
+    throw new Error('Could not find editor');
+  }
+  return editor as HTMLElement;
 }
 
 describe('json utility', () => {
@@ -47,9 +51,9 @@ describe('json utility', () => {
     ['{}', '{}'],
     ['{"a": "b"}', '{"a": "b"}'],
   ])('place %s text in the editor and receive %s', async (input, expected) => {
-    render(<App />);
+    const {container} = render(<App />);
 
-    const editor = grabCurrentEditor();
+    const editor = grabCurrentEditor(container);
 
     await act(async () => {
       await fireEvent.change(editor, {target: { value: input }});
@@ -61,9 +65,9 @@ describe('json utility', () => {
   });
 
   test('inform error when json is invalid', async () => {
-    render(<App />);
+    const {container} = render(<App />);
 
-    const editor = grabCurrentEditor();
+    const editor = grabCurrentEditor(container);
 
     await act(async () => {
       fireEvent.change(editor, {target: { value: 'bla bla' }});
@@ -78,9 +82,9 @@ describe('json utility', () => {
     ['bla bla', '{}'],
     ['not a json', ''],
   ])('hides the error after a valid json is given', async (originalCode: string, afterChangeCode: string) => {
-    render(<App />);
+    const {container} = render(<App />);
 
-    const editor = grabCurrentEditor();
+    const editor = grabCurrentEditor(container);
 
     await act(async () => {
       fireEvent.change(editor, {target: { value: originalCode }});
@@ -96,10 +100,9 @@ describe('json utility', () => {
   });
 
   test('should paste json string from copy area into the editor', async () => {
-    render(<App />);
+    const {container} = render(<App />);
 
-    const editor = grabCurrentEditor();
-
+    const editor = grabCurrentEditor(container);
     await act(async () => {
       userEvent.paste(editor, '{}');
     });
@@ -110,7 +113,7 @@ describe('json utility', () => {
   });
 
   test('should paste json string from copy area into the editor on clicking the button', async () => {
-    render(<App />);
+    const {container} = render(<App />);
 
     Object.assign(global.navigator,
       {
@@ -134,12 +137,12 @@ describe('json utility', () => {
       fromClipboard.click();
     });
 
-    expect(grabCurrentEditor()).toHaveValue('{}');
+    expect(grabCurrentEditor(container)).toHaveValue('{}');
     expect(screen.getByTestId('result')).toHaveValue('{}');
   });
 
   test('should copy json string from result editor to transfer area on clicking the button', async () => {
-    render(<App />);
+    const {container} = render(<App />);
 
     Object.assign(global.navigator, {
       clipboard :{
@@ -151,7 +154,7 @@ describe('json utility', () => {
 
     jest.spyOn(global.navigator.clipboard, 'writeText');
 
-    const editor = grabCurrentEditor();
+    const editor = grabCurrentEditor(container);
 
     await act(async () => {
       userEvent.paste(editor, '{"a":"a"}');
@@ -167,9 +170,9 @@ describe('json utility', () => {
   });
 
   test('should clean editors once clean is clicked', async () => {
-    render(<App />);
+    const {container} = render(<App />);
 
-    const editor = grabCurrentEditor();
+    const editor = grabCurrentEditor(container);
 
     await act(async () => {
       userEvent.paste(editor, '{}');
@@ -219,9 +222,9 @@ describe('json utility', () => {
     ],
     ['{"key with spaces" : "json from clipboard"}', '{"key with spaces":"json from clipboard"}'],
   ])('should clean json white spaces', async (inputJson: string, desiredJson: string) => {
-    render(<App />);
+    const {container} = render(<App />);
 
-    const editor = grabCurrentEditor();
+    const editor = grabCurrentEditor(container);
 
     await act(async () => {
       userEvent.paste(editor, inputJson);
@@ -246,9 +249,9 @@ describe('json utility', () => {
   "last_name" : "another name"
 }`, '{  "name" : "json from clipboard",  "last_name" : "another name"}'],
   ])('should clean json with new lines', async (inputJson: string, desiredJson: string) => {
-    render(<App />);
+    const {container} = render(<App />);
 
-    const editor = grabCurrentEditor();
+    const editor = grabCurrentEditor(container);
 
     await act(async () => {
       userEvent.paste(editor, inputJson);
@@ -270,10 +273,9 @@ describe('json utility', () => {
   "last_name" : "another name"
 }`, '{"name":"json from clipboard","last_name":"another name"}'],
   ])('should clean blank spaces and new lines in the json', async (inputJson: string, desiredJson: string) => {
-    render(<App />);
+    const {container} = render(<App />);
 
-    const editor = grabCurrentEditor();
-
+    const editor = grabCurrentEditor(container);
     await act(async () => {
       userEvent.paste(editor, inputJson);
     });
@@ -298,7 +300,7 @@ describe('json utility', () => {
     });
 
     test('should do nothing if spacing is empty', async () => {
-      render(<App />);
+      const {container} = render(<App />);
 
       const space = screen.getByDisplayValue('2');
 
@@ -306,7 +308,7 @@ describe('json utility', () => {
         fireEvent.input(space, { target: { value: '' }});
       });
 
-      const editor = grabCurrentEditor();
+      const editor = grabCurrentEditor(container);
 
       await act(async () => {
         fireEvent.input(editor, { target: { value: '{"a":"a"}' }});
@@ -355,7 +357,7 @@ describe('json utility', () => {
 }`
       ],
     ])('should format json with %s spaces', async (spacing: string, inputJson: string, outputJson: string) => {
-      render(<App />);
+      const {container} = render(<App />);
 
       const space = screen.getByDisplayValue('2');
 
@@ -367,7 +369,7 @@ describe('json utility', () => {
         fireEvent.input(space, { target: { value: spacing }});
       });
 
-      const editor = grabCurrentEditor();
+      const editor = grabCurrentEditor(container);
 
       await act(async () => {
         fireEvent.input(editor, { target: { value: inputJson }});
@@ -379,9 +381,8 @@ describe('json utility', () => {
     });
 
     test('should reformat json if space changes', async () => {
-      render(<App />);
-
-      const editor = grabCurrentEditor();
+      const {container} = render(<App />);
+      const editor = grabCurrentEditor(container);
 
       await act(async () => {
         fireEvent.input(editor, { target: { value: '{"a":"a"}' }});
