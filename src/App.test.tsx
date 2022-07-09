@@ -4,6 +4,10 @@ import userEvent from '@testing-library/user-event';
 import { Blob } from 'buffer';
 import Formatter from './core/formatter';
 
+function grabCurrentEditor() {
+  return screen.getByTestId('json');
+}
+
 describe('json utility', () => {
 
   test('renders place your json here label', () => {
@@ -45,7 +49,7 @@ describe('json utility', () => {
   ])('place %s text in the editor and receive %s', async (input, expected) => {
     render(<App />);
 
-    const editor = screen.getByTestId('json');
+    const editor = grabCurrentEditor();
 
     await act(async () => {
       await fireEvent.change(editor, {target: { value: input }});
@@ -59,7 +63,7 @@ describe('json utility', () => {
   test('inform error when json is invalid', async () => {
     render(<App />);
 
-    const editor = screen.getByTestId('json');
+    const editor = grabCurrentEditor();
 
     await act(async () => {
       fireEvent.change(editor, {target: { value: 'bla bla' }});
@@ -76,7 +80,7 @@ describe('json utility', () => {
   ])('hides the error after a valid json is given', async (originalCode: string, afterChangeCode: string) => {
     render(<App />);
 
-    const editor = screen.getByTestId('json');
+    const editor = grabCurrentEditor();
 
     await act(async () => {
       fireEvent.change(editor, {target: { value: originalCode }});
@@ -94,7 +98,7 @@ describe('json utility', () => {
   test('should paste json string from copy area into the editor', async () => {
     render(<App />);
 
-    const editor = screen.getByTestId('json');
+    const editor = grabCurrentEditor();
 
     await act(async () => {
       userEvent.paste(editor, '{}');
@@ -130,7 +134,7 @@ describe('json utility', () => {
       fromClipboard.click();
     });
 
-    expect(screen.getByTestId('json')).toHaveValue('{}');
+    expect(grabCurrentEditor()).toHaveValue('{}');
     expect(screen.getByTestId('result')).toHaveValue('{}');
   });
 
@@ -147,7 +151,7 @@ describe('json utility', () => {
 
     jest.spyOn(global.navigator.clipboard, 'writeText');
 
-    const editor = screen.getByTestId('json');
+    const editor = grabCurrentEditor();
 
     await act(async () => {
       userEvent.paste(editor, '{"a":"a"}');
@@ -165,7 +169,7 @@ describe('json utility', () => {
   test('should clean editors once clean is clicked', async () => {
     render(<App />);
 
-    const editor = screen.getByTestId('json');
+    const editor = grabCurrentEditor();
 
     await act(async () => {
       userEvent.paste(editor, '{}');
@@ -217,7 +221,7 @@ describe('json utility', () => {
   ])('should clean json white spaces', async (inputJson: string, desiredJson: string) => {
     render(<App />);
 
-    const editor = screen.getByTestId('json');
+    const editor = grabCurrentEditor();
 
     await act(async () => {
       userEvent.paste(editor, inputJson);
@@ -244,7 +248,7 @@ describe('json utility', () => {
   ])('should clean json with new lines', async (inputJson: string, desiredJson: string) => {
     render(<App />);
 
-    const editor = screen.getByTestId('json');
+    const editor = grabCurrentEditor();
 
     await act(async () => {
       userEvent.paste(editor, inputJson);
@@ -268,7 +272,7 @@ describe('json utility', () => {
   ])('should clean blank spaces and new lines in the json', async (inputJson: string, desiredJson: string) => {
     render(<App />);
 
-    const editor = screen.getByTestId('json');
+    const editor = grabCurrentEditor();
 
     await act(async () => {
       userEvent.paste(editor, inputJson);
@@ -287,22 +291,22 @@ describe('json utility', () => {
   describe('custom spacing for formatting json', () => {
     test('should have space of 2 as default', async () => {
       render(<App />);
-  
+
       const space = screen.getByDisplayValue('2');
-  
+
       expect(space).toBeInTheDocument();
     });
 
     test('should do nothing if spacing is empty', async () => {
       render(<App />);
-  
+
       const space = screen.getByDisplayValue('2');
-  
+
       await act(async () => {
         fireEvent.input(space, { target: { value: '' }});
       });
-  
-      const editor = screen.getByTestId('json');
+
+      const editor = grabCurrentEditor();
 
       await act(async () => {
         fireEvent.input(editor, { target: { value: '{"a":"a"}' }});
@@ -312,24 +316,24 @@ describe('json utility', () => {
 
       expect(result.value).toBe('');
     });
-  
+
     test.each([
       "4",
       "16"
     ])('should change spacing for %s spaces', async (spacing: string) => {
       render(<App />);
-  
+
       const space = screen.getByDisplayValue('2');
-  
+
       await act(async () => {
         fireEvent.input(space, { target: { value: '' }});
       });
-  
+
       await act(async () => {
         fireEvent.input(space, { target: { value: spacing }});
       });
-  
-  
+
+
       expect(space).toHaveValue(spacing);
     });
 
@@ -352,18 +356,18 @@ describe('json utility', () => {
       ],
     ])('should format json with %s spaces', async (spacing: string, inputJson: string, outputJson: string) => {
       render(<App />);
-  
+
       const space = screen.getByDisplayValue('2');
-  
+
       await act(async () => {
         fireEvent.input(space, { target: { value: '' }});
       });
-  
+
       await act(async () => {
         fireEvent.input(space, { target: { value: spacing }});
       });
 
-      const editor = screen.getByTestId('json');
+      const editor = grabCurrentEditor();
 
       await act(async () => {
         fireEvent.input(editor, { target: { value: inputJson }});
@@ -376,19 +380,19 @@ describe('json utility', () => {
 
     test('should reformat json if space changes', async () => {
       render(<App />);
-  
-      const editor = screen.getByTestId('json');
+
+      const editor = grabCurrentEditor();
 
       await act(async () => {
         fireEvent.input(editor, { target: { value: '{"a":"a"}' }});
       });
 
       const space = screen.getByDisplayValue('2');
-  
+
       await act(async () => {
         fireEvent.input(space, { target: { value: '' }});
       });
-  
+
       await act(async () => {
         fireEvent.input(space, { target: { value: 4 }});
       });
