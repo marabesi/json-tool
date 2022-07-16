@@ -343,19 +343,19 @@ describe('json utility', () => {
     });
 
     test.each([
-      ['4', '{"a":"a"}', `{
+      ['4', '{{"a":"a"}', `{
     "a": "a"
 }`
       ],
-      ['2', '{"a":"a"}', `{
+      ['2', '{{"a":"a"}', `{
   "a": "a"
 }`
       ],
-      ['8', '{"a":"a"}', `{
+      ['8', '{{"a":"a"}', `{
         "a": "a"
 }`
       ],
-      ['invalid', '{"a":"a"}', `{
+      ['invalid', '{{"a":"a"}', `{
   "a": "a"
 }`
       ],
@@ -388,7 +388,7 @@ describe('json utility', () => {
       const editor = grabCurrentEditor(container);
 
       await act(async () => {
-        await userEvent.type(editor, '{"a":"a"}', { delay: 100 });
+        await userEvent.type(editor, '{{"a":"a"}', { delay: 100 });
       });
 
       const space = screen.getByDisplayValue('2');
