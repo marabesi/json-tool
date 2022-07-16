@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, act } from '@testing-library/react';
+import {render, screen, act} from '@testing-library/react';
 import App from './App';
 import userEvent from '@testing-library/user-event';
 import { Blob } from 'buffer';
@@ -55,8 +55,8 @@ describe('json utility', () => {
 
     const editor = grabCurrentEditor(container);
 
-    await act(async () => {
-      await fireEvent.change(editor, {target: { value: input }});
+    act(() => {
+      userEvent.type(editor, input);
     });
 
     const result = screen.getByTestId('result');
@@ -69,8 +69,8 @@ describe('json utility', () => {
 
     const editor = grabCurrentEditor(container);
 
-    await act(async () => {
-      fireEvent.change(editor, {target: { value: 'bla bla' }});
+    act(() => {
+      userEvent.type(editor, 'bla bla');
     });
 
     const result = screen.getByTestId('error');
@@ -81,22 +81,26 @@ describe('json utility', () => {
   test.each([
     ['bla bla', '{}'],
     ['not a json', ''],
-  ])('hides the error after a valid json is given', async (originalCode: string, afterChangeCode: string) => {
-    const {container} = render(<App />);
+  ])('hides the error after a valid json is given (%s, %s)', async (originalCode: string, afterChangeCode: string) => {
+    const {container} = render(<App/>);
 
     const editor = grabCurrentEditor(container);
 
-    await act(async () => {
-      fireEvent.change(editor, {target: { value: originalCode }});
+    await act(() => {
+      userEvent.type(editor, originalCode);
     });
 
-    await act(async () => {
-      fireEvent.change(editor, {target: { value: afterChangeCode }});
+    await act(() => {
+      userEvent.clear(editor);
     });
+
+    // await act(() => {
+    //   userEvent.type(editor, afterChangeCode);
+    // });
 
     const result = screen.queryByTestId('error');
 
-    expect(result).toBeNull();
+    expect(result).not.toBeInTheDocument();
   });
 
   test('should paste json string from copy area into the editor', async () => {
@@ -304,14 +308,14 @@ describe('json utility', () => {
 
       const space = screen.getByDisplayValue('2');
 
-      await act(async () => {
-        fireEvent.input(space, { target: { value: '' }});
+      act(() => {
+        userEvent.clear(space);
       });
 
       const editor = grabCurrentEditor(container);
 
-      await act(async () => {
-        fireEvent.input(editor, { target: { value: '{"a":"a"}' }});
+      act(() => {
+        userEvent.type(editor, '{"a":"a"}');
       });
 
       const result = (screen.getByTestId('result') as HTMLInputElement);
@@ -323,18 +327,17 @@ describe('json utility', () => {
       "4",
       "16"
     ])('should change spacing for %s spaces', async (spacing: string) => {
-      render(<App />);
+      render(<App/>);
 
       const space = screen.getByDisplayValue('2');
 
       await act(async () => {
-        fireEvent.input(space, { target: { value: '' }});
+        await userEvent.clear(space);
       });
 
       await act(async () => {
-        fireEvent.input(space, { target: { value: spacing }});
+        await userEvent.type(space, spacing, {delay: 100});
       });
-
 
       expect(space).toHaveValue(spacing);
     });
@@ -361,18 +364,18 @@ describe('json utility', () => {
 
       const space = screen.getByDisplayValue('2');
 
-      await act(async () => {
-        fireEvent.input(space, { target: { value: '' }});
+      act(() => {
+        userEvent.clear(space);
       });
 
       await act(async () => {
-        fireEvent.input(space, { target: { value: spacing }});
+        await userEvent.type(space, spacing);
       });
 
       const editor = grabCurrentEditor(container);
 
       await act(async () => {
-        fireEvent.input(editor, { target: { value: inputJson }});
+        await userEvent.type(editor, inputJson, {delay: 200});
       });
 
       const result = (screen.getByTestId('result') as HTMLInputElement);
@@ -385,17 +388,17 @@ describe('json utility', () => {
       const editor = grabCurrentEditor(container);
 
       await act(async () => {
-        fireEvent.input(editor, { target: { value: '{"a":"a"}' }});
+        await userEvent.type(editor, '{"a":"a"}', { delay: 100 });
       });
 
       const space = screen.getByDisplayValue('2');
 
-      await act(async () => {
-        fireEvent.input(space, { target: { value: '' }});
+      await act(() => {
+        userEvent.clear(space);
       });
 
       await act(async () => {
-        fireEvent.input(space, { target: { value: 4 }});
+        await userEvent.type(space, '4');
       });
 
       const result = (screen.getByTestId('result') as HTMLInputElement);
