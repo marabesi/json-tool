@@ -13,7 +13,7 @@ function grabCurrentEditor(container: HTMLElement): HTMLElement {
 }
 
 function grabCurrentResult(container: HTMLElement): HTMLElement {
-  const result = container.querySelector('[data-testid="result"] .cm-content');
+  const result = container.querySelector('[data-testid="raw-result"] .cm-content');
   if (!result) {
     throw new Error('Could not find result');
   }
@@ -62,7 +62,7 @@ describe('json utility', () => {
     return range;
   };
 
-  describe('ui elements', () => {
+  describe('UI elements', () => {
     test('error message is hidden by default', () => {
       render(<App />);
       const errorLabel = screen.queryByTestId(/error/);
@@ -97,146 +97,146 @@ describe('json utility', () => {
     });
   });
 
-  test.each([
-    ['{}', '{}'],
-    ['{"a": "b"}', '{"a": "b"}'],
-  ])('place %s text in the editor and receive %s', async (input, expected) => {
-    const {container} = render(<App />);
+  describe('Editors', () => {
+    test.each([
+      ['{}', '{}'],
+      ['{"a": "b"}', '{"a": "b"}'],
+    ])('place %s text in the editor and receive %s', async (input, expected) => {
+      const {container} = render(<App />);
 
-    const editor = grabCurrentEditor(container);
+      const editor = grabCurrentEditor(container);
 
-    act(() => {
-      userEvent.type(editor, input);
+      act(() => {
+        userEvent.type(editor, input);
+      });
+
+      const result = screen.getByTestId('result');
+
+      expect(result.nodeValue).toMatchSnapshot(expected);
     });
-
-    const result = screen.getByTestId('result');
-
-    expect(result.nodeValue).toMatchSnapshot(expected);
   });
 
-  test('inform error when json is invalid', async () => {
-    const {container} = render(<App />);
+  describe('Error handling', () => {
+    test.each([
+      ['bla bla', '{}'],
+      ['not a json', ''],
+    ])('hides the error after a valid json is given (%s, %s)', async (originalCode: string, afterChangeCode: string) => {
+      const {container, getByTestId} = render(<App/>);
 
-    const editor = grabCurrentEditor(container);
+      const editor = grabCurrentEditor(container);
 
-    await act(async () => {
-      await userEvent.type(editor, 'bla bla', {delay: 100});
+      await act(async () => {
+        await userEvent.type(editor, originalCode);
+      });
+
+      act(() => {
+        userEvent.click(getByTestId('clean'));
+      });
+
+      const result = screen.queryByTestId('error');
+
+      expect(result).not.toBeInTheDocument();
     });
 
-    const result = screen.getByTestId('error');
+    test('inform error when json is invalid', async () => {
+      const {container} = render(<App />);
 
-    expect(result.innerHTML).toEqual('invalid json');
+      const editor = grabCurrentEditor(container);
+
+      await act(async () => {
+        await userEvent.type(editor, 'bla bla', {delay: 100});
+      });
+
+      const result = screen.getByTestId('error');
+
+      expect(result.innerHTML).toEqual('invalid json');
+    });
   });
 
-  test.each([
-    ['bla bla', '{}'],
-    ['not a json', ''],
-  ])('hides the error after a valid json is given (%s, %s)', async (originalCode: string, afterChangeCode: string) => {
-    const {container, getByTestId} = render(<App/>);
-
-    const editor = grabCurrentEditor(container);
-
-    await act(async () => {
-      await userEvent.type(editor, originalCode);
+  describe('Clipboard', () => {
+    beforeEach(() => {
+      tearDownClipboard();
     });
 
-    act(() => {
-      userEvent.click(getByTestId('clean'));
+    afterEach(() => {
+      tearDownClipboard();
     });
 
-    const result = screen.queryByTestId('error');
+    test('should paste json string from copy area into the editor on clicking the button', async () => {
+      const {getByTestId} = render(<App />);
 
-    expect(result).not.toBeInTheDocument();
-  });
+      setUpClipboard('{}');
 
-  test('should paste json string from copy area into the editor on clicking the button', async () => {
-    const {getByTestId} = render(<App />);
+      act(() => {
+        userEvent.click(getByTestId('paste-from-clipboard'));
+      });
 
-    Object.assign(global.navigator,
-      {
-        clipboard: {
-          async read() {
-            const blob = new Blob([JSON.stringify({})], { type: 'text/plain' });
+      await waitFor(() => {
+        expect(getByTestId('raw-json')).toHaveValue('{}');
+        expect(getByTestId('raw-result')).toHaveValue('{}');
+      });
+    });
 
-            return Promise.resolve([
-              {
-                [blob.type]: blob,
-                types: [ blob.type ],
-                getType: () => blob
-              }
-            ]);
+    test('should copy json string from result editor to transfer area on clicking the button', async () => {
+      const {container, getByTestId} = render(<App />);
+
+      Object.assign(global.navigator, {
+        clipboard :{
+          async writeText(text: string) {
+            return text;
           }
         }
-     });
+      });
 
-    act(() => {
-      userEvent.click(getByTestId('paste-from-clipboard'));
-    });
+      jest.spyOn(global.navigator.clipboard, 'writeText');
 
-    await waitFor(() => {
-      expect(getByTestId('raw-json')).toHaveValue('{}');
-      expect(getByTestId('raw-result')).toHaveValue('{}');
+      const editor = grabCurrentEditor(container);
+
+      act(() => {
+        userEvent.type(editor, '{{"a":"a"}');
+      });
+
+      await waitFor(() => {
+        expect(getByTestId('raw-json')).toHaveValue('{"a":"a"}');
+      });
+
+      act(() => {
+        userEvent.click(screen.getByTestId('copy-json'));
+      });
+
+      const formatter = new Formatter('{"a":"a"}');
+
+      expect(global.navigator.clipboard.writeText).toHaveBeenCalledWith(await formatter.format());
     });
   });
 
-  test('should copy json string from result editor to transfer area on clicking the button', async () => {
-    const {container, getByTestId} = render(<App />);
+  describe('Clean up editors', () => {
+    test('should clean editors once clean is clicked', async () => {
+      const {container} = render(<App />);
 
-    Object.assign(global.navigator, {
-      clipboard :{
-        async writeText(text: string) {
-          return text;
-        }
-      }
+      const editor = grabCurrentEditor(container);
+
+      await act(async () => {
+        userEvent.type(editor, '{}');
+      });
+
+      await act(async () => {
+        userEvent.click(screen.getByTestId('clean'));
+      });
+
+      expect(screen.getByTestId('raw-json')).toHaveValue('');
+      expect(screen.getByTestId('raw-result')).toHaveValue('');
     });
 
-    jest.spyOn(global.navigator.clipboard, 'writeText');
-
-    const editor = grabCurrentEditor(container);
-
-    act(() => {
-      userEvent.type(editor, '{{"a":"a"}');
-    });
-
-    await waitFor(() => {
-      expect(getByTestId('raw-json')).toHaveValue('{"a":"a"}');
-    });
-
-    act(() => {
-      userEvent.click(screen.getByTestId('copy-json'));
-    });
-
-    const formatter = new Formatter('{"a":"a"}');
-
-    expect(global.navigator.clipboard.writeText).toHaveBeenCalledWith(await formatter.format());
-  });
-
-  test('should clean editors once clean is clicked', async () => {
-    const {container} = render(<App />);
-
-    const editor = grabCurrentEditor(container);
-
-    await act(async () => {
-      userEvent.type(editor, '{}');
-    });
-
-    await act(async () => {
-      userEvent.click(screen.getByTestId('clean'));
-    });
-
-    expect(screen.getByTestId('raw-json')).toHaveValue('');
-    expect(screen.getByTestId('raw-result')).toHaveValue('');
-  });
-
-  test.each([
-    ['{"name" : "json from clipboard"}', '{"name":"json from clipboard"}'],
-    ['    {"name" : "json from clipboard"}', '{"name":"json from clipboard"}'],
-    ['    {"name" : "json    from   clipboard"}', '{"name":"json    from   clipboard"}'],
-    ['    { "a" : "a", "b" : "b" }', '{"a":"a","b":"b"}'],
-    ['{ "a" : true,         "b" : "b" }', '{"a":true,"b":"b"}'],
-    ['{ "a" : true,"b" : 123 }', '{"a":true,"b":123}'],
-    ['{"private_key" : "-----BEGIN PRIVATE KEY-----\nMIIEvgI\n-----END PRIVATE KEY-----\n" }', '{"private_key":"-----BEGIN PRIVATE KEY-----\nMIIEvgI\n-----END PRIVATE KEY-----\n"}'],
-    [`{
+    test.each([
+      ['{"name" : "json from clipboard"}', '{"name":"json from clipboard"}'],
+      ['    {"name" : "json from clipboard"}', '{"name":"json from clipboard"}'],
+      ['    {"name" : "json    from   clipboard"}', '{"name":"json    from   clipboard"}'],
+      ['    { "a" : "a", "b" : "b" }', '{"a":"a","b":"b"}'],
+      ['{ "a" : true,         "b" : "b" }', '{"a":true,"b":"b"}'],
+      ['{ "a" : true,"b" : 123 }', '{"a":true,"b":123}'],
+      ['{"private_key" : "-----BEGIN PRIVATE KEY-----\nMIIEvgI\n-----END PRIVATE KEY-----\n" }', '{"private_key":"-----BEGIN PRIVATE KEY-----\nMIIEvgI\n-----END PRIVATE KEY-----\n"}'],
+      [`{
   "type": "aaaa",
   "project_id": "any",
   "private_key_id": "111111111111111111",
@@ -259,89 +259,90 @@ describe('json utility', () => {
 "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
 "client_x509_cert_url":"https://www.googleapis.com/robot/v1/metadata/x509/"
 }`
-    ],
-    ['{"key with spaces" : "json from clipboard"}', '{"key with spaces":"json from clipboard"}'],
-  ])('should clean json white spaces', async (inputJson: string, desiredJson: string) => {
-    const {getByTestId} = render(<App />);
+      ],
+      ['{"key with spaces" : "json from clipboard"}', '{"key with spaces":"json from clipboard"}'],
+    ])('should clean json white spaces', async (inputJson: string, desiredJson: string) => {
+      const {getByTestId} = render(<App />);
 
-    setUpClipboard(inputJson);
+      setUpClipboard(inputJson);
 
-    act(() => {
-      userEvent.click(getByTestId('paste-from-clipboard'));
+      act(() => {
+        userEvent.click(getByTestId('paste-from-clipboard'));
+      });
+
+      await waitFor(() => {
+        expect(getByTestId('raw-json')).toHaveValue(inputJson);
+      });
+
+      act(() => {
+        userEvent.click(screen.getByTestId('clean-spaces'));
+      });
+
+
+      await waitFor(() => {
+        expect(getByTestId('raw-result')).toHaveValue(desiredJson);
+      });
     });
 
-    await waitFor(() => {
-      expect(getByTestId('raw-json')).toHaveValue(inputJson);
-    });
-
-    act(() => {
-      userEvent.click(screen.getByTestId('clean-spaces'));
-    });
-
-
-    await waitFor(() => {
-      expect(getByTestId('raw-result')).toHaveValue(desiredJson);
-    });
-  });
-
-  test.each([
-    [`{
+    test.each([
+      [`{
   "name" : "json from clipboard"
 }`, '{  "name" : "json from clipboard"}'],
-    [`{
+      [`{
   "name" : "json from clipboard",
   "last_name" : "another name"
 }`, '{  "name" : "json from clipboard",  "last_name" : "another name"}'],
-  ])('should clean json with new lines', async (inputJson: string, desiredJson: string) => {
-    const {getByTestId} = render(<App />);
+    ])('should clean json with new lines', async (inputJson: string, desiredJson: string) => {
+      const {getByTestId} = render(<App />);
 
-    setUpClipboard(inputJson);
+      setUpClipboard(inputJson);
 
-    act(() => {
-      userEvent.click(getByTestId('paste-from-clipboard'));
+      act(() => {
+        userEvent.click(getByTestId('paste-from-clipboard'));
+      });
+
+      await waitFor(() => {
+        expect(getByTestId('raw-json')).toHaveValue(inputJson);
+      });
+
+      act(() => {
+        userEvent.click(screen.getByTestId('clean-new-lines'));
+      });
+
+      await waitFor(() => {
+        expect(getByTestId('raw-result')).toHaveValue(desiredJson);
+      });
     });
 
-    await waitFor(() => {
-      expect(getByTestId('raw-json')).toHaveValue(inputJson);
-    });
-
-    act(() => {
-      userEvent.click(screen.getByTestId('clean-new-lines'));
-    });
-
-    await waitFor(() => {
-      expect(getByTestId('raw-result')).toHaveValue(desiredJson);
-    });
-  });
-
-  test.each([
-    [`{
+    test.each([
+      [`{
   "name" : "json from clipboard",
   "last_name" : "another name"
 }`, '{"name":"json from clipboard","last_name":"another name"}'],
-  ])('should clean blank spaces and new lines in the json', async (inputJson: string, desiredJson: string) => {
-    const {getByTestId} = render(<App />);
+    ])('should clean blank spaces and new lines in the json', async (inputJson: string, desiredJson: string) => {
+      const {getByTestId} = render(<App />);
 
-    setUpClipboard(inputJson);
+      setUpClipboard(inputJson);
 
-    act(() => {
-      userEvent.click(getByTestId('paste-from-clipboard'));
-    });
+      act(() => {
+        userEvent.click(getByTestId('paste-from-clipboard'));
+      });
 
-    await waitFor(() => {
-      expect(getByTestId('raw-json')).toHaveValue(inputJson);
-    });
+      await waitFor(() => {
+        expect(getByTestId('raw-json')).toHaveValue(inputJson);
+      });
 
-    act(() => {
-      userEvent.click(getByTestId('clean-new-lines-and-spaces'));
-    });
+      act(() => {
+        userEvent.click(getByTestId('clean-new-lines-and-spaces'));
+      });
 
-    await waitFor(() => {
-      expect(getByTestId('raw-result')).toHaveValue(desiredJson);
+      await waitFor(() => {
+        expect(getByTestId('raw-result')).toHaveValue(desiredJson);
+      });
     });
   });
 
-  describe('custom spacing for formatting json', () => {
+  describe('Custom spacing for formatting json', () => {
     test('should have space of 2 as default', async () => {
       render(<App />);
 

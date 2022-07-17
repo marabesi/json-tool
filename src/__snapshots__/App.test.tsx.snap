@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`json utility place {"a": "b"} text in the editor and receive {"a": "b"}: {"a": "b"} 1`] = `null`;
+exports[`json utility Editors place {"a": "b"} text in the editor and receive {"a": "b"}: {"a": "b"} 1`] = `null`;
 
-exports[`json utility place {} text in the editor and receive {}: {} 1`] = `null`;
+exports[`json utility Editors place {} text in the editor and receive {}: {} 1`] = `null`;
