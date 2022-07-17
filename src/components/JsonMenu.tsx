@@ -1,7 +1,12 @@
 import Button from "./Button";
 import {FaRegClipboard, FaRegTrashAlt} from "react-icons/fa";
 
-export default function JsonMenu({pasteFromClipboard, cleanup}: any) {
+interface Props {
+    pasteFromClipboard: any;
+    cleanup: any;
+}
+
+export default function JsonMenu({pasteFromClipboard, cleanup} : Props) {
     return (
         <div className="flex w-full justify-start items-center m-2 ml-0">
             <Button
