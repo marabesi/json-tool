@@ -96,8 +96,8 @@ function App() {
   return (
       <div className="bg-gray-500 flex flex-col h-screen">
         <Header />
-        <div className="p-1 h-full">
-          <div className="flex h-5/6">
+        <div className="p-1 mb-8 h-full">
+          <div className="flex h-full">
             <EditorContainer>
               <JsonMenu
                   pasteFromClipboard={pasteFromClipboard}
@@ -127,7 +127,7 @@ function App() {
                 />
             </EditorContainer>
           </div>
-          <div className="bg-red-600 m-1 text-center text-white">
+          <div className="bg-red-600 m-1 mt-2 text-center text-white">
             {error && <p data-testid="error">{error}</p>}
           </div>
         </div>
