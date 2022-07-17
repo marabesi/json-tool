@@ -11,7 +11,7 @@ export default function ResultMenu(
                 <span className="mr-2">Space tabulation</span>
                 <InputText
                     data-testid="space-size"
-                    className="w-10 rounded"
+                    className="w-10 rounded mr-2"
                     value={spacing}
                     onChange={eventValue => updateSpacing(eventValue)}
                 />
