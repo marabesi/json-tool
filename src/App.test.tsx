@@ -62,37 +62,39 @@ describe('json utility', () => {
     return range;
   };
 
-  test('renders place your json here label', () => {
-    render(<App />);
-    const placeJsonLabel = screen.getByTestId('label-json');
-    expect(placeJsonLabel).toBeInTheDocument();
-  });
+  describe('ui elements', () => {
+    test('renders place your json here label', () => {
+      render(<App />);
+      const placeJsonLabel = screen.getByTestId('label-json');
+      expect(placeJsonLabel).toBeInTheDocument();
+    });
 
-  test('renders result label', () => {
-    render(<App />);
-    const resultLabel = screen.getByTestId('label-result');
-    expect(resultLabel).toBeInTheDocument();
+    test('renders result label', () => {
+      render(<App />);
+      const resultLabel = screen.getByTestId('label-result');
+      expect(resultLabel).toBeInTheDocument();
+    });
+
+    test('error message is hidden by default', () => {
+      render(<App />);
+      const errorLabel = screen.queryByTestId(/error/);
+      expect(errorLabel).toBeNull();
+    });
+
+    test('should render buy me a coffee link', () => {
+      render(<App />);
+      expect(screen.queryByTestId(/buy-me-a-coffee/)).toBeInTheDocument();
+      expect(screen.queryByTestId(/buy-me-a-coffee/)).toHaveAttribute('href', 'https://www.buymeacoffee.com/marabesi');
+      expect(screen.getByText(/Buy me a coffee/)).toBeInTheDocument();
+      expect(screen.getByText(/Buy me a coffee/)).toHaveAttribute('target', '_blank');
+      expect(screen.getByText(/Buy me a coffee/)).toHaveAttribute('rel', 'noreferrer');
+    });
   });
 
   test('renders resulting formatted json label', () => {
     render(<App />);
     const resultLabel = screen.getByText(/result/i);
     expect(resultLabel).toBeInTheDocument();
-  });
-
-  test('error message is hidden by default', () => {
-    render(<App />);
-    const errorLabel = screen.queryByTestId(/error/);
-    expect(errorLabel).toBeNull();
-  });
-
-  test('should render buy me a coffee link', () => {
-    render(<App />);
-    expect(screen.queryByTestId(/buy-me-a-coffee/)).toBeInTheDocument();
-    expect(screen.queryByTestId(/buy-me-a-coffee/)).toHaveAttribute('href', 'https://www.buymeacoffee.com/marabesi');
-    expect(screen.getByText(/Buy me a coffee/)).toBeInTheDocument();
-    expect(screen.getByText(/Buy me a coffee/)).toHaveAttribute('target', '_blank');
-    expect(screen.getByText(/Buy me a coffee/)).toHaveAttribute('rel', 'noreferrer');
   });
 
   test.each([
