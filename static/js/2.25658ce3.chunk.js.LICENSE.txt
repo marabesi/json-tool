@@ -4,13 +4,6 @@ object-assign
 @license MIT
 */
 
-/*!
- * Determine if an object is a Buffer
- *
- * @author   Feross Aboukhadijeh <https://feross.org>
- * @license  MIT
- */
-
 /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
 
 /**
@@ -18,15 +11,6 @@ object-assign
  * format-to-json v2.1.2
  * GitHub Repository <https://github.com/CN-Tower/format-to-json>
  * Released under MIT license <https://github.com/CN-Tower/format-to-json/blob/master/LICENSE>
- */
-
-/**
- * Prism: Lightweight, robust, elegant syntax highlighting
- *
- * @license MIT <https://opensource.org/licenses/MIT>
- * @author Lea Verou <https://lea.verou.me>
- * @namespace
- * @public
  */
 
 /** @license React v0.20.2
