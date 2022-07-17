@@ -89,6 +89,15 @@ describe('json utility', () => {
       expect(screen.getByText(/Buy me a coffee/)).toHaveAttribute('target', '_blank');
       expect(screen.getByText(/Buy me a coffee/)).toHaveAttribute('rel', 'noreferrer');
     });
+
+    test('should render github link', () => {
+      render(<App />);
+      expect(screen.queryByText(/by marabesi/)).toBeInTheDocument();
+      expect(screen.queryByText(/by marabesi/)).toHaveAttribute('href', 'https://github.com/marabesi/json-tool');
+      expect(screen.getByText(/by marabesi/)).toBeInTheDocument();
+      expect(screen.getByText(/by marabesi/)).toHaveAttribute('target', '_blank');
+      expect(screen.getByText(/by marabesi/)).toHaveAttribute('rel', 'noreferrer');
+    });
   });
 
   test('renders resulting formatted json label', () => {

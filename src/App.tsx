@@ -81,78 +81,86 @@ function App() {
   const updateSpacing = (newSpacing: string) => setSpacing(newSpacing);
 
   return (
-    <div className="h-screen bg-gray-500 p-5">
-      <a data-testid="buy-me-a-coffee" href="https://www.buymeacoffee.com/marabesi" target="_blank" rel="noreferrer">Buy me a coffee</a>
-      <div className="flex w-full justify-start items-center">
-        <div className="w-3/6">
-          <Button
-            onClick={pasteFromClipboard}
-            data-testid="paste-from-clipboard"
-            className="ml-0"
-          >
-            paste from clipboard
-          </Button>
-          <Button
-            onClick={cleanup}
-            data-testid="clean"
-          >
-            clean
-          </Button>
-          <Button
-            onClick={cleanWhiteSpaces}
-            data-testid="clean-spaces"
-          >
-            clean spaces
-          </Button>
-          <Button
-            onClick={cleanNewLines}
-            data-testid="clean-new-lines"
-          >
-            clean new lines
-          </Button>
-          <Button
-            onClick={cleanNewLinesAndSpaces}
-            data-testid="clean-new-lines-and-spaces"
-          >
-            clean new lines and spaces
-          </Button>
+      <div className="bg-gray-500">
+        <div className="bg-blue-900 flex justify-between p-5 text-white">
+          <div className="flex">
+            <h2 className="text-yellow-400 font-bold">JSON tool</h2> |
+            <a href="https://github.com/marabesi/json-tool" target="_blank" rel="noreferrer">by marabesi</a>
+          </div>
+          <a data-testid="buy-me-a-coffee" href="https://www.buymeacoffee.com/marabesi" target="_blank" rel="noreferrer">Buy me a coffee</a>
         </div>
-        <div className="w-3/6 flex justify-between">
-          <InputText
-            data-testid="space-size"
-            value={spacing}
-            onChange={eventValue => updateSpacing(eventValue)}
-          />
-          <Button
-            data-testid="copy-json"
-            onClick={writeToClipboard}
-          >
-            copy json
-          </Button>
+        <div className="h-screen p-1">
+          <div className="flex w-full justify-start items-center">
+            <div className="w-3/6">
+              <Button
+                  onClick={pasteFromClipboard}
+                  data-testid="paste-from-clipboard"
+                  className="ml-0"
+              >
+                paste from clipboard
+              </Button>
+              <Button
+                  onClick={cleanup}
+                  data-testid="clean"
+              >
+                clean
+              </Button>
+              <Button
+                  onClick={cleanWhiteSpaces}
+                  data-testid="clean-spaces"
+              >
+                clean spaces
+              </Button>
+              <Button
+                  onClick={cleanNewLines}
+                  data-testid="clean-new-lines"
+              >
+                clean new lines
+              </Button>
+              <Button
+                  onClick={cleanNewLinesAndSpaces}
+                  data-testid="clean-new-lines-and-spaces"
+              >
+                clean new lines and spaces
+              </Button>
+            </div>
+            <div className="w-3/6 flex justify-between">
+              <InputText
+                  data-testid="space-size"
+                  value={spacing}
+                  onChange={eventValue => updateSpacing(eventValue)}
+              />
+              <Button
+                  data-testid="copy-json"
+                  onClick={writeToClipboard}
+              >
+                copy json
+              </Button>
+            </div>
+          </div>
+          <div className="flex h-5/6">
+            <div className="w-3/6 flex flex-col h-full m-1">
+              <Label data-testid="label-json">place your json here</Label>
+              <JsonEditor
+                  input={originalJson}
+                  onChange={eventValue => onJsonChange(eventValue.value)}
+                  data-testid="json"
+              />
+            </div>
+            <div className="w-3/6 flex flex-col h-full m-1">
+              <Label data-testid="label-result">result</Label>
+              <JsonEditor
+                  input={result}
+                  className="result"
+                  data-testid="result"
+              />
+            </div>
+          </div>
+          <div className="bg-red-600 m-1 text-center text-white">
+            {error && <p data-testid="error">{error}</p>}
+          </div>
         </div>
       </div>
-      <div className="flex h-5/6">
-        <div className="w-3/6 flex flex-col h-full m-1">
-          <Label data-testid="label-json">place your json here</Label>
-          <JsonEditor
-            input={originalJson}
-            onChange={eventValue => onJsonChange(eventValue.value)}
-            data-testid="json"
-          />
-        </div>
-        <div className="w-3/6 flex flex-col h-full m-1">
-          <Label data-testid="label-result">result</Label>
-          <JsonEditor
-            input={result}
-            className="result"
-            data-testid="result"
-          />
-        </div>
-      </div>
-      <div className="bg-red-600 m-1 text-center text-white">
-        {error && <p data-testid="error">{error}</p>}
-      </div>
-    </div>
   );
 }
 
