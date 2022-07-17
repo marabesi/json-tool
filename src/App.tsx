@@ -49,7 +49,8 @@ function App() {
     for (const clipboardItem of clipboardItems) {
       for (const type of clipboardItem.types) {
         const blob = await clipboardItem.getType(type);
-        await onJsonChange(await blob.text());
+        const text = await blob.text();
+        await onJsonChange(text);
       }
     }
   };

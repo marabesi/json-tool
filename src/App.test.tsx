@@ -1,18 +1,66 @@
-import {render, screen, act} from '@testing-library/react';
+import {render, screen, act, waitFor} from '@testing-library/react';
 import App from './App';
 import userEvent from '@testing-library/user-event';
 import { Blob } from 'buffer';
 import Formatter from './core/formatter';
 
 function grabCurrentEditor(container: HTMLElement): HTMLElement {
-  const editor = container.querySelector('[data-testid=json]');
+  const editor = container.querySelector('[data-testid="json"] .cm-content');
   if (!editor) {
     throw new Error('Could not find editor');
   }
   return editor as HTMLElement;
 }
 
+function grabCurrentResult(container: HTMLElement): HTMLElement {
+  const result = container.querySelector('[data-testid="result"] .cm-content');
+  if (!result) {
+    throw new Error('Could not find result');
+  }
+  return result as HTMLElement;
+}
+
+function setUpClipboard(json: string) {
+  Object.assign(global.navigator,
+      {
+        clipboard: {
+          async read() {
+            const blob = new Blob([json], { type: 'text/plain' });
+
+            return Promise.resolve([
+              {
+                [blob.type]: blob,
+                types: [ blob.type ],
+                getType: () => blob
+              }
+            ]);
+          }
+        }
+      });
+}
+
+function tearDownClipboard() {
+  Object.assign(global.navigator, {
+      clipboard: null
+  });
+}
+
 describe('json utility', () => {
+  document.createRange = () => {
+    const range = new Range();
+
+    range.getBoundingClientRect = jest.fn();
+
+    range.getClientRects = () => {
+      return {
+        item: () => null,
+        length: 0,
+        [Symbol.iterator]: jest.fn()
+      };
+    };
+
+    return range;
+  };
 
   test('renders place your json here label', () => {
     render(<App />);
@@ -69,8 +117,8 @@ describe('json utility', () => {
 
     const editor = grabCurrentEditor(container);
 
-    act(() => {
-      userEvent.type(editor, 'bla bla');
+    await act(async () => {
+      await userEvent.type(editor, 'bla bla', {delay: 100});
     });
 
     const result = screen.getByTestId('error');
@@ -82,46 +130,29 @@ describe('json utility', () => {
     ['bla bla', '{}'],
     ['not a json', ''],
   ])('hides the error after a valid json is given (%s, %s)', async (originalCode: string, afterChangeCode: string) => {
-    const {container} = render(<App/>);
+    const {container, getByTestId} = render(<App/>);
 
     const editor = grabCurrentEditor(container);
 
-    await act(() => {
-      userEvent.type(editor, originalCode);
+    await act(async () => {
+      await userEvent.type(editor, originalCode);
     });
 
-    await act(() => {
-      userEvent.clear(editor);
+    act(() => {
+      userEvent.click(getByTestId('clean'));
     });
-
-    // await act(() => {
-    //   userEvent.type(editor, afterChangeCode);
-    // });
 
     const result = screen.queryByTestId('error');
 
     expect(result).not.toBeInTheDocument();
   });
 
-  test('should paste json string from copy area into the editor', async () => {
-    const {container} = render(<App />);
-
-    const editor = grabCurrentEditor(container);
-    await act(async () => {
-      userEvent.paste(editor, '{}');
-    });
-
-    const result = screen.getByTestId('result');
-
-    expect(result).toHaveValue('{}');
-  });
-
   test('should paste json string from copy area into the editor on clicking the button', async () => {
-    const {container} = render(<App />);
+    const {getByTestId} = render(<App />);
 
     Object.assign(global.navigator,
       {
-        clipboard :{
+        clipboard: {
           async read() {
             const blob = new Blob([JSON.stringify({})], { type: 'text/plain' });
 
@@ -134,19 +165,20 @@ describe('json utility', () => {
             ]);
           }
         }
-      });
+     });
 
-    await act(async () => {
-      const fromClipboard = screen.getByTestId('paste-from-clipboard');
-      fromClipboard.click();
+    act(() => {
+      userEvent.click(getByTestId('paste-from-clipboard'));
     });
 
-    expect(grabCurrentEditor(container)).toHaveValue('{}');
-    expect(screen.getByTestId('result')).toHaveValue('{}');
+    await waitFor(() => {
+      expect(getByTestId('raw-json')).toHaveValue('{}');
+      expect(getByTestId('raw-result')).toHaveValue('{}');
+    });
   });
 
   test('should copy json string from result editor to transfer area on clicking the button', async () => {
-    const {container} = render(<App />);
+    const {container, getByTestId} = render(<App />);
 
     Object.assign(global.navigator, {
       clipboard :{
@@ -160,11 +192,15 @@ describe('json utility', () => {
 
     const editor = grabCurrentEditor(container);
 
-    await act(async () => {
-      userEvent.paste(editor, '{"a":"a"}');
+    act(() => {
+      userEvent.type(editor, '{{"a":"a"}');
     });
 
-    await act(async () => {
+    await waitFor(() => {
+      expect(getByTestId('raw-json')).toHaveValue('{"a":"a"}');
+    });
+
+    act(() => {
       userEvent.click(screen.getByTestId('copy-json'));
     });
 
@@ -179,17 +215,15 @@ describe('json utility', () => {
     const editor = grabCurrentEditor(container);
 
     await act(async () => {
-      userEvent.paste(editor, '{}');
+      userEvent.type(editor, '{}');
     });
 
     await act(async () => {
       userEvent.click(screen.getByTestId('clean'));
     });
 
-    const result = screen.getByTestId('result');
-
-    expect(editor).toHaveValue('');
-    expect(result).toHaveValue('');
+    expect(screen.getByTestId('raw-json')).toHaveValue('');
+    expect(screen.getByTestId('raw-result')).toHaveValue('');
   });
 
   test.each([
@@ -226,22 +260,26 @@ describe('json utility', () => {
     ],
     ['{"key with spaces" : "json from clipboard"}', '{"key with spaces":"json from clipboard"}'],
   ])('should clean json white spaces', async (inputJson: string, desiredJson: string) => {
-    const {container} = render(<App />);
+    const {getByTestId} = render(<App />);
 
-    const editor = grabCurrentEditor(container);
+    setUpClipboard(inputJson);
 
-    await act(async () => {
-      userEvent.paste(editor, inputJson);
+    act(() => {
+      userEvent.click(getByTestId('paste-from-clipboard'));
     });
 
-    await act(async () => {
+    await waitFor(() => {
+      expect(getByTestId('raw-json')).toHaveValue(inputJson);
+    });
+
+    act(() => {
       userEvent.click(screen.getByTestId('clean-spaces'));
     });
 
-    const result = screen.getByTestId('result');
 
-    expect(editor).toHaveValue(inputJson);
-    expect(result).toHaveValue(desiredJson);
+    await waitFor(() => {
+      expect(getByTestId('raw-result')).toHaveValue(desiredJson);
+    });
   });
 
   test.each([
@@ -253,22 +291,25 @@ describe('json utility', () => {
   "last_name" : "another name"
 }`, '{  "name" : "json from clipboard",  "last_name" : "another name"}'],
   ])('should clean json with new lines', async (inputJson: string, desiredJson: string) => {
-    const {container} = render(<App />);
+    const {getByTestId} = render(<App />);
 
-    const editor = grabCurrentEditor(container);
+    setUpClipboard(inputJson);
 
-    await act(async () => {
-      userEvent.paste(editor, inputJson);
+    act(() => {
+      userEvent.click(getByTestId('paste-from-clipboard'));
     });
 
-    await act(async () => {
+    await waitFor(() => {
+      expect(getByTestId('raw-json')).toHaveValue(inputJson);
+    });
+
+    act(() => {
       userEvent.click(screen.getByTestId('clean-new-lines'));
     });
 
-    const result = screen.getByTestId('result');
-
-    expect(editor).toHaveValue(inputJson);
-    expect(result).toHaveValue(desiredJson);
+    await waitFor(() => {
+      expect(getByTestId('raw-result')).toHaveValue(desiredJson);
+    });
   });
 
   test.each([
@@ -277,21 +318,25 @@ describe('json utility', () => {
   "last_name" : "another name"
 }`, '{"name":"json from clipboard","last_name":"another name"}'],
   ])('should clean blank spaces and new lines in the json', async (inputJson: string, desiredJson: string) => {
-    const {container} = render(<App />);
+    const {getByTestId} = render(<App />);
 
-    const editor = grabCurrentEditor(container);
-    await act(async () => {
-      userEvent.paste(editor, inputJson);
+    setUpClipboard(inputJson);
+
+    act(() => {
+      userEvent.click(getByTestId('paste-from-clipboard'));
     });
 
-    await act(async () => {
-      userEvent.click(screen.getByTestId('clean-new-lines-and-spaces'));
+    await waitFor(() => {
+      expect(getByTestId('raw-json')).toHaveValue(inputJson);
     });
 
-    const result = screen.getByTestId('result');
+    act(() => {
+      userEvent.click(getByTestId('clean-new-lines-and-spaces'));
+    });
 
-    expect(editor).toHaveValue(inputJson);
-    expect(result).toHaveValue(desiredJson);
+    await waitFor(() => {
+      expect(getByTestId('raw-result')).toHaveValue(desiredJson);
+    });
   });
 
   describe('custom spacing for formatting json', () => {
@@ -314,13 +359,13 @@ describe('json utility', () => {
 
       const editor = grabCurrentEditor(container);
 
-      act(() => {
-        userEvent.type(editor, '{"a":"a"}');
+      await act(async () => {
+        await userEvent.type(editor, '{{"a":"a"}', {delay: 100});
       });
 
       const result = (screen.getByTestId('result') as HTMLInputElement);
 
-      expect(result.value).toBe('');
+      expect(result.value).toBeFalsy();
     });
 
     test.each([
@@ -360,7 +405,7 @@ describe('json utility', () => {
 }`
       ],
     ])('should format json with %s spaces', async (spacing: string, inputJson: string, outputJson: string) => {
-      const {container} = render(<App />);
+      const {container, getByTestId} = render(<App />);
 
       const space = screen.getByDisplayValue('2');
 
@@ -375,25 +420,25 @@ describe('json utility', () => {
       const editor = grabCurrentEditor(container);
 
       await act(async () => {
-        await userEvent.type(editor, inputJson, {delay: 200});
+        await userEvent.type(editor, inputJson);
       });
 
-      const result = (screen.getByTestId('result') as HTMLInputElement);
+      const result = (getByTestId('raw-result') as HTMLInputElement);
 
-      expect(result.value).toBe(outputJson);
+      expect(result).toHaveValue(outputJson);
     });
 
     test('should reformat json if space changes', async () => {
-      const {container} = render(<App />);
+      const {container, getByTestId} = render(<App />);
       const editor = grabCurrentEditor(container);
 
       await act(async () => {
-        await userEvent.type(editor, '{{"a":"a"}', { delay: 100 });
+        await userEvent.type(editor, '{{"a":"a"}');
       });
 
       const space = screen.getByDisplayValue('2');
 
-      await act(() => {
+      act(() => {
         userEvent.clear(space);
       });
 
@@ -401,9 +446,7 @@ describe('json utility', () => {
         await userEvent.type(space, '4');
       });
 
-      const result = (screen.getByTestId('result') as HTMLInputElement);
-
-      expect(result.value).toBe(`{
+      expect(getByTestId('raw-result')).toHaveValue(`{
     "a": "a"
 }`);
     });

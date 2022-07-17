@@ -3,7 +3,8 @@ const { When, Then } = require("cypress-cucumber-preprocessor/steps");
 When(/^I place a json string with new lines and white spaces$/, function () {
 this.jsonWithNewLinesAndSpaces = `{
   "test" : "test",
-  "name" : "json from clipboard"}`;
+  "name" : "json from clipboard"
+}`;
 
     cy.get('[data-testid="json"]').type(this.jsonWithNewLinesAndSpaces, { parseSpecialCharSequences: true });
 });
@@ -18,5 +19,7 @@ Then(/^I see the json with new lines and white spaces in the left editor$/, func
 });
 
 Then(/^I see the json without new lines and white spaces in the right editor$/, function () {
-    cy.get('[data-testid="result"]').should('have.value', '{"test":"test","name":"json from clipboard"}');
+    cy.get('[data-testid="result"] .cm-content').should(($div) => {
+        expect($div.get(0).innerText).to.eq('{"test":"test","name":"json from clipboard"}');
+    });
 });
