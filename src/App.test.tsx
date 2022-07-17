@@ -63,18 +63,6 @@ describe('json utility', () => {
   };
 
   describe('ui elements', () => {
-    test('renders place your json here label', () => {
-      render(<App />);
-      const placeJsonLabel = screen.getByTestId('label-json');
-      expect(placeJsonLabel).toBeInTheDocument();
-    });
-
-    test('renders result label', () => {
-      render(<App />);
-      const resultLabel = screen.getByTestId('label-result');
-      expect(resultLabel).toBeInTheDocument();
-    });
-
     test('error message is hidden by default', () => {
       render(<App />);
       const errorLabel = screen.queryByTestId(/error/);
@@ -98,12 +86,6 @@ describe('json utility', () => {
       expect(screen.getByText(/by marabesi/)).toHaveAttribute('target', '_blank');
       expect(screen.getByText(/by marabesi/)).toHaveAttribute('rel', 'noreferrer');
     });
-  });
-
-  test('renders resulting formatted json label', () => {
-    render(<App />);
-    const resultLabel = screen.getByText(/result/i);
-    expect(resultLabel).toBeInTheDocument();
   });
 
   test.each([

@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
-import Button from './components/Button';
-import InputText from './components/InputText';
 import JsonEditor from './components/JsonEditor';
-import Label from './components/Label';
 import CleanUp from './core/cleanUp';
 import Formatter from './core/formatter';
+import ResultMenu from "./components/ResultMenu";
+import JsonMenu from "./components/JsonMenu";
 
 const cleanUp = new CleanUp();
 
@@ -90,57 +89,13 @@ function App() {
           <a data-testid="buy-me-a-coffee" href="https://www.buymeacoffee.com/marabesi" target="_blank" rel="noreferrer">Buy me a coffee</a>
         </div>
         <div className="h-screen p-1">
-          <div className="flex w-full justify-start items-center">
-            <div className="w-3/6">
-              <Button
-                  onClick={pasteFromClipboard}
-                  data-testid="paste-from-clipboard"
-                  className="ml-0"
-              >
-                paste from clipboard
-              </Button>
-              <Button
-                  onClick={cleanup}
-                  data-testid="clean"
-              >
-                clean
-              </Button>
-              <Button
-                  onClick={cleanWhiteSpaces}
-                  data-testid="clean-spaces"
-              >
-                clean spaces
-              </Button>
-              <Button
-                  onClick={cleanNewLines}
-                  data-testid="clean-new-lines"
-              >
-                clean new lines
-              </Button>
-              <Button
-                  onClick={cleanNewLinesAndSpaces}
-                  data-testid="clean-new-lines-and-spaces"
-              >
-                clean new lines and spaces
-              </Button>
-            </div>
-            <div className="w-3/6 flex justify-between">
-              <InputText
-                  data-testid="space-size"
-                  value={spacing}
-                  onChange={eventValue => updateSpacing(eventValue)}
-              />
-              <Button
-                  data-testid="copy-json"
-                  onClick={writeToClipboard}
-              >
-                copy json
-              </Button>
-            </div>
-          </div>
           <div className="flex h-5/6">
             <div className="w-3/6 flex flex-col h-full m-1">
-              <Label data-testid="label-json">place your json here</Label>
+              <JsonMenu
+                  pasteFromClipboard={pasteFromClipboard}
+                  cleanup={cleanup}
+              />
+
               <JsonEditor
                   input={originalJson}
                   onChange={eventValue => onJsonChange(eventValue.value)}
@@ -148,7 +103,15 @@ function App() {
               />
             </div>
             <div className="w-3/6 flex flex-col h-full m-1">
-              <Label data-testid="label-result">result</Label>
+              <ResultMenu
+                spacing={spacing}
+                updateSpacing={updateSpacing}
+                writeToClipboard={writeToClipboard}
+                cleanWhiteSpaces={cleanWhiteSpaces}
+                cleanNewLines={cleanNewLines}
+                cleanNewLinesAndSpaces={cleanNewLinesAndSpaces}
+              />
+
               <JsonEditor
                   input={result}
                   className="result"
