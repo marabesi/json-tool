@@ -39,7 +39,7 @@ export default function JsonEditor({ input, onChange, className, ...rest }: Prop
               height="100%"
               extensions={[json()]}
               basicSetup={{
-                  foldGutter: false,
+                  foldGutter: true,
                   syntaxHighlighting: true,
                   history: false,
                   highlightActiveLine: false,
