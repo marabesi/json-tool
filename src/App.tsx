@@ -4,6 +4,7 @@ import CleanUp from './core/cleanUp';
 import Formatter from './core/formatter';
 import ResultMenu from "./components/ResultMenu";
 import JsonMenu from "./components/JsonMenu";
+import {FaCoffee} from "react-icons/fa";
 
 const cleanUp = new CleanUp();
 
@@ -13,8 +14,10 @@ function Header() {
       <h2 className="text-yellow-400 font-bold">JSON tool</h2> |
       <a href="https://github.com/marabesi/json-tool" target="_blank" rel="noreferrer">by marabesi</a>
     </div>
-    <a data-testid="buy-me-a-coffee" href="https://www.buymeacoffee.com/marabesi" target="_blank" rel="noreferrer">Buy
-      me a coffee</a>
+    <a className="flex items-center" data-testid="buy-me-a-coffee" href="https://www.buymeacoffee.com/marabesi" target="_blank" rel="noreferrer">
+      <FaCoffee className="mr-2"/>
+      <span>Buy me a coffee</span>
+    </a>
   </div>;
 }
 
@@ -128,14 +131,10 @@ function App() {
             {error && <p data-testid="error">{error}</p>}
           </div>
         </div>
-        <div className="flex bg-gray-200 text-white p-5">
-          <span>
-            Footer text or link about CC
-          </span>
-          |
-          <span>
-            Other foot text with usual legal stuff
-          </span>
+        <div className="flex bg-gray-300 text-white p-5">
+          <a href="https://github.com/marabesi/json-tool/blob/main/LICENSE.md" target="_blank" rel="noreferrer">
+            CC0 1.0 Universal
+          </a>
         </div>
       </div>
   );

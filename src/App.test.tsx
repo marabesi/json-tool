@@ -74,8 +74,8 @@ describe('json utility', () => {
       expect(screen.queryByTestId(/buy-me-a-coffee/)).toBeInTheDocument();
       expect(screen.queryByTestId(/buy-me-a-coffee/)).toHaveAttribute('href', 'https://www.buymeacoffee.com/marabesi');
       expect(screen.getByText(/Buy me a coffee/)).toBeInTheDocument();
-      expect(screen.getByText(/Buy me a coffee/)).toHaveAttribute('target', '_blank');
-      expect(screen.getByText(/Buy me a coffee/)).toHaveAttribute('rel', 'noreferrer');
+      expect(screen.getByTestId(/buy-me-a-coffee/)).toHaveAttribute('target', '_blank');
+      expect(screen.getByTestId(/buy-me-a-coffee/)).toHaveAttribute('rel', 'noreferrer');
     });
 
     test('should render github link', () => {
@@ -85,6 +85,15 @@ describe('json utility', () => {
       expect(screen.getByText(/by marabesi/)).toBeInTheDocument();
       expect(screen.getByText(/by marabesi/)).toHaveAttribute('target', '_blank');
       expect(screen.getByText(/by marabesi/)).toHaveAttribute('rel', 'noreferrer');
+    });
+
+    test('should render license link', () => {
+      render(<App />);
+      expect(screen.queryByText(/CC0 1.0 Universal/)).toBeInTheDocument();
+      expect(screen.queryByText(/CC0 1.0 Universal/)).toHaveAttribute('href', 'https://github.com/marabesi/json-tool/blob/main/LICENSE.md');
+      expect(screen.getByText(/CC0 1.0 Universal/)).toBeInTheDocument();
+      expect(screen.getByText(/CC0 1.0 Universal/)).toHaveAttribute('target', '_blank');
+      expect(screen.getByText(/CC0 1.0 Universal/)).toHaveAttribute('rel', 'noreferrer');
     });
   });
 

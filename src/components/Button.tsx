@@ -9,7 +9,7 @@ type ButtonProps = {
 export default function Button({ children, className, ...rest }: ButtonProps) {
   return(
     <button
-      className={['bg-white p-2 m-2', className].join(' ')}
+      className={['bg-transparent border-0 text-white cursor-pointer p-2', className].join(' ')}
       {...rest}
     >
       {children}

@@ -29,7 +29,7 @@ export default function JsonEditor({ input, onChange, className, ...rest }: Prop
           <CodeMirror
               value={input}
               onChange={handleChange}
-              className={[className, 'h-full mt-5'].join(' ')}
+              className={[className, 'h-full'].join(' ')}
               style={{
                   fontSize: 12,
                   backgroundColor: fullConfig.theme.backgroundColor.gray['200'],
