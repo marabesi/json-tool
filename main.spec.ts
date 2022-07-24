@@ -1,5 +1,5 @@
 import path from 'path';
-import {Application} from 'spectron';
+import { Application } from 'spectron';
 import { setupBrowser } from '@testing-library/webdriverio';
 
 const app: Application = new Application({

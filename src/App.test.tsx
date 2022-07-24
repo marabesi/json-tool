@@ -1,4 +1,4 @@
-import {render, screen, act, waitFor} from '@testing-library/react';
+import { render, screen, act, waitFor } from '@testing-library/react';
 import App from './App';
 import userEvent from '@testing-library/user-event';
 import { Blob } from 'buffer';
@@ -94,7 +94,7 @@ describe('json utility', () => {
       ['{}', '{}'],
       ['{"a": "b"}', '{"a": "b"}'],
     ])('place %s text in the editor and receive %s', async (input, expected) => {
-      const {container} = render(<App />);
+      const { container } = render(<App />);
 
       const editor = grabCurrentEditor(container);
 
@@ -113,7 +113,7 @@ describe('json utility', () => {
       ['bla bla', '{}'],
       ['not a json', ''],
     ])('hides the error after a valid json is given (%s, %s)', async (originalCode: string, afterChangeCode: string) => {
-      const {container, getByTestId} = render(<App/>);
+      const { container, getByTestId } = render(<App/>);
 
       const editor = grabCurrentEditor(container);
 
@@ -131,12 +131,12 @@ describe('json utility', () => {
     });
 
     test('inform error when json is invalid', async () => {
-      const {container} = render(<App />);
+      const { container } = render(<App />);
 
       const editor = grabCurrentEditor(container);
 
       await act(async () => {
-        await userEvent.type(editor, 'bla bla', {delay: 100});
+        await userEvent.type(editor, 'bla bla', { delay: 100 });
       });
 
       const result = screen.getByTestId('error');
@@ -155,7 +155,7 @@ describe('json utility', () => {
     });
 
     test('should paste json string from copy area into the editor on clicking the button', async () => {
-      const {getByTestId} = render(<App />);
+      const { getByTestId } = render(<App />);
 
       setUpClipboard('{}');
 
@@ -170,7 +170,7 @@ describe('json utility', () => {
     });
 
     test('should copy json string from result editor to transfer area on clicking the button', async () => {
-      const {container, getByTestId} = render(<App />);
+      const { container, getByTestId } = render(<App />);
 
       Object.assign(global.navigator, {
         clipboard :{
@@ -204,7 +204,7 @@ describe('json utility', () => {
 
   describe('Clean up editors', () => {
     test('should clean editors once clean is clicked', async () => {
-      const {container} = render(<App />);
+      const { container } = render(<App />);
 
       const editor = grabCurrentEditor(container);
 
@@ -254,7 +254,7 @@ describe('json utility', () => {
       ],
       ['{"key with spaces" : "json from clipboard"}', '{"key with spaces":"json from clipboard"}'],
     ])('should clean json white spaces', async (inputJson: string, desiredJson: string) => {
-      const {getByTestId} = render(<App />);
+      const { getByTestId } = render(<App />);
 
       setUpClipboard(inputJson);
 
@@ -285,7 +285,7 @@ describe('json utility', () => {
   "last_name" : "another name"
 }`, '{  "name" : "json from clipboard",  "last_name" : "another name"}'],
     ])('should clean json with new lines', async (inputJson: string, desiredJson: string) => {
-      const {getByTestId} = render(<App />);
+      const { getByTestId } = render(<App />);
 
       setUpClipboard(inputJson);
 
@@ -312,7 +312,7 @@ describe('json utility', () => {
   "last_name" : "another name"
 }`, '{"name":"json from clipboard","last_name":"another name"}'],
     ])('should clean blank spaces and new lines in the json', async (inputJson: string, desiredJson: string) => {
-      const {getByTestId} = render(<App />);
+      const { getByTestId } = render(<App />);
 
       setUpClipboard(inputJson);
 
@@ -344,7 +344,7 @@ describe('json utility', () => {
     });
 
     test('should do nothing if spacing is empty', async () => {
-      const {container} = render(<App />);
+      const { container } = render(<App />);
 
       const space = screen.getByDisplayValue('2');
 
@@ -355,7 +355,7 @@ describe('json utility', () => {
       const editor = grabCurrentEditor(container);
 
       await act(async () => {
-        await userEvent.type(editor, '{{"a":"a"}', {delay: 100});
+        await userEvent.type(editor, '{{"a":"a"}', { delay: 100 });
       });
 
       const result = (screen.getByTestId('result') as HTMLInputElement);
@@ -376,7 +376,7 @@ describe('json utility', () => {
       });
 
       await act(async () => {
-        await userEvent.type(space, spacing, {delay: 100});
+        await userEvent.type(space, spacing, { delay: 100 });
       });
 
       expect(space).toHaveValue(spacing);
@@ -400,7 +400,7 @@ describe('json utility', () => {
 }`
       ],
     ])('should format json with %s spaces', async (spacing: string, inputJson: string, outputJson: string) => {
-      const {container, getByTestId} = render(<App />);
+      const { container, getByTestId } = render(<App />);
 
       const space = screen.getByDisplayValue('2');
 
@@ -424,7 +424,7 @@ describe('json utility', () => {
     });
 
     test('should reformat json if space changes', async () => {
-      const {container, getByTestId} = render(<App />);
+      const { container, getByTestId } = render(<App />);
       const editor = grabCurrentEditor(container);
 
       await act(async () => {

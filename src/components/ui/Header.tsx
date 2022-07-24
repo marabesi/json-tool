@@ -1,4 +1,4 @@
-import {FaCoffee} from 'react-icons/fa';
+import { FaCoffee } from 'react-icons/fa';
 
 export default function Header({ ...props }: any) {
   return (

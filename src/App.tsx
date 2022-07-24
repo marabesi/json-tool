@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import JsonEditor from './components/ui/JsonEditor';
 import CleanUp from './core/cleanUp';
 import Formatter from './core/formatter';
@@ -85,7 +85,7 @@ function App() {
   return (
     <div className="bg-gray-500 flex flex-col h-screen">
       <Header />
-      <div className="p-1 mb-8 h-full" style={{ height: '80vh'}}>
+      <div className="p-1 mb-8 h-full" style={{ height: '80vh' }}>
         <div className="flex h-full justify-center">
           <EditorContainer>
             <JsonMenu
