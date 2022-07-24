@@ -2,11 +2,11 @@ import {useCallback, useEffect, useState} from 'react';
 import JsonEditor from './components/ui/JsonEditor';
 import CleanUp from './core/cleanUp';
 import Formatter from './core/formatter';
-import ResultMenu from "./components/ui/menu/ResultMenu";
-import JsonMenu from "./components/ui/menu/JsonMenu";
-import Header from "./components/ui/Header";
+import ResultMenu from './components/ui/menu/ResultMenu';
+import JsonMenu from './components/ui/menu/JsonMenu';
+import Header from './components/ui/Header';
 import EditorContainer from './components/ui/EditorContainer';
-import Footer from "./components/ui/Footer";
+import Footer from './components/ui/Footer';
 
 const cleanUp = new CleanUp();
 

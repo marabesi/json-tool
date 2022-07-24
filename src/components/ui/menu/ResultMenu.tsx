@@ -1,6 +1,6 @@
-import InputText from "../io/InputText";
-import Button from "../io/Button";
-import {FaBackspace, FaRegCopy, FaTerminal, FaUserFriends} from "react-icons/fa";
+import InputText from '../io/InputText';
+import Button from '../io/Button';
+import {FaBackspace, FaRegCopy, FaTerminal, FaUserFriends} from 'react-icons/fa';
 
 export default function ResultMenu(
   { spacing, updateSpacing, writeToClipboard, cleanWhiteSpaces, cleanNewLines, cleanNewLinesAndSpaces } : any

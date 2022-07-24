@@ -16,6 +16,6 @@ describe('Application launch', function () {
     await app.start();
     // @ts-ignore
     const { findByText } = setupBrowser(app.client);
-    await findByText("format");
+    await findByText('format');
   });
 });

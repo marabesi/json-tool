@@ -1,6 +1,6 @@
-import Button from "../io/Button";
+import Button from '../io/Button';
 import { useFileUpload } from 'use-file-upload';
-import {FaRegClipboard, FaRegFileArchive, FaRegTrashAlt} from "react-icons/fa";
+import {FaRegClipboard, FaRegFileArchive, FaRegTrashAlt} from 'react-icons/fa';
 
 interface Props {
     pasteFromClipboard: any;
@@ -26,7 +26,7 @@ export default function JsonMenu({pasteFromClipboard, cleanup, onLoadedFile} : P
         onClick={() => {
           selectFile({accept: ['application/json', 'text/plain'], multiple: false}, ({ file }: any) => {
             const reader = new FileReader();
-            reader.readAsText(file, "UTF-8");
+            reader.readAsText(file, 'UTF-8');
             reader.onload = (evt) => {
               if (evt.target) {
                 onLoadedFile(evt.target.result);

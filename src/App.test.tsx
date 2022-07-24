@@ -364,8 +364,8 @@ describe('json utility', () => {
     });
 
     test.each([
-      "4",
-      "16"
+      '4',
+      '16'
     ])('should change spacing for %s spaces', async (spacing: string) => {
       render(<App/>);
 
