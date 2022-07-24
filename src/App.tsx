@@ -86,7 +86,7 @@ function App() {
       <div className="bg-gray-500 flex flex-col h-screen">
         <Header />
         <div className="p-1 mb-8 h-full">
-          <div className="flex h-full">
+          <div className="flex h-full flex-col w-full xl:flex-row">
             <EditorContainer>
               <JsonMenu
                   pasteFromClipboard={pasteFromClipboard}
