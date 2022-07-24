@@ -6,7 +6,7 @@ interface Props {
 
 export default function EditorContainer({ children }: Props) {
     return (
-        <div className="w-3/6 flex flex-col h-full m-1">
+        <div className="flex flex-col h-full m-1" style={{ width: '49vw' }}>
             {children}
         </div>
     );
