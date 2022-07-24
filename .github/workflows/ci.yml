@@ -60,7 +60,6 @@ jobs:
           CYPRESS_BASE_URL: 'http://localhost:3000'
         with:
           wait-on: 'http://localhost:3000'
-          browser: chrome
           install-command: npm install --legacy-peer-deps
           start: npm run serve
 
