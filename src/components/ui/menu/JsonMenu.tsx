@@ -1,4 +1,4 @@
-import Button from "./Button";
+import Button from "../io/Button";
 import {FaRegClipboard, FaRegTrashAlt} from "react-icons/fa";
 
 interface Props {

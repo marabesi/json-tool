@@ -1,5 +1,5 @@
 import CodeMirror from '@uiw/react-codemirror';
-import fullConfig from '../tailwindResolver';
+import fullConfig from '../../tailwindResolver';
 import { json } from '@codemirror/lang-json';
 
 type Event = {
