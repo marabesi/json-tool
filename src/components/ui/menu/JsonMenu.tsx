@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function JsonMenu({pasteFromClipboard, cleanup, onLoadedFile} : Props) {
-    const [file, selectFile] = useFileUpload();
+    const [, selectFile] = useFileUpload();
 
     return (
         <div className="flex w-full justify-start items-center m-2 ml-0">
@@ -24,9 +24,9 @@ export default function JsonMenu({pasteFromClipboard, cleanup, onLoadedFile} : P
             <Button
                 className="ml-0 flex items-center"
                 onClick={() => {
-                selectFile({accept: ['application/json', 'text/plain'], multiple: false}, () => {
+                selectFile({accept: ['application/json', 'text/plain'], multiple: false}, ({ file }: any) => {
                     const reader = new FileReader();
-                    reader.readAsText(file as any, "UTF-8");
+                    reader.readAsText(file, "UTF-8");
                     reader.onload = (evt) => {
                         if (evt.target) {
                             onLoadedFile(evt.target.result);
