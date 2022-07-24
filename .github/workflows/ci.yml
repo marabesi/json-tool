@@ -60,6 +60,7 @@ jobs:
           CYPRESS_BASE_URL: 'http://localhost:3000'
         with:
           wait-on: 'http://localhost:3000'
+          install-command: npm install --legacy-peer-deps
           start: npm run serve
 
       - name: package for windows
