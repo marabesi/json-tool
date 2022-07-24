@@ -110,9 +110,9 @@ describe('json utility', () => {
 
   describe('Error handling', () => {
     test.each([
-      ['bla bla', '{}'],
-      ['not a json', ''],
-    ])('hides the error after a valid json is given (%s, %s)', async (originalCode: string, afterChangeCode: string) => {
+      ['bla bla'],
+      ['not a json'],
+    ])('hides the error after a valid json is given (%s, %s)', async (originalCode: string) => {
       const { container, getByTestId } = render(<App/>);
 
       const editor = grabCurrentEditor(container);
