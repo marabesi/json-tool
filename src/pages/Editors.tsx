@@ -4,9 +4,8 @@ import CleanUp from '../core/cleanUp';
 import Formatter from '../core/formatter';
 import ResultMenu from '../components/ui/menu/ResultMenu';
 import JsonMenu from '../components/ui/menu/JsonMenu';
-import Header from '../components/ui/Header';
 import EditorContainer from '../components/ui/EditorContainer';
-import Footer from '../components/ui/Footer';
+import DefaultLayout from '../components/ui/layout/Default';
 
 const cleanUp = new CleanUp();
 
@@ -83,8 +82,7 @@ export default function Editors() {
   const updateSpacing = (newSpacing: string) => setSpacing(newSpacing);
 
   return (
-    <div className="bg-gray-500 flex flex-col h-screen">
-      <Header />
+    <DefaultLayout>
       <div className="p-1 mb-8 h-full" style={{ height: '80vh' }}>
         <div className="flex h-full justify-center">
           <EditorContainer>
@@ -121,7 +119,6 @@ export default function Editors() {
           {error && <p data-testid="error">{error}</p>}
         </div>
       </div>
-      <Footer />
-    </div>
+    </DefaultLayout>
   );
 }
