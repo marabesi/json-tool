@@ -15,6 +15,7 @@ interface Props{
   className?: string;
   onChange?: EventChange;
   'data-testid': string;
+  contenteditable: boolean;
 }
 
 export default function JsonEditor({ input, onChange, className, ...rest }: Props) {

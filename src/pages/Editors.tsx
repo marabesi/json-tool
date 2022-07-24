@@ -96,6 +96,7 @@ export default function Editors({ settings }: any) {
               input={originalJson}
               onChange={eventValue => onJsonChange(eventValue.value)}
               data-testid="json"
+              contenteditable={true}
             />
           </EditorContainer>
           <EditorContainer>
@@ -112,6 +113,7 @@ export default function Editors({ settings }: any) {
               input={result}
               className="result"
               data-testid="result"
+              contenteditable={true}
             />
           </EditorContainer>
         </div>
