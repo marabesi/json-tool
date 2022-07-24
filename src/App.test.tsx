@@ -12,14 +12,6 @@ function grabCurrentEditor(container: HTMLElement): HTMLElement {
   return editor as HTMLElement;
 }
 
-function grabCurrentResult(container: HTMLElement): HTMLElement {
-  const result = container.querySelector('[data-testid="raw-result"] .cm-content');
-  if (!result) {
-    throw new Error('Could not find result');
-  }
-  return result as HTMLElement;
-}
-
 function setUpClipboard(json: string) {
   Object.assign(global.navigator,
       {
