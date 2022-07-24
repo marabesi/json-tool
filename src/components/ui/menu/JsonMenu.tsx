@@ -13,7 +13,7 @@ export default function JsonMenu({pasteFromClipboard, cleanup, onLoadedFile} : P
     const [_, selectFile] = useFileUpload();
 
     return (
-        <div className="flex w-full justify-start items-center m-2 ml-0 text-white">
+        <div className="flex w-full justify-start items-center m-2 ml-0">
             <Button
                 onClick={pasteFromClipboard}
                 data-testid="paste-from-clipboard"
@@ -22,7 +22,7 @@ export default function JsonMenu({pasteFromClipboard, cleanup, onLoadedFile} : P
                 <FaRegClipboard className="mr-2" />
                 Paste from clipboard
             </Button>
-            <button
+            <Button
                 className="ml-0 flex items-center"
                 onClick={() => {
                 selectFile({accept: ['application/json', 'text/plain'], multiple: false}, ({ file }: any) => {
@@ -38,7 +38,7 @@ export default function JsonMenu({pasteFromClipboard, cleanup, onLoadedFile} : P
             >
                 <FaRegFileArchive className="mr-2" />
                 Click to Upload
-            </button>
+            </Button>
             <Button
                 onClick={cleanup}
                 data-testid="clean"
