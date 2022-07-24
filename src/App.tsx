@@ -91,6 +91,7 @@ function App() {
               <JsonMenu
                   pasteFromClipboard={pasteFromClipboard}
                   cleanup={cleanup}
+                  onLoadedFile={onJsonChange}
               />
 
               <JsonEditor
