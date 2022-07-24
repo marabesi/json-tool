@@ -9,7 +9,7 @@ import DefaultLayout from '../components/ui/layout/Default';
 
 const cleanUp = new CleanUp();
 
-export default function Editors() {
+export default function Editors({ settings }: any) {
   const [originalJson, setOriginalResult] = useState<string>('');
   const [result, setResult] = useState<string>('');
   const [error, setError] = useState<string>('');
