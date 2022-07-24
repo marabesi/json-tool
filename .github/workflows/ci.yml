@@ -1,6 +1,6 @@
 name: Node CI
 
-concurrency: 
+concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
@@ -41,7 +41,7 @@ jobs:
           echo ">>> Started xvfb"
 
       - name: install
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: test
         run: npm run coveralls
