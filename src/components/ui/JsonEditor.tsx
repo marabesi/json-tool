@@ -24,30 +24,30 @@ export default function JsonEditor({ input, onChange, className, ...rest }: Prop
   };
 
   return (
-      <>
-          <textarea data-testid={`raw-${rest['data-testid']}`} className="hidden" defaultValue={input}></textarea>
-          <CodeMirror
-              value={input}
-              onChange={handleChange}
-              className={[className, 'h-full'].join(' ')}
-              style={{
-                  fontSize: 12,
-                  backgroundColor: fullConfig.theme.backgroundColor.gray['200'],
-                  overflowY: 'scroll',
-                  fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
-              }}
-              height="100%"
-              extensions={[json()]}
-              basicSetup={{
-                  foldGutter: true,
-                  syntaxHighlighting: true,
-                  history: false,
-                  highlightActiveLine: false,
-                  autocompletion: false,
-                  closeBrackets: false,
-              }}
-              {...rest}
-          />
-      </>
+    <>
+      <textarea data-testid={`raw-${rest['data-testid']}`} className="hidden" defaultValue={input}></textarea>
+      <CodeMirror
+        value={input}
+        onChange={handleChange}
+        className={[className, 'h-full'].join(' ')}
+        style={{
+          fontSize: 12,
+          backgroundColor: fullConfig.theme.backgroundColor.gray['200'],
+          overflowY: 'scroll',
+          fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
+        }}
+        height="100%"
+        extensions={[json()]}
+        basicSetup={{
+          foldGutter: true,
+          syntaxHighlighting: true,
+          history: false,
+          highlightActiveLine: false,
+          autocompletion: false,
+          closeBrackets: false,
+        }}
+        {...rest}
+      />
+    </>
   );
 }

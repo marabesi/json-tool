@@ -14,26 +14,26 @@ function grabCurrentEditor(container: HTMLElement): HTMLElement {
 
 function setUpClipboard(json: string) {
   Object.assign(global.navigator,
-      {
-        clipboard: {
-          async read() {
-            const blob = new Blob([json], { type: 'text/plain' });
+    {
+      clipboard: {
+        async read() {
+          const blob = new Blob([json], { type: 'text/plain' });
 
-            return Promise.resolve([
-              {
-                [blob.type]: blob,
-                types: [ blob.type ],
-                getType: () => blob
-              }
-            ]);
-          }
+          return Promise.resolve([
+            {
+              [blob.type]: blob,
+              types: [ blob.type ],
+              getType: () => blob
+            }
+          ]);
         }
-      });
+      }
+    });
 }
 
 function tearDownClipboard() {
   Object.assign(global.navigator, {
-      clipboard: null
+    clipboard: null
   });
 }
 

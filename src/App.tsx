@@ -83,46 +83,46 @@ function App() {
   const updateSpacing = (newSpacing: string) => setSpacing(newSpacing);
 
   return (
-      <div className="bg-gray-500 flex flex-col h-screen">
-        <Header />
-        <div className="p-1 mb-8 h-full" style={{ height: '80vh'}}>
-          <div className="flex h-full justify-center">
-            <EditorContainer>
-              <JsonMenu
-                  pasteFromClipboard={pasteFromClipboard}
-                  cleanup={cleanup}
-                  onLoadedFile={onJsonChange}
-              />
+    <div className="bg-gray-500 flex flex-col h-screen">
+      <Header />
+      <div className="p-1 mb-8 h-full" style={{ height: '80vh'}}>
+        <div className="flex h-full justify-center">
+          <EditorContainer>
+            <JsonMenu
+              pasteFromClipboard={pasteFromClipboard}
+              cleanup={cleanup}
+              onLoadedFile={onJsonChange}
+            />
 
-              <JsonEditor
-                  input={originalJson}
-                  onChange={eventValue => onJsonChange(eventValue.value)}
-                  data-testid="json"
-              />
-            </EditorContainer>
-            <EditorContainer>
-                <ResultMenu
-                    spacing={spacing}
-                    updateSpacing={updateSpacing}
-                    writeToClipboard={writeToClipboard}
-                    cleanWhiteSpaces={cleanWhiteSpaces}
-                    cleanNewLines={cleanNewLines}
-                    cleanNewLinesAndSpaces={cleanNewLinesAndSpaces}
-                />
+            <JsonEditor
+              input={originalJson}
+              onChange={eventValue => onJsonChange(eventValue.value)}
+              data-testid="json"
+            />
+          </EditorContainer>
+          <EditorContainer>
+            <ResultMenu
+              spacing={spacing}
+              updateSpacing={updateSpacing}
+              writeToClipboard={writeToClipboard}
+              cleanWhiteSpaces={cleanWhiteSpaces}
+              cleanNewLines={cleanNewLines}
+              cleanNewLinesAndSpaces={cleanNewLinesAndSpaces}
+            />
 
-                <JsonEditor
-                    input={result}
-                    className="result"
-                    data-testid="result"
-                />
-            </EditorContainer>
-          </div>
-          <div className="bg-red-600 m-1 mt-2 text-center text-white">
-            {error && <p data-testid="error">{error}</p>}
-          </div>
+            <JsonEditor
+              input={result}
+              className="result"
+              data-testid="result"
+            />
+          </EditorContainer>
         </div>
-        <Footer />
+        <div className="bg-red-600 m-1 mt-2 text-center text-white">
+          {error && <p data-testid="error">{error}</p>}
+        </div>
       </div>
+      <Footer />
+    </div>
   );
 }
 
