@@ -55,8 +55,7 @@
     "postcss": "^8.2.13",
     "sass": "^1.43.4",
     "spectron": "^15.0.0",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14",
-    "wait-on": "^6.0.0"
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14"
   },
   "postinstall": "electron-builder install-app-deps && husky install",
   "scripts": {
