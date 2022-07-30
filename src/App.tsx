@@ -32,7 +32,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Editors settings={options} />} />
+        <Route path="/" element={<Editors />} />
         <Route path="/settings" element={
           <SettingsContext.Provider value={options as never}>
             <Settings options={options} handleChange={handleChange} />

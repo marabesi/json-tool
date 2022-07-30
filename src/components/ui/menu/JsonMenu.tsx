@@ -1,11 +1,12 @@
+import { DetailedHTMLProps } from 'react';
 import Button from '../io/Button';
 import { useFileUpload } from 'use-file-upload';
 import { FaRegClipboard, FaRegFileArchive, FaRegTrashAlt } from 'react-icons/fa';
 
 interface Props {
-    pasteFromClipboard: any;
-    cleanup: any;
-    onLoadedFile: any;
+  pasteFromClipboard: DetailedHTMLProps<any, any>;
+  cleanup: DetailedHTMLProps<any, any>;
+  onLoadedFile: DetailedHTMLProps<any, any>;
 }
 
 export default function JsonMenu({ pasteFromClipboard, cleanup, onLoadedFile } : Props) {
@@ -19,7 +20,7 @@ export default function JsonMenu({ pasteFromClipboard, cleanup, onLoadedFile } :
         className="ml-0 flex items-center"
       >
         <FaRegClipboard className="mr-2" />
-                Paste from clipboard
+        Paste from clipboard
       </Button>
       <Button
         className="ml-0 flex items-center"
@@ -36,7 +37,7 @@ export default function JsonMenu({ pasteFromClipboard, cleanup, onLoadedFile } :
         }}
       >
         <FaRegFileArchive className="mr-2" />
-                Click to Upload
+        Click to Upload
       </Button>
       <Button
         onClick={cleanup}
@@ -44,7 +45,7 @@ export default function JsonMenu({ pasteFromClipboard, cleanup, onLoadedFile } :
         className="flex items-center"
       >
         <FaRegTrashAlt className="mr-2" />
-                Delete all
+        Delete all
       </Button>
     </div>
   );

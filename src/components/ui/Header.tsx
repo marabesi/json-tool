@@ -1,7 +1,7 @@
 import { FaCoffee, FaRegSun } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
-export default function Header({ ...props }: any) {
+export default function Header({ ...props }) {
   return (
     <div className="bg-blue-900 flex justify-between p-5 text-white" {...props}>
       <div className="flex">

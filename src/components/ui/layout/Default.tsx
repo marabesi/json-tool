@@ -1,7 +1,12 @@
 import Header from '../Header';
 import Footer from '../Footer';
+import { ReactNode } from 'react';
 
-export default function DefaultLayout({ children }: any) {
+interface Props {
+  children?: ReactNode
+}
+
+export default function DefaultLayout({ children }: Props) {
   return (
     <div className="bg-gray-500 flex flex-col h-screen">
       <Header />

@@ -1,9 +1,19 @@
 import InputText from '../io/InputText';
 import Button from '../io/Button';
 import { FaBackspace, FaRegCopy, FaTerminal, FaUserFriends } from 'react-icons/fa';
+import { DetailedHTMLProps } from 'react';
+
+interface Props {
+  spacing: DetailedHTMLProps<any, any>;
+  updateSpacing: DetailedHTMLProps<any, any>;
+  writeToClipboard: DetailedHTMLProps<any, any>;
+  cleanWhiteSpaces: DetailedHTMLProps<any, any>;
+  cleanNewLines: DetailedHTMLProps<any, any>;
+  cleanNewLinesAndSpaces: DetailedHTMLProps<any, any>;
+}
 
 export default function ResultMenu(
-  { spacing, updateSpacing, writeToClipboard, cleanWhiteSpaces, cleanNewLines, cleanNewLinesAndSpaces } : any
+  { spacing, updateSpacing, writeToClipboard, cleanWhiteSpaces, cleanNewLines, cleanNewLinesAndSpaces }: Props
 ) {
   return (
     <div className="flex justify-start items-center m-2 ml-0 text-white">

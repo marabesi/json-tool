@@ -1,11 +1,16 @@
 import DefaultLayout from '../components/ui/layout/Default';
 
 export interface Option {
-    title: string;
-    active: boolean;
+  title: string;
+  active: boolean;
 }
 
-export function Settings({ handleChange, options }: any) {
+interface Props {
+  handleChange: (event: Option) => void;
+  options: Option[];
+}
+
+export function Settings({ handleChange, options }: Props) {
   return (
     <DefaultLayout>
       <h1 className="text-xl m-2">Settings</h1>
@@ -15,7 +20,7 @@ export function Settings({ handleChange, options }: any) {
             <div key={index} className="m-2">
               <label>
                 {option.title}
-                <input type="checkbox" checked={option.active} onChange={(_: any) => handleChange(option)} />
+                <input type="checkbox" checked={option.active} onChange={() => handleChange(option)} />
               </label>
             </div>
           )
