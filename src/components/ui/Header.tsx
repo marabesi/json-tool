@@ -6,7 +6,7 @@ export default function Header({ ...props }) {
     <div className="bg-blue-900 flex justify-between p-5 text-white" {...props}>
       <div className="flex">
         <h2 className="text-yellow-400 font-bold">
-          <Link to="/">JSON tool</Link>
+          <Link to="/" data-testid="to-home">JSON tool</Link>
         </h2> |
         <a href="https://github.com/marabesi/json-tool" target="_blank" rel="noreferrer">by marabesi</a>
       </div>

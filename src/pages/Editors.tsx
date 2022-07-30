@@ -9,8 +9,13 @@ import DefaultLayout from '../components/ui/layout/Default';
 
 const cleanUp = new CleanUp();
 
-export default function Editors() {
-  const [originalJson, setOriginalResult] = useState<string>('');
+interface Props {
+  currentJson: string
+  onPersist: (json: string) => void
+}
+
+export default function Editors({ onPersist, currentJson }: Props) {
+  const [originalJson, setOriginalResult] = useState<string>(currentJson);
   const [result, setResult] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [spacing, setSpacing] = useState<string>('2');
@@ -43,7 +48,10 @@ export default function Editors() {
 
   useEffect(() => {
     onJsonChange(originalJson);
-  }, [spacing, originalJson, onJsonChange]);
+    return () => {
+      onPersist(originalJson);
+    };
+  }, [spacing, originalJson, onJsonChange, onPersist]);
 
   const pasteFromClipboard = async () => {
     const clipboardItems = await navigator.clipboard.read();

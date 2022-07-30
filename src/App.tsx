@@ -19,6 +19,7 @@ export const SettingsContext = createContext(defaultOp);
 
 function App() {
   const [options, setOptions] = useState<Option[]>(defaultOp);
+  const [savedState, setSavedState] = useState<string>('');
 
   const handleChange = (event: Option) => {
     setOptions(options.map((option: Option) => {
@@ -29,10 +30,14 @@ function App() {
     }));
   };
 
+  const saveState = (json: string) => {
+    setSavedState(json);
+  };
+
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Editors />} />
+        <Route path="/" element={<Editors onPersist={saveState} currentJson={savedState} />} />
         <Route path="/settings" element={
           <SettingsContext.Provider value={options as never}>
             <Settings options={options} handleChange={handleChange} />

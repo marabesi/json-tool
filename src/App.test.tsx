@@ -112,6 +112,35 @@ describe('json utility', () => {
 
       expect(result.nodeValue).toMatchSnapshot(expected);
     });
+
+    it('should keep content in the editor when navigating away', async () => {
+      const { container, getByTestId, getByText } = render(<App/>);
+
+      const editor = grabCurrentEditor(container);
+      const json = '{{"random_json":"123"}';
+
+      await act(async () => {
+        await userEvent.type(editor, json);
+      });
+
+      const rawEditor = screen.getByTestId('raw-json');
+
+      await waitFor(() => {
+        expect(rawEditor).toHaveValue('{"random_json":"123"}');
+      });
+
+      fireEvent.click(getByTestId('settings'));
+
+      await waitFor(() => {
+        expect(getByText('Settings')).toBeInTheDocument();
+      });
+
+      fireEvent.click(getByTestId('to-home'));
+
+      await waitFor(() => {
+        expect(screen.getByTestId('raw-json')).toHaveValue('{"random_json":"123"}');
+      });
+    });
   });
 
   describe('Error handling', () => {
