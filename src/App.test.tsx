@@ -452,14 +452,4 @@ describe('json utility', () => {
 }`);
     });
   });
-
-  describe('Settings', () => {
-    it('should  renders options available for editors', () => {
-      const { getByTestId, getByText } = render(<App/>);
-
-      fireEvent.click(getByTestId('settings'));
-
-      expect(getByText('foldGutter')).toBeInTheDocument();
-    });
-  });
 });
