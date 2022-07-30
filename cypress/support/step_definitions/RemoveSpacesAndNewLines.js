@@ -6,7 +6,7 @@ When(/^I place a json string with new lines and white spaces$/, function () {
   "name" : "json from clipboard"
 }`;
 
-  cy.get('[data-testid="json"] .cm-content').type(this.jsonWithNewLinesAndSpaces, { parseSpecialCharSequences: true });
+  cy.withInputEditor().type(this.jsonWithNewLinesAndSpaces, { parseSpecialCharSequences: true });
 });
 
 When(/^I click to clean white spaces and new lines$/, function () {
