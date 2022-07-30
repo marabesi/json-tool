@@ -43,15 +43,6 @@ jobs:
       - name: install
         run: npm install --legacy-peer-deps
 
-      - name: Run cypress (acceptance tests)
-        uses: cypress-io/github-action@v2
-        env:
-          CYPRESS_BASE_URL: 'http://localhost:3000'
-        with:
-          wait-on: 'http://localhost:3000'
-          install-command: npm install --legacy-peer-deps
-          start: npm run serve
-
       - name: test
         run: npm run coveralls
         env:
@@ -62,6 +53,15 @@ jobs:
         run: npm run package
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: Run cypress (acceptance tests)
+        uses: cypress-io/github-action@v2
+        env:
+          CYPRESS_BASE_URL: 'http://localhost:3000'
+        with:
+          wait-on: 'http://localhost:3000'
+          install-command: npm install --legacy-peer-deps
+          start: npm run serve
 
       - name: package for windows
         run: npm run package-windows
