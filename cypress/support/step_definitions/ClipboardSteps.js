@@ -24,7 +24,7 @@ Then(/^I see the copied content in the left editor$/, function () {
 });
 
 Then(/^I see the copied content in the right editor$/, function () {
-  cy.get('[data-testid="result"] .cm-content').should(
+  cy.withOutputEditor().should(
     ($div) => {
       expect($div.get(0).innerText).to.eq(desiredJson);
     }

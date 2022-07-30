@@ -26,3 +26,7 @@
 Cypress.Commands.add('withInputEditor', () => {
   return cy.get('[data-testid="json"] .cm-content');
 });
+
+Cypress.Commands.add('withOutputEditor', () => {
+  return cy.get('[data-testid="result"] .cm-content');
+});

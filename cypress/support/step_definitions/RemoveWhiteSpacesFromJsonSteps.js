@@ -17,7 +17,7 @@ Then(/^I see a json without white spaces$/, function () {
       expect($div.get(0).innerText).to.eq(this.jsonWithSpaces);
     }
   );
-  cy.get('[data-testid="result"] .cm-content').should(
+  cy.withOutputEditor().should(
     ($div) => {
       expect($div.get(0).innerText).to.eq('{"name":"json from clipboard"}');
     }

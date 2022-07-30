@@ -16,7 +16,7 @@ Then(/^I see both editors empty$/, function () {
       expect($div.get(0).innerText).to.eq('\n');
     }
   );
-  cy.get('[data-testid="result"] .cm-content').should(
+  cy.withOutputEditor().should(
     ($div) => {
       expect($div.get(0).innerText).to.eq('\n');
     }

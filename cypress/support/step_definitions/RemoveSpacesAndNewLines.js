@@ -19,7 +19,7 @@ Then(/^I see the json with new lines and white spaces in the left editor$/, func
 });
 
 Then(/^I see the json without new lines and white spaces in the right editor$/, function () {
-  cy.get('[data-testid="result"] .cm-content').should(($div) => {
+  cy.withOutputEditor().should(($div) => {
     expect($div.get(0).innerText).to.eq('{"test":"test","name":"json from clipboard"}');
   });
 });

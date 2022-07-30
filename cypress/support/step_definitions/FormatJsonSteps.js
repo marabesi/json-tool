@@ -6,7 +6,7 @@ When(/^I open json tool with valid json string$/, function () {
 });
 
 Then(/^I see the same json in the right editor$/, function () {
-  cy.get('[data-testid="result"] .cm-content').should(
+  cy.withOutputEditor().should(
     ($div) => {
       expect($div.get(0).innerText).to.eq('{}');
     }
@@ -16,7 +16,7 @@ Then(/^I see the same json in the right editor$/, function () {
 When(/^I open json tool with an invalid json string$/, function () {
   cy.visit('/');
   cy.withInputEditor().type('this is not a json');
-  cy.get('[data-testid="result"] .cm-content').should(
+  cy.withOutputEditor().should(
     ($div) => {
       expect($div.get(0).innerText).to.eq('this is not a json');
     }
