@@ -1,4 +1,4 @@
-import { render, screen, act, waitFor } from '@testing-library/react';
+import { render, screen, act, waitFor, fireEvent } from '@testing-library/react';
 import App from './App';
 import userEvent from '@testing-library/user-event';
 import { Blob } from 'buffer';
@@ -55,13 +55,13 @@ describe('json utility', () => {
   };
 
   describe('UI elements', () => {
-    test('error message is hidden by default', () => {
+    it('error message is hidden by default', () => {
       render(<App />);
       const errorLabel = screen.queryByTestId(/error/);
       expect(errorLabel).toBeNull();
     });
 
-    test('should render buy me a coffee link', () => {
+    it('should render buy me a coffee link', () => {
       render(<App />);
       expect(screen.queryByTestId(/buy-me-a-coffee/)).toBeInTheDocument();
       expect(screen.queryByTestId(/buy-me-a-coffee/)).toHaveAttribute('href', 'https://www.buymeacoffee.com/marabesi');
@@ -70,7 +70,7 @@ describe('json utility', () => {
       expect(screen.getByTestId(/buy-me-a-coffee/)).toHaveAttribute('rel', 'noreferrer');
     });
 
-    test('should render github link', () => {
+    it('should render github link', () => {
       render(<App />);
       expect(screen.queryByText(/by marabesi/)).toBeInTheDocument();
       expect(screen.queryByText(/by marabesi/)).toHaveAttribute('href', 'https://github.com/marabesi/json-tool');
@@ -79,7 +79,7 @@ describe('json utility', () => {
       expect(screen.getByText(/by marabesi/)).toHaveAttribute('rel', 'noreferrer');
     });
 
-    test('should render license link', () => {
+    it('should render license link', () => {
       render(<App />);
       expect(screen.queryByText(/CC0 1.0 Universal/)).toBeInTheDocument();
       expect(screen.queryByText(/CC0 1.0 Universal/)).toHaveAttribute('href', 'https://github.com/marabesi/json-tool/blob/main/LICENSE.md');
@@ -87,10 +87,16 @@ describe('json utility', () => {
       expect(screen.getByText(/CC0 1.0 Universal/)).toHaveAttribute('target', '_blank');
       expect(screen.getByText(/CC0 1.0 Universal/)).toHaveAttribute('rel', 'noreferrer');
     });
+
+    it('should render settings link', () => {
+      render(<App />);
+      expect(screen.getByTestId('settings')).toBeInTheDocument();
+      expect(screen.getByTestId('settings')).toHaveAttribute('href', expect.stringContaining('/settings'));
+    });
   });
 
   describe('Editors', () => {
-    test.each([
+    it.each([
       ['{}', '{}'],
       ['{"a": "b"}', '{"a": "b"}'],
     ])('place %s text in the editor and receive %s', async (input, expected) => {
@@ -109,7 +115,7 @@ describe('json utility', () => {
   });
 
   describe('Error handling', () => {
-    test.each([
+    it.each([
       ['bla bla'],
       ['not a json'],
     ])('hides the error after a valid json is given (%s, %s)', async (originalCode: string) => {
@@ -130,7 +136,7 @@ describe('json utility', () => {
       expect(result).not.toBeInTheDocument();
     });
 
-    test('inform error when json is invalid', async () => {
+    it('inform error when json is invalid', async () => {
       const { container } = render(<App />);
 
       const editor = grabCurrentEditor(container);
@@ -154,7 +160,7 @@ describe('json utility', () => {
       tearDownClipboard();
     });
 
-    test('should paste json string from copy area into the editor on clicking the button', async () => {
+    it('should paste json string from copy area into the editor on clicking the button', async () => {
       const { getByTestId } = render(<App />);
 
       setUpClipboard('{}');
@@ -169,7 +175,7 @@ describe('json utility', () => {
       });
     });
 
-    test('should copy json string from result editor to transfer area on clicking the button', async () => {
+    it('should copy json string from result editor to transfer area on clicking the button', async () => {
       const { container, getByTestId } = render(<App />);
 
       Object.assign(global.navigator, {
@@ -203,7 +209,7 @@ describe('json utility', () => {
   });
 
   describe('Clean up editors', () => {
-    test('should clean editors once clean is clicked', async () => {
+    it('should clean editors once clean is clicked', async () => {
       const { container } = render(<App />);
 
       const editor = grabCurrentEditor(container);
@@ -220,7 +226,7 @@ describe('json utility', () => {
       expect(screen.getByTestId('raw-result')).toHaveValue('');
     });
 
-    test.each([
+    it.each([
       ['{"name" : "json from clipboard"}', '{"name":"json from clipboard"}'],
       ['    {"name" : "json from clipboard"}', '{"name":"json from clipboard"}'],
       ['    {"name" : "json    from   clipboard"}', '{"name":"json    from   clipboard"}'],
@@ -276,7 +282,7 @@ describe('json utility', () => {
       });
     });
 
-    test.each([
+    it.each([
       [`{
   "name" : "json from clipboard"
 }`, '{  "name" : "json from clipboard"}'],
@@ -306,7 +312,7 @@ describe('json utility', () => {
       });
     });
 
-    test.each([
+    it.each([
       [`{
   "name" : "json from clipboard",
   "last_name" : "another name"
@@ -335,7 +341,7 @@ describe('json utility', () => {
   });
 
   describe('Custom spacing for formatting json', () => {
-    test('should have space of 2 as default', async () => {
+    it('should have space of 2 as default', async () => {
       render(<App />);
 
       const space = screen.getByDisplayValue('2');
@@ -343,7 +349,7 @@ describe('json utility', () => {
       expect(space).toBeInTheDocument();
     });
 
-    test('should do nothing if spacing is empty', async () => {
+    it('should do nothing if spacing is empty', async () => {
       const { container } = render(<App />);
 
       const space = screen.getByDisplayValue('2');
@@ -363,7 +369,7 @@ describe('json utility', () => {
       expect(result.value).toBeFalsy();
     });
 
-    test.each([
+    it.each([
       '4',
       '16'
     ])('should change spacing for %s spaces', async (spacing: string) => {
@@ -382,7 +388,7 @@ describe('json utility', () => {
       expect(space).toHaveValue(spacing);
     });
 
-    test.each([
+    it.each([
       ['4', '{{"a":"a"}', `{
     "a": "a"
 }`
@@ -423,7 +429,7 @@ describe('json utility', () => {
       expect(result).toHaveValue(outputJson);
     });
 
-    test('should reformat json if space changes', async () => {
+    it('should reformat json if space changes', async () => {
       const { container, getByTestId } = render(<App />);
       const editor = grabCurrentEditor(container);
 
@@ -444,6 +450,16 @@ describe('json utility', () => {
       expect(getByTestId('raw-result')).toHaveValue(`{
     "a": "a"
 }`);
+    });
+  });
+
+  describe('Settings', () => {
+    it('should  renders options available for editors', () => {
+      const { getByTestId, getByText } = render(<App/>);
+
+      fireEvent.click(getByTestId('settings'));
+
+      expect(getByText('foldGutter')).toBeInTheDocument();
     });
   });
 });
