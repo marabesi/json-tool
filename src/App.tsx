@@ -23,7 +23,7 @@ export interface EditorOptions {
 }
 
 const properties: Properties = {
-  key: 'font-size',
+  key: 'fontSize',
   value: '12px'
 };
 
@@ -47,8 +47,13 @@ function App() {
         return option;
       });
 
-      setOptions(editorOptions);
     }
+
+    if (property) {
+      editorOptions.properties = [property];
+    }
+
+    setOptions(editorOptions);
   };
 
   const saveState = (json: string) => {

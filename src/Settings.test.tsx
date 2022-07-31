@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import App from './App';
 import userEvent from '@testing-library/user-event';
 
@@ -24,19 +24,23 @@ describe('Settings', () => {
 
       fireEvent.click(getByTestId('settings'));
 
-      expect(getByDisplayValue('12')).toBeVisible();
+      expect(getByDisplayValue('12px')).toBeVisible();
     });
 
-    it.skip('should define font size to be used', () => {
-      const { getByTestId } = render(<App/>);
+    it('should define font size to 18 to be used', async () => {
+      const { getByTestId, getByText } = render(<App/>);
 
       fireEvent.click(getByTestId('settings'));
 
-      userEvent.type(getByTestId('font-size'), '18');
+      userEvent.clear(getByTestId('font-size'));
+      userEvent.type(getByTestId('font-size'), '18px');
+      userEvent.click(getByText('Save'));
 
       fireEvent.click(getByTestId('to-home'));
 
-      expect(getByTestId('json')).toHaveAttribute('style', expect.stringContaining('font-size: 18px'));
+      await waitFor(() => {
+        expect(getByTestId('json')).toHaveAttribute('style', expect.stringContaining('font-size: 18px'));
+      });
     });
   });
 });
