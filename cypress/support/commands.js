@@ -18,3 +18,7 @@ Cypress.Commands.add('withOutputEditor', () => {
 Cypress.Commands.add('withError', () => {
   return cy.get('[data-testid="error"]');
 });
+
+Cypress.Commands.add('withBuyMeAcoffeeLink', () => {
+  return cy.get('[data-testid="buy-me-a-coffee"]');
+});
