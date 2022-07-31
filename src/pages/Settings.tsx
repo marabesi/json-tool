@@ -9,15 +9,30 @@ export interface Option {
 }
 
 interface Props {
-  handleChange: (event?: Option, properties?: Properties) => void;
+  handleChange: (editorOptions: EditorOptions) => void;
   options: EditorOptions;
 }
 
 export function Settings({ handleChange, options }: Props) {
-  const [prop, setProp] = useState<string>(options.properties[0].value);
+  const [prop, setProp] = useState<Properties>({ key: 'fontSize', value: options.properties[0].value });
+  const [ops, setOps] = useState<Option[]>(options.options);
 
-  const onChangeInput = () => {
-    handleChange(undefined, { key: 'fontSize', value: prop });
+  const persistChanges = () => {
+    handleChange({
+      options: ops,
+      properties: [prop]
+    });
+  };
+
+  const onSaveOs = (option: Option) => {
+    setOps(
+      ops.map((op: Option) => {
+        if (op.title === option.title) {
+          op.active = !option.active;
+        }
+        return op;
+      })
+    );
   };
 
   return (
@@ -25,18 +40,18 @@ export function Settings({ handleChange, options }: Props) {
       <h1 className="text-xl m-2">Settings</h1>
       <div>
         {
-          options.options.map((option: Option, index: number) =>
+          ops.map((option: Option, index: number) =>
             <div key={index} className="m-2">
               <label>
                 {option.title}
-                <input type="checkbox" checked={option.active} onChange={() => handleChange(option, undefined)} />
+                <input type="checkbox" checked={option.active} onChange={() => onSaveOs(option)} />
               </label>
             </div>
           )
         }
-        <input data-testid="font-size" type="text" value={prop} onChange={(event) => setProp(event.target.value)}/>
+        <input data-testid="font-size" type="text" value={prop.value} onChange={(event) => setProp({ key: 'fontSize', value: event.target.value })}/>
       </div>
-      <Button onClick={onChangeInput}>Save</Button>
+      <Button onClick={persistChanges}>Save</Button>
     </DefaultLayout>
   );
 }

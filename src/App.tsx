@@ -35,25 +35,11 @@ const editorOptions: EditorOptions = {
 export const SettingsContext = createContext(editorOptions);
 
 function App() {
-  const [options, setOptions] = useState<EditorOptions>(editorOptions);
   const [savedState, setSavedState] = useState<string>('');
 
-  const handleChange = (event?: Option, property?: Properties) => {
-    if (event) {
-      editorOptions.options = options.options.map((option: Option) => {
-        if (option.title === event.title) {
-          option.active = !event.active;
-        }
-        return option;
-      });
-
-    }
-
-    if (property) {
-      editorOptions.properties = [property];
-    }
-
-    setOptions(editorOptions);
+  const handleChange = (changed: EditorOptions) => {
+    editorOptions.properties = changed.properties;
+    editorOptions.options = changed.options;
   };
 
   const saveState = (json: string) => {
@@ -65,8 +51,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Editors onPersist={saveState} currentJson={savedState} />} />
         <Route path="/settings" element={
-          <SettingsContext.Provider value={options as never}>
-            <Settings options={options} handleChange={handleChange} />
+          <SettingsContext.Provider value={editorOptions.options as never}>
+            <Settings options={editorOptions} handleChange={handleChange} />
           </SettingsContext.Provider>
         } />
       </Routes>

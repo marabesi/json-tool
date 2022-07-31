@@ -27,7 +27,7 @@ describe('Settings', () => {
       expect(getByDisplayValue('12px')).toBeVisible();
     });
 
-    it('should define font size to 18 to be used', async () => {
+    it('should define font size to 18px to be used', async () => {
       const { getByTestId, getByText } = render(<App/>);
 
       fireEvent.click(getByTestId('settings'));

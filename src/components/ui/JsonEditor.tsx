@@ -35,7 +35,6 @@ export default function JsonEditor({ input, onChange, className, ...rest }: Prop
           settings.options.forEach((item : Option) => basicSetup[item.title as keyof BasicSetupOptions] = item.active);
 
           const style: CSSProperties = {
-            // fontSize: 12,
             backgroundColor: fullConfig.theme.backgroundColor.gray['200'],
             overflowY: 'hidden',
             fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
