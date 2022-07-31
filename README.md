@@ -4,9 +4,6 @@
 Are you tired of accessing **free websites just to format your json content**? Me too. Besides the "data protection" issue sometimes we just want to have it formatted to move on.
 
 <a href="https://www.producthunt.com/posts/json-tool?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-json&#0045;tool" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=329411&theme=light" alt="JSON&#0032;tool - Sometimes&#0032;we&#0032;just&#0032;want&#0032;to&#0032;have&#0032;a&#0032;formatted&#0032;JSON&#0032;string&#0046; | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a> [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/json-tool)
-
-# Want to support the project?
-
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/marabesi)
 
 # json-tool
@@ -14,7 +11,9 @@ Are you tired of accessing **free websites just to format your json content**? M
 **json-tool** allows you to quick format json content with a click of a button, and much more:
 
 - JSON content validation, it shows an error message warning invalid json
-- Buttons to allow easy interaction with the clipboard
+- Buttons to allow easy interaction with the clipboard (paste and copy to the clipboard)
+- Search through the json string (offered by the code mirror editor)
+- Upload a json file
 
 ![photo1](https://user-images.githubusercontent.com/2129872/139720232-3600e790-9038-4448-a300-aab48c2a6aca.png)
 ![photo2](https://user-images.githubusercontent.com/2129872/139720367-056f83ed-2940-4039-a88c-ff12b3a3dd5c.png)
