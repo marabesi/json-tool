@@ -12,5 +12,5 @@ Then(/^I see buy me a coffee link$/, function () {
 });
 
 Then(/^I see (\d+) as the default space size$/, function () {
-  cy.get('[data-testid="space-size"]').should('have.value', '2');
+  cy.withSpaceSizeInput().should('have.value', '2');
 });

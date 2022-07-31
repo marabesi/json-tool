@@ -30,3 +30,7 @@ Cypress.Commands.add('withCleanTheEditorsButton', () => {
 Cypress.Commands.add('withCleanNewLinesButton', () => {
   return cy.get('[data-testid="clean-new-lines"]');
 });
+
+Cypress.Commands.add('withSpaceSizeInput', () => {
+  return cy.get('[data-testid="space-size"]');
+});
