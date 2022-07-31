@@ -8,7 +8,7 @@ When(/^I place a valid json string with new lines$/, function () {
 });
 
 When(/^I click to remove new lines$/, function () {
-  cy.get('[data-testid="clean-new-lines"]').click();
+  cy.withCleanNewLinesButton().click();
 });
 
 Then(/^I see the json with new line in the left editor$/, function () {

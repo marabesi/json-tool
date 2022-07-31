@@ -26,3 +26,7 @@ Cypress.Commands.add('withBuyMeAcoffeeLink', () => {
 Cypress.Commands.add('withCleanTheEditorsButton', () => {
   return cy.get('[data-testid="copy-json"]');
 });
+
+Cypress.Commands.add('withCleanNewLinesButton', () => {
+  return cy.get('[data-testid="clean-new-lines"]');
+});
