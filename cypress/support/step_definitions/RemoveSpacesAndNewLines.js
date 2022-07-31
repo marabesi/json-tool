@@ -10,7 +10,7 @@ When(/^I place a json string with new lines and white spaces$/, function () {
 });
 
 When(/^I click to clean white spaces and new lines$/, function () {
-  cy.get('[data-testid="clean-new-lines-and-spaces"]').click();
+  return cy.withCleanNewLinesAndSpacesButton().click();
 });
 
 Then(/^I see the json with new lines and white spaces in the left editor$/, function () {

@@ -34,3 +34,19 @@ Cypress.Commands.add('withCleanNewLinesButton', () => {
 Cypress.Commands.add('withSpaceSizeInput', () => {
   return cy.get('[data-testid="space-size"]');
 });
+
+Cypress.Commands.add('withCleanSpacesButton', () => {
+  return cy.get('[data-testid="clean-spaces"]');
+});
+
+Cypress.Commands.add('withPasteFromClipboardButton', () => {
+  return cy.get('[data-testid="paste-from-clipboard"]');
+});
+
+Cypress.Commands.add('withCleanNewLinesAndSpacesButton', () => {
+  return cy.get('[data-testid="clean-new-lines-and-spaces"]');
+});
+
+Cypress.Commands.add('withCleanAllButton', () => {
+  return cy.get('[data-testid="clean"]');
+});

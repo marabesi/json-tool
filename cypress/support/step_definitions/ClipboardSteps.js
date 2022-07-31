@@ -12,7 +12,7 @@ When(/^I copy text into the clipboard$/, function () {
 });
 
 When(/^I click paste from clipboard$/, function () {
-  cy.get('[data-testid="paste-from-clipboard"]').click();
+  cy.withPasteFromClipboardButton().click();
 });
 
 Then(/^I see the copied content in the left editor$/, function () {

@@ -8,7 +8,7 @@ When(/^I open json tool with valid json with white spaces$/, function () {
 });
 
 When(/^I click to remove white spaces$/, function () {
-  cy.get('[data-testid="clean-spaces"]').click();
+  cy.withCleanSpacesButton().click();
 });
 
 Then(/^I see a json without white spaces$/, function () {

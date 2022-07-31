@@ -7,7 +7,7 @@ When(/^I place a json string in the editor$/, function () {
 });
 
 When(/^I click to clean the editor$/, function () {
-  cy.get('[data-testid="clean"]').click();
+  cy.withCleanAllButton().click();
 });
 
 Then(/^I see both editors empty$/, function () {
