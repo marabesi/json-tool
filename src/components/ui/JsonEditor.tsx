@@ -1,9 +1,9 @@
 import CodeMirror, { BasicSetupOptions } from '@uiw/react-codemirror';
 import fullConfig from '../../tailwindResolver';
 import { json } from '@codemirror/lang-json';
-import { Properties, SettingsContext } from '../../App';
-import { Option } from '../../pages/Settings';
+import { SettingsContext } from '../../App';
 import { CSSProperties } from 'react';
+import { Option, Properties } from './Editor';
 
 type Event = {
   value: string;

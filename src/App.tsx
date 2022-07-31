@@ -1,7 +1,8 @@
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import Editors from './pages/Editors';
-import { Option, Settings } from './pages/Settings';
+import { Settings } from './pages/Settings';
 import { createContext, useState } from 'react';
+import { EditorOptions, Option, Properties } from './components/ui/Editor';
 
 const defaultOp: Option[] = [
   { title: 'foldGutter', active: true },
@@ -11,16 +12,6 @@ const defaultOp: Option[] = [
   { title: 'autocompletion', active: false } ,
   { title: 'closeBrackets', active: false },
 ];
-
-export interface Properties {
-  key: string;
-  value: string;
-}
-
-export interface EditorOptions {
-  options: Option[],
-  properties: Properties[]
-}
 
 const properties: Properties = {
   key: 'fontSize',

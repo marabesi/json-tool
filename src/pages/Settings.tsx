@@ -1,12 +1,7 @@
 import DefaultLayout from '../components/ui/layout/Default';
-import { EditorOptions, Properties } from '../App';
 import { useState } from 'react';
 import Button from '../components/ui/io/Button';
-
-export interface Option {
-  title: string;
-  active: boolean;
-}
+import { EditorOptions, Option, Properties } from '../components/ui/Editor';
 
 interface Props {
   handleChange: (editorOptions: EditorOptions) => void;
