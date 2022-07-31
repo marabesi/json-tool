@@ -1,4 +1,5 @@
 import DefaultLayout from '../components/ui/layout/Default';
+import { EditorOptions, Properties } from '../App';
 
 export interface Option {
   title: string;
@@ -6,8 +7,8 @@ export interface Option {
 }
 
 interface Props {
-  handleChange: (event: Option) => void;
-  options: Option[];
+  handleChange: (event?: Option, properties?: Properties) => void;
+  options: EditorOptions;
 }
 
 export function Settings({ handleChange, options }: Props) {
@@ -16,15 +17,16 @@ export function Settings({ handleChange, options }: Props) {
       <h1 className="text-xl m-2">Settings</h1>
       <div>
         {
-          options.map((option: Option, index: number) =>
+          options.options.map((option: Option, index: number) =>
             <div key={index} className="m-2">
               <label>
                 {option.title}
-                <input type="checkbox" checked={option.active} onChange={() => handleChange(option)} />
+                <input type="checkbox" checked={option.active} onChange={() => handleChange(option, undefined)} />
               </label>
             </div>
           )
         }
+        <input data-testid="font-size" type="number" value="12" />
       </div>
     </DefaultLayout>
   );

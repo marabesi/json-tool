@@ -93,6 +93,12 @@ describe('json utility', () => {
       expect(screen.getByTestId('settings')).toBeInTheDocument();
       expect(screen.getByTestId('settings')).toHaveAttribute('href', expect.stringContaining('/settings'));
     });
+
+    it('should use 12 as font size', () => {
+      const { getByTestId } = render(<App/>);
+
+      expect(getByTestId('json')).toHaveAttribute('style', expect.stringContaining('font-size: 12px'));
+    });
   });
 
   describe('Editors', () => {

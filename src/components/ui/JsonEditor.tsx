@@ -31,7 +31,7 @@ export default function JsonEditor({ input, onChange, className, ...rest }: Prop
       {
         settings => {
           const basicSetup: BasicSetupOptions = {};
-          settings.forEach((item : Option) => basicSetup[item.title as keyof BasicSetupOptions] = item.active);
+          settings.options.forEach((item : Option) => basicSetup[item.title as keyof BasicSetupOptions] = item.active);
 
           return (
             <>
