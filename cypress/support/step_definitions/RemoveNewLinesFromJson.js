@@ -5,7 +5,7 @@ When(/^I place a valid json string with new lines$/, function () {
   "name" : "json from clipboard"
 }`;
   cy.wait(1000);
-  cy.get('[data-testid="json"]').type(this.jsonWithNewLines, { parseSpecialCharSequences: false, delay: 50 });
+  cy.withInputEditor().type(this.jsonWithNewLines, { parseSpecialCharSequences: false, delay: 50 });
 });
 
 When(/^I click to remove new lines$/, function () {

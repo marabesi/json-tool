@@ -32,7 +32,7 @@ Then(/^I see the copied content in the right editor$/, function () {
 });
 
 When(/^I place a json string in the left editor$/, function () {
-  cy.get('[data-testid="json"]').type(inputJson, { parseSpecialCharSequences: false });
+  cy.withInputEditor().type(inputJson, { parseSpecialCharSequences: false });
 });
 
 When(/^I click copy json to clipboard$/, function () {

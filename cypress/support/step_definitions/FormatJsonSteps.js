@@ -24,5 +24,5 @@ When(/^I open json tool with an invalid json string$/, function () {
 });
 
 Then(/^I see an error message$/, function () {
-  cy.get('[data-testid="error"]').should('have.text', 'invalid json');
+  cy.withError().should('have.text', 'invalid json');
 });
