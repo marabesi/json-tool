@@ -22,3 +22,7 @@ Cypress.Commands.add('withError', () => {
 Cypress.Commands.add('withBuyMeAcoffeeLink', () => {
   return cy.get('[data-testid="buy-me-a-coffee"]');
 });
+
+Cypress.Commands.add('withCleanTheEditorsButton', () => {
+  return cy.get('[data-testid="copy-json"]');
+});

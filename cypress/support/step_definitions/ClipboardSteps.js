@@ -36,7 +36,7 @@ When(/^I place a json string in the left editor$/, function () {
 });
 
 When(/^I click copy json to clipboard$/, function () {
-  cy.get('[data-testid="copy-json"]').click();
+  cy.withCleanTheEditorsButton().click();
 });
 
 Then(/^I see the copied content in the clipboard$/, function () {
