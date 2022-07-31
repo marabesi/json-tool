@@ -4,7 +4,6 @@ When(/^I place a valid json string with new lines$/, function () {
   this.jsonWithNewLines = `{
   "name" : "json from clipboard"
 }`;
-  cy.wait(1000);
   cy.withInputEditor().type(this.jsonWithNewLines, { parseSpecialCharSequences: false, delay: 50 });
 });
 
