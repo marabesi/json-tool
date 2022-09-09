@@ -1,4 +1,4 @@
-import { render, screen, act, waitFor, fireEvent } from '@testing-library/react';
+import { render, screen, act, waitFor, fireEvent, within } from '@testing-library/react';
 import App from './App';
 import userEvent from '@testing-library/user-event';
 import { Blob } from 'buffer';
@@ -99,6 +99,12 @@ describe('json utility', () => {
 
       expect(getByTestId('json')).toHaveAttribute('style', expect.stringContaining('font-size: 12px'));
     });
+
+    it('should render search button for json editor', () => {
+      const { getByTestId } = render(<App/>);
+
+      expect(getByTestId('search-json')).toBeInTheDocument();
+    });
   });
 
   describe('Editors', () => {
@@ -146,6 +152,14 @@ describe('json utility', () => {
       await waitFor(() => {
         expect(screen.getByTestId('raw-json')).toHaveValue('{"random_json":"123"}');
       });
+    });
+
+    it('should render search element in the json', async () => {
+      const { getByTestId } = render(<App/>);
+
+      fireEvent.click(getByTestId('search-json'));
+
+      await waitFor(() => expect(within(getByTestId('json')).getByText('×')).toBeInTheDocument());
     });
   });
 

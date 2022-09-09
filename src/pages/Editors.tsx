@@ -89,6 +89,17 @@ export default function Editors({ onPersist, currentJson }: Props) {
 
   const updateSpacing = (newSpacing: string) => setSpacing(newSpacing);
 
+  const search = (dataTestId: string) => {
+    const editor = document.querySelector(`[data-testid=${dataTestId}] .cm-content`) as HTMLElement;
+    if (editor) {
+      editor.focus();
+      editor.dispatchEvent(new KeyboardEvent('keydown', {
+        'key': 'f',
+        ctrlKey: true,
+      }));
+    }
+  };
+
   return (
     <DefaultLayout>
       <div className="p-1 mb-8 h-full" style={{ height: '80vh' }}>
@@ -98,6 +109,7 @@ export default function Editors({ onPersist, currentJson }: Props) {
               pasteFromClipboard={pasteFromClipboard}
               cleanup={cleanup}
               onLoadedFile={onJsonChange}
+              onSearch={() => search('json')}
             />
 
             <JsonEditor

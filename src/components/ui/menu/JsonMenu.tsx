@@ -1,19 +1,23 @@
 import { DetailedHTMLProps } from 'react';
 import Button from '../io/Button';
 import { useFileUpload } from 'use-file-upload';
-import { FaRegClipboard, FaRegFileArchive, FaRegTrashAlt } from 'react-icons/fa';
+import { FaRegClipboard, FaRegFileArchive, FaRegTrashAlt, FaSearch } from 'react-icons/fa';
 
 interface Props {
   pasteFromClipboard: DetailedHTMLProps<any, any>;
   cleanup: DetailedHTMLProps<any, any>;
   onLoadedFile: DetailedHTMLProps<any, any>;
+  onSearch: DetailedHTMLProps<any, any>;
 }
 
-export default function JsonMenu({ pasteFromClipboard, cleanup, onLoadedFile } : Props) {
+export default function JsonMenu({ pasteFromClipboard, cleanup, onLoadedFile, onSearch } : Props) {
   const [, selectFile] = useFileUpload();
 
   return (
     <div className="flex w-full justify-start items-center m-2 ml-0">
+      <Button data-testid="search-json" onClick={onSearch}>
+        <FaSearch className="mr-2" />
+      </Button>
       <Button
         onClick={pasteFromClipboard}
         data-testid="paste-from-clipboard"
