@@ -127,6 +127,7 @@ export default function Editors({ onPersist, currentJson }: Props) {
               cleanWhiteSpaces={cleanWhiteSpaces}
               cleanNewLines={cleanNewLines}
               cleanNewLinesAndSpaces={cleanNewLinesAndSpaces}
+              onSearch={() => search('result')}
             />
 
             <JsonEditor

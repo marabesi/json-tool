@@ -1,6 +1,6 @@
 import InputText from '../io/InputText';
 import Button from '../io/Button';
-import { FaBackspace, FaRegCopy, FaTerminal, FaUserFriends } from 'react-icons/fa';
+import { FaBackspace, FaRegCopy, FaSearch, FaTerminal, FaUserFriends } from 'react-icons/fa';
 import { DetailedHTMLProps } from 'react';
 
 interface Props {
@@ -10,13 +10,17 @@ interface Props {
   cleanWhiteSpaces: DetailedHTMLProps<any, any>;
   cleanNewLines: DetailedHTMLProps<any, any>;
   cleanNewLinesAndSpaces: DetailedHTMLProps<any, any>;
+  onSearch: DetailedHTMLProps<any, any>;
 }
 
 export default function ResultMenu(
-  { spacing, updateSpacing, writeToClipboard, cleanWhiteSpaces, cleanNewLines, cleanNewLinesAndSpaces }: Props
+  { spacing, updateSpacing, writeToClipboard, cleanWhiteSpaces, cleanNewLines, cleanNewLinesAndSpaces, onSearch }: Props
 ) {
   return (
     <div className="flex justify-start items-center m-2 ml-0 text-white">
+      <Button data-testid="search-result" onClick={onSearch}>
+        <FaSearch className="mr-2" />
+      </Button>
       <div className="flex items-center">
         <span className="mr-2">Space tabulation</span>
         <InputText

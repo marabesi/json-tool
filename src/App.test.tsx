@@ -105,6 +105,12 @@ describe('json utility', () => {
 
       expect(getByTestId('search-json')).toBeInTheDocument();
     });
+
+    it('should render search button for result editor', () => {
+      const { getByTestId } = render(<App/>);
+
+      expect(getByTestId('search-result')).toBeInTheDocument();
+    });
   });
 
   describe('Editors', () => {
@@ -154,12 +160,20 @@ describe('json utility', () => {
       });
     });
 
-    it('should render search element in the json', async () => {
+    it('should render search element in the json editor', async () => {
       const { getByTestId } = render(<App/>);
 
       fireEvent.click(getByTestId('search-json'));
 
       await waitFor(() => expect(within(getByTestId('json')).getByText('×')).toBeInTheDocument());
+    });
+
+    it('should render search element in the result editor', async () => {
+      const { getByTestId } = render(<App/>);
+
+      fireEvent.click(getByTestId('search-result'));
+
+      await waitFor(() => expect(within(getByTestId('result')).getByText('×')).toBeInTheDocument());
     });
   });
 
