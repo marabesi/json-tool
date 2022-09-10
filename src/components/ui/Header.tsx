@@ -9,7 +9,7 @@ interface Props {
 
 export default function Header({ onDarkModeChanged, darkModeEnabled, ...props }: Props) {
   return (
-    <div className="bg-blue-900 flex justify-between p-5 text-white" {...props}>
+    <div className="bg-blue-900 flex justify-between p-5 dark:bg-gray-700" {...props}>
       <div className="flex">
         <h2 className="text-yellow-400 font-bold">
           <Link to="/" data-testid="to-home">JSON tool</Link>
