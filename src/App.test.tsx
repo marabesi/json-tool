@@ -111,6 +111,30 @@ describe('json utility', () => {
 
       expect(getByTestId('search-result')).toBeInTheDocument();
     });
+
+    it('should render dark mode switcher', () => {
+      const { getByTestId } = render(<App/>);
+
+      expect(getByTestId('dark-mode')).toBeInTheDocument();
+    });
+
+    it('should have dark mode disabled by default', () => {
+      const { container } = render(<App/>);
+
+      expect(container.querySelector('.dark')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('dark mode', () => {
+    it('should enable dark mode', () => {
+      const { getByTestId, container } = render(<App/>);
+
+      const darkModeSwitch = getByTestId('dark-mode');
+
+      userEvent.click(darkModeSwitch);
+
+      expect(container.querySelector('.dark')).toBeInTheDocument();
+    });
   });
 
   describe('Editors', () => {
