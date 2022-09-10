@@ -1,6 +1,7 @@
 import { FaCoffee, FaRegSun } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Switch from 'react-switch';
+import fullConfig from '../../tailwindResolver';
 
 interface Props {
   onDarkModeChanged: any
@@ -24,6 +25,10 @@ export default function Header({ onDarkModeChanged, darkModeEnabled, ...props }:
           className="mr-5"
           height={18}
           width={50}
+          onColor={fullConfig.theme.backgroundColor.blue['900']}
+          offColor={fullConfig.theme.backgroundColor.gray['700']}
+          checkedIcon={false}
+          uncheckedIcon={false}
         />
         <Link className="flex items-center mr-5" data-testid="settings" to="/settings">
           <FaRegSun />
