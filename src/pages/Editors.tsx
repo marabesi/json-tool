@@ -5,7 +5,6 @@ import Formatter from '../core/formatter';
 import ResultMenu from '../components/ui/menu/ResultMenu';
 import JsonMenu from '../components/ui/menu/JsonMenu';
 import EditorContainer from '../components/ui/EditorContainer';
-import DefaultLayout from '../components/ui/layout/Default';
 
 const cleanUp = new CleanUp();
 
@@ -101,47 +100,45 @@ export default function Editors({ onPersist, currentJson }: Props) {
   };
 
   return (
-    <DefaultLayout>
-      <div className="p-1 mb-8 h-full" style={{ height: '80vh' }}>
-        <div className="flex h-full justify-center">
-          <EditorContainer>
-            <JsonMenu
-              pasteFromClipboard={pasteFromClipboard}
-              cleanup={cleanup}
-              onLoadedFile={onJsonChange}
-              onSearch={() => search('json')}
-            />
+    <div className="p-1 mb-8 h-full" style={{ height: '80vh' }}>
+      <div className="flex h-full justify-center">
+        <EditorContainer>
+          <JsonMenu
+            pasteFromClipboard={pasteFromClipboard}
+            cleanup={cleanup}
+            onLoadedFile={onJsonChange}
+            onSearch={() => search('json')}
+          />
 
-            <JsonEditor
-              input={originalJson}
-              onChange={eventValue => onJsonChange(eventValue.value)}
-              data-testid="json"
-              contenteditable={true}
-            />
-          </EditorContainer>
-          <EditorContainer>
-            <ResultMenu
-              spacing={spacing}
-              updateSpacing={updateSpacing}
-              writeToClipboard={writeToClipboard}
-              cleanWhiteSpaces={cleanWhiteSpaces}
-              cleanNewLines={cleanNewLines}
-              cleanNewLinesAndSpaces={cleanNewLinesAndSpaces}
-              onSearch={() => search('result')}
-            />
+          <JsonEditor
+            input={originalJson}
+            onChange={eventValue => onJsonChange(eventValue.value)}
+            data-testid="json"
+            contenteditable={true}
+          />
+        </EditorContainer>
+        <EditorContainer>
+          <ResultMenu
+            spacing={spacing}
+            updateSpacing={updateSpacing}
+            writeToClipboard={writeToClipboard}
+            cleanWhiteSpaces={cleanWhiteSpaces}
+            cleanNewLines={cleanNewLines}
+            cleanNewLinesAndSpaces={cleanNewLinesAndSpaces}
+            onSearch={() => search('result')}
+          />
 
-            <JsonEditor
-              input={result}
-              className="result"
-              data-testid="result"
-              contenteditable={true}
-            />
-          </EditorContainer>
-        </div>
-        <div className="bg-red-600 m-1 mt-2 text-center text-white">
-          {error && <p data-testid="error">{error}</p>}
-        </div>
+          <JsonEditor
+            input={result}
+            className="result"
+            data-testid="result"
+            contenteditable={true}
+          />
+        </EditorContainer>
       </div>
-    </DefaultLayout>
+      <div className="bg-red-600 m-1 mt-2 text-center text-white">
+        {error && <p data-testid="error">{error}</p>}
+      </div>
+    </div>
   );
 }

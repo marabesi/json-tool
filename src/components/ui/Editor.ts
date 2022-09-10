@@ -9,7 +9,7 @@ export interface Properties {
 }
 
 export interface EditorOptions {
-    options: Option[],
+    options: Option[]
     properties: Properties[]
 }
 

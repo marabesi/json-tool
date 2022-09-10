@@ -3,6 +3,7 @@ import Editors from './pages/Editors';
 import { Settings } from './pages/Settings';
 import { createContext, useState } from 'react';
 import { EditorOptions, Option, Properties } from './components/ui/Editor';
+import DefaultLayout from './components/ui/layout/Default';
 
 const defaultOp: Option[] = [
   { title: 'foldGutter', active: true },
@@ -20,13 +21,17 @@ const properties: Properties = {
 
 const editorOptions: EditorOptions = {
   options: defaultOp,
-  properties: [properties]
+  properties: [properties],
 };
 
 export const SettingsContext = createContext(editorOptions);
 
+const theme = { darkMode: false };
+export const ThemeContext = createContext(theme);
+
 function App() {
   const [savedState, setSavedState] = useState<string>('');
+  const [darkModeEnabled, setDarkMode] = useState<boolean>(false);
 
   const handleChange = (changed: EditorOptions) => {
     editorOptions.properties = changed.properties;
@@ -37,16 +42,25 @@ function App() {
     setSavedState(json);
   };
 
+  const onDarkThemeChanged = (isDarkThemeEnabled: boolean)  => {
+    setDarkMode(isDarkThemeEnabled);
+    theme.darkMode = isDarkThemeEnabled;
+  };
+
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Editors onPersist={saveState} currentJson={savedState} />} />
-        <Route path="/settings" element={
-          <SettingsContext.Provider value={editorOptions.options as never}>
-            <Settings options={editorOptions} handleChange={handleChange} />
-          </SettingsContext.Provider>
-        } />
-      </Routes>
+      <ThemeContext.Provider value={theme as never}>
+        <DefaultLayout onDarkThemeChanged={onDarkThemeChanged} darkModeEnabled={darkModeEnabled}>
+          <Routes>
+            <Route path="/" element={<Editors onPersist={saveState} currentJson={savedState} />} />
+            <Route path="/settings" element={
+              <SettingsContext.Provider value={editorOptions.options as never}>
+                <Settings options={editorOptions} handleChange={handleChange} />
+              </SettingsContext.Provider>
+            } />
+          </Routes>
+        </DefaultLayout>
+      </ThemeContext.Provider>
     </Router>
   );
 }

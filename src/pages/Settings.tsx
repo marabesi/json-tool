@@ -1,4 +1,3 @@
-import DefaultLayout from '../components/ui/layout/Default';
 import { useState } from 'react';
 import Button from '../components/ui/io/Button';
 import { EditorOptions, Option, Properties } from '../components/ui/Editor';
@@ -15,7 +14,7 @@ export function Settings({ handleChange, options }: Props) {
   const persistChanges = () => {
     handleChange({
       options: ops,
-      properties: [prop]
+      properties: [prop],
     });
   };
 
@@ -31,7 +30,7 @@ export function Settings({ handleChange, options }: Props) {
   };
 
   return (
-    <DefaultLayout>
+    <>
       <h1 className="text-xl m-2">Settings</h1>
       <div>
         {
@@ -47,6 +46,6 @@ export function Settings({ handleChange, options }: Props) {
         <input data-testid="font-size" type="text" value={prop.value} onChange={(event) => setProp({ key: 'fontSize', value: event.target.value })}/>
       </div>
       <Button onClick={persistChanges}>Save</Button>
-    </DefaultLayout>
+    </>
   );
 }
