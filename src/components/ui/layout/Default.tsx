@@ -11,7 +11,7 @@ interface Props {
 export default function DefaultLayout({ children, onDarkThemeChanged, darkModeEnabled }: Props) {
   return (
     <div className={`flex flex-col ${darkModeEnabled ? 'dark': ''}`}>
-      <div className="bg-gray-500 h-screen text-gray-100 dark:text-gray-400 dark:bg-gray-600">
+      <div className="bg-blue-400 h-screen text-gray-100 dark:text-gray-400 dark:bg-gray-600">
         <Header onDarkModeChanged={onDarkThemeChanged} darkModeEnabled={darkModeEnabled}/>
         { children }
         <Footer />
