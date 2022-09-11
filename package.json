@@ -21,6 +21,7 @@
     "@types/jest": "^26.0.24",
     "@types/react": "^17.0.24",
     "@types/react-dom": "^17.0.9",
+    "@uiw/codemirror-theme-duotone": "^4.12.1",
     "@uiw/react-codemirror": "^4.11.4",
     "format-to-json": "^2.1.2",
     "react": "^17.0.2",

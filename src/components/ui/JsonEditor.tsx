@@ -4,6 +4,7 @@ import { json } from '@codemirror/lang-json';
 import { SettingsContext, ThemeContext } from '../../App';
 import { CSSProperties, useContext } from 'react';
 import { Option, Properties } from './Editor';
+import { duotoneLight } from '@uiw/codemirror-theme-duotone';
 
 type Event = {
   value: string;
@@ -56,7 +57,7 @@ export default function JsonEditor({ input, onChange, className, ...rest }: Prop
         style={style}
         height="100%"
         extensions={[json()]}
-        theme={theme.darkMode ? 'dark' : 'light'}
+        theme={theme.darkMode ? 'dark' : duotoneLight}
         basicSetup={basicSetup}
         {...rest}
       />
