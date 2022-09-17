@@ -1,7 +1,7 @@
 import { render, screen, act, waitFor } from '@testing-library/react';
-import App from './App';
+import App from '../App';
 import userEvent from '@testing-library/user-event';
-import { grabCurrentEditor } from './__testutilities__/editorQuery';
+import { grabCurrentEditor } from '../__testutilities__/editorQuery';
 
 describe('Error handling', () => {
   it.each([

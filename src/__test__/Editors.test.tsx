@@ -1,5 +1,5 @@
 import { render, screen, act, waitFor, fireEvent, within } from '@testing-library/react';
-import App from './App';
+import App from '../App';
 import userEvent from '@testing-library/user-event';
 
 function grabCurrentEditor(container: HTMLElement): HTMLElement {
