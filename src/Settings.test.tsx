@@ -32,9 +32,9 @@ describe('Settings', () => {
 
       fireEvent.click(getByTestId('settings'));
 
-      userEvent.clear(getByTestId('font-size'));
-      userEvent.type(getByTestId('font-size'), '18px');
-      userEvent.click(getByText('Save'));
+      await userEvent.clear(getByTestId('font-size'));
+      await userEvent.type(getByTestId('font-size'), '18px');
+      await userEvent.click(getByText('Save'));
 
       fireEvent.click(getByTestId('to-home'));
 

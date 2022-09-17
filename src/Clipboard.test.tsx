@@ -39,6 +39,21 @@ function tearDownClipboard() {
 
 describe('Clipboard', () => {
   beforeEach(() => {
+    document.createRange = () => {
+      const range = new Range();
+
+      range.getBoundingClientRect = jest.fn();
+
+      range.getClientRects = () => {
+        return {
+          item: () => null,
+          length: 0,
+          [Symbol.iterator]: jest.fn()
+        };
+      };
+
+      return range;
+    };
     tearDownClipboard();
   });
 
@@ -88,8 +103,10 @@ describe('Clipboard', () => {
       userEvent.click(screen.getByTestId('copy-json'));
     });
 
-    const formatter = new Formatter('{"a":"a"}');
 
-    expect(global.navigator.clipboard.writeText).toHaveBeenCalledWith(await formatter.format());
+    await waitFor(async () => {
+      const formatter = new Formatter('{"a":"a"}');
+      expect(global.navigator.clipboard.writeText).toHaveBeenCalledWith(await formatter.format());
+    });
   });
 });
