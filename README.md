@@ -15,9 +15,13 @@ Are you tired of accessing **free websites just to format your json content**? M
 - Search through the json string (offered by the code mirror editor)
 - Upload a json file
 
-![photo1](https://user-images.githubusercontent.com/2129872/139720232-3600e790-9038-4448-a300-aab48c2a6aca.png)
-![photo2](https://user-images.githubusercontent.com/2129872/139720367-056f83ed-2940-4039-a88c-ff12b3a3dd5c.png)
-![photo3](https://user-images.githubusercontent.com/2129872/139720380-2d39e105-9f29-4c49-82a9-dee76b1c2e30.png)
+![Screenshot from 2022-09-11 11-32-55](https://user-images.githubusercontent.com/2129872/190869274-51b3ae2b-e6db-401b-a058-0f8f887f82e7.png)
+
+![banner-blue](https://user-images.githubusercontent.com/2129872/190869247-4ecb2b87-e9a7-4f0a-b9b3-0ee5f3cefb00.png)
+
+![banner-dark](https://user-images.githubusercontent.com/2129872/190869244-c393456f-bfd2-4622-b96a-2ed1c0e85a6b.png)
+
+![Screenshot from 2022-09-11 11-34-35](https://user-images.githubusercontent.com/2129872/190869278-9e65e742-d2df-47c3-8ddf-740e1f42f623.png)
 
 # Publications
 
