@@ -64,7 +64,7 @@ describe('Clean up editors', () => {
     const editor = grabCurrentEditor(container);
 
     await act(async () => {
-      await userEvent.type(editor, '{}');
+      await userEvent.type(editor, '{{}');
     });
 
     await act(async () => {
@@ -75,7 +75,7 @@ describe('Clean up editors', () => {
     expect(screen.getByTestId('raw-result')).toHaveValue('');
   });
 
-  it.only.each([
+  it.each([
     ['{"name" : "json from clipboard"}', '{"name":"json from clipboard"}'],
     //     ['    {"name" : "json from clipboard"}', '{"name":"json from clipboard"}'],
     //     ['    {"name" : "json    from   clipboard"}', '{"name":"json    from   clipboard"}'],
@@ -113,16 +113,16 @@ describe('Clean up editors', () => {
 
     setUpClipboard(inputJson);
 
-    act(() => {
-      userEvent.click(getByTestId('paste-from-clipboard'));
+    await act(async () => {
+      await userEvent.click(getByTestId('paste-from-clipboard'));
     });
 
     await waitFor(() => {
       expect(getByTestId('raw-json')).toHaveValue(inputJson);
     });
 
-    act(() => {
-      userEvent.click(screen.getByTestId('clean-spaces'));
+    await act(async () => {
+      await userEvent.click(screen.getByTestId('clean-spaces'));
     });
 
 
@@ -144,16 +144,16 @@ describe('Clean up editors', () => {
 
     setUpClipboard(inputJson);
 
-    act(() => {
-      userEvent.click(getByTestId('paste-from-clipboard'));
+    await act(async () => {
+      await userEvent.click(getByTestId('paste-from-clipboard'));
     });
 
     await waitFor(() => {
       expect(getByTestId('raw-json')).toHaveValue(inputJson);
     });
 
-    act(() => {
-      userEvent.click(screen.getByTestId('clean-new-lines'));
+    await act(async () => {
+      await userEvent.click(screen.getByTestId('clean-new-lines'));
     });
 
     await waitFor(() => {

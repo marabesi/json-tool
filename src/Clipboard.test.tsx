@@ -91,8 +91,8 @@ describe('Clipboard', () => {
 
     const editor = grabCurrentEditor(container);
 
-    act(() => {
-      userEvent.type(editor, '{{"a":"a"}');
+    await act(async () => {
+      await userEvent.type(editor, '{{"a":"a"}');
     });
 
     await waitFor(() => {
