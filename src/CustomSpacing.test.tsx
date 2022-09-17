@@ -9,7 +9,25 @@ function grabCurrentEditor(container: HTMLElement): HTMLElement {
   }
   return editor as HTMLElement;
 }
-describe.skip('Custom spacing for formatting json', () => {
+describe('Custom spacing for formatting json', () => {
+  beforeEach(() => {
+    document.createRange = () => {
+      const range = new Range();
+
+      range.getBoundingClientRect = jest.fn();
+
+      range.getClientRects = () => {
+        return {
+          item: () => null,
+          length: 0,
+          [Symbol.iterator]: jest.fn()
+        };
+      };
+
+      return range;
+    };
+  });
+
   it('should have space of 2 as default', async () => {
     render(<App />);
 

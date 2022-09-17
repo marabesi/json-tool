@@ -9,17 +9,36 @@ function grabCurrentEditor(container: HTMLElement): HTMLElement {
   }
   return editor as HTMLElement;
 }
-describe.skip('Editors', () => {
+
+describe('Editors', () => {
+  beforeEach(() => {
+    document.createRange = () => {
+      const range = new Range();
+
+      range.getBoundingClientRect = jest.fn();
+
+      range.getClientRects = () => {
+        return {
+          item: () => null,
+          length: 0,
+          [Symbol.iterator]: jest.fn()
+        };
+      };
+
+      return range;
+    };
+  });
+
   it.each([
-    ['{}', '{}'],
-    ['{"a": "b"}', '{"a": "b"}'],
+    ['{{}', '{}'],
+    ['{{"a": "b"}', '{"a": "b"}'],
   ])('place %s text in the editor and receive %s', async (input, expected) => {
     const { container } = render(<App />);
 
     const editor = grabCurrentEditor(container);
 
-    act(() => {
-      userEvent.type(editor, input);
+    await act(async () => {
+      await userEvent.type(editor, input);
     });
 
     const result = screen.getByTestId('result');

@@ -1,4 +1,4 @@
-import { render, screen, act } from '@testing-library/react';
+import { render, screen, act, waitFor } from '@testing-library/react';
 import App from './App';
 import userEvent from '@testing-library/user-event';
 
@@ -10,10 +10,27 @@ function grabCurrentEditor(container: HTMLElement): HTMLElement {
   return editor as HTMLElement;
 }
 
-describe.skip('Error handling', () => {
+describe('Error handling', () => {
+  beforeEach(() => {
+    document.createRange = () => {
+      const range = new Range();
+
+      range.getBoundingClientRect = jest.fn();
+
+      range.getClientRects = () => {
+        return {
+          item: () => null,
+          length: 0,
+          [Symbol.iterator]: jest.fn()
+        };
+      };
+
+      return range;
+    };
+  });
+
   it.each([
     ['bla bla'],
-    ['not a json'],
   ])('hides the error after a valid json is given (%s, %s)', async (originalCode: string) => {
     const { container, getByTestId } = render(<App/>);
 
@@ -23,13 +40,15 @@ describe.skip('Error handling', () => {
       await userEvent.type(editor, originalCode);
     });
 
-    act(() => {
-      userEvent.click(getByTestId('clean'));
+    await act(async () => {
+      await userEvent.click(getByTestId('clean'));
     });
 
     const result = screen.queryByTestId('error');
 
-    expect(result).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(result).not.toBeInTheDocument();
+    });
   });
 
   it('inform error when json is invalid', async () => {

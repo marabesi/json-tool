@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Editors place {{"a": "b"} text in the editor and receive {"a": "b"}: {"a": "b"} 1`] = `null`;
+
+exports[`Editors place {{} text in the editor and receive {}: {} 1`] = `null`;
