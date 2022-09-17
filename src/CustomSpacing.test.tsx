@@ -1,33 +1,9 @@
 import { render, screen, act } from '@testing-library/react';
 import App from './App';
 import userEvent from '@testing-library/user-event';
+import { grabCurrentEditor } from './__testutilities__/editorQuery';
 
-function grabCurrentEditor(container: HTMLElement): HTMLElement {
-  const editor = container.querySelector('[data-testid="json"] .cm-content');
-  if (!editor) {
-    throw new Error('Could not find editor');
-  }
-  return editor as HTMLElement;
-}
 describe('Custom spacing for formatting json', () => {
-  beforeEach(() => {
-    document.createRange = () => {
-      const range = new Range();
-
-      range.getBoundingClientRect = jest.fn();
-
-      range.getClientRects = () => {
-        return {
-          item: () => null,
-          length: 0,
-          [Symbol.iterator]: jest.fn()
-        };
-      };
-
-      return range;
-    };
-  });
-
   it('should have space of 2 as default', async () => {
     render(<App />);
 

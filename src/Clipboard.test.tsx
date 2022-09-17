@@ -1,59 +1,12 @@
 import { render, screen, act, waitFor } from '@testing-library/react';
 import App from './App';
 import userEvent from '@testing-library/user-event';
-import { Blob } from 'buffer';
 import Formatter from './core/formatter';
-
-function grabCurrentEditor(container: HTMLElement): HTMLElement {
-  const editor = container.querySelector('[data-testid="json"] .cm-content');
-  if (!editor) {
-    throw new Error('Could not find editor');
-  }
-  return editor as HTMLElement;
-}
-
-function setUpClipboard(json: string) {
-  Object.assign(global.navigator,
-    {
-      clipboard: {
-        async read() {
-          const blob = new Blob([json], { type: 'text/plain' });
-
-          return Promise.resolve([
-            {
-              [blob.type]: blob,
-              types: [ blob.type ],
-              getType: () => blob
-            }
-          ]);
-        }
-      }
-    });
-}
-
-function tearDownClipboard() {
-  Object.assign(global.navigator, {
-    clipboard: null
-  });
-}
+import { setUpClipboard, tearDownClipboard } from './__testutilities__/clipboard';
+import { grabCurrentEditor } from './__testutilities__/editorQuery';
 
 describe('Clipboard', () => {
   beforeEach(() => {
-    document.createRange = () => {
-      const range = new Range();
-
-      range.getBoundingClientRect = jest.fn();
-
-      range.getClientRects = () => {
-        return {
-          item: () => null,
-          length: 0,
-          [Symbol.iterator]: jest.fn()
-        };
-      };
-
-      return range;
-    };
     tearDownClipboard();
   });
 
