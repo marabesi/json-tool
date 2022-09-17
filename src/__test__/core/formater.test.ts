@@ -1,4 +1,4 @@
-import Formatter from './formatter';
+import Formatter from '../../core/formatter';
 
 describe('json utility tool', () => {
   const formatterBuilder = (json: string) => new Formatter(json);

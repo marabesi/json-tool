@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import InputText from './InputText';
+import InputText from '../../components/ui/io/InputText';
 
 describe('input text component', () => {
 
