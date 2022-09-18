@@ -17,7 +17,7 @@ export default function ResultMenu(
   { spacing, updateSpacing, writeToClipboard, cleanWhiteSpaces, cleanNewLines, cleanNewLinesAndSpaces, onSearch }: Props
 ) {
   return (
-    <div className="flex justify-start items-center m-2 ml-0">
+    <div className="flex justify-start items-center m-2 ml-0 h-10">
       <Button data-testid="search-result" onClick={onSearch}>
         <FaSearch className="mr-2" />
       </Button>

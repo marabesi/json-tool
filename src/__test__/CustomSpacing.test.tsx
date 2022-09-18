@@ -114,4 +114,16 @@ describe('Custom spacing for formatting json', () => {
     "a": "a"
 }`);
   });
+
+  it('should format json from uploaded file', async () => {
+    const file = new File(['{"a":"b"}'], 'hello.json', { type: 'application/json' });
+
+    const { getByTestId } = render(<App />);
+
+    await userEvent.upload(getByTestId('upload-json'), file);
+
+    expect(getByTestId('raw-result')).toHaveValue(`{
+  "a": "b"
+}`);
+  });
 });
