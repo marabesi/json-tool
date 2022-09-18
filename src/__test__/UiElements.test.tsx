@@ -35,6 +35,15 @@ describe('UI elements', () => {
     expect(screen.getByText(/CC0 1.0 Universal/)).toHaveAttribute('rel', 'noreferrer');
   });
 
+  it('should render found a issue', () => {
+    render(<App />);
+    expect(screen.queryByTestId(/found-issue/)).toBeInTheDocument();
+    expect(screen.queryByTestId(/found-issue/)).toHaveAttribute('href', 'https://github.com/marabesi/json-tool/issues');
+    expect(screen.getByText(/Found an issue?/)).toBeInTheDocument();
+    expect(screen.getByTestId(/found-issue/)).toHaveAttribute('target', '_blank');
+    expect(screen.getByTestId(/found-issue/)).toHaveAttribute('rel', 'noreferrer');
+  });
+
   it('should render settings link', () => {
     render(<App />);
     expect(screen.getByTestId('settings')).toBeInTheDocument();
