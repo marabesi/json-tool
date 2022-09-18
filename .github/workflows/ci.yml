@@ -58,7 +58,9 @@ jobs:
         uses: cypress-io/github-action@v2
         env:
           CYPRESS_BASE_URL: 'http://localhost:3000'
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
+          record: true
           wait-on: 'http://localhost:3000'
           install-command: npm install --legacy-peer-deps
           start: npm run serve
