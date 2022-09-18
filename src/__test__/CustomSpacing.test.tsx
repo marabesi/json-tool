@@ -123,7 +123,9 @@ describe('Custom spacing for formatting json', () => {
 
       const { getByTestId } = render(<App />);
 
-      await userEvent.upload(getByTestId('upload-json'), file);
+      await act(async () => {
+        await userEvent.upload(getByTestId('upload-json'), file);
+      });
 
       expect(getByTestId('raw-result')).toHaveValue(`{
   "a": "b"
