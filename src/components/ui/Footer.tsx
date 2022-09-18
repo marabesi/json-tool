@@ -1,4 +1,4 @@
-import { FaBug } from 'react-icons/all';
+import { FaBug } from 'react-icons/fa';
 
 export default function Footer({ ...props }) {
   return (
