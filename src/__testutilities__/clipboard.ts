@@ -4,6 +4,9 @@ export function setUpClipboard(json: string) {
   Object.assign(global.navigator,
     {
       clipboard: {
+        async writeText(text: string) {
+          return text;
+        },
         async read() {
           const blob = new Blob([json], { type: 'text/plain' });
 

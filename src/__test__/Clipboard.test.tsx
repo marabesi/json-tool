@@ -7,7 +7,7 @@ import { grabCurrentEditor } from '../__testutilities__/editorQuery';
 
 describe('Clipboard', () => {
   beforeEach(() => {
-    tearDownClipboard();
+    setUpClipboard('');
   });
 
   afterEach(() => {
@@ -31,14 +31,6 @@ describe('Clipboard', () => {
 
   it('should copy json string from result editor to transfer area on clicking the button', async () => {
     const { container, getByTestId } = render(<App />);
-
-    Object.assign(global.navigator, {
-      clipboard :{
-        async writeText(text: string) {
-          return text;
-        }
-      }
-    });
 
     jest.spyOn(global.navigator.clipboard, 'writeText');
 
