@@ -2,7 +2,7 @@ import { render, screen, act, waitFor } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import Formatter from '../core/formatter';
-import { setUpClipboard, tearDownClipboard } from '../__testutilities__/clipboard';
+import { setUpClipboard, tearDownClipboard } from 'jest-clipboard';
 import { grabCurrentEditor } from '../__testutilities__/editorQuery';
 
 describe('Clipboard', () => {

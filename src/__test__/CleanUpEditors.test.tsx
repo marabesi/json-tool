@@ -2,7 +2,7 @@ import { act, render, screen, waitFor } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from '../__testutilities__/editorQuery';
-import { setUpClipboard, tearDownClipboard } from '../__testutilities__/clipboard';
+import { setUpClipboard, tearDownClipboard } from 'jest-clipboard';
 
 describe('Clean up editors', () => {
   afterEach(() => {
