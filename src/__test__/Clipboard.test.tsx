@@ -2,12 +2,12 @@ import { render, screen, act, waitFor } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import Formatter from '../core/formatter';
-import { setUpClipboard, tearDownClipboard } from 'jest-clipboard';
+import { setUpClipboard, tearDownClipboard, writeTextToClipboard } from 'jest-clipboard';
 import { grabCurrentEditor } from '../__testutilities__/editorQuery';
 
 describe('Clipboard', () => {
   beforeEach(() => {
-    setUpClipboard('');
+    setUpClipboard();
   });
 
   afterEach(() => {
@@ -17,7 +17,7 @@ describe('Clipboard', () => {
   it('should paste json string from copy area into the editor on clicking the button', async () => {
     const { getByTestId } = render(<App />);
 
-    setUpClipboard('{}');
+    await writeTextToClipboard('{}');
 
     act(() => {
       userEvent.click(getByTestId('paste-from-clipboard'));

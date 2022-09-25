@@ -2,9 +2,13 @@ import { act, render, screen, waitFor } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from '../__testutilities__/editorQuery';
-import { setUpClipboard, tearDownClipboard } from 'jest-clipboard';
+import { setUpClipboard, tearDownClipboard, writeTextToClipboard, writeToClipboard } from 'jest-clipboard';
 
 describe('Clean up editors', () => {
+  beforeEach(() => {
+    setUpClipboard();
+  });
+
   afterEach(() => {
     tearDownClipboard();
   });
@@ -62,7 +66,7 @@ describe('Clean up editors', () => {
   ])('should clean json white spaces %s, %s', async (inputJson: string, desiredJson: string) => {
     const { getByTestId } = render(<App />);
 
-    setUpClipboard(inputJson);
+    await writeTextToClipboard(inputJson);
 
     await act(async () => {
       await userEvent.click(getByTestId('paste-from-clipboard'));
@@ -93,7 +97,7 @@ describe('Clean up editors', () => {
   ])('should clean json with new lines', async (inputJson: string, desiredJson: string) => {
     const { getByTestId } = render(<App />);
 
-    setUpClipboard(inputJson);
+    await writeTextToClipboard(inputJson);
 
     await act(async () => {
       await userEvent.click(getByTestId('paste-from-clipboard'));
@@ -120,7 +124,7 @@ describe('Clean up editors', () => {
   ])('should clean blank spaces and new lines in the json', async (inputJson: string, desiredJson: string) => {
     const { getByTestId } = render(<App />);
 
-    setUpClipboard(inputJson);
+    await writeTextToClipboard(inputJson);
 
     act(() => {
       userEvent.click(getByTestId('paste-from-clipboard'));
