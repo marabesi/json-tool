@@ -6,6 +6,8 @@ Are you tired of accessing **free websites just to format your json content**? M
 <a href="https://www.producthunt.com/posts/json-tool?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-json&#0045;tool" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=329411&theme=light" alt="JSON&#0032;tool - Sometimes&#0032;we&#0032;just&#0032;want&#0032;to&#0032;have&#0032;a&#0032;formatted&#0032;JSON&#0032;string&#0046; | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a> [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/json-tool)
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/marabesi)
 
+Try out the [online version](https://marabesi.github.io/json-tool)!
+
 # json-tool
 
 **json-tool** allows you to quick format json content with a click of a button, and much more:
