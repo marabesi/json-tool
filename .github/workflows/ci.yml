@@ -88,3 +88,5 @@ jobs:
           store_login: ${{ secrets.STORE_LOGIN }}
           snap: "dist/${{ steps.snap_file.outputs.name }}.snap"
           release: edge
+          env:
+            SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN }}
