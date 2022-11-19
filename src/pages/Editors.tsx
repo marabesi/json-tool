@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
+import { SyntheticEvent, useCallback, useEffect, useState } from 'react';
+import { Resizable, ResizeCallbackData } from 'react-resizable';
 import JsonEditor from '../components/ui/JsonEditor';
 import CleanUp from '../core/cleanUp';
 import Formatter from '../core/formatter';
@@ -18,6 +19,7 @@ export default function Editors({ onPersist, currentJson }: Props) {
   const [result, setResult] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [spacing, setSpacing] = useState<string>('2');
+  const [x, setX] = useState(window.innerWidth / 2);
 
   const onJsonChange = useCallback(async (value: string) => {
     setError('');
@@ -99,24 +101,37 @@ export default function Editors({ onPersist, currentJson }: Props) {
     }
   };
 
+  const onResize = (e: SyntheticEvent, data: ResizeCallbackData) => {
+    setX(data.size.width);
+  };
+
   return (
     <div className="p-1 mb-8 h-full" style={{ height: '80vh' }}>
       <div className="flex h-full justify-center">
-        <EditorContainer>
-          <JsonMenu
-            pasteFromClipboard={pasteFromClipboard}
-            cleanup={cleanup}
-            onLoadedFile={onJsonChange}
-            onSearch={() => search('json')}
-          />
+        <Resizable
+          height={100}
+          width={x}
+          onResize={onResize}
+          handle={<p>handle</p>}
+        >
+          <div className="flex">
+            <EditorContainer style={{ width: x }}>
+              <JsonMenu
+                pasteFromClipboard={pasteFromClipboard}
+                cleanup={cleanup}
+                onLoadedFile={onJsonChange}
+                onSearch={() => search('json')}
+              />
 
-          <JsonEditor
-            input={originalJson}
-            onChange={eventValue => onJsonChange(eventValue.value)}
-            data-testid="json"
-            contenteditable={true}
-          />
-        </EditorContainer>
+              <JsonEditor
+                input={originalJson}
+                onChange={eventValue => onJsonChange(eventValue.value)}
+                data-testid="json"
+                contenteditable={true}
+              />
+            </EditorContainer>
+          </div>
+        </Resizable>
         <EditorContainer>
           <ResultMenu
             spacing={spacing}
