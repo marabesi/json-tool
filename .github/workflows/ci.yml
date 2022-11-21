@@ -84,9 +84,9 @@ jobs:
 
       - name: publish snap edge channel
         uses: snapcore/action-publish@v1
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN }}
         with:
           store_login: ${{ secrets.STORE_LOGIN }}
           snap: "dist/${{ steps.snap_file.outputs.name }}.snap"
           release: edge
-          env:
-            SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN }}
