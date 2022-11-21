@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import JsonEditor from '../components/ui/JsonEditor';
 import CleanUp from '../core/cleanUp';
 import Formatter from '../core/formatter';
@@ -19,18 +19,46 @@ export default function Editors({ onPersist, currentJson }: Props) {
   const [error, setError] = useState<string>('');
   const [spacing, setSpacing] = useState<string>('2');
 
-  const onJsonChange = useCallback(async (value: string) => {
-    setError('');
+  const worker = useMemo(() => {
+    const code = `
+onmessage = (e) => {
+  const value = e.data.jsonAsString;
 
-    if (!spacing) return;
-
+  if (value) {
     try {
-      if (value) {
-        JSON.parse(value);
-      }
-    } catch (e: any) {
+      JSON.parse(value);
+    } catch (e) {
+      postMessage({ error: true, originalJson: value });
+      return;
+    }
+
+    postMessage({ error: false, originalJson: value });
+    return;
+  }
+  // empty json was given
+  postMessage({ error: false, originalJson: value });
+};
+  `;
+    return new Worker(URL.createObjectURL(new Blob([code])));
+  }, []);
+
+  worker.onmessage = async (worker: any) => {
+    setError('');
+    if (worker.data.error) {
       setError('invalid json');
     }
+
+    setOriginalResult(worker.data.originalJson);
+  };
+
+  const onJsonChange = async (value: string) => {
+    worker.postMessage({ jsonAsString: value });
+  };
+
+  useEffect(() => {
+    if (!spacing) return;
+
+    const value: string = originalJson;
 
     let format = new Formatter(value, 2);
 
@@ -39,18 +67,18 @@ export default function Editors({ onPersist, currentJson }: Props) {
       format = new Formatter(value, parseSpacing);
     }
 
-    const result = await format.format();
+    const formatJsonAsync = async () => {
+      const result = await format.format();
+      setResult(result);
+    };
+
+    formatJsonAsync();
 
     setOriginalResult(value);
-    setResult(result);
-  }, [spacing]);
-
-  useEffect(() => {
-    onJsonChange(originalJson);
     return () => {
       onPersist(originalJson);
     };
-  }, [spacing, originalJson, onJsonChange, onPersist]);
+  }, [worker, spacing, onPersist, originalJson]);
 
   const pasteFromClipboard = async () => {
     const clipboardItems = await navigator.clipboard.read();
