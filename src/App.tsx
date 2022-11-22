@@ -31,7 +31,7 @@ export const ThemeContext = createContext(theme);
 
 function App() {
   const [savedState, setSavedState] = useState<string>('');
-  const [darkModeEnabled, setDarkMode] = useState<boolean>(false);
+  const [darkModeEnabled, setDarkMode] = useState<boolean>(theme.darkMode);
 
   const handleChange = (changed: EditorOptions) => {
     editorOptions.properties = changed.properties;
