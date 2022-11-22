@@ -7,6 +7,7 @@ import JsonMenu from '../components/ui/menu/JsonMenu';
 import EditorContainer from '../components/ui/EditorContainer';
 
 const cleanUp = new CleanUp();
+const defaultSpacing = '2';
 
 interface Props {
   currentJson: string
@@ -17,7 +18,7 @@ export default function Editors({ onPersist, currentJson }: Props) {
   const [originalJson, setOriginalResult] = useState<string>(currentJson);
   const [result, setResult] = useState<string>('');
   const [error, setError] = useState<string>('');
-  const [spacing, setSpacing] = useState<string>('2');
+  const [spacing, setSpacing] = useState<string>(defaultSpacing);
 
   const worker = useMemo(() => {
     const code = `
@@ -60,7 +61,7 @@ onmessage = (e) => {
 
     const value: string = originalJson;
 
-    let format = new Formatter(value, 2);
+    let format = new Formatter(value, parseInt(defaultSpacing));
 
     const parseSpacing = parseInt(spacing);
     if (!isNaN(parseSpacing)) {
