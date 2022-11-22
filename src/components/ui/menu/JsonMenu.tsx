@@ -31,6 +31,7 @@ export default function JsonMenu({ pasteFromClipboard, cleanup, onLoadedFile, on
         data-testid="paste-from-clipboard"
         className="ml-0 flex items-center"
         disabled={!pasteFromClipboard}
+        title="Paste from clipboard is disabled due lack of browser support"
       >
         <FaRegClipboard className="mr-2" />
         Paste from clipboard

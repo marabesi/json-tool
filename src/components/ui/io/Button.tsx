@@ -4,6 +4,7 @@ type ButtonProps = {
   onClick?: DetailedHTMLProps<any, any>
   children?: ReactNode
   className?: string
+  title?: string
   disabled?: boolean
 }
 

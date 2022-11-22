@@ -58,8 +58,9 @@ export default function ResultMenu(
       <Button
         data-testid="copy-json"
         onClick={writeToClipboard}
-        className="flex items-center"
         disabled={!writeToClipboard}
+        title="Copy json is disabled due lack of browser support"
+        className="flex items-center"
       >
         <FaRegCopy className="mr-2" />
                 Copy json

@@ -65,18 +65,20 @@ describe('Clipboard', () => {
     });
 
     it('copy json should be disabled', async () => {
-      const { getByTestId } = render(<App/>);
+      const { getByTestId, getByTitle } = render(<App/>);
 
       await waitFor(async () => {
         expect(getByTestId('copy-json')).toBeDisabled();
+        expect(getByTitle('Copy json is disabled due lack of browser support')).toBeInTheDocument();
       });
     });
 
     it('paste json should be disabled', async () => {
-      const { getByTestId } = render(<App/>);
+      const { getByTestId, getByTitle } = render(<App/>);
 
       await waitFor(async () => {
         expect(getByTestId('paste-from-clipboard')).toBeDisabled();
+        expect(getByTitle('Paste from clipboard is disabled due lack of browser support')).toBeInTheDocument();
       });
     });
   });
