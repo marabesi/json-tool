@@ -1,7 +1,7 @@
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import Editors from './pages/Editors';
 import { Settings } from './pages/Settings';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { EditorOptions, Option, Properties } from './components/ui/Editor';
 import DefaultLayout from './components/ui/layout/Default';
 
@@ -26,6 +26,10 @@ const editorOptions: EditorOptions = {
 
 export const SettingsContext = createContext(editorOptions);
 
+const isDarkModeSet = () => {
+  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+};
+
 const theme = { darkMode: false };
 export const ThemeContext = createContext(theme);
 
@@ -46,6 +50,10 @@ function App() {
     setDarkMode(isDarkThemeEnabled);
     theme.darkMode = isDarkThemeEnabled;
   };
+
+  useEffect(() => {
+    onDarkThemeChanged(isDarkModeSet());
+  }, []);
 
   return (
     <Router>

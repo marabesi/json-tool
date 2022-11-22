@@ -3,23 +3,65 @@ import App from '../App';
 import userEvent from '@testing-library/user-event';
 
 describe('dark mode', () => {
-  it('should enable dark mode in the ui', async () => {
-    const { getByTestId, container } = render(<App/>);
+  describe('when preferred dark mode is on', () => {
+    beforeEach(() => {
+      Object.defineProperty(window, 'matchMedia', {
+        writable: true,
+        value: jest.fn().mockImplementation(() => ({
+          matches: true,
+        }))
+      });
+    });
 
-    const darkModeSwitch = getByTestId('dark-mode');
+    afterEach(() => {
+      Object.defineProperty(window, 'matchMedia', {
+        writable: true,
+        value: null
+      });
+    });
 
-    await userEvent.click(darkModeSwitch);
+    it('should enable dark mode by default', async () => {
+      const { getByTestId } = render(<App/>);
 
-    expect(container.querySelector('.dark')).toBeInTheDocument();
+      expect(getByTestId('json')).toHaveClass('cm-theme-dark');
+    });
   });
 
-  it('should enable dark mode in the editors', async () => {
-    const { getByTestId } = render(<App/>);
+  describe('when preferred dark mode is off', () => {
+    beforeEach(() => {
+      Object.defineProperty(window, 'matchMedia', {
+        writable: true,
+        value: jest.fn().mockImplementation(() => ({
+          matches: false,
+        }))
+      });
+    });
 
-    const darkModeSwitch = getByTestId('dark-mode');
+    afterEach(() => {
+      Object.defineProperty(window, 'matchMedia', {
+        writable: true,
+        value: null
+      });
+    });
 
-    await userEvent.click(darkModeSwitch);
+    it('should enable dark mode in the ui', async () => {
+      const { getByTestId, container } = render(<App/>);
 
-    expect(getByTestId('json')).toHaveClass('cm-theme-dark');
+      const darkModeSwitch = getByTestId('dark-mode');
+
+      await userEvent.click(darkModeSwitch);
+
+      expect(container.querySelector('.dark')).toBeInTheDocument();
+    });
+
+    it('should enable dark mode in the editors', async () => {
+      const { getByTestId } = render(<App/>);
+
+      const darkModeSwitch = getByTestId('dark-mode');
+
+      await userEvent.click(darkModeSwitch);
+
+      expect(getByTestId('json')).toHaveClass('cm-theme-dark');
+    });
   });
 });
