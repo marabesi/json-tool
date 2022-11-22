@@ -132,7 +132,7 @@ onmessage = (e) => {
       <div className="flex h-full justify-center">
         <EditorContainer>
           <JsonMenu
-            pasteFromClipboard={pasteFromClipboard}
+            pasteFromClipboard={navigator.clipboard && typeof navigator.clipboard.write === 'function' ? pasteFromClipboard : false}
             cleanup={cleanup}
             onLoadedFile={onJsonChange}
             onSearch={() => search('json')}
@@ -149,7 +149,7 @@ onmessage = (e) => {
           <ResultMenu
             spacing={spacing}
             updateSpacing={updateSpacing}
-            writeToClipboard={writeToClipboard}
+            writeToClipboard={navigator.clipboard && typeof navigator.clipboard.read === 'function' ? writeToClipboard : false}
             cleanWhiteSpaces={cleanWhiteSpaces}
             cleanNewLines={cleanNewLines}
             cleanNewLinesAndSpaces={cleanNewLinesAndSpaces}

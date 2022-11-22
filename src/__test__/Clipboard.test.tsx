@@ -6,52 +6,78 @@ import { setUpClipboard, tearDownClipboard, writeTextToClipboard } from 'jest-cl
 import { grabCurrentEditor } from '../__testutilities__/editorQuery';
 
 describe('Clipboard', () => {
-  beforeEach(() => {
-    setUpClipboard();
+
+  describe('clipboard api available', () => {
+    beforeEach(() => {
+      setUpClipboard();
+    });
+
+    afterEach(() => {
+      tearDownClipboard();
+    });
+
+    it('should paste json string from copy area into the editor on clicking the button', async () => {
+      const { getByTestId } = render(<App />);
+
+      await writeTextToClipboard('{}');
+
+      act(() => {
+        userEvent.click(getByTestId('paste-from-clipboard'));
+      });
+
+      await waitFor(() => {
+        expect(getByTestId('raw-json')).toHaveValue('{}');
+        expect(getByTestId('raw-result')).toHaveValue('{}');
+      });
+    });
+
+    it('should copy json string from result editor to transfer area on clicking the button', async () => {
+      const { container, getByTestId } = render(<App />);
+
+      jest.spyOn(global.navigator.clipboard, 'writeText');
+
+      const editor = grabCurrentEditor(container);
+
+      await act(async () => {
+        await userEvent.type(editor, '{{"a":"a"}');
+      });
+
+      await waitFor(() => {
+        expect(getByTestId('raw-json')).toHaveValue('{"a":"a"}');
+      });
+
+      act(() => {
+        userEvent.click(screen.getByTestId('copy-json'));
+      });
+
+
+      await waitFor(async () => {
+        const formatter = new Formatter('{"a":"a"}');
+        expect(global.navigator.clipboard.writeText).toHaveBeenCalledWith(await formatter.format());
+      });
+    });
   });
 
-  afterEach(() => {
-    tearDownClipboard();
-  });
-
-  it('should paste json string from copy area into the editor on clicking the button', async () => {
-    const { getByTestId } = render(<App />);
-
-    await writeTextToClipboard('{}');
-
-    act(() => {
-      userEvent.click(getByTestId('paste-from-clipboard'));
+  describe('clipboard api not available', () => {
+    beforeEach(() => {
+      // @ts-ignore
+      global.navigator.clipboard = {};
     });
 
-    await waitFor(() => {
-      expect(getByTestId('raw-json')).toHaveValue('{}');
-      expect(getByTestId('raw-result')).toHaveValue('{}');
-    });
-  });
+    it('copy json should be disabled', async () => {
+      const { getByTestId } = render(<App/>);
 
-  it('should copy json string from result editor to transfer area on clicking the button', async () => {
-    const { container, getByTestId } = render(<App />);
-
-    jest.spyOn(global.navigator.clipboard, 'writeText');
-
-    const editor = grabCurrentEditor(container);
-
-    await act(async () => {
-      await userEvent.type(editor, '{{"a":"a"}');
+      await waitFor(async () => {
+        expect(getByTestId('copy-json')).toBeDisabled();
+      });
     });
 
-    await waitFor(() => {
-      expect(getByTestId('raw-json')).toHaveValue('{"a":"a"}');
-    });
+    it('paste json should be disabled', async () => {
+      const { getByTestId } = render(<App/>);
 
-    act(() => {
-      userEvent.click(screen.getByTestId('copy-json'));
-    });
-
-
-    await waitFor(async () => {
-      const formatter = new Formatter('{"a":"a"}');
-      expect(global.navigator.clipboard.writeText).toHaveBeenCalledWith(await formatter.format());
+      await waitFor(async () => {
+        expect(getByTestId('paste-from-clipboard')).toBeDisabled();
+      });
     });
   });
 });

@@ -59,6 +59,7 @@ export default function ResultMenu(
         data-testid="copy-json"
         onClick={writeToClipboard}
         className="flex items-center"
+        disabled={!writeToClipboard}
       >
         <FaRegCopy className="mr-2" />
                 Copy json
