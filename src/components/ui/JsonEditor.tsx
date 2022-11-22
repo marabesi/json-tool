@@ -3,7 +3,7 @@ import fullConfig from '../../tailwindResolver';
 import { json } from '@codemirror/lang-json';
 import { SettingsContext, ThemeContext } from '../../App';
 import { CSSProperties, useContext } from 'react';
-import { Option, Properties } from './Editor';
+import { Option, Properties } from '../../types/components/Editor';
 import { duotoneLight } from '@uiw/codemirror-theme-duotone';
 
 type Event = {

@@ -5,7 +5,7 @@ import Formatter from '../core/formatter';
 import ResultMenu from '../components/ui/menu/ResultMenu';
 import JsonMenu from '../components/ui/menu/JsonMenu';
 import EditorContainer from '../components/ui/EditorContainer';
-import { EditorsPageProps } from './types';
+import { EditorsPageProps } from '../types/pages';
 
 const cleanUp = new CleanUp();
 const defaultSpacing = '2';

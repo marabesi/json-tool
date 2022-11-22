@@ -2,7 +2,7 @@ import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import Editors from './pages/Editors';
 import { Settings } from './pages/Settings';
 import { createContext, useEffect, useState } from 'react';
-import { EditorOptions, Option, Properties } from './components/ui/Editor';
+import { EditorOptions, Option, Properties } from './types/components/Editor';
 import DefaultLayout from './components/ui/layout/Default';
 
 const defaultOp: Option[] = [
