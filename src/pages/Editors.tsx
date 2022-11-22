@@ -79,7 +79,7 @@ onmessage = (e) => {
     return () => {
       onPersist(originalJson);
     };
-  }, [worker, spacing, onPersist, originalJson]);
+  }, [spacing, onPersist, originalJson]);
 
   const pasteFromClipboard = async () => {
     const clipboardItems = await navigator.clipboard.read();
