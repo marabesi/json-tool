@@ -5,16 +5,12 @@ import Formatter from '../core/formatter';
 import ResultMenu from '../components/ui/menu/ResultMenu';
 import JsonMenu from '../components/ui/menu/JsonMenu';
 import EditorContainer from '../components/ui/EditorContainer';
+import { EditorsPageProps } from './types';
 
 const cleanUp = new CleanUp();
 const defaultSpacing = '2';
 
-interface Props {
-  currentJson: string
-  onPersist: (json: string) => void
-}
-
-export default function Editors({ onPersist, currentJson }: Props) {
+export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
   const [originalJson, setOriginalResult] = useState<string>(currentJson);
   const [result, setResult] = useState<string>('');
   const [error, setError] = useState<string>('');
