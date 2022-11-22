@@ -1,10 +1,10 @@
 import { useEffect, useState, useMemo } from 'react';
-import JsonEditor from '../components/ui/JsonEditor';
+import JsonEditor from '../components/ui/editor/JsonEditor';
 import CleanUp from '../core/cleanUp';
 import Formatter from '../core/formatter';
 import ResultMenu from '../components/ui/menu/ResultMenu';
 import JsonMenu from '../components/ui/menu/JsonMenu';
-import EditorContainer from '../components/ui/EditorContainer';
+import EditorContainer from '../components/ui/editor/EditorContainer';
 import { EditorsPageProps } from '../types/pages';
 
 const cleanUp = new CleanUp();
