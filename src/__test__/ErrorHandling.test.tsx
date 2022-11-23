@@ -6,7 +6,8 @@ import { grabCurrentEditor } from '../__testutilities__/editorQuery';
 describe('Error handling', () => {
   it.each([
     ['bla bla'],
-  ])('hides the error after a valid json is given (%s, %s)', async (originalCode: string) => {
+    ['bla bla'],
+  ])('hides the error after cleaning random string (%s)', async (originalCode: string) => {
     const { container, getByTestId } = render(<App/>);
 
     const editor = grabCurrentEditor(container);
