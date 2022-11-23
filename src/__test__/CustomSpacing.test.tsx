@@ -2,6 +2,20 @@ import { render, screen, act } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from '../__testutilities__/editorQuery';
+import { DirectOptions } from '@testing-library/user-event/setup/directApi';
+import { UserEventApi } from '@testing-library/user-event/setup/setup';
+
+const customType = (
+  element: Element,
+  text: string, options?: DirectOptions & Parameters<UserEventApi['type']>[2]
+): Promise<void> => {
+  return userEvent.type(
+    element, text, {
+      ...options,
+      delay: 10
+    }
+  );
+};
 
 describe('Custom spacing for formatting json', () => {
   it('should have space of 2 as default', async () => {
@@ -18,14 +32,14 @@ describe('Custom spacing for formatting json', () => {
 
       const space = screen.getByDisplayValue('2');
 
-      act(() => {
-        userEvent.clear(space);
+      await act(async () => {
+        await userEvent.clear(space);
       });
 
       const editor = grabCurrentEditor(container);
 
       await act(async () => {
-        await userEvent.type(editor, '{{"a":"a"}', { delay: 100 });
+        await customType(editor, '{{"a":"a"}');
       });
 
       const result = (screen.getByTestId('result') as HTMLInputElement);
@@ -46,13 +60,13 @@ describe('Custom spacing for formatting json', () => {
       });
 
       await act(async () => {
-        await userEvent.type(space, spacing, { delay: 100 });
+        await customType(space, spacing);
       });
 
       expect(space).toHaveValue(spacing);
     });
 
-    it.each([
+    it.concurrent.each([
       ['4', '{{"a":"a"}', `{
     "a": "a"
 }`
@@ -79,13 +93,13 @@ describe('Custom spacing for formatting json', () => {
       });
 
       await act(async () => {
-        await userEvent.type(space, spacing);
+        await customType(space, spacing);
       });
 
       const editor = grabCurrentEditor(container);
 
       await act(async () => {
-        await userEvent.type(editor, inputJson);
+        await customType(editor, inputJson);
       });
 
       const result = (getByTestId('raw-result') as HTMLInputElement);
@@ -98,7 +112,7 @@ describe('Custom spacing for formatting json', () => {
       const editor = grabCurrentEditor(container);
 
       await act(async () => {
-        await userEvent.type(editor, '{{"a":"a"}');
+        await customType(editor, '{{"a":"a"}');
       });
 
       const space = screen.getByDisplayValue('2');
@@ -108,7 +122,7 @@ describe('Custom spacing for formatting json', () => {
       });
 
       await act(async () => {
-        await userEvent.type(space, '4');
+        await customType(space, '4');
       });
 
       expect(getByTestId('raw-result')).toHaveValue(`{
