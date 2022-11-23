@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@craco/craco": "^6.3.0",
+    "@faker-js/faker": "^7.6.0",
     "@testing-library/dom": "^8.11.3",
     "@testing-library/webdriverio": "^3.0.4",
     "@types/node": "^16.10.5",
