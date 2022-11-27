@@ -6,6 +6,7 @@ import ResultMenu from '../components/ui/menu/ResultMenu';
 import JsonMenu from '../components/ui/menu/JsonMenu';
 import EditorContainer from '../components/ui/editor/EditorContainer';
 import { EditorsPageProps } from '../types/pages';
+import myWorker from '../core/worker';
 
 const cleanUp = new CleanUp();
 const defaultSpacing = '2';
@@ -17,25 +18,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
   const [spacing, setSpacing] = useState<string>(defaultSpacing);
 
   const worker = useMemo(() => {
-    const code = `
-onmessage = (e) => {
-  const value = e.data.jsonAsString;
-
-  if (value) {
-    try {
-      JSON.parse(value);
-    } catch (e) {
-      postMessage({ error: true, originalJson: value });
-      return;
-    }
-
-    postMessage({ error: false, originalJson: value });
-    return;
-  }
-  // empty json was given
-  postMessage({ error: false, originalJson: value });
-};
-  `;
+    const code = `onmessage = ${myWorker.toString()}`;
     return new Worker(URL.createObjectURL(new Blob([code])));
   }, []);
 
