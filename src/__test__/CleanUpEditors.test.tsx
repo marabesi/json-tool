@@ -126,16 +126,16 @@ describe('Clean up editors', () => {
 
     await writeTextToClipboard(inputJson);
 
-    act(() => {
-      userEvent.click(getByTestId('paste-from-clipboard'));
+    await act(async () => {
+      await userEvent.click(getByTestId('paste-from-clipboard'));
     });
 
     await waitFor(() => {
       expect(getByTestId('raw-json')).toHaveValue(inputJson);
     });
 
-    act(() => {
-      userEvent.click(getByTestId('clean-new-lines-and-spaces'));
+    await act(async () => {
+      await userEvent.click(getByTestId('clean-new-lines-and-spaces'));
     });
 
     await waitFor(() => {

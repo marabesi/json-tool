@@ -38,6 +38,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
     if (!spacing) return;
 
     onJsonChange(originalJson);
+
     return () => {
       onPersist(originalJson);
     };
@@ -103,7 +104,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
 
           <JsonEditor
             input={originalJson}
-            onChange={eventValue => onJsonChange(eventValue.value)}
+            onChange={eventValue => setOriginalResult(eventValue.value)}
             data-testid="json"
             contenteditable={true}
           />
