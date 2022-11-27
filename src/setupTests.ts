@@ -5,6 +5,19 @@
 import '@testing-library/jest-dom';
 import 'jsdom-worker';
 
+const fmt2json = require('format-to-json');
+
+// @ts-ignore
+// eslint-disable-next-line no-undef
+globalThis.fmt2json = fmt2json;
+
+// @ts-ignore
+// eslint-disable-next-line no-undef
+globalThis.importScripts = (url: string) => {
+  console.log(`returning null for url ${url}`);
+  return null;
+};
+
 beforeEach(() => {
   document.createRange = () => {
     const range = new Range();

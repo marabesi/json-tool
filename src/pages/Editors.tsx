@@ -1,7 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
 import JsonEditor from '../components/ui/editor/JsonEditor';
 import CleanUp from '../core/cleanUp';
-import Formatter from '../core/formatter';
 import ResultMenu from '../components/ui/menu/ResultMenu';
 import JsonMenu from '../components/ui/menu/JsonMenu';
 import EditorContainer from '../components/ui/editor/EditorContainer';
@@ -27,34 +26,18 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
     if (worker.data.error) {
       setError('invalid json');
     }
-
     setOriginalResult(worker.data.originalJson);
+    setResult(worker.data.result);
   };
 
   const onJsonChange = async (value: string) => {
-    worker.postMessage({ jsonAsString: value });
+    worker.postMessage({ jsonAsString: value, spacing });
   };
 
   useEffect(() => {
     if (!spacing) return;
 
-    const value: string = originalJson;
-
-    let format = new Formatter(value, parseInt(defaultSpacing));
-
-    const parseSpacing = parseInt(spacing);
-    if (!isNaN(parseSpacing)) {
-      format = new Formatter(value, parseSpacing);
-    }
-
-    const formatJsonAsync = async () => {
-      const result = await format.format();
-      setResult(result);
-    };
-
-    formatJsonAsync();
-
-    setOriginalResult(value);
+    onJsonChange(originalJson);
     return () => {
       onPersist(originalJson);
     };
