@@ -30,7 +30,7 @@ describe('Clean up editors', () => {
     expect(screen.getByTestId('raw-result')).toHaveValue('');
   });
 
-  it.each([
+  it.concurrent.each([
     ['{"name" : "json from clipboard"}', '{"name":"json from clipboard"}'],
     ['    {"name" : "json from clipboard"}', '{"name":"json from clipboard"}'],
     ['    {"name" : "json    from   clipboard"}', '{"name":"json    from   clipboard"}'],
@@ -79,7 +79,6 @@ describe('Clean up editors', () => {
     await act(async () => {
       await userEvent.click(screen.getByTestId('clean-spaces'));
     });
-
 
     await waitFor(() => {
       expect(getByTestId('raw-result')).toHaveValue(desiredJson);
