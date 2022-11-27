@@ -49,7 +49,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
       for (const type of clipboardItem.types) {
         const blob = await clipboardItem.getType(type);
         const text = await blob.text();
-        await onJsonChange(text);
+        setOriginalResult(text);
       }
     }
   };
