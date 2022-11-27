@@ -55,8 +55,8 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
     }
   };
 
-  const cleanup = () => {
-    setOriginalResult('');
+  const cleanup = async () => {
+    await onJsonChange('');
   };
 
   const writeToClipboard = async () => {
