@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 // eslint-disable-next-line no-undef
 importScripts('https://unpkg.com/format-to-json@2.1.2/fmt2json.min.js');
 
