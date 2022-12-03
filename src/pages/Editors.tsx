@@ -17,7 +17,13 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
   const [spacing, setSpacing] = useState<string>(defaultSpacing);
 
   const worker = useMemo(() => {
-    const code = `onmessage = ${myWorker.toString()}`;
+    const code = `
+      importScripts('https://unpkg.com/format-to-json@2.1.2/fmt2json.min.js');
+      
+      if('function' === typeof importScripts) {
+        addEventListener('message', ${myWorker.toString()})
+      }
+    `;
     return new Worker(URL.createObjectURL(new Blob([code])));
   }, []);
 

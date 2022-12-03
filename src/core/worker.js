@@ -1,7 +1,4 @@
 /* istanbul ignore file */
-// eslint-disable-next-line no-undef
-importScripts('https://unpkg.com/format-to-json@2.1.2/fmt2json.min.js');
-
 const onmessage = async (e) => {
   const value = e.data.jsonAsString;
   const spacing = e.data.spacing;
