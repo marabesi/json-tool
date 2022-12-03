@@ -71,7 +71,7 @@
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "test": "craco test src/",
     "test:all": "npm run e2e && npm run test -- --watchAll=false",
-    "coverage": "craco test --env=jsdom --no-cache --collectCoverage --ci --watchAll=false --colors",
+    "coverage": "craco test --env=jsdom --no-cache --collectCoverage --ci --watchAll=false --colors --silent",
     "coveralls": "npm run coverage && coveralls < coverage/lcov.info",
     "e2e": "CYPRESS_BASE_URL=http://localhost:3000 cypress run ",
     "eject": "craco eject",
