@@ -73,7 +73,7 @@
     "test:all": "npm run e2e && npm run test -- --watchAll=false",
     "coverage": "craco test --env=jsdom --no-cache --collectCoverage --ci --watchAll=false --colors --silent",
     "coveralls": "npm run coverage && coveralls < coverage/lcov.info",
-    "e2e": "CYPRESS_BASE_URL=http://localhost:3000 cypress run ",
+    "e2e": "CYPRESS_BASE_URL=http://localhost:3000 cypress run",
     "eject": "craco eject",
     "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
     "setup": "npm run build && cp package.json ./build",
