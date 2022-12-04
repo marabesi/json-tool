@@ -1,4 +1,5 @@
 const { When, Then } = require('cypress-cucumber-preprocessor/steps');
+const { waitFor } = require('../configuration');
 
 When(/^I place a json string with new lines and white spaces$/, function () {
   this.jsonWithNewLinesAndSpaces = `{
@@ -6,7 +7,9 @@ When(/^I place a json string with new lines and white spaces$/, function () {
   "name" : "json from clipboard"
 }`;
 
-  cy.withInputEditor().type(this.jsonWithNewLinesAndSpaces, { parseSpecialCharSequences: true });
+  cy.withInputEditor()
+    .type(this.jsonWithNewLinesAndSpaces, { parseSpecialCharSequences: true })
+    .wait(waitFor);
 });
 
 When(/^I click to clean white spaces and new lines$/, function () {

@@ -1,10 +1,13 @@
 const { When, Then } = require('cypress-cucumber-preprocessor/steps');
+const { waitFor } = require('../configuration');
 
 When(/^I place a valid json string with new lines$/, function () {
   this.jsonWithNewLines = `{
   "name" : "json from clipboard"
 }`;
-  cy.withInputEditor().type(this.jsonWithNewLines, { parseSpecialCharSequences: false, delay: 50 });
+  cy.withInputEditor()
+    .type(this.jsonWithNewLines, { parseSpecialCharSequences: false, delay: 50 })
+    .wait(waitFor);
 });
 
 When(/^I click to remove new lines$/, function () {
