@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import JsonEditor from '../components/ui/editor/JsonEditor';
 import CleanUp from '../core/cleanUp';
 import ResultMenu from '../components/ui/menu/ResultMenu';
@@ -36,19 +36,19 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
     setResult(worker.data.result);
   };
 
-  const onJsonChange = async (value: string) => {
-    worker.postMessage({ jsonAsString: value, spacing });
-  };
+  const onJsonChange = useCallback(() => {
+    worker.postMessage({ jsonAsString: originalJson, spacing });
+  }, [originalJson, spacing, worker]);
 
   useEffect(() => {
     if (!spacing) return;
 
-    onJsonChange(originalJson);
+    onJsonChange();
 
     return () => {
       onPersist(originalJson);
     };
-  }, [spacing, onPersist, originalJson]);
+  }, [spacing, onPersist, originalJson, onJsonChange]);
 
   const pasteFromClipboard = async () => {
     const clipboardItems = await navigator.clipboard.read();
@@ -61,8 +61,8 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
     }
   };
 
-  const cleanup = async () => {
-    await onJsonChange('');
+  const cleanup = () => {
+    setOriginalResult('');
   };
 
   const writeToClipboard = async () => {
@@ -104,7 +104,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
           <JsonMenu
             pasteFromClipboard={navigator.clipboard && typeof navigator.clipboard.write === 'function' ? pasteFromClipboard : false}
             cleanup={cleanup}
-            onLoadedFile={onJsonChange}
+            onLoadedFile={(text: string) => setOriginalResult(text)}
             onSearch={() => search('json')}
           />
 

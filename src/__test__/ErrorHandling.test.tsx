@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from '../__testutilities__/editorQuery';
 
 describe('Error handling', () => {
-  it.concurrent.each([
+  it.each([
     ['bla bla'],
     [faker.lorem.words(2)],
     [faker.lorem.paragraph(5)],

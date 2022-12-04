@@ -66,7 +66,7 @@ describe('Custom spacing for formatting json', () => {
       expect(space).toHaveValue(spacing);
     });
 
-    it.concurrent.each([
+    it.each([
       ['4', '{{"a":"a"}', `{
     "a": "a"
 }`
