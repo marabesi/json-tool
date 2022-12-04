@@ -1,4 +1,4 @@
-import { render, screen, act, waitFor, fireEvent, within } from '@testing-library/react';
+import { render, act, waitFor, fireEvent, within } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 
@@ -15,7 +15,7 @@ describe('Editors', () => {
     ['{{}', '{}'],
     ['{{"a": "b"}', '{"a": "b"}'],
   ])('place %s text in the editor and receive %s', async (input, expected) => {
-    const { container } = render(<App />);
+    const { container, getByTestId } = render(<App />);
 
     const editor = grabCurrentEditor(container);
 
@@ -23,7 +23,7 @@ describe('Editors', () => {
       await userEvent.type(editor, input);
     });
 
-    const result = screen.getByTestId('result');
+    const result = getByTestId('result');
 
     expect(result.nodeValue).toMatchSnapshot(expected);
   });
@@ -38,7 +38,7 @@ describe('Editors', () => {
       await userEvent.type(editor, json);
     });
 
-    const rawEditor = screen.getByTestId('raw-json');
+    const rawEditor = getByTestId('raw-json');
 
     await waitFor(() => {
       expect(rawEditor).toHaveValue('{"random_json":"123"}');
@@ -53,7 +53,7 @@ describe('Editors', () => {
     fireEvent.click(getByTestId('to-home'));
 
     await waitFor(() => {
-      expect(screen.getByTestId('raw-json')).toHaveValue('{"random_json":"123"}');
+      expect(getByTestId('raw-json')).toHaveValue('{"random_json":"123"}');
     });
   });
 

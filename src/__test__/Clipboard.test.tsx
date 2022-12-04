@@ -1,4 +1,4 @@
-import { render, screen, act, waitFor } from '@testing-library/react';
+import { render, act, waitFor } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import Formatter from '../core/formatter';
@@ -47,7 +47,7 @@ describe('Clipboard', () => {
       });
 
       act(() => {
-        userEvent.click(screen.getByTestId('copy-json'));
+        userEvent.click(getByTestId('copy-json'));
       });
 
 
