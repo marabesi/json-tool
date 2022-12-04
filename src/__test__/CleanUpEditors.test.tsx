@@ -3,6 +3,7 @@ import App from '../App';
 import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from '../__testutilities__/editorQuery';
 import { setUpClipboard, tearDownClipboard, writeTextToClipboard } from 'jest-clipboard';
+import { customType } from '../__testutilities__/customTyping';
 
 describe('Clean up editors', () => {
   beforeEach(() => {
@@ -19,7 +20,7 @@ describe('Clean up editors', () => {
     const editor = grabCurrentEditor(container);
 
     await act(async () => {
-      await userEvent.type(editor, '{{}');
+      await customType(editor, '{{}');
     });
 
     await act(async () => {
@@ -74,7 +75,7 @@ describe('Clean up editors', () => {
 
     await waitFor(() => {
       expect(getByTestId('raw-json')).toHaveValue(inputJson);
-    });
+    }, { timeout: 10000 });
 
     await act(async () => {
       await userEvent.click(getByTestId('clean-spaces'));

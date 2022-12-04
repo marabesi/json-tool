@@ -2,20 +2,7 @@ import { render, act } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from '../__testutilities__/editorQuery';
-import { DirectOptions } from '@testing-library/user-event/setup/directApi';
-import { UserEventApi } from '@testing-library/user-event/setup/setup';
-
-const customType = (
-  element: Element,
-  text: string, options?: DirectOptions & Parameters<UserEventApi['type']>[2]
-): Promise<void> => {
-  return userEvent.type(
-    element, text, {
-      ...options,
-      delay: 10
-    }
-  );
-};
+import { customType } from '../__testutilities__/customTyping';
 
 describe('Custom spacing for formatting json', () => {
   it('should have space of 2 as default', async () => {
