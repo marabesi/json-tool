@@ -1,5 +1,9 @@
 /* istanbul ignore file */
 const onmessage = async (e) => {
+  if (!e) {
+    return;
+  }
+
   const value = e.data.jsonAsString;
   const spacing = e.data.spacing;
 
