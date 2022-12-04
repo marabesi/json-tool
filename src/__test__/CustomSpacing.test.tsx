@@ -117,8 +117,8 @@ describe('Custom spacing for formatting json', () => {
 
       const space = getByDisplayValue('2');
 
-      act(() => {
-        userEvent.clear(space);
+      await act(async () => {
+        await userEvent.clear(space);
       });
 
       await act(async () => {

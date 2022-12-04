@@ -21,8 +21,8 @@ describe('Clipboard', () => {
 
       await writeTextToClipboard('{}');
 
-      act(() => {
-        userEvent.click(getByTestId('paste-from-clipboard'));
+      await act(async () => {
+        await userEvent.click(getByTestId('paste-from-clipboard'));
       });
 
       await waitFor(() => {
@@ -46,8 +46,8 @@ describe('Clipboard', () => {
         expect(getByTestId('raw-json')).toHaveValue('{"a":"a"}');
       });
 
-      act(() => {
-        userEvent.click(getByTestId('copy-json'));
+      await act(async () => {
+        await userEvent.click(getByTestId('copy-json'));
       });
 
 
