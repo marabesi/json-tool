@@ -1,4 +1,4 @@
-import { render, act } from '@testing-library/react';
+import { render, act, waitFor } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from '../__testutilities__/editorQuery';
@@ -89,9 +89,11 @@ describe('Custom spacing for formatting json', () => {
         await customType(editor, inputJson);
       });
 
-      const result = (getByTestId('raw-result') as HTMLInputElement);
+      await waitFor(() => {
+        const result = (getByTestId('raw-result') as HTMLInputElement);
 
-      expect(result).toHaveValue(outputJson);
+        expect(result).toHaveValue(outputJson);
+      });
     });
 
     it('should reformat json if space changes', async () => {
@@ -112,9 +114,11 @@ describe('Custom spacing for formatting json', () => {
         await customType(space, '4');
       });
 
-      expect(getByTestId('raw-result')).toHaveValue(`{
+      await waitFor(() => {
+        expect(getByTestId('raw-result')).toHaveValue(`{
     "a": "a"
 }`);
+      });
     });
   });
 

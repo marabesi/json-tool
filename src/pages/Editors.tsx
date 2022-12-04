@@ -10,6 +10,15 @@ import myWorker from '../core/worker';
 const cleanUp = new CleanUp();
 const defaultSpacing = '2';
 
+const debounce = (callback: any, wait: any) => {
+  let timeoutId: any = null;
+  return (...args: any) => {
+    window.clearTimeout(timeoutId);
+    timeoutId = window.setTimeout(() => {
+      callback.apply(null, args);
+    }, wait);
+  };
+};
 export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
   const [originalJson, setOriginalResult] = useState<string>(currentJson);
   const [result, setResult] = useState<string>('');
@@ -110,7 +119,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
 
           <JsonEditor
             input={originalJson}
-            onChange={eventValue => setOriginalResult(eventValue.value)}
+            onChange={debounce((eventValue: any) => setOriginalResult(eventValue.value), 500)}
             data-testid="json"
             contenteditable={true}
           />

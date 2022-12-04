@@ -50,7 +50,6 @@ describe('Clipboard', () => {
         await userEvent.click(getByTestId('copy-json'));
       });
 
-
       await waitFor(async () => {
         const formatter = new Formatter('{"a":"a"}');
         expect(global.navigator.clipboard.writeText).toHaveBeenCalledWith(await formatter.format());
