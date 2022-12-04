@@ -1,4 +1,4 @@
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { act, render, waitFor } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from '../__testutilities__/editorQuery';
@@ -14,7 +14,7 @@ describe('Clean up editors', () => {
   });
 
   it('should clean editors once clean is clicked', async () => {
-    const { container } = render(<App />);
+    const { container, getByTestId } = render(<App />);
 
     const editor = grabCurrentEditor(container);
 
@@ -23,11 +23,11 @@ describe('Clean up editors', () => {
     });
 
     await act(async () => {
-      await userEvent.click(screen.getByTestId('clean'));
+      await userEvent.click(getByTestId('clean'));
     });
 
-    expect(screen.getByTestId('raw-json')).toHaveValue('');
-    expect(screen.getByTestId('raw-result')).toHaveValue('');
+    expect(getByTestId('raw-json')).toHaveValue('');
+    expect(getByTestId('raw-result')).toHaveValue('');
   });
 
   it.each([
@@ -77,7 +77,7 @@ describe('Clean up editors', () => {
     });
 
     await act(async () => {
-      await userEvent.click(screen.getByTestId('clean-spaces'));
+      await userEvent.click(getByTestId('clean-spaces'));
     });
 
     await waitFor(() => {
@@ -107,7 +107,7 @@ describe('Clean up editors', () => {
     });
 
     await act(async () => {
-      await userEvent.click(screen.getByTestId('clean-new-lines'));
+      await userEvent.click(getByTestId('clean-new-lines'));
     });
 
     await waitFor(() => {
