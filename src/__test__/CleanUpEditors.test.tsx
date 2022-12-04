@@ -34,11 +34,11 @@ describe('Clean up editors', () => {
     ['{"name" : "json from clipboard"}', '{"name":"json from clipboard"}'],
     ['    {"name" : "json from clipboard"}', '{"name":"json from clipboard"}'],
     ['    {"name" : "json    from   clipboard"}', '{"name":"json    from   clipboard"}'],
-    // ['{"key with spaces" : "json from clipboard"}', '{"key with spaces":"json from clipboard"}'],
-    // ['    { "a" : "a", "b" : "b" }', '{"a":"a","b":"b"}'],
-    // ['{ "a" : true,         "b" : "b" }', '{"a":true,"b":"b"}'],
-    // ['{ "a" : true,"b" : 123 }', '{"a":true,"b":123}'],
-    // ['{"private_key" : "-----BEGIN PRIVATE KEY-----\nMIIEvgI\n-----END PRIVATE KEY-----\n" }', '{"private_key":"-----BEGIN PRIVATE KEY-----\nMIIEvgI\n-----END PRIVATE KEY-----\n"}'],
+    ['{"key with spaces" : "json from clipboard"}', '{"key with spaces":"json from clipboard"}'],
+    ['    { "a" : "a", "b" : "b" }', '{"a":"a","b":"b"}'],
+    ['{ "a" : true,         "b" : "b" }', '{"a":true,"b":"b"}'],
+    ['{ "a" : true,"b" : 123 }', '{"a":true,"b":123}'],
+    ['{"private_key" : "-----BEGIN PRIVATE KEY-----\nMIIEvgI\n-----END PRIVATE KEY-----\n" }', '{"private_key":"-----BEGIN PRIVATE KEY-----\nMIIEvgI\n-----END PRIVATE KEY-----\n"}'],
     [`{
   "type": "aaaa",
   "project_id": "any",
@@ -80,8 +80,6 @@ describe('Clean up editors', () => {
       await userEvent.click(screen.getByTestId('clean-spaces'));
     });
 
-    // await new Promise((resolve) => setTimeout(resolve, 4000));
-    //
     await waitFor(() => {
       expect(getByTestId('raw-result')).toHaveValue(desiredJson);
     }, { timeout: 10000 });
