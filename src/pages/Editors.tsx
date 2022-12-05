@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import JsonEditor from '../components/ui/editor/JsonEditor';
 import CleanUp from '../core/cleanUp';
 import ResultMenu from '../components/ui/menu/ResultMenu';
@@ -25,7 +25,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
   const [error, setError] = useState<string>('');
   const [spacing, setSpacing] = useState<string>(defaultSpacing);
 
-  const worker = useMemo(() => {
+  const onJsonChange = useCallback(() => {
     const code = `
       importScripts('https://unpkg.com/format-to-json@2.1.2/fmt2json.min.js');
       
@@ -33,21 +33,18 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
         addEventListener('message', ${myWorker.toString()})
       }
     `;
-    return new Worker(URL.createObjectURL(new Blob([code])));
-  }, []);
-
-  worker.onmessage = async (worker: any) => {
-    setError('');
-    if (worker.data.error) {
-      setError('invalid json');
-    }
-    setOriginalResult(worker.data.originalJson);
-    setResult(worker.data.result);
-  };
-
-  const onJsonChange = useCallback(() => {
+    const worker = new Worker(URL.createObjectURL(new Blob([code])));
     worker.postMessage({ jsonAsString: originalJson, spacing });
-  }, [originalJson, spacing, worker]);
+    worker.onmessage = async (workerSelf: any) => {
+      setError('');
+      if (workerSelf.data.error) {
+        setError('invalid json');
+      }
+      setOriginalResult(workerSelf.data.originalJson);
+      setResult(workerSelf.data.result);
+      worker.terminate();
+    };
+  }, [originalJson, spacing]);
 
   useEffect(() => {
     if (!spacing) return;

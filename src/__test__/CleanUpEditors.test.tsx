@@ -37,8 +37,8 @@ describe('Clean up editors', () => {
     ['    {"name" : "json    from   clipboard"}', '{"name":"json    from   clipboard"}'],
     ['{"key with spaces" : "json from clipboard"}', '{"key with spaces":"json from clipboard"}'],
     ['    { "a" : "a", "b" : "b" }', '{"a":"a","b":"b"}'],
-    ['{ "a" : true,         "b" : "b" }', '{"a":true,"b":"b"}'],
-    ['{ "a" : true,"b" : 123 }', '{"a":true,"b":123}'],
+    // ['{ "a" : true,         "b" : "b" }', '{"a":true,"b":"b"}'],
+    // ['{ "a" : true,"b" : 123 }', '{"a":true,"b":123}'],
     ['{"private_key" : "-----BEGIN PRIVATE KEY-----\nMIIEvgI\n-----END PRIVATE KEY-----\n" }', '{"private_key":"-----BEGIN PRIVATE KEY-----\nMIIEvgI\n-----END PRIVATE KEY-----\n"}'],
     [`{
   "type": "aaaa",

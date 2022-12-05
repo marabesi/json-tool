@@ -132,9 +132,11 @@ describe('Custom spacing for formatting json', () => {
         await userEvent.upload(getByTestId('upload-json'), file);
       });
 
-      expect(getByTestId('raw-result')).toHaveValue(`{
+      await waitFor(() => {
+        expect(getByTestId('raw-result')).toHaveValue(`{
   "a": "b"
 }`);
+      });
     });
   });
 });
