@@ -28,9 +28,9 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
   const onJsonChange = useCallback(() => {
     const code = `
       importScripts('https://unpkg.com/format-to-json@2.1.2/fmt2json.min.js');
-      
+
       if('function' === typeof importScripts) {
-        addEventListener('message', ${myWorker.toString()})
+        onmessage = ${myWorker.toString()}
       }
     `;
     const worker = new Worker(URL.createObjectURL(new Blob([code])));
