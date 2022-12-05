@@ -5,7 +5,6 @@ import ResultMenu from '../components/ui/menu/ResultMenu';
 import JsonMenu from '../components/ui/menu/JsonMenu';
 import EditorContainer from '../components/ui/editor/EditorContainer';
 import { EditorsPageProps } from '../types/pages';
-import myWorker from '../core/worker';
 
 const cleanUp = new CleanUp();
 const defaultSpacing = '2';
@@ -30,7 +29,36 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
       importScripts('https://unpkg.com/format-to-json@2.1.2/fmt2json.min.js');
 
       if('function' === typeof importScripts) {
-        onmessage = ${myWorker.toString()}
+        addEventListener('message', async (event) => {
+           if (!event) {
+             return;
+           }
+         
+           const value = event.data.jsonAsString;
+           const spacing = event.data.spacing;
+         
+           if (value) {
+             // eslint-disable-next-line no-undef
+             const format = await fmt2json(value, {
+               expand: true,
+               escape: false,
+               indent: parseInt(spacing)
+             });
+         
+             try {
+               JSON.parse(value);
+             } catch (e) {
+               console.error('error from worker: ', e);
+               postMessage({ error: true, originalJson: value, result: format.result });
+               return;
+             }
+         
+             postMessage({ error: false, originalJson: value, result: format.result });
+             return;
+           }
+           // empty json was given
+           postMessage({ error: false, originalJson: value, result: value });
+         });
       }
     `;
     const worker = new Worker(URL.createObjectURL(new Blob([code])));
