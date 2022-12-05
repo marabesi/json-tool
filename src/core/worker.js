@@ -1,11 +1,11 @@
 /* istanbul ignore file */
-const onmessage = async (e) => {
-  if (!e) {
+const onmessage = async (event) => {
+  if (!event) {
     return;
   }
 
-  const value = e.data.jsonAsString;
-  const spacing = e.data.spacing;
+  const value = event.data.jsonAsString;
+  const spacing = event.data.spacing;
 
   if (value) {
     // eslint-disable-next-line no-undef
@@ -18,6 +18,7 @@ const onmessage = async (e) => {
     try {
       JSON.parse(value);
     } catch (e) {
+      console.error('error from worker: ', e);
       postMessage({ error: true, originalJson: value, result: format.result });
       return;
     }
