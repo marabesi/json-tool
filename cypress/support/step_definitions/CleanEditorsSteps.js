@@ -1,9 +1,12 @@
 const { When, Then } = require('cypress-cucumber-preprocessor/steps');
+const { waitFor } = require('../configuration');
 
 const inputJson = '{"name":"json from clipboard"}';
 
 When(/^I place a json string in the editor$/, function () {
-  cy.withInputEditor().type(inputJson, { parseSpecialCharSequences: false });
+  cy.withInputEditor()
+    .type(inputJson, { parseSpecialCharSequences: false })
+    .wait(waitFor);
 });
 
 When(/^I click to clean the editor$/, function () {
