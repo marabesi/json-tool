@@ -1,11 +1,9 @@
 import { act, render, RenderResult, waitFor } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
-import { grabCurrentEditor } from '../__testutilities__/editorQuery';
 import { setUpClipboard, tearDownClipboard, writeTextToClipboard } from 'jest-clipboard';
-import { customType } from '../__testutilities__/customTyping';
 
-describe('Clean up editors', () => {
+describe('Clean up json new lines', () => {
   let wrapper: RenderResult;
 
   beforeEach(() => {
@@ -18,29 +16,15 @@ describe('Clean up editors', () => {
     wrapper.unmount();
   });
 
-  it('should clean editors once clean is clicked', async () => {
-    const { container, getByTestId } = wrapper;
-
-    const editor = grabCurrentEditor(container);
-
-    await act(async () => {
-      await customType(editor, '{{}');
-    });
-
-    await act(async () => {
-      await userEvent.click(getByTestId('clean'));
-    });
-
-    expect(getByTestId('raw-json')).toHaveValue('');
-    expect(getByTestId('raw-result')).toHaveValue('');
-  });
-
   it.each([
+    [`{
+  "name" : "json from clipboard"
+}`, '{  "name" : "json from clipboard"}'],
     [`{
   "name" : "json from clipboard",
   "last_name" : "another name"
-}`, '{"name":"json from clipboard","last_name":"another name"}'],
-  ])('should clean blank spaces and new lines in the json (%s, %s)', async (inputJson: string, desiredJson: string) => {
+}`, '{  "name" : "json from clipboard",  "last_name" : "another name"}'],
+  ])('should clean json with new lines (%s, %s)', async (inputJson: string, desiredJson: string) => {
     const { getByTestId } = wrapper;
 
     await writeTextToClipboard(inputJson);
@@ -54,7 +38,7 @@ describe('Clean up editors', () => {
     });
 
     await act(async () => {
-      await userEvent.click(getByTestId('clean-new-lines-and-spaces'));
+      await userEvent.click(getByTestId('clean-new-lines'));
     });
 
     await waitFor(() => {
