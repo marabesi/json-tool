@@ -18,9 +18,9 @@ globalThis.importScripts = (url: string) => {
   return null;
 };
 
-beforeEach(() => {
-  jest.setTimeout(10000);
+jest.setTimeout(30000);
 
+beforeEach(() => {
   document.createRange = () => {
     const range = new Range();
 
