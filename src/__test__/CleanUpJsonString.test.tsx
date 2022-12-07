@@ -23,6 +23,8 @@ describe('Clean up json', () => {
     ['    { "a" : "a", "b" : "b" }', '{"a":"a","b":"b"}'],
     ['{ "a" : true,         "b" : "b" }', '{"a":true,"b":"b"}'],
     ['{ "a" : true,"b" : 123 }', '{"a":true,"b":123}'],
+    ['{"key with spaces" : "json from clipboard"}', '{"key with spaces":"json from clipboard"}'],
+    ['{"private_key" : "-----BEGIN PRIVATE KEY-----\nMIIEvgI\n-----END PRIVATE KEY-----\n" }', '{"private_key":"-----BEGIN PRIVATE KEY-----\nMIIEvgI\n-----END PRIVATE KEY-----\n"}'],
   ])('should clean specific spaces in a json string (%s, %s)', async (inputJson: string, desiredJson: string) => {
     const { getByTestId } = wrapper;
 
@@ -46,8 +48,6 @@ describe('Clean up json', () => {
   });
 
   it.each([
-    ['{"key with spaces" : "json from clipboard"}', '{"key with spaces":"json from clipboard"}'],
-    ['{"private_key" : "-----BEGIN PRIVATE KEY-----\nMIIEvgI\n-----END PRIVATE KEY-----\n" }', '{"private_key":"-----BEGIN PRIVATE KEY-----\nMIIEvgI\n-----END PRIVATE KEY-----\n"}'],
     [`{
   "type": "aaaa",
   "project_id": "any",
@@ -72,7 +72,7 @@ describe('Clean up json', () => {
 "client_x509_cert_url":"https://www.googleapis.com/robot/v1/metadata/x509/"
 }`
     ],
-  ])('should clean json white spaces %s, %s', async (inputJson: string, desiredJson: string) => {
+  ])('should clean firebase json white spaces', async (inputJson: string, desiredJson: string) => {
     const { getByTestId } = wrapper;
 
     await writeTextToClipboard(inputJson);
