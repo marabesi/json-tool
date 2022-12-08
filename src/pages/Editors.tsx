@@ -96,9 +96,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
     }
   };
 
-  const cleanup = () => {
-    setOriginalResult('');
-  };
+  const cleanup = () => setOriginalResult('');
 
   const writeToClipboard = async () => {
     await navigator.clipboard.writeText(result);

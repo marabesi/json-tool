@@ -31,8 +31,10 @@ describe('Clean up editors', () => {
       await userEvent.click(getByTestId('clean'));
     });
 
-    expect(getByTestId('raw-json')).toHaveValue('');
-    expect(getByTestId('raw-result')).toHaveValue('');
+    await waitFor(() => {
+      expect(getByTestId('raw-json')).toHaveValue('');
+      expect(getByTestId('raw-result')).toHaveValue('');
+    });
   });
 
   it.each([
