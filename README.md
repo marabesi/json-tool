@@ -28,3 +28,7 @@ Try out the [online version](https://marabesi.github.io/json-tool)!
 # Publications
 
 [Announcing the JSON tool - A companion for formatting json content, focused in privacy](https://marabesi.com/web/productivity/utilities/2021/10/24/json-tool-a-companion-for-formatting-json-strings.html)
+
+# Resources
+
+- [useFakeTimers not working in jest/testing-library](https://stackoverflow.com/questions/71174071/usefaketimers-not-working-in-jest-testing-library)

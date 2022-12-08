@@ -16,7 +16,7 @@ describe('Clean up json', () => {
     wrapper.unmount();
   });
 
-  it.each([
+  it.skip.each([
     ['{"name" : "json from clipboard"}', '{"name":"json from clipboard"}'],
     ['    {"name" : "json from clipboard"}', '{"name":"json from clipboard"}'],
     ['    {"name" : "json    from   clipboard"}', '{"name":"json    from   clipboard"}'],
@@ -72,7 +72,7 @@ describe('Clean up json', () => {
 "client_x509_cert_url":"https://www.googleapis.com/robot/v1/metadata/x509/"
 }`
     ],
-  ])('should clean firebase json white spaces', async (inputJson: string, desiredJson: string) => {
+  ])('should clean firebase json white spaces (%s, %s)', async (inputJson: string, desiredJson: string) => {
     const { getByTestId } = wrapper;
 
     await writeTextToClipboard(inputJson);

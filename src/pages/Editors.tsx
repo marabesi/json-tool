@@ -18,6 +18,7 @@ const debounce = (callback: any, wait: any) => {
     }, wait);
   };
 };
+
 export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
   const [originalJson, setOriginalResult] = useState<string>(currentJson);
   const [result, setResult] = useState<string>('');
