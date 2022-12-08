@@ -35,7 +35,7 @@ describe('Clean up editors', () => {
     expect(getByTestId('raw-result')).toHaveValue('');
   });
 
-  it.skip.each([
+  it.each([
     [`{
   "name" : "json from clipboard",
   "last_name" : "another name"

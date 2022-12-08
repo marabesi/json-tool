@@ -16,7 +16,7 @@ describe('Clean up json', () => {
     wrapper.unmount();
   });
 
-  it.skip.each([
+  it.each([
     ['{"name" : "json from clipboard"}', '{"name":"json from clipboard"}'],
     ['    {"name" : "json from clipboard"}', '{"name":"json from clipboard"}'],
     ['    {"name" : "json    from   clipboard"}', '{"name":"json    from   clipboard"}'],

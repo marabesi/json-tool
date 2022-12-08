@@ -132,7 +132,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
     }
   };
 
-  const onChange = debounce((eventValue: any) => setOriginalResult(eventValue), 500);
+  const onChange = debounce((eventValue: string) => setOriginalResult(eventValue), 500);
 
   return (
     <div className="p-1 mb-8 h-full" style={{ height: '80vh' }}>
