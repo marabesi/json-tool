@@ -43,6 +43,6 @@ describe('Clean up json new lines', () => {
 
     await waitFor(() => {
       expect(getByTestId('raw-result')).toHaveValue(desiredJson);
-    });
+    }, { timeout: 10000 });
   });
 });
