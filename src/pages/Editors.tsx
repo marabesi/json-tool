@@ -91,7 +91,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
       for (const type of clipboardItem.types) {
         const blob = await clipboardItem.getType(type);
         const text = await blob.text();
-        setOriginalResult(text);
+        onChange(text);
       }
     }
   };
@@ -132,6 +132,8 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
     }
   };
 
+  const onChange = debounce((eventValue: any) => setOriginalResult(eventValue), 500);
+
   return (
     <div className="p-1 mb-8 h-full" style={{ height: '80vh' }}>
       <div className="flex h-full justify-center">
@@ -145,7 +147,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
 
           <JsonEditor
             input={originalJson}
-            onChange={debounce((eventValue: any) => setOriginalResult(eventValue.value), 500)}
+            onChange={event=> onChange(event.value)}
             data-testid="json"
             contenteditable={true}
           />
