@@ -25,6 +25,8 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
   const [error, setError] = useState<string>('');
   const [spacing, setSpacing] = useState<string>(defaultSpacing);
 
+  const onChange = debounce((eventValue: string) => setOriginalResult(eventValue), 500);
+
   const onJsonChange = useCallback(() => {
     const code = `
       importScripts('https://unpkg.com/format-to-json@2.1.2/fmt2json.min.js');
@@ -96,7 +98,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
     }
   };
 
-  const cleanup = () => setOriginalResult('');
+  const cleanup = onChange('');
 
   const writeToClipboard = async () => {
     await navigator.clipboard.writeText(result);
@@ -130,8 +132,6 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
     }
   };
 
-  const onChange = debounce((eventValue: string) => setOriginalResult(eventValue), 500);
-
   return (
     <div className="p-1 mb-8 h-full" style={{ height: '80vh' }}>
       <div className="flex h-full justify-center">
@@ -145,7 +145,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
 
           <JsonEditor
             input={originalJson}
-            onChange={event=> onChange(event.value)}
+            onChange={event => onChange(event.value)}
             data-testid="json"
             contenteditable={true}
           />
