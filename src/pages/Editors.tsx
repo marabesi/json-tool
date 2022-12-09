@@ -20,8 +20,6 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
   const onChange = AwesomeDebouncePromise((eventValue: string) => setOriginalResult(eventValue), HALF_SECOND);
 
   useEffect(() => {
-    if (!spacing) return;
-
     const code = `
       importScripts('https://unpkg.com/format-to-json@2.1.2/fmt2json.min.js');
 
@@ -69,11 +67,13 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
       setResult(workerSelf.data.result);
       worker.terminate();
     };
+  }, [spacing, originalJson]);
 
+  useEffect(() => {
     return () => {
       onPersist(originalJson);
     };
-  }, [spacing, onPersist, originalJson]);
+  }, [onPersist, originalJson]);
 
   const pasteFromClipboard = async () => {
     const clipboardItems = await navigator.clipboard.read();
