@@ -77,13 +77,16 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
 
   const pasteFromClipboard = async () => {
     const clipboardItems = await navigator.clipboard.read();
+    let result = '';
     for (const clipboardItem of clipboardItems) {
       for (const type of clipboardItem.types) {
         const blob = await clipboardItem.getType(type);
         const text = await blob.text();
-        onChange(text);
+        result += text;
       }
     }
+
+    onChange(result);
   };
 
   const cleanup = () => onChange('');
