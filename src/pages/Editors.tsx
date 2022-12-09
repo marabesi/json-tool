@@ -9,6 +9,7 @@ import { EditorsPageProps } from '../types/pages';
 
 const cleanUp = new CleanUp();
 const defaultSpacing = '2';
+const HALF_SECOND = 500;
 
 export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
   const [originalJson, setOriginalResult] = useState<string>(currentJson);
@@ -16,7 +17,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
   const [error, setError] = useState<string>('');
   const [spacing, setSpacing] = useState<string>(defaultSpacing);
 
-  const onChange = AwesomeDebouncePromise((eventValue: string) => setOriginalResult(eventValue),500);
+  const onChange = AwesomeDebouncePromise((eventValue: string) => setOriginalResult(eventValue), HALF_SECOND);
 
   useEffect(() => {
     if (!spacing) return;
@@ -59,7 +60,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
     `;
     const worker = new Worker(URL.createObjectURL(new Blob([code])));
     worker.postMessage({ jsonAsString: originalJson, spacing });
-    worker.onmessage = async (workerSelf: any) => {
+    worker.onmessage = async (workerSelf: MessageEvent) => {
       setError('');
       if (workerSelf.data.error) {
         setError('invalid json');
