@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import JsonEditor from '../components/ui/editor/JsonEditor';
 import CleanUp from '../core/cleanUp';
 import ResultMenu from '../components/ui/menu/ResultMenu';
@@ -9,23 +10,13 @@ import { EditorsPageProps } from '../types/pages';
 const cleanUp = new CleanUp();
 const defaultSpacing = '2';
 
-const debounce = (callback: any, wait: any) => {
-  let timeoutId: any = null;
-  return (...args: any) => {
-    window.clearTimeout(timeoutId);
-    timeoutId = window.setTimeout(() => {
-      callback.apply(null, args);
-    }, wait);
-  };
-};
-
 export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
   const [originalJson, setOriginalResult] = useState<string>(currentJson);
   const [result, setResult] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [spacing, setSpacing] = useState<string>(defaultSpacing);
 
-  const onChange = debounce((eventValue: string) => setOriginalResult(eventValue), 500);
+  const onChange = AwesomeDebouncePromise((eventValue: string) => setOriginalResult(eventValue),500);
 
   const onJsonChange = useCallback(() => {
     const code = `
@@ -98,7 +89,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
     }
   };
 
-  const cleanup = onChange('');
+  const cleanup = () => onChange('');
 
   const writeToClipboard = async () => {
     await navigator.clipboard.writeText(result);
