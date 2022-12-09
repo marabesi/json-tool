@@ -55,7 +55,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Run cypress (acceptance tests)
-        uses: cypress-io/github-action@v3
+        uses: cypress-io/github-action@v4
         env:
           CYPRESS_BASE_URL: 'http://localhost:3000'
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
