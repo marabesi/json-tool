@@ -15,22 +15,6 @@ env:
   COVERALLS_GIT_BRANCH: main
 
 jobs:
-  e2e:
-    runs-on: ubuntu-latest
-    container:
-      image: cypress/included:10.11.0
-    steps:
-      - uses: actions/checkout@v2
-      - uses: cypress-io/github-action@v4
-        env:
-          CYPRESS_BASE_URL: 'http://localhost:3000'
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-        with:
-          record: true
-          wait-on: 'http://localhost:3000'
-          install-command: npm install --legacy-peer-deps
-          start: npm run serve
-
   build:
     runs-on: ubuntu-18.04
 
@@ -69,6 +53,17 @@ jobs:
         run: npm run package
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: Run cypress (acceptance tests)
+        uses: cypress-io/github-action@v4
+        env:
+          CYPRESS_BASE_URL: 'http://localhost:3000'
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+        with:
+          record: true
+          wait-on: 'http://localhost:3000'
+          install-command: npm install --legacy-peer-deps
+          start: npm run serve
 
       - name: package for windows
         run: npm run package-windows
