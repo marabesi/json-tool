@@ -63,7 +63,6 @@ jobs:
           record: true
           wait-on: 'http://localhost:3000'
           install-command: npm install --legacy-peer-deps
-          spec: 'cypress/e2e/**/*.feature'
           start: npm run serve
 
       - name: package for windows
