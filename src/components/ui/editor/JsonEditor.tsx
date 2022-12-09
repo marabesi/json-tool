@@ -33,6 +33,7 @@ export default function JsonEditor({ input, onChange, className, ...rest }: Prop
 
   const basicSetup: BasicSetupOptions = {};
   if (settings.options) {
+    // @ts-ignore
     settings.options.forEach((item: Option) => basicSetup[item.title as keyof BasicSetupOptions] = item.active);
   }
 
