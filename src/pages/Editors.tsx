@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import JsonEditor from '../components/ui/editor/JsonEditor';
 import CleanUp from '../core/cleanUp';
@@ -18,7 +18,9 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
 
   const onChange = AwesomeDebouncePromise((eventValue: string) => setOriginalResult(eventValue),500);
 
-  const onJsonChange = useCallback(() => {
+  useEffect(() => {
+    if (!spacing) return;
+
     const code = `
       importScripts('https://unpkg.com/format-to-json@2.1.2/fmt2json.min.js');
 
@@ -66,17 +68,11 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
       setResult(workerSelf.data.result);
       worker.terminate();
     };
-  }, [originalJson, spacing]);
-
-  useEffect(() => {
-    if (!spacing) return;
-
-    onJsonChange();
 
     return () => {
       onPersist(originalJson);
     };
-  }, [spacing, onPersist, originalJson, onJsonChange]);
+  }, [spacing, onPersist, originalJson]);
 
   const pasteFromClipboard = async () => {
     const clipboardItems = await navigator.clipboard.read();
