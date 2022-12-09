@@ -65,7 +65,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
       if (workerSelf.data.error) {
         setError('invalid json');
       }
-      setOriginalResult(workerSelf.data.originalJson);
+
       setResult(workerSelf.data.result);
       worker.terminate();
     };
