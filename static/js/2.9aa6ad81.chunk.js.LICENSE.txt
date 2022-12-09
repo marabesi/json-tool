@@ -22,7 +22,7 @@ and limitations under the License.
 /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
 
 /**
- * @remix-run/router v1.0.0
+ * @remix-run/router v1.0.5
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -33,7 +33,7 @@ and limitations under the License.
  */
 
 /**
- * React Router DOM v6.4.0
+ * React Router DOM v6.4.5
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -44,7 +44,7 @@ and limitations under the License.
  */
 
 /**
- * React Router v6.4.0
+ * React Router v6.4.5
  *
  * Copyright (c) Remix Software Inc.
  *
