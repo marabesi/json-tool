@@ -32,3 +32,9 @@ Try out the [online version](https://marabesi.github.io/json-tool)!
 # Resources
 
 - [useFakeTimers not working in jest/testing-library](https://stackoverflow.com/questions/71174071/usefaketimers-not-working-in-jest-testing-library)
+- [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API)
+- [Unblocking clipboard access](https://web.dev/async-clipboard)
+
+## Debounce
+
+- [How to perform debounce?](https://stackoverflow.com/questions/23123138/how-to-perform-debounce)
