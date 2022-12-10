@@ -5,6 +5,7 @@ import ResultMenu from '../components/ui/menu/ResultMenu';
 import JsonMenu from '../components/ui/menu/JsonMenu';
 import EditorContainer from '../components/ui/editor/EditorContainer';
 import { EditorsPageProps } from '../types/pages';
+import Loading from '../components/ui/Loading';
 
 const cleanUp = new CleanUp();
 const defaultSpacing = '2';
@@ -48,6 +49,7 @@ const code = `
 
 export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
   const worker = useRef<Worker>();
+  const [inProgress, setInProgress] = useState<boolean>(false);
   const [originalJson, setOriginalResult] = useState<string>(currentJson);
   const [result, setResult] = useState<string>('');
   const [error, setError] = useState<string>('');
@@ -62,6 +64,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
       }
 
       setResult(workerSelf.data.result);
+      setInProgress(false);
     };
   }, []);
 
@@ -76,6 +79,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
       worker.current.postMessage({ jsonAsString: eventValue, spacing: eventSpacing });
     }
     setOriginalResult(eventValue);
+    setInProgress(true);
   };
 
   const pasteFromClipboard = async () => {
@@ -145,6 +149,11 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
             contenteditable={true}
           />
         </EditorContainer>
+        <div className="w-12">
+          {inProgress ?
+            <Loading className="animate-spin h-6 w-6 text-blue-900 dark:text-gray-400" data-testid="loading" />
+            : null}
+        </div>
         <EditorContainer>
           <ResultMenu
             spacing={spacing}

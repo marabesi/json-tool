@@ -72,4 +72,36 @@ describe('Editors', () => {
 
     await waitFor(() => expect(within(getByTestId('result')).getByText('×')).toBeInTheDocument());
   });
+
+  describe('loading', () => {
+    it('should render loading when typing', async () => {
+      const { container, getByTestId } = render(<App/>);
+      const editor = grabCurrentEditor(container);
+      const json = '{{"random_json":"123","a":"a"}';
+
+      act(() => {
+        customType(editor, json);
+      });
+
+      await waitFor(() => {
+        expect(getByTestId('loading')).toBeInTheDocument();
+      });
+    });
+
+    it('should remove loading when typing is finished', async () => {
+      const { container, getByTestId, queryByTestId } = render(<App/>);
+      const editor = grabCurrentEditor(container);
+      const json = '{{"random_json":"123","a":"a","b":"b","c": "c"}';
+
+      act(() => {
+        customType(editor, json);
+      });
+
+      await waitFor(() => {
+        expect(getByTestId('loading')).toBeInTheDocument();
+      });
+
+      expect(queryByTestId('loading')).not.toBeInTheDocument();
+    });
+  });
 });
