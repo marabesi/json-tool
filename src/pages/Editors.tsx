@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import AwesomeDebouncePromise from 'awesome-debounce-promise';
+import { useEffect, useState, useRef } from 'react';
 import JsonEditor from '../components/ui/editor/JsonEditor';
 import CleanUp from '../core/cleanUp';
 import ResultMenu from '../components/ui/menu/ResultMenu';
@@ -9,18 +8,8 @@ import { EditorsPageProps } from '../types/pages';
 
 const cleanUp = new CleanUp();
 const defaultSpacing = '2';
-const HALF_SECOND = 500;
 
-export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
-  const [originalJson, setOriginalResult] = useState<string>(currentJson);
-  const [result, setResult] = useState<string>('');
-  const [error, setError] = useState<string>('');
-  const [spacing, setSpacing] = useState<string>(defaultSpacing);
-
-  const onChange = AwesomeDebouncePromise((eventValue: string) => setOriginalResult(eventValue), HALF_SECOND);
-
-  useEffect(() => {
-    const code = `
+const code = `
       importScripts('https://unpkg.com/format-to-json@2.1.2/fmt2json.min.js');
 
       if('function' === typeof importScripts) {
@@ -28,10 +17,10 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
            if (!event) {
              return;
            }
-         
+
            const value = event.data.jsonAsString;
            const spacing = event.data.spacing;
-         
+
            if (value) {
              // eslint-disable-next-line no-undef
              const format = await fmt2json(value, {
@@ -39,7 +28,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
                escape: false,
                indent: parseInt(spacing)
              });
-         
+
              try {
                JSON.parse(value);
              } catch (e) {
@@ -47,7 +36,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
                postMessage({ error: true, originalJson: value, result: format.result });
                return;
              }
-         
+
              postMessage({ error: false, originalJson: value, result: format.result });
              return;
            }
@@ -56,24 +45,38 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
          });
       }
     `;
-    const worker = new Worker(URL.createObjectURL(new Blob([code])));
-    worker.postMessage({ jsonAsString: originalJson, spacing });
-    worker.onmessage = async (workerSelf: MessageEvent) => {
+
+export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
+  const worker = useRef<Worker>();
+  const [originalJson, setOriginalResult] = useState<string>(currentJson);
+  const [result, setResult] = useState<string>('');
+  const [error, setError] = useState<string>('');
+  const [spacing, setSpacing] = useState<string>(defaultSpacing);
+
+  useEffect(() => {
+    worker.current = new Worker(URL.createObjectURL(new Blob([code])));
+    worker.current.onmessage = (workerSelf: MessageEvent) => {
       setError('');
       if (workerSelf.data.error) {
         setError('invalid json');
       }
 
       setResult(workerSelf.data.result);
-      worker.terminate();
     };
-  }, [spacing, originalJson]);
+  }, []);
 
   useEffect(() => {
     return () => {
       onPersist(originalJson);
     };
   }, [onPersist, originalJson]);
+
+  const onChange = (eventValue: string, eventSpacing: string) =>{
+    if (worker.current) {
+      worker.current.postMessage({ jsonAsString: eventValue, spacing: eventSpacing });
+    }
+    setOriginalResult(eventValue);
+  };
 
   const pasteFromClipboard = async () => {
     const clipboardItems = await navigator.clipboard.read();
@@ -86,14 +89,12 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
       }
     }
 
-    onChange(result);
+    onChange(result, spacing);
   };
 
-  const cleanup = () => onChange('');
+  const cleanup = () => onChange('', spacing);
 
-  const writeToClipboard = async () => {
-    await navigator.clipboard.writeText(result);
-  };
+  const writeToClipboard = async () => await navigator.clipboard.writeText(result);
 
   const cleanWhiteSpaces = () => {
     const withoutSpaces = cleanUp.cleanWhiteSpaces(originalJson);
@@ -110,7 +111,10 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
     setResult(withoutSpacesAndNewLines);
   };
 
-  const updateSpacing = (newSpacing: string) => setSpacing(newSpacing);
+  const updateSpacing = (newSpacing: string) => {
+    setSpacing(newSpacing);
+    onChange(originalJson, newSpacing);
+  };
 
   const search = (dataTestId: string) => {
     const editor = document.querySelector(`[data-testid=${dataTestId}] .cm-content`) as HTMLElement;
@@ -130,13 +134,13 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
           <JsonMenu
             pasteFromClipboard={navigator.clipboard && typeof navigator.clipboard.write === 'function' ? pasteFromClipboard : false}
             cleanup={cleanup}
-            onLoadedFile={(text: string) => setOriginalResult(text)}
+            onLoadedFile={(text: string) => onChange(text, spacing)}
             onSearch={() => search('json')}
           />
 
           <JsonEditor
             input={originalJson}
-            onChange={event => onChange(event.value)}
+            onChange={event => onChange(event.value, spacing)}
             data-testid="json"
             contenteditable={true}
           />

@@ -1,6 +1,5 @@
 import { render, act, waitFor, fireEvent, within } from '@testing-library/react';
 import App from '../App';
-import userEvent from '@testing-library/user-event';
 import { customType } from '../__testutilities__/customTyping';
 
 function grabCurrentEditor(container: HTMLElement): HTMLElement {
