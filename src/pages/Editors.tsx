@@ -149,7 +149,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
             contenteditable={true}
           />
         </EditorContainer>
-        <div className="w-12">
+        <div className="w-12 flex justify-center items-center">
           {inProgress ?
             <Loading className="animate-spin h-6 w-6 text-blue-900 dark:text-gray-400" data-testid="loading" />
             : null}
