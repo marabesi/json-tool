@@ -34,6 +34,8 @@ Try out the [online version](https://marabesi.github.io/json-tool)!
 - [useFakeTimers not working in jest/testing-library](https://stackoverflow.com/questions/71174071/usefaketimers-not-working-in-jest-testing-library)
 - [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API)
 - [Unblocking clipboard access](https://web.dev/async-clipboard)
+- [How the useEffect Hook Works (with Examples)](https://daveceddia.com/useeffect-hook-examples/#when-does-useeffect-run)
+- [How to Use Web Workers in React](https://plainenglish.io/blog/web-worker-in-react)
 
 ## Debounce
 
