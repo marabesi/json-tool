@@ -35,6 +35,8 @@ jobs:
 
       - name: publish snap
         uses: snapcore/action-publish@v1
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN }}
         with:
           store_login: ${{ secrets.STORE_LOGIN }}
           snap: "dist/json-tool_${{ github.event.inputs.version }}_amd64.snap"
