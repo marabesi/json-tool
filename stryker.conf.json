@@ -1,0 +1,9 @@
+{
+  "testRunner": "jest",
+  "jest": {
+    "projectType": "create-react-app"
+  },
+  "checkers": ["typescript"],
+  "tsconfigFile": "tsconfig.json",
+  "ignorePatterns": []
+}
