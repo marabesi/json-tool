@@ -3,7 +3,7 @@ import App from '../App';
 import userEvent from '@testing-library/user-event';
 
 describe('Settings', () => {
-  test.each([
+  it.each([
     ['foldGutter'],
     ['syntaxHighlighting'],
     ['history'],
@@ -16,6 +16,34 @@ describe('Settings', () => {
     fireEvent.click(getByTestId('settings'));
 
     expect(getByText(option)).toBeInTheDocument();
+  });
+
+  it.each([
+    ['foldGutter'],
+    ['syntaxHighlighting'],
+    ['highlightActiveLine'],
+  ])('should mark option %s as true by default', (option: string) => {
+    const { getByTestId, getByLabelText } = render(<App/>);
+
+    fireEvent.click(getByTestId('settings'));
+
+    expect(getByLabelText(option)).toBeChecked();
+  });
+
+  it.each([
+    ['history'],
+    ['autocompletion'],
+    ['closeBrackets'],
+  ])('check option %s that is unchecked by default', async (option) => {
+    const { getByTestId, getByLabelText, getByText } = render(<App/>);
+
+    fireEvent.click(getByTestId('settings'));
+
+    expect(getByLabelText(option)).not.toBeChecked();
+
+    fireEvent.click(getByText(option));
+
+    expect(getByLabelText(option)).toBeChecked();
   });
 
   describe('editors font size', () => {

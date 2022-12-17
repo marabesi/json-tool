@@ -3,8 +3,8 @@ import { EditorOptions, Option, Properties } from '../../../types/components/Edi
 export const defaultOp: Option[] = [
   { title: 'foldGutter', active: true },
   { title: 'syntaxHighlighting', active : true },
-  { title: 'history', active: false },
   { title: 'highlightActiveLine', active: true },
+  { title: 'history', active: false },
   { title: 'autocompletion', active: false } ,
   { title: 'closeBrackets', active: false },
 ];
