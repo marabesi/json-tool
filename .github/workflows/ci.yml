@@ -64,6 +64,8 @@ jobs:
           wait-on: 'http://localhost:3000'
           install-command: npm install --legacy-peer-deps
           start: npm run serve
+          browser: chrome
+          headed: true
 
       - name: package for windows
         run: npm run package-windows
