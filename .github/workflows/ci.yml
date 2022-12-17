@@ -60,7 +60,7 @@ jobs:
           install-command: npm install --legacy-peer-deps
           start: npm run serve
           browser: chrome
-          headed: true
+          headed: false
 
       - name: package
         run: npm run package
