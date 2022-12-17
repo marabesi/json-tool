@@ -65,7 +65,7 @@ jobs:
           install-command: npm install --legacy-peer-deps
           start: npm run serve
           browser: chrome
-          headed: false
+          headed: true
 
       - name: package for windows
         run: npm run package-windows
