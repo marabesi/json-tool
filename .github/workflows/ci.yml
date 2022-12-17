@@ -49,11 +49,6 @@ jobs:
           CI: true
           DISPLAY: ':99.0'
 
-      - name: package
-        run: npm run package
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
       - name: Run cypress (acceptance tests)
         uses: cypress-io/github-action@v4
         env:
@@ -66,6 +61,11 @@ jobs:
           start: npm run serve
           browser: chrome
           headed: true
+
+      - name: package
+        run: npm run package
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: package for windows
         run: npm run package-windows
