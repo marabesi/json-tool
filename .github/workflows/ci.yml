@@ -9,7 +9,7 @@ on:
   push:
     branches: main
   schedule:
-    - cron: "0 */2 * * *"
+    - cron: "0 0 * * *"
 
 env:
   CI: true
