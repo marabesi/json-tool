@@ -3,7 +3,7 @@ import App from '../App';
 import userEvent from '@testing-library/user-event';
 import Formatter from '../core/formatter';
 import { setUpClipboard, tearDownClipboard, writeTextToClipboard } from 'jest-clipboard';
-import { grabCurrentEditor } from '../__testutilities__/editorQuery';
+import { grabCurrentEditor } from './__testutilities__/editorQuery';
 
 describe('Clipboard', () => {
 

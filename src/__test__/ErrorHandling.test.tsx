@@ -2,8 +2,8 @@ import { render, act, waitFor, fireEvent } from '@testing-library/react';
 import { faker } from '@faker-js/faker';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
-import { grabCurrentEditor } from '../__testutilities__/editorQuery';
-import { customType } from '../__testutilities__/customTyping';
+import { grabCurrentEditor } from './__testutilities__/editorQuery';
+import { customType } from './__testutilities__/customTyping';
 
 describe('Error handling', () => {
   it.each([

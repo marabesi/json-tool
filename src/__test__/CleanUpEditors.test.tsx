@@ -1,9 +1,9 @@
 import { act, render, RenderResult, waitFor } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
-import { grabCurrentEditor } from '../__testutilities__/editorQuery';
+import { grabCurrentEditor } from './__testutilities__/editorQuery';
 import { setUpClipboard, tearDownClipboard, writeTextToClipboard } from 'jest-clipboard';
-import { customType } from '../__testutilities__/customTyping';
+import { customType } from './__testutilities__/customTyping';
 
 describe('Clean up editors', () => {
   let wrapper: RenderResult;

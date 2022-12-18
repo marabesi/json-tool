@@ -1,6 +1,6 @@
 import { render, act, waitFor, fireEvent, within } from '@testing-library/react';
 import App from '../App';
-import { customType } from '../__testutilities__/customTyping';
+import { customType } from './__testutilities__/customTyping';
 class LoadingWorker {
   constructor(stringUrl: string) {
     // @ts-ignore

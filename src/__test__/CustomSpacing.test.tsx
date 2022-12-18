@@ -1,8 +1,8 @@
 import { render, act, waitFor } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
-import { grabCurrentEditor } from '../__testutilities__/editorQuery';
-import { customType } from '../__testutilities__/customTyping';
+import { grabCurrentEditor } from './__testutilities__/editorQuery';
+import { customType } from './__testutilities__/customTyping';
 
 describe('Custom spacing for formatting json', () => {
   it('should have space of 2 as default', async () => {
