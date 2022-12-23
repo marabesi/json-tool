@@ -1,19 +1,7 @@
 import { render, act, waitFor, fireEvent, within } from '@testing-library/react';
 import App from '../App';
 import { customType } from './__testutilities__/customTyping';
-class LoadingWorker {
-  constructor(stringUrl: string) {
-    // @ts-ignore
-    this.url = stringUrl;
-    // @ts-ignore
-    this.onmessage = () => {};
-  }
 
-  postMessage(msg: any) {
-    // @ts-ignore
-    this.onmessage(msg);
-  }
-}
 function grabCurrentEditor(container: HTMLElement): HTMLElement {
   const editor = container.querySelector('[data-testid="json"] .cm-content');
   if (!editor) {
