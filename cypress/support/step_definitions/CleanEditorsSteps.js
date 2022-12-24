@@ -5,7 +5,7 @@ const inputJson = '{"name":"json from clipboard"}';
 
 When(/^I place a json string in the editor$/, function () {
   cy.withInputEditor()
-    .type(inputJson, { parseSpecialCharSequences: false })
+    .type(inputJson, { parseSpecialCharSequences: false, delay: 50 })
     .wait(waitFor);
 });
 
