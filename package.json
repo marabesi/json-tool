@@ -68,11 +68,13 @@
     "spectron": "^15.0.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14",
     "uuid-v4": "^0.1.0",
-    "wait-on": "^6.0.0"
+    "wait-on": "^6.0.0",
+    "@cypress/instrument-cra": "^1.4.0"
   },
   "postinstall": "electron-builder install-app-deps && husky install",
   "scripts": {
     "start": "HOST=0.0.0.0 BROWSER=none craco start",
+    "start-instrumented": "HOST=0.0.0.0 BROWSER=none craco -r @cypress/instrument-cra start",
     "build": "craco build",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "test": "craco test src/",
