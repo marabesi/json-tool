@@ -26,9 +26,9 @@ jobs:
       #   run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
       - name: Use Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: 18.10.0
+          node-version: 18
           cache: 'npm'
 
       - name: install wine
