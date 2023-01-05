@@ -29,17 +29,18 @@
     "web-vitals": "^1.1.2"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^14.4.3",
-    "@types/jest": "^26.0.24",
     "@craco/craco": "^7.0.0",
+    "@cypress/instrument-cra": "^1.4.0",
     "@faker-js/faker": "^7.6.0",
     "@stryker-mutator/core": "^6.3.0",
     "@stryker-mutator/jest-runner": "^6.3.0",
     "@stryker-mutator/typescript-checker": "^6.3.0",
     "@testing-library/dom": "^8.11.3",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
     "@testing-library/webdriverio": "^3.0.4",
+    "@types/jest": "^26.0.24",
     "@types/node": "^16.10.5",
     "@types/react-dom": "^18.0.9",
     "@types/react-router-dom": "^5.3.3",
@@ -54,6 +55,7 @@
     "electron": "^22.0.0",
     "electron-builder": "^22.13.1",
     "eslint": "^7.32.0",
+    "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-react": "^7.26.1",
     "http-server": "^14.0.0",
@@ -68,8 +70,7 @@
     "spectron": "^15.0.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14",
     "uuid-v4": "^0.1.0",
-    "wait-on": "^6.0.0",
-    "@cypress/instrument-cra": "^1.4.0"
+    "wait-on": "^6.0.0"
   },
   "postinstall": "electron-builder install-app-deps && husky install",
   "scripts": {
