@@ -31,11 +31,11 @@ jobs:
           node-version: 17
           cache: 'npm'
 
-      - name: install wine
-        run: |
-          sudo dpkg --add-architecture i386
-          sudo apt-get update
-          sudo apt-get install -f wine-stable wine32
+#      - name: install wine
+#        run: |
+#          sudo dpkg --add-architecture i386
+#          sudo apt-get update
+#          sudo apt-get install -f wine-stable wine32
 
       - name: export display
         run: |
@@ -69,22 +69,22 @@ jobs:
           browser: chrome
           headed: true
 
-      - name: package for windows
-        run: npm run package-windows
+#      - name: package for windows
+#        run: npm run package-windows
 
       - name: fetch snap file
         id: snap_file
         run: echo "::set-output name=name::$(ls dist/*.snap | sed "s/dist\///g" | sed "s/\.snap//g")"
 
-      - name: fetch windows file
-        id: windows_file
-        run: echo "::set-output name=name::$(ls dist/*.exe | sed "s/dist\///g" | sed "s/\.snap//g")"
+#      - name: fetch windows file
+#        id: windows_file
+#        run: echo "::set-output name=name::$(ls dist/*.exe | sed "s/dist\///g" | sed "s/\.snap//g")"
 
-      - name: Archive windows binary
-        uses: actions/upload-artifact@v2
-        with:
-          name: "${{ steps.snap_file.outputs.name }}"
-          path: "dist/${{ steps.windows_file.outputs.name }}"
+#      - name: Archive windows binary
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: "${{ steps.snap_file.outputs.name }}"
+#          path: "dist/${{ steps.windows_file.outputs.name }}"
 
       - name: publish snap edge channel
         uses: snapcore/action-publish@v1
