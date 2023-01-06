@@ -25,10 +25,15 @@ jobs:
       # - name: Setup kernel for react native, increase watchers
       #   run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
+      - name: Set Environment Variables
+        uses: tw3lveparsecs/github-actions-setvars@v0.1
+        with:
+          envFilePath: ./envvars.for.actions
+
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: $NODE_VERSION
           cache: 'npm'
 
 #      - name: install wine
