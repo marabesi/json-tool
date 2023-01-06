@@ -10,16 +10,20 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x]
 
     steps:
       - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+
+      - name: Set Environment Variables
+        uses: tw3lveparsecs/github-actions-setvars@v0.1
         with:
-          node-version: ${{ matrix.node-version }}
+          envFilePath: ./envvars.for.actions
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
 
       - name: install
         run: npm install --legacy-peer-deps

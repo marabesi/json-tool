@@ -25,6 +25,9 @@ jobs:
       # - name: Setup kernel for react native, increase watchers
       #   run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
+      # used to centralize the node version across workflows
+      # refs https://arinco.com.au/blog/github-actions-share-environment-variables-across-workflows
+      # refs https://github.com/marketplace/actions/set-environment-variables
       - name: Set Environment Variables
         uses: tw3lveparsecs/github-actions-setvars@v0.1
         with:
