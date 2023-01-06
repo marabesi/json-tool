@@ -26,7 +26,7 @@ jobs:
           echo ">>> Started xvfb"
 
       - name: install
-        run: npm install --legacy-peer-deps
+        run: npm install
 
       - name: build
         run: npm run build
