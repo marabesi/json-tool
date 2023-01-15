@@ -1,5 +1,4 @@
 import { render, act, waitFor, fireEvent } from '@testing-library/react';
-import { faker } from '@faker-js/faker';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
@@ -8,8 +7,7 @@ import { customType } from './__testutilities__/customTyping';
 describe('Error handling', () => {
   it.each([
     ['bla bla'],
-    [faker.lorem.words(2)],
-    [faker.lorem.paragraph(5)],
+    ['Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley'],
   ])('hides the error after cleaning random string (%s)', async (originalCode: string) => {
     const { container, getByTestId,queryByTestId } = render(<App/>);
     const editor = grabCurrentEditor(container);
