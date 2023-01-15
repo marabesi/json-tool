@@ -31,7 +31,6 @@
   "devDependencies": {
     "@craco/craco": "^6.3.0",
     "@cypress/instrument-cra": "^1.4.0",
-    "@faker-js/faker": "^7.6.0",
     "@stryker-mutator/core": "^6.3.0",
     "@stryker-mutator/jest-runner": "^6.3.0",
     "@stryker-mutator/typescript-checker": "^6.3.0",
