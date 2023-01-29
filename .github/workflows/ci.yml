@@ -56,13 +56,10 @@ jobs:
       - name: test
         run: npm run coveralls
         env:
-          CI: true
           DISPLAY: ':99.0'
 
       - name: memory leak detection
         run: npm run test -- --detectLeaks
-        env:
-          CI: true
 
       - name: package
         run: npm run package
