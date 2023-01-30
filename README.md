@@ -40,6 +40,7 @@ the practice of formatting or sharing information in formatting tools that are n
 - [Unblocking clipboard access](https://web.dev/async-clipboard)
 - [How the useEffect Hook Works (with Examples)](https://daveceddia.com/useeffect-hook-examples/#when-does-useeffect-run)
 - [How to Use Web Workers in React](https://plainenglish.io/blog/web-worker-in-react)
+  - [worker-timers](https://github.com/chrisguttandin/worker-timers)
 
 ## Debounce
 
