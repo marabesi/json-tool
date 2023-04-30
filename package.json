@@ -141,6 +141,9 @@
     "linux": {
       "category": "Utility",
       "icon": "logo512.png"
+    },
+    "snap": {
+      "confinement": "classic"
     }
   },
   "jest": {
