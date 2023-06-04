@@ -96,7 +96,7 @@ describe('Editors', () => {
       });
     });
 
-    it.skip('should remove loading when typing is finished', async () => {
+    it('should remove loading when typing is finished', async () => {
       const { container, getByTestId, queryByTestId } = render(<App/>);
       const editor = grabCurrentEditor(container);
       const json = '{{"random_json":"123"}';
@@ -111,7 +111,9 @@ describe('Editors', () => {
 
       jest.runAllImmediates();
 
-      expect(queryByTestId('loading')).not.toBeInTheDocument();
+      await waitFor(() => {
+        expect(queryByTestId('loading')).not.toBeInTheDocument();
+      });
     });
   });
 });
