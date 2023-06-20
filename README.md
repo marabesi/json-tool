@@ -31,7 +31,8 @@ the practice of formatting or sharing information in formatting tools that are n
 
 # Publications
 
-[Announcing the JSON tool - A companion for formatting json content, focused in privacy](https://marabesi.com/web/productivity/utilities/2021/10/24/json-tool-a-companion-for-formatting-json-strings.html)
+- [Web Workers to the Rescue – How to Work with JSON Strings without Blocking User Interactions](https://dev.to/marabesi/web-workers-to-the-rescue-how-to-work-with-json-strings-without-blocking-user-interactions-2jf2)
+- [Announcing the JSON tool - A companion for formatting json content, focused in privacy](https://marabesi.com/web/productivity/utilities/2021/10/24/json-tool-a-companion-for-formatting-json-strings.html)
 
 # Resources
 
