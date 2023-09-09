@@ -1,3 +1,3 @@
 module.exports = {
-  waitFor: 600
+  waitFor: 600,
 };
