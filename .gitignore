@@ -37,3 +37,5 @@ cypress/screenshots/
 reports/
 
 cypress-visual-report/
+cypress-visual-screenshots/diff/
+cypress-visual-screenshots/comparison/

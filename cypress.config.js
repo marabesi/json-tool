@@ -4,7 +4,9 @@ const getCompareSnapshotsPlugin = require('cypress-image-diff-js/dist/plugin');
 
 module.exports = defineConfig({
   env: {
-    cypressImageDiff: {}
+    cypressImageDiff: {
+      FAILURE_THRESHOLD: 0,
+    }
   },
   e2e: {
     'projectId': 'wpcwmv',
