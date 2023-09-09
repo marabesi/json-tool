@@ -1,8 +1,11 @@
 const cucumber = require('cypress-cucumber-preprocessor').default;
 const { defineConfig } = require('cypress');
-const getCompareSnapshotsPlugin = require('cypress-visual-regression/dist/plugin');
+const getCompareSnapshotsPlugin = require('cypress-image-diff-js/dist/plugin');
 
 module.exports = defineConfig({
+  env: {
+    cypressImageDiff: {}
+  },
   e2e: {
     'projectId': 'wpcwmv',
     'watchForFileChanges': false,
