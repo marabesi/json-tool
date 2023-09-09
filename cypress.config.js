@@ -3,9 +3,6 @@ const { defineConfig } = require('cypress');
 const getCompareSnapshotsPlugin = require('cypress-visual-regression/dist/plugin');
 
 module.exports = defineConfig({
-  env: {
-    type: 'actual'
-  },
   e2e: {
     'projectId': 'wpcwmv',
     'watchForFileChanges': false,
