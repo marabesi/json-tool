@@ -1,4 +1,4 @@
-import { render, act, waitFor, fireEvent } from '@testing-library/react';
+import { render, act, waitFor } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
@@ -9,11 +9,9 @@ describe('Error handling', () => {
     ['bla bla'],
     ['Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley'],
   ])('hides the error after cleaning random string (%s)', async (originalCode: string) => {
-    const { container, getByTestId,queryByTestId } = render(<App/>);
-    const editor = grabCurrentEditor(container);
+    const { getByTestId,queryByTestId } = render(<App/>);
 
     await act(async () => {
-      fireEvent.focus(editor);
       await userEvent.keyboard(originalCode);
     });
 

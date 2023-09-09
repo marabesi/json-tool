@@ -1,6 +1,7 @@
-import { render, act, waitFor, fireEvent, within } from '@testing-library/react';
+import { render, act, waitFor, within } from '@testing-library/react';
 import App from '../App';
 import { customType } from './__testutilities__/customTyping';
+import userEvent from '@testing-library/user-event';
 
 function grabCurrentEditor(container: HTMLElement): HTMLElement {
   const editor = container.querySelector('[data-testid="json"] .cm-content');
@@ -44,13 +45,13 @@ describe('Editors', () => {
       expect(rawEditor).toHaveValue('{"random_json":"123"}');
     }, { timeout: 10000 });
 
-    fireEvent.click(getByTestId('settings'));
+    await userEvent.click(getByTestId('settings'));
 
     await waitFor(() => {
       expect(getByText('Settings')).toBeInTheDocument();
     }, { timeout: 10000 });
 
-    fireEvent.click(getByTestId('to-home'));
+    await userEvent.click(getByTestId('to-home'));
 
     await waitFor(() => {
       expect(getByTestId('raw-json')).toHaveValue('{"random_json":"123"}');
@@ -60,7 +61,7 @@ describe('Editors', () => {
   it('should render search element in the json editor', async () => {
     const { getByTestId } = render(<App/>);
 
-    fireEvent.click(getByTestId('search-json'));
+    await userEvent.click(getByTestId('search-json'));
 
     await waitFor(() => expect(within(getByTestId('json')).getByText('×')).toBeInTheDocument());
   });
@@ -68,7 +69,7 @@ describe('Editors', () => {
   it('should render search element in the result editor', async () => {
     const { getByTestId } = render(<App/>);
 
-    fireEvent.click(getByTestId('search-result'));
+    await userEvent.click(getByTestId('search-result'));
 
     await waitFor(() => expect(within(getByTestId('result')).getByText('×')).toBeInTheDocument());
   });
@@ -101,7 +102,7 @@ describe('Editors', () => {
       const editor = grabCurrentEditor(container);
       const json = '{{"random_json":"123"}';
 
-      await act(() => {
+      act(() => {
         customType(editor, json);
       });
 

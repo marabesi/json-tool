@@ -1,5 +1,6 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Button from '../../components/ui/io/Button';
+import userEvent from '@testing-library/user-event';
 
 describe('button component', () => {
 
@@ -11,19 +12,19 @@ describe('button component', () => {
     expect(screen.getByText(text)).toBeInTheDocument();
   });
 
-  test('fires the on click button', () => {
+  test('fires the on click button', async () => {
     const buttonCallback = jest.fn();
 
     render(<Button onClick={buttonCallback}>paste from clipboard</Button>);
 
-    fireEvent.click(screen.getByText('paste from clipboard'));
+    await userEvent.click(screen.getByText('paste from clipboard'));
 
     expect(buttonCallback).toHaveBeenCalled();
   });
 
-  test('should do nothing when callback is provided for on click', () => {
+  test('should do nothing when callback is provided for on click', async () => {
     render(<Button>paste from clipboard</Button>);
 
-    fireEvent.click(screen.getByText('paste from clipboard'));
+    await userEvent.click(screen.getByText('paste from clipboard'));
   });
 });
