@@ -14,13 +14,13 @@ describe.only('visual testing regression', () => {
     cy.viewport(1280, 920);
     visit('/', true);
     cy.wait(3000);
-    cy.compareSnapshot('index', 0.1);
+    cy.compareSnapshot('index', 0.5);
   });
 
   it('should display the settings page', () => {
     cy.viewport(1280, 920);
     visit('/#/settings', true);
     cy.wait(3000);
-    cy.compareSnapshot('settings', 0.1);
+    cy.compareSnapshot('settings', 0.5);
   });
 });

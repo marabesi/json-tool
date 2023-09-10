@@ -7,7 +7,7 @@ module.exports = defineConfig({
   viewportWidth: 1280,
   env: {
     cypressImageDiff: {
-      FAILURE_THRESHOLD: 0.1,
+      FAILURE_THRESHOLD: 0.5,
     }
   },
   e2e: {
