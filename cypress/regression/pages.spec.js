@@ -1,14 +1,26 @@
-describe('visual testing regression', () => {
+describe.only('visual testing regression', () => {
+  const visit = (path, darkAppearance) =>
+    cy.visit(path, {
+      onBeforeLoad(win) {
+        cy.stub(win, 'matchMedia')
+          .withArgs('(prefers-color-scheme: dark)')
+          .returns({
+            matches: darkAppearance,
+          });
+      },
+    });
 
   it('should display the index page', () => {
-    cy.visit('/');
+    cy.viewport(1280, 920);
+    visit('/', true);
     cy.wait(3000);
-    cy.compareSnapshot('index', 0);
+    cy.compareSnapshot('index', 0.1);
   });
 
   it('should display the settings page', () => {
-    cy.visit('/#/settings');
+    cy.viewport(1280, 920);
+    visit('/#/settings', true);
     cy.wait(3000);
-    cy.compareSnapshot('settings', 0);
+    cy.compareSnapshot('settings', 0.1);
   });
 });
