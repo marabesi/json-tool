@@ -6,6 +6,7 @@ on:
 
 env:
   CI: true
+  NODE_OPTIONS: --openssl-legacy-provider
 
 jobs:
   build:

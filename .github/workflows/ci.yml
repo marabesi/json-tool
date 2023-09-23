@@ -15,6 +15,7 @@ env:
   CI: true
   COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
   COVERALLS_GIT_BRANCH: main
+  NODE_OPTIONS: --openssl-legacy-provider
 
 jobs:
   build:
