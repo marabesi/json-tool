@@ -6,7 +6,6 @@ on:
 
 env:
   CI: true
-  NODE_OPTIONS: --openssl-legacy-provider
 
 jobs:
   build:
@@ -32,7 +31,9 @@ jobs:
           echo ">>> Started xvfb"
 
       - name: install
-        run: npm install
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
+        run: npm install --legacy-peer-deps
 
       - name: build
         run: npm run build

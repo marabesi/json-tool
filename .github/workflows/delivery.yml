@@ -7,9 +7,6 @@ on:
         description: 'Which version to publish to snapstore'
         required: true
 
-env:
-  NODE_OPTIONS: --openssl-legacy-provider
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,6 +26,8 @@ jobs:
           cache: 'npm'
 
       - name: install
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
         run: npm install --legacy-peer-deps
 
       - name: lint
