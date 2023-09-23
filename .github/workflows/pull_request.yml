@@ -31,11 +31,11 @@ jobs:
           echo ">>> Started xvfb"
 
       - name: install
-        env:
-          NODE_OPTIONS: --openssl-legacy-provider
         run: npm install --legacy-peer-deps
 
       - name: build
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
         run: npm run build
 
       - name: test

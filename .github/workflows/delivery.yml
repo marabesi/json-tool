@@ -26,14 +26,14 @@ jobs:
           cache: 'npm'
 
       - name: install
-        env:
-          NODE_OPTIONS: --openssl-legacy-provider
         run: npm install --legacy-peer-deps
 
       - name: lint
         run: npm run lint
 
       - name: build
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
         run: npm run build
 
       - name: package

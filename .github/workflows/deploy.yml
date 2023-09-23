@@ -28,11 +28,11 @@ jobs:
           cache: 'npm'
 
       - name: Install
-        env:
-          NODE_OPTIONS: --openssl-legacy-provider
         run: npm install --legacy-peer-deps
 
       - name: Build 🔧
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
         run: npm run build
 
       - name: Deploy 🚀
