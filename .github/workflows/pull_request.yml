@@ -8,7 +8,7 @@ env:
   CI: true
 
 jobs:
-  build:
+  install:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,28 +25,70 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
 
+      - name: Restore node modules
+        uses: actions/cache/restore@v3
+        id: cache
+        with:
+          path: |
+            ./node_modules
+          key: ${{ hashFiles('package-lock.json') }}
+
+      - name: install
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm install --legacy-peer-deps
+
+      - name: Save the cache
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            ./node_modules
+          key: ${{ hashFiles('package-lock.json') }}
+
+  build:
+    needs: [install]
+    runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: --openssl-legacy-provider
+    steps:
+      - name: Restore node modules
+        uses: actions/cache/restore@v3
+        id: cache
+        with:
+          path: |
+            ./node_modules
+          key: ${{ hashFiles('package-lock.json') }}
+      - name: build
+        run: npm run build
+
+  test:
+    needs: [install]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Restore node modules
+        uses: actions/cache/restore@v3
+        id: cache
+        with:
+          path: |
+            ./node_modules
+          key: ${{ hashFiles('package-lock.json') }}
+      - name: tests
+        run: npm run test
+
+  acceptance:
+    needs: [install]
+    runs-on: ubuntu-latest
+    steps:
       - name: export display
         run: |
           /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
           echo ">>> Started xvfb"
 
-      - name: install
-        run: npm install --legacy-peer-deps
-
-      - name: build
-        env:
-          NODE_OPTIONS: --openssl-legacy-provider
-        run: npm run build
-
-      - name: test
-        run: npm run test
-        env:
-          CI: true
-          DISPLAY: ':99.0'
-
       - name: Run cypress (acceptance tests)
         uses: cypress-io/github-action@v4
         env:
+          CI: true
+          DISPLAY: ':99.0'
           CYPRESS_BASE_URL: 'http://localhost:3000'
         with:
           wait-on: 'http://localhost:3000'
