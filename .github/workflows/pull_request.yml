@@ -23,13 +23,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
 
       - name: Restore node modules
         uses: actions/cache/restore@v3
         id: cache
         with:
           path: |
+            ~/.npm
             ./node_modules
           key: ${{ hashFiles('package-lock.json') }}
 
@@ -55,6 +55,7 @@ jobs:
         id: cache
         with:
           path: |
+            ~/.npm
             ./node_modules
           key: ${{ hashFiles('package-lock.json') }}
       - name: build
@@ -70,6 +71,7 @@ jobs:
         id: cache
         with:
           path: |
+            ~/.npm
             ./node_modules
           key: ${{ hashFiles('package-lock.json') }}
       - name: tests
