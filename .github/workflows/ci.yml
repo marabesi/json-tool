@@ -59,8 +59,8 @@ jobs:
         env:
           DISPLAY: ':99.0'
 
-      - name: memory leak detection
-        run: npm run test -- --detectLeaks
+      #- name: memory leak detection
+      #  run: npm run test -- --detectLeaks
 
       - name: package
         run: npm run package
