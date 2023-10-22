@@ -79,7 +79,7 @@
   "scripts": {
     "start": "HOST=0.0.0.0 BROWSER=none craco start",
     "start-instrumented": "HOST=0.0.0.0 BROWSER=none craco -r @cypress/instrument-cra start",
-    "build": "craco build",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider craco build",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "test": "craco test src/",
     "test:all": "npm run e2e && npm run test -- --watchAll=false",
