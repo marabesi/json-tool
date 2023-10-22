@@ -88,10 +88,27 @@ jobs:
       #- name: memory leak detection
       #  run: npm run test -- --detectLeaks
 
-      - name: package
-        run: npm run package
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  acceptance:
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set Environment Variables
+        uses: tw3lveparsecs/github-actions-setvars@v0.1
+        with:
+          envFilePath: ./envvars.for.actions
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Attempt to restore the cache
+        uses: actions/cache@v3
+        id: cache_restore
+        with:
+          path: ./node_modules
+          key: ${{ hashFiles('**/package-lock.json') }}
 
       - name: export display
         run: |
@@ -110,6 +127,33 @@ jobs:
           start: npm run serve
           browser: chrome
           headed: true
+
+  delivery:
+    runs-on: ubuntu-latest
+    needs: [test, acceptance]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set Environment Variables
+        uses: tw3lveparsecs/github-actions-setvars@v0.1
+        with:
+          envFilePath: ./envvars.for.actions
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Attempt to restore the cache
+        uses: actions/cache@v3
+        id: cache_restore
+        with:
+          path: ./node_modules
+          key: ${{ hashFiles('**/package-lock.json') }}
+
+      - name: package
+        run: npm run package
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
 #      - name: package for windows
 #        run: npm run package-windows
