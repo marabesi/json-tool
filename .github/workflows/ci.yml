@@ -46,7 +46,7 @@ jobs:
         with:
           path: ./node_modules
           key: ${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-node
+          restore-keys: ${{ hashFiles('**/package-lock.json') }}
 
 #      - name: install wine
 #        run: |
@@ -78,7 +78,7 @@ jobs:
         id: cache_restore
         with:
           path: ./node_modules
-          key: ${{ runner.os }}-node
+          key: ${{ hashFiles('**/package-lock.json') }}
 
       - name: coverage
         env:
