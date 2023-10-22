@@ -127,7 +127,7 @@ jobs:
         with:
           record: true
           wait-on: 'http://localhost:3000'
-          install-command: npm install --legacy-peer-deps
+          install-command: npm install --legacy-peer-deps && npm run build
           start: npm run serve
           browser: chrome
           headed: true
