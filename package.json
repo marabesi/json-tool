@@ -94,7 +94,8 @@
     "package-macos": "npm run setup && electron-builder --macos -p never",
     "build-app-image": "npm run setup && electron-builder --linux AppImage -p never",
     "electron": "npm run setup && wait-on tcp:3000 && electron build/",
-    "lint": "eslint ./**/*.{ts,tsx}",
+    "lint": "eslint src/**/*.{ts,tsx}",
+    "lint:fix": "eslint src/**/*.{ts,tsx} --fix",
     "serve": "http-server ./build -p 3000"
   },
   "eslintConfig": {
