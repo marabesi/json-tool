@@ -1,8 +1,8 @@
-import CodeMirror, { BasicSetupOptions } from '@uiw/react-codemirror';
+import CodeMirror, { BasicSetupOptions, ReactCodeMirrorRef } from '@uiw/react-codemirror';
 import fullConfig from '../../../tailwindResolver';
 import { json } from '@codemirror/lang-json';
 import { SettingsContext, ThemeContext } from '../../../App';
-import { CSSProperties, useContext } from 'react';
+import { CSSProperties, ForwardedRef, forwardRef, useContext } from 'react';
 import { Option, Properties } from '../../../types/components/Editor';
 import { duotoneLight } from '@uiw/codemirror-theme-duotone';
 
@@ -20,7 +20,8 @@ interface Props{
   contenteditable: boolean;
 }
 
-export default function JsonEditor({ input, onChange, className, ...rest }: Props) {
+export default forwardRef(function JsonEditor(props: Props, ref: ForwardedRef<ReactCodeMirrorRef>) {
+  const { input, onChange, className, ...rest } = props;
   const theme = useContext(ThemeContext);
   const settings = useContext(SettingsContext);
 
@@ -52,6 +53,7 @@ export default function JsonEditor({ input, onChange, className, ...rest }: Prop
     <>
       <textarea data-testid={`raw-${rest['data-testid']}`} className="hidden" defaultValue={input}></textarea>
       <CodeMirror
+        ref={ref}
         value={input}
         onChange={handleChange}
         className={[className, 'h-full'].join(' ')}
@@ -64,4 +66,4 @@ export default function JsonEditor({ input, onChange, className, ...rest }: Prop
       />
     </>
   );
-}
+});
