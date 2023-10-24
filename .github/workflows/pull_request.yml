@@ -8,91 +8,118 @@ env:
   CI: true
 
 jobs:
-  install:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
 
+      # - name: Setup kernel for react native, increase watchers
+      #   run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+
+      # used to centralize the node version across workflows
+      # refs https://arinco.com.au/blog/github-actions-share-environment-variables-across-workflows
+      # refs https://github.com/marketplace/actions/set-environment-variables
       - name: Set Environment Variables
         uses: tw3lveparsecs/github-actions-setvars@v0.1
         with:
           envFilePath: ./envvars.for.actions
 
       - name: Use Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Restore node modules
-        uses: actions/cache/restore@v3
+      - name: Attempt to restore the cache
+        uses: actions/cache@v3
         id: cache
         with:
           path: |
-            ~/.npm
             ./node_modules
-          key: ${{ hashFiles('package-lock.json') }}
+            ~/.cache/Cypress
+          key: ${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ hashFiles('**/package-lock.json') }}
+
+      #      - name: install wine
+      #        run: |
+      #          sudo dpkg --add-architecture i386
+      #          sudo apt-get update
+      #          sudo apt-get install -f wine-stable wine32
 
       - name: install
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install --legacy-peer-deps
 
-      - name: Save the cache
-        if: steps.cache.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v3
-        with:
-          path: |
-            ./node_modules
-          key: ${{ hashFiles('package-lock.json') }}
-
-  build:
-    needs: [install]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Restore node modules
-        uses: actions/cache/restore@v3
-        id: cache
-        with:
-          path: |
-            ~/.npm
-            ./node_modules
-          key: ${{ hashFiles('package-lock.json') }}
-      - name: build
-        run: npm run build
-
   test:
-    needs: [install]
     runs-on: ubuntu-latest
+    needs: [build]
     steps:
-      - uses: actions/checkout@v1
-      - name: Restore node modules
-        uses: actions/cache/restore@v3
-        id: cache
+      - uses: actions/checkout@v3
+      - name: Set Environment Variables
+        uses: tw3lveparsecs/github-actions-setvars@v0.1
         with:
-          path: |
-            ~/.npm
-            ./node_modules
-          key: ${{ hashFiles('package-lock.json') }}
-      - name: tests
+          envFilePath: ./envvars.for.actions
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Attempt to restore the cache
+        uses: actions/cache@v3
+        id: cache_restore
+        with:
+          path: ./node_modules
+          key: ${{ hashFiles('**/package-lock.json') }}
+
+      - name: coverage
+        env:
+          DISPLAY: ':99.0'
         run: npm run test
 
+      #- name: memory leak detection
+      #  run: npm run test -- --detectLeaks
+
   acceptance:
-    needs: [install]
     runs-on: ubuntu-latest
+    needs: [build]
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
+      - name: Set Environment Variables
+        uses: tw3lveparsecs/github-actions-setvars@v0.1
+        with:
+          envFilePath: ./envvars.for.actions
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Attempt to restore the cache
+        uses: actions/cache@v3
+        id: cache_restore
+        with:
+          path: |
+            ./node_modules
+            ~/.cache/Cypress
+          key: ${{ hashFiles('**/package-lock.json') }}
+
       - name: export display
         run: |
           /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
           echo ">>> Started xvfb"
 
+      - name: build application
+        run: npm run build
+
       - name: Run cypress (acceptance tests)
         uses: cypress-io/github-action@v4
         env:
-          CI: true
-          DISPLAY: ':99.0'
           CYPRESS_BASE_URL: 'http://localhost:3000'
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
+          record: true
           wait-on: 'http://localhost:3000'
-          start: npm run start
+          start: npm run serve
+          browser: chrome
+          headed: true
