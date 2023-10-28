@@ -6,6 +6,7 @@ on:
 
 env:
   CI: true
+  NODE_ENV: development
 
 jobs:
   build:
