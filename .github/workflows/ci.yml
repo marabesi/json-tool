@@ -79,6 +79,7 @@ jobs:
         uses: actions/cache@v3
         id: cache_restore
         with:
+          fail-on-cache-miss: true
           path: ./node_modules
           key: ${{ hashFiles('**/package-lock.json') }}
 
@@ -109,6 +110,7 @@ jobs:
         uses: actions/cache@v3
         id: cache_restore
         with:
+          fail-on-cache-miss: true
           path: |
             ./node_modules
             ~/.cache/Cypress
@@ -153,6 +155,7 @@ jobs:
         uses: actions/cache@v3
         id: cache_restore
         with:
+          fail-on-cache-miss: true
           path: ./node_modules
           key: ${{ hashFiles('**/package-lock.json') }}
 
