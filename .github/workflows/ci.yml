@@ -82,7 +82,9 @@ jobs:
         with:
           fail-on-cache-miss: true
           enableCrossOsArchive: true
-          path: ./node_modules
+          path: |
+            ./node_modules
+            ~/.cache/Cypress
           key: ${{ hashFiles('**/package-lock.json') }}
 
       - name: coverage
