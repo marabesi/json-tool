@@ -48,7 +48,6 @@ jobs:
             ./node_modules
             ~/.cache/Cypress
           key: ${{ hashFiles('**/package-lock.json') }}
-          enableCrossOsArchive: true
           restore-keys: ${{ hashFiles('**/package-lock.json') }}
 
 #      - name: install wine
@@ -81,7 +80,6 @@ jobs:
         id: cache_restore
         with:
           fail-on-cache-miss: true
-          enableCrossOsArchive: true
           path: |
             ./node_modules
             ~/.cache/Cypress
@@ -160,7 +158,9 @@ jobs:
         id: cache_restore
         with:
           fail-on-cache-miss: true
-          path: ./node_modules
+          path: |
+            ./node_modules
+            ~/.cache/Cypress
           key: ${{ hashFiles('**/package-lock.json') }}
 
       - name: package
