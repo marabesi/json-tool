@@ -87,9 +87,12 @@ jobs:
           key: ${{ hashFiles('**/package-lock.json') }}
 
       - name: coverage
-        env:
-          DISPLAY: ':99.0'
+        if: github.ref == 'refs/heads/main'
         run: npm run coveralls
+
+      - name: coverage (no coveralls)
+        if: github.ref != 'refs/heads/main'
+        run: npm run coverage
 
       #- name: memory leak detection
       #  run: npm run test -- --detectLeaks
