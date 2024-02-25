@@ -8,6 +8,7 @@ import EditorContainer from '../components/ui/editor/EditorContainer';
 import { EditorsPageProps } from '../types/pages';
 import Loading from '../components/ui/Loading';
 import { ReactCodeMirrorRef } from '@uiw/react-codemirror';
+import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 
 const cleanUp = new CleanUp();
 const defaultSpacing = '2';
@@ -126,47 +127,57 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
 
 
   return <div className="p-1 mb-8 h-full" style={{ height: '80vh' }}>
+    <div className="w-12 flex justify-center items-center">
+      {inProgress ?
+        <Loading className="animate-spin h-6 w-6 text-blue-900 dark:text-gray-400" data-testid="loading"/>
+        : null}
+    </div>
     <div className="flex h-full justify-center">
-      <EditorContainer>
-        <JsonMenu
-          pasteFromClipboard={navigator.clipboard && typeof navigator.clipboard.write === 'function' ? pasteFromClipboard : false}
-          cleanup={cleanup}
-          onLoadedFile={(text: string) => onChange(text, spacing)}
-          onSearch={() => openSearchPanel(jsonReferenceEditor.current?.view!!)}
-        />
+      <PanelGroup direction="vertical">
+        <Panel>
+          <EditorContainer>
+            <JsonMenu
+              pasteFromClipboard={navigator.clipboard && typeof navigator.clipboard.write === 'function' ? pasteFromClipboard : false}
+              cleanup={cleanup}
+              onLoadedFile={(text: string) => onChange(text, spacing)}
+              onSearch={() => openSearchPanel(jsonReferenceEditor.current?.view!!)}
+            />
 
-        <JsonEditor
-          input={originalJson}
-          onChange={event => onChange(event.value, spacing)}
-          data-testid="json"
-          contenteditable={true}
-          ref={jsonReferenceEditor as Ref<ReactCodeMirrorRef> | undefined}
-        />
-      </EditorContainer>
-      <div className="w-12 flex justify-center items-center">
-        {inProgress ?
-          <Loading className="animate-spin h-6 w-6 text-blue-900 dark:text-gray-400" data-testid="loading" />
-          : null}
-      </div>
-      <EditorContainer>
-        <ResultMenu
-          spacing={spacing}
-          updateSpacing={updateSpacing}
-          writeToClipboard={navigator.clipboard && typeof navigator.clipboard.read === 'function' ? writeToClipboard : false}
-          cleanWhiteSpaces={cleanWhiteSpaces}
-          cleanNewLines={cleanNewLines}
-          cleanNewLinesAndSpaces={cleanNewLinesAndSpaces}
-          onSearch={() => openSearchPanel(resultReferenceEditor.current.view)}
-        />
+            <JsonEditor
+              input={originalJson}
+              onChange={event => onChange(event.value, spacing)}
+              data-testid="json"
+              contenteditable={true}
+              ref={jsonReferenceEditor as Ref<ReactCodeMirrorRef> | undefined}
+            />
+          </EditorContainer>
+        </Panel>
+        <PanelResizeHandle/>
 
-        <JsonEditor
-          input={result}
-          className="result"
-          data-testid="result"
-          contenteditable={true}
-          ref={resultReferenceEditor}
-        />
-      </EditorContainer>
+
+        <Panel>
+          <EditorContainer>
+            <ResultMenu
+              spacing={spacing}
+              updateSpacing={updateSpacing}
+              writeToClipboard={navigator.clipboard && typeof navigator.clipboard.read === 'function' ? writeToClipboard : false}
+              cleanWhiteSpaces={cleanWhiteSpaces}
+              cleanNewLines={cleanNewLines}
+              cleanNewLinesAndSpaces={cleanNewLinesAndSpaces}
+              onSearch={() => openSearchPanel(resultReferenceEditor.current.view)}
+            />
+
+            <JsonEditor
+              input={result}
+              className="result"
+              data-testid="result"
+              contenteditable={true}
+              ref={resultReferenceEditor}
+            />
+          </EditorContainer>
+        </Panel>
+
+      </PanelGroup>
     </div>
     <div className="bg-red-600 m-1 mt-2 text-center text-white">
       {error && <p data-testid="error">{error}</p>}
