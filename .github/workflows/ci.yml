@@ -5,6 +5,7 @@ concurrency:
   cancel-in-progress: true
 
 on:
+  pull_request:
   workflow_dispatch:
   push:
     branches: main
@@ -141,6 +142,7 @@ jobs:
   delivery:
     runs-on: ubuntu-latest
     needs: [test, acceptance]
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3
       - name: Set Environment Variables
