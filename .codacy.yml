@@ -1,0 +1,8 @@
+exclude_paths:
+  - ".github/**"
+  - ".husky/**"
+  - "cypress/**"
+  - "**/*.md"
+  - "**/*.scss"
+  - "public/**"
+  - "**/*.config.*"
