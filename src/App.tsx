@@ -5,15 +5,13 @@ import { createContext, useEffect, useState } from 'react';
 import DefaultLayout from './components/ui/layout/Default';
 import { editorOptions } from './components/ui/editor/default-options';
 import { EditorOptions } from './types/components/Editor';
+import { theme, ThemeProvider } from './DarkMode';
 
 export const SettingsContext = createContext(editorOptions);
 
 const isDarkModeSet = () => {
   return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 };
-
-const theme = { darkMode: false };
-export const ThemeContext = createContext(theme);
 
 function App() {
   const [savedState, setSavedState] = useState<string>('');
@@ -39,7 +37,7 @@ function App() {
 
   return (
     <Router>
-      <ThemeContext.Provider value={theme as never}>
+      <ThemeProvider value={theme as never}>
         <DefaultLayout onDarkThemeChanged={onDarkThemeChanged} darkModeEnabled={darkModeEnabled}>
           <Routes>
             <Route path="/" element={<Editors onPersist={saveState} currentJson={savedState} />} />
@@ -50,7 +48,7 @@ function App() {
             } />
           </Routes>
         </DefaultLayout>
-      </ThemeContext.Provider>
+      </ThemeProvider>
     </Router>
   );
 }
