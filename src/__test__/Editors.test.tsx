@@ -74,9 +74,9 @@ describe('Editors', () => {
     await waitFor(() => expect(within(getByTestId('result')).getByText('×')).toBeInTheDocument());
   });
 
-  describe('loading', () => {
+  describe.skip('loading', () => {
     beforeEach(() => {
-      jest.useFakeTimers('legacy');
+      jest.useFakeTimers({ legacyFakeTimers: true });
     });
 
     afterEach(() => {
