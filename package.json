@@ -54,7 +54,7 @@
     "cypress-cucumber-preprocessor": "^4.3.1",
     "cypress-file-upload": "^5.0.8",
     "cypress-image-diff-js": "^1.30.0",
-    "electron": "^29.0.0",
+    "electron": "^30.0.1",
     "electron-builder": "^24.13.3",
     "esbuild": "^0.17.0",
     "esbuild-jest": "^0.5.0",
