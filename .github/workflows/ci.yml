@@ -131,7 +131,7 @@ jobs:
         run: npm run build
 
       - name: Run cypress (acceptance tests)
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v6
         env:
           CYPRESS_BASE_URL: 'http://localhost:3000'
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
