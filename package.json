@@ -1,6 +1,6 @@
 {
   "name": "json-tool",
-  "version": "0.20.1",
+  "version": "0.20.2",
   "homepage": "./",
   "private": true,
   "main": "electron.js",
@@ -18,14 +18,18 @@
     "@uiw/codemirror-theme-duotone": "^4.12.1",
     "@uiw/react-codemirror": "^4.11.4",
     "format-to-json": "^2.1.2",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.0.0-rc-cc1ec60d0d-20240607",
+    "react-dom": "^19.0.0-rc-cc1ec60d0d-20240607",
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "react-switch": "^7.0.0",
     "typescript": "^4.4.3",
     "web-vitals": "^1.1.2"
+  },
+  "overrides": {
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc"
   },
   "devDependencies": {
     "@craco/craco": "^7.0.0-alpha.3",
@@ -41,8 +45,8 @@
     "@testing-library/webdriverio": "^3.0.4",
     "@types/jest": "^28.1.8",
     "@types/node": "^16.10.5",
-    "@types/react": "^18.3.1",
-    "@types/react-dom": "^18.3.0",
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc",
     "@types/react-router-dom": "^5.3.3",
     "@types/webdriverio": "^4.13.3",
     "autoprefixer": "^9.8.7",
