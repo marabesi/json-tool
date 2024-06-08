@@ -141,6 +141,7 @@ jobs:
           start: npm run serve
           browser: chrome
           headed: true
+          install-command: npm install --legacy-peer-deps
 
   delivery:
     runs-on: ubuntu-latest
