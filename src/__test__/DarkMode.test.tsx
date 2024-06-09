@@ -24,6 +24,7 @@ describe('dark mode', () => {
       render(<App/>);
 
       expect(screen.getByTestId('json')).toHaveClass('cm-theme-dark');
+      expect(screen.getByTestId('app-container')).toMatchSnapshot();
     });
   });
 
@@ -52,6 +53,7 @@ describe('dark mode', () => {
       await userEvent.click(darkModeSwitch);
 
       expect(screen.getByTestId('app-container')).toHaveClass('dark');
+      expect(screen.getByTestId('app-container')).toMatchSnapshot();
     });
 
     it('should enable dark mode in the editors', async () => {
