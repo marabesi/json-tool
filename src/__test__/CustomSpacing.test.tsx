@@ -1,4 +1,4 @@
-import {render, act, waitFor, screen, fireEvent, getByTestId} from '@testing-library/react';
+import { render, act, waitFor, screen, fireEvent } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
