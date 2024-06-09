@@ -153,7 +153,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
       <div className="w-12 flex justify-center items-center">
         {inProgress ?
           <Loading className="animate-spin h-6 w-6 text-blue-900 dark:text-gray-400" data-testid="loading"/>
-          : null}
+          : <div className="h-6 w-6"></div>}
       </div>
       <EditorContainer>
         <ResultMenu
