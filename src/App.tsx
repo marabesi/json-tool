@@ -6,6 +6,7 @@ import DefaultLayout from './components/ui/layout/Default';
 import { editorOptions } from './components/ui/editor/default-options';
 import { EditorOptions } from './types/components/Editor';
 import { theme, ThemeProvider } from './DarkMode';
+import { Toaster } from 'react-hot-toast';
 
 export const SettingsContext = createContext(editorOptions);
 
@@ -50,6 +51,7 @@ function App() {
               </SettingsContext.Provider>
             } />
           </Routes>
+          <Toaster />
         </DefaultLayout>
       </ThemeProvider>
     </Router>

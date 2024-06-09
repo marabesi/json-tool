@@ -10,10 +10,20 @@ describe('Clipboard', () => {
   describe('clipboard api available', () => {
     beforeEach(() => {
       setUpClipboard();
+      Object.defineProperty(window, 'matchMedia', {
+        writable: true,
+        value: jest.fn().mockImplementation(() => ({
+          matches: false,
+        }))
+      });
     });
 
     afterEach(() => {
       tearDownClipboard();
+      Object.defineProperty(window, 'matchMedia', {
+        writable: true,
+        value: null
+      });
     });
 
     it('should paste json string from copy area into the editor on clicking the button', async () => {
@@ -36,7 +46,7 @@ describe('Clipboard', () => {
 
       const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
-      await userEvent.type(editor, '{{"a":"a"}', { delay: 500 });
+      await userEvent.type(editor, '{{"a":"a"}', { delay: 100 });
 
       await waitFor(() => {
         expect(screen.getByTestId('raw-json')).toHaveValue('{"a":"a"}');
@@ -48,6 +58,7 @@ describe('Clipboard', () => {
         const formatter = new Formatter('{"a":"a"}');
         expect(global.navigator.clipboard.writeText).toHaveBeenCalledWith(await formatter.format());
       });
+      expect(screen.getByText('Copied')).toBeInTheDocument();
     });
   });
 

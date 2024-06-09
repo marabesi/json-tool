@@ -7,6 +7,7 @@ import JsonMenu from '../components/ui/menu/JsonMenu';
 import EditorContainer from '../components/ui/editor/EditorContainer';
 import { EditorsPageProps } from '../types/pages';
 import Loading from '../components/ui/Loading';
+import toast from 'react-hot-toast';
 import { ReactCodeMirrorRef } from '@uiw/react-codemirror';
 
 const cleanUp = new CleanUp();
@@ -106,7 +107,10 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
 
   const cleanup = () => onChange('', spacing);
 
-  const writeToClipboard = async () => await navigator.clipboard.writeText(result);
+  const writeToClipboard = async () => {
+    await navigator.clipboard.writeText(result);
+    toast.success('Copied');
+  };
 
   const cleanWhiteSpaces = () => {
     const withoutSpaces = cleanUp.cleanWhiteSpaces(originalJson);
