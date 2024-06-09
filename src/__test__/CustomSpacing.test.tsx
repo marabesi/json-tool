@@ -1,4 +1,4 @@
-import { render, act, waitFor, screen } from '@testing-library/react';
+import {render, act, waitFor, screen, fireEvent} from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
@@ -127,6 +127,21 @@ describe('Custom spacing for formatting json', () => {
         expect(screen.getByTestId('raw-result')).toHaveValue(`{
   "a": "b"
 }`);
+      });
+    });
+
+    it('dismiss upload file when there is no file content', async () => {
+      render(<App />);
+
+      // @ts-ignore when dismissing an input file without selecting a file it is normal to see undefined from the input
+      // the flow is: 1. upload a file, 2. open the input file and dismiss the dialog
+      // the code will return undefined
+      await userEvent.upload(screen.getByTestId('upload-json'),  ({} as unknown) as File);
+
+      fireEvent.change(screen.getByTestId('upload-json'), undefined);
+
+      await waitFor(() => {
+        expect(screen.getByTestId('raw-result')).toHaveValue('');
       });
     });
   });

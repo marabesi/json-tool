@@ -12,13 +12,15 @@ interface Props {
 export default function JsonMenu({ pasteFromClipboard, cleanup, onLoadedFile, onSearch } : Props) {
   function onFileUploaded(event: BaseSyntheticEvent) {
     const [fileAt] = event.target.files as File[];
-    const reader = new FileReader();
-    reader.readAsText(fileAt, 'UTF-8');
-    reader.onload = (evt) => {
-      if (evt.target) {
-        onLoadedFile(evt.target.result);
-      }
-    };
+    if (fileAt) {
+      const reader = new FileReader();
+      reader.readAsText(fileAt, 'UTF-8');
+      reader.onload = (evt) => {
+        if (evt.target) {
+          onLoadedFile(evt.target.result);
+        }
+      };
+    }
   }
 
   return (
