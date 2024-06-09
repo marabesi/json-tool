@@ -36,7 +36,7 @@ describe('Clipboard', () => {
 
       const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
-      await userEvent.type(editor, '{{"a":"a"}');
+      await userEvent.type(editor, '{{"a":"a"}', { delay: 500 });
 
       await waitFor(() => {
         expect(screen.getByTestId('raw-json')).toHaveValue('{"a":"a"}');
