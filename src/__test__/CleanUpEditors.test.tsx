@@ -1,4 +1,4 @@
-import { act, render, RenderResult, waitFor, screen } from '@testing-library/react';
+import { render, RenderResult, waitFor, screen } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
@@ -21,9 +21,7 @@ describe('Clean up editors', () => {
 
     const editor = grabCurrentEditor(container);
 
-    await act(async () => {
-      await customType(editor, '{{}');
-    });
+    await customType(editor, '{{}');
 
     await userEvent.click(screen.getByTestId('clean'));
 

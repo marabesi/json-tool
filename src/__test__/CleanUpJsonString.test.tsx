@@ -1,19 +1,15 @@
-import { act, render, RenderResult, waitFor } from '@testing-library/react';
+import { render, waitFor, screen } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import { setUpClipboard, tearDownClipboard, writeTextToClipboard } from 'jest-clipboard';
 
 describe('Clean up json', () => {
-  let wrapper: RenderResult;
-
   beforeEach(() => {
     setUpClipboard();
-    wrapper = render(<App />);
   });
 
   afterEach(() => {
     tearDownClipboard();
-    wrapper.unmount();
   });
 
   it.each([
@@ -26,24 +22,20 @@ describe('Clean up json', () => {
     ['{"key with spaces" : "json from clipboard"}', '{"key with spaces":"json from clipboard"}'],
     ['{"private_key" : "-----BEGIN PRIVATE KEY-----\nMIIEvgI\n-----END PRIVATE KEY-----\n" }', '{"private_key":"-----BEGIN PRIVATE KEY-----\nMIIEvgI\n-----END PRIVATE KEY-----\n"}'],
   ])('should clean specific spaces in a json string (%s, %s)', async (inputJson: string, desiredJson: string) => {
-    const { getByTestId } = wrapper;
+    render(<App />);
 
     await writeTextToClipboard(inputJson);
 
-    await act(async () => {
-      await userEvent.click(getByTestId('paste-from-clipboard'));
-    });
+    await userEvent.click(screen.getByTestId('paste-from-clipboard'));
 
     await waitFor(() => {
-      expect(getByTestId('raw-json')).toHaveValue(inputJson);
+      expect(screen.getByTestId('raw-json')).toHaveValue(inputJson);
     });
 
-    await act(async () => {
-      await userEvent.click(getByTestId('clean-spaces'));
-    });
+    await userEvent.click(screen.getByTestId('clean-spaces'));
 
     await waitFor(() => {
-      expect(getByTestId('raw-result')).toHaveValue(desiredJson);
+      expect(screen.getByTestId('raw-result')).toHaveValue(desiredJson);
     });
   });
 
@@ -73,24 +65,20 @@ describe('Clean up json', () => {
 }`
     ],
   ])('should clean firebase json white spaces (%s, %s)', async (inputJson: string, desiredJson: string) => {
-    const { getByTestId } = wrapper;
+    render(<App />);
 
     await writeTextToClipboard(inputJson);
 
-    await act(async () => {
-      await userEvent.click(getByTestId('paste-from-clipboard'));
-    });
+    await userEvent.click(screen.getByTestId('paste-from-clipboard'));
 
     await waitFor(() => {
-      expect(getByTestId('raw-json')).toHaveValue(inputJson);
+      expect(screen.getByTestId('raw-json')).toHaveValue(inputJson);
     });
 
-    await act(async () => {
-      await userEvent.click(getByTestId('clean-spaces'));
-    });
+    await userEvent.click(screen.getByTestId('clean-spaces'));
 
     await waitFor(() => {
-      expect(getByTestId('raw-result')).toHaveValue(desiredJson);
+      expect(screen.getByTestId('raw-result')).toHaveValue(desiredJson);
     }, { timeout: 10000 });
   });
 });

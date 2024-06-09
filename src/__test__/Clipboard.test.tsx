@@ -1,4 +1,4 @@
-import { render, act, waitFor } from '@testing-library/react';
+import { render, waitFor, screen } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import Formatter from '../core/formatter';
@@ -17,38 +17,32 @@ describe('Clipboard', () => {
     });
 
     it('should paste json string from copy area into the editor on clicking the button', async () => {
-      const { getByTestId } = render(<App />);
+      render(<App />);
 
       await writeTextToClipboard('{}');
 
-      await act(async () => {
-        await userEvent.click(getByTestId('paste-from-clipboard'));
-      });
+      await userEvent.click(screen.getByTestId('paste-from-clipboard'));
 
       await waitFor(() => {
-        expect(getByTestId('raw-json')).toHaveValue('{}');
-        expect(getByTestId('raw-result')).toHaveValue('{}');
+        expect(screen.getByTestId('raw-json')).toHaveValue('{}');
       });
+      expect(screen.getByTestId('raw-result')).toHaveValue('{}');
     });
 
     it('should copy json string from result editor to transfer area on clicking the button', async () => {
-      const { container, getByTestId } = render(<App />);
+      render(<App />);
 
       jest.spyOn(global.navigator.clipboard, 'writeText');
 
-      const editor = grabCurrentEditor(container);
+      const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
-      await act(async () => {
-        await userEvent.type(editor, '{{"a":"a"}');
-      });
+      await userEvent.type(editor, '{{"a":"a"}');
 
       await waitFor(() => {
-        expect(getByTestId('raw-json')).toHaveValue('{"a":"a"}');
+        expect(screen.getByTestId('raw-json')).toHaveValue('{"a":"a"}');
       });
 
-      await act(async () => {
-        await userEvent.click(getByTestId('copy-json'));
-      });
+      await userEvent.click(screen.getByTestId('copy-json'));
 
       await waitFor(async () => {
         const formatter = new Formatter('{"a":"a"}');
@@ -64,21 +58,21 @@ describe('Clipboard', () => {
     });
 
     it('copy json should be disabled', async () => {
-      const { getByTestId, getByTitle } = render(<App/>);
+      render(<App/>);
 
       await waitFor(async () => {
-        expect(getByTestId('copy-json')).toBeDisabled();
-        expect(getByTitle('Copy json is disabled due lack of browser support')).toBeInTheDocument();
+        expect(screen.getByTestId('copy-json')).toBeDisabled();
       });
+      expect(screen.getByTitle('Copy json is disabled due lack of browser support')).toBeInTheDocument();
     });
 
     it('paste json should be disabled', async () => {
-      const { getByTestId, getByTitle } = render(<App/>);
+      render(<App/>);
 
       await waitFor(async () => {
-        expect(getByTestId('paste-from-clipboard')).toBeDisabled();
-        expect(getByTitle('Paste from clipboard is disabled due lack of browser support')).toBeInTheDocument();
+        expect(screen.getByTestId('paste-from-clipboard')).toBeDisabled();
       });
+      expect(screen.getByTitle('Paste from clipboard is disabled due lack of browser support')).toBeInTheDocument();
     });
   });
 });

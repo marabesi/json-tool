@@ -126,7 +126,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
 
 
   return <div className="p-1 mb-8 h-full" style={{ height: '80vh' }}>
-    <div className="flex h-full justify-center">
+    <div className="flex h-full justify-center" data-testid="editor-container">
       <EditorContainer>
         <JsonMenu
           pasteFromClipboard={navigator.clipboard && typeof navigator.clipboard.write === 'function' ? pasteFromClipboard : false}
