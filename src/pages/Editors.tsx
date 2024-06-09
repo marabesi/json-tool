@@ -128,13 +128,12 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
     onChange(originalJson, newSpacing);
   };
 
-  // console.log(isValidateEnabled);
-  return <div className="p-1 mb-8 h-full" style={{ height: '80vh' }}>
+  return <div className="p-1 mb-8 pb-8 h-full" style={{ height: '80vh' }}>
     <label htmlFor="is-validate-json">validate json</label>
     <input type="checkbox" id="is-validate-json" onChange={() => setValidateEnabled(!isValidateEnabled)}
       data-testid="is-validate-json" checked={isValidateEnabled}/>
 
-    <div className="flex h-full justify-center" data-testid="editor-container">
+    <div className="flex h-full justify-center p-1" data-testid="editor-container">
       <EditorContainer>
         <JsonMenu
           pasteFromClipboard={navigator.clipboard && typeof navigator.clipboard.write === 'function' ? pasteFromClipboard : false}
