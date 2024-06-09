@@ -1,4 +1,4 @@
-import {render, act, waitFor, screen, fireEvent} from '@testing-library/react';
+import {render, act, waitFor, screen, fireEvent, getByTestId} from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
@@ -142,6 +142,21 @@ describe('Custom spacing for formatting json', () => {
 
       await waitFor(() => {
         expect(screen.getByTestId('raw-result')).toHaveValue('');
+      });
+    });
+
+    it('clear file input when click on delete all', async () => {
+      const file = new File(['{"a":"b"}'], 'hello.json', { type: 'application/json' });
+
+      render(<App />);
+
+      await userEvent.upload(screen.getByTestId('upload-json'),  file);
+
+      await userEvent.click(screen.getByText('Delete all'));
+
+      await waitFor(() => {
+        // @ts-ignore
+        expect(screen.getByTestId('upload-json').value).toBe('');
       });
     });
   });

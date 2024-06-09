@@ -1,4 +1,4 @@
-import { BaseSyntheticEvent, DetailedHTMLProps } from 'react';
+import { BaseSyntheticEvent, DetailedHTMLProps, useRef } from 'react';
 import Button from '../io/Button';
 import { FaRegClipboard, FaRegFileArchive, FaRegTrashAlt, FaSearch } from 'react-icons/fa';
 
@@ -10,6 +10,8 @@ interface Props {
 }
 
 export default function JsonMenu({ pasteFromClipboard, cleanup, onLoadedFile, onSearch } : Props) {
+  const fileContent  = useRef(null);
+
   function onFileUploaded(event: BaseSyntheticEvent) {
     const [fileAt] = event.target.files as File[];
     if (fileAt) {
@@ -40,10 +42,16 @@ export default function JsonMenu({ pasteFromClipboard, cleanup, onLoadedFile, on
       </Button>
       <Button className="ml-0 flex items-center">
         <FaRegFileArchive className="mr-2" />
-        <input type="file" accept="application/json" onChange={onFileUploaded} data-testid="upload-json" />
+        <input type="file" ref={fileContent} accept="application/json" onChange={onFileUploaded} data-testid="upload-json" />
       </Button>
       <Button
-        onClick={cleanup}
+        onClick={() => {
+          if (fileContent.current) {
+            // @ts-ignore at the  time of this code, there were no options to reset without accessing the ref
+            fileContent.current.value = '';
+          }
+          cleanup();
+        }}
         data-testid="clean"
         className="flex items-center"
       >
