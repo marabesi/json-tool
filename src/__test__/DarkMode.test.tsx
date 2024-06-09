@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 
@@ -21,9 +21,9 @@ describe('dark mode', () => {
     });
 
     it('should enable dark mode by default', async () => {
-      const { getByTestId } = render(<App/>);
+      render(<App/>);
 
-      expect(getByTestId('json')).toHaveClass('cm-theme-dark');
+      expect(screen.getByTestId('json')).toHaveClass('cm-theme-dark');
     });
   });
 
@@ -45,23 +45,23 @@ describe('dark mode', () => {
     });
 
     it('should enable dark mode in the ui', async () => {
-      const { getByTestId, container } = render(<App/>);
+      render(<App/>);
 
-      const darkModeSwitch = getByTestId('dark-mode');
+      const darkModeSwitch = screen.getByTestId('dark-mode');
 
       await userEvent.click(darkModeSwitch);
 
-      expect(container.querySelector('.dark')).toBeInTheDocument();
+      expect(screen.getByTestId('app-container')).toHaveClass('dark');
     });
 
     it('should enable dark mode in the editors', async () => {
-      const { getByTestId } = render(<App/>);
+      render(<App/>);
 
-      const darkModeSwitch = getByTestId('dark-mode');
+      const darkModeSwitch = screen.getByTestId('dark-mode');
 
       await userEvent.click(darkModeSwitch);
 
-      expect(getByTestId('json')).toHaveClass('cm-theme-dark');
+      expect(screen.getByTestId('json')).toHaveClass('cm-theme-dark');
     });
   });
 });
