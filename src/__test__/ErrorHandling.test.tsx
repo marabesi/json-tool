@@ -1,4 +1,4 @@
-import { render, act, waitFor } from '@testing-library/react';
+import { render, act, waitFor, screen } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
@@ -9,17 +9,13 @@ describe('Error handling', () => {
     ['bla bla'],
     ['Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley'],
   ])('hides the error after cleaning random string (%s)', async (originalCode: string) => {
-    const { getByTestId,queryByTestId } = render(<App/>);
+    render(<App/>);
 
-    await act(async () => {
-      await userEvent.keyboard(originalCode);
-    });
+    await userEvent.keyboard(originalCode);
 
-    await act(async () => {
-      await userEvent.click(getByTestId('clean'));
-    });
+    await userEvent.click(screen.getByTestId('clean'));
 
-    const result = queryByTestId('error');
+    const result = screen.queryByTestId('error');
 
     await waitFor(() => {
       expect(result).not.toBeInTheDocument();
@@ -27,16 +23,16 @@ describe('Error handling', () => {
   });
 
   it('inform error when json is invalid', async () => {
-    const { container, getByTestId } = render(<App />);
+    render(<App />);
 
-    const editor = grabCurrentEditor(container);
+    const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
     await act(async () => {
       await customType(editor, 'bla bla');
     });
 
     await waitFor(() => {
-      const result = getByTestId('error');
+      const result = screen.getByTestId('error');
 
       expect(result.innerHTML).toEqual('invalid json');
     });
