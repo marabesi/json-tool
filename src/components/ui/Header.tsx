@@ -4,7 +4,7 @@ import Switch from 'react-switch';
 import fullConfig from '../../tailwindResolver';
 
 interface Props {
-  onDarkModeChanged: any
+  onDarkModeChanged: (checked: boolean) => void;
   darkModeEnabled: boolean
 }
 

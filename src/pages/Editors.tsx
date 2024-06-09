@@ -23,6 +23,7 @@ const code = `
 
            const value = event.data.jsonAsString;
            const spacing = event.data.spacing;
+           const isValidateEnabled = event.data.isValidateEnabled;
 
            if (value) {
              // eslint-disable-next-line no-undef
@@ -33,7 +34,9 @@ const code = `
              });
 
              try {
-               JSON.parse(value);
+               if (isValidateEnabled) {
+                 JSON.parse(value);
+               }
              } catch (e) {
                console.error('error from worker: ', e);
                postMessage({ error: true, originalJson: value, result: format.result });
@@ -51,6 +54,7 @@ const code = `
 
 export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
   const worker = useRef<Worker>();
+  const [isValidateEnabled, setValidateEnabled] = useState<boolean>(true);
   const [inProgress, setInProgress] = useState<boolean>(false);
   const [originalJson, setOriginalResult] = useState<string>(currentJson);
   const [result, setResult] = useState<string>('');
@@ -80,7 +84,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
 
   const onChange = (eventValue: string, eventSpacing: string) =>{
     if (worker.current) {
-      worker.current.postMessage({ jsonAsString: eventValue, spacing: eventSpacing });
+      worker.current.postMessage({ jsonAsString: eventValue, spacing: eventSpacing, isValidateEnabled });
     }
     setOriginalResult(eventValue);
     setInProgress(true);
@@ -124,8 +128,12 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
     onChange(originalJson, newSpacing);
   };
 
-
+  // console.log(isValidateEnabled);
   return <div className="p-1 mb-8 h-full" style={{ height: '80vh' }}>
+    <label htmlFor="is-validate-json">validate json</label>
+    <input type="checkbox" id="is-validate-json" onChange={() => setValidateEnabled(!isValidateEnabled)}
+      data-testid="is-validate-json" checked={isValidateEnabled}/>
+
     <div className="flex h-full justify-center" data-testid="editor-container">
       <EditorContainer>
         <JsonMenu
@@ -145,7 +153,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
       </EditorContainer>
       <div className="w-12 flex justify-center items-center">
         {inProgress ?
-          <Loading className="animate-spin h-6 w-6 text-blue-900 dark:text-gray-400" data-testid="loading" />
+          <Loading className="animate-spin h-6 w-6 text-blue-900 dark:text-gray-400" data-testid="loading"/>
           : null}
       </div>
       <EditorContainer>
@@ -169,7 +177,7 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
       </EditorContainer>
     </div>
     <div className="bg-red-600 m-1 mt-2 text-center text-white">
-      {error && <p data-testid="error">{error}</p>}
+      {isValidateEnabled && error && <p data-testid="error">{error}</p>}
     </div>
   </div>;
 }

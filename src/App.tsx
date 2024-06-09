@@ -27,8 +27,11 @@ function App() {
   };
 
   const onDarkThemeChanged = (isDarkThemeEnabled: boolean)  => {
-    setDarkMode(isDarkThemeEnabled);
-    theme.darkMode = isDarkThemeEnabled;
+    // for some reason the event is fired with undefined
+    if (isDarkThemeEnabled !== undefined) {
+      setDarkMode(isDarkThemeEnabled);
+      theme.darkMode = isDarkThemeEnabled;
+    }
   };
 
   useEffect(() => {

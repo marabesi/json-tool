@@ -37,4 +37,31 @@ describe('Error handling', () => {
       expect(result.innerHTML).toEqual('invalid json');
     });
   });
+
+  describe('validation disabled', () => {
+
+    it('should not render error when validate json is disabled', async () => {
+      render(<App/>);
+
+      await waitFor(() => {
+        expect(screen.getByTestId('is-validate-json')).toBeChecked();
+      });
+
+      await userEvent.click(screen.getByText('validate json'));
+
+      await waitFor(() => {
+        expect(screen.getByTestId('is-validate-json')).not.toBeChecked();
+      });
+
+      const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
+
+      await act(async () => {
+        await customType(editor, 'bla bla');
+      });
+
+      await waitFor(() => {
+        expect(screen.queryByTestId('error')).not.toBeInTheDocument();
+      });
+    });
+  });
 });

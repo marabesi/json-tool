@@ -79,4 +79,11 @@ describe('UI elements', () => {
 
     expect(screen.queryByTestId('app-container')).not.toHaveClass('dark');
   });
+
+  it('should render validate json checkbox', () => {
+    render(<App/>);
+
+    expect(screen.getByText('validate json')).toBeInTheDocument();
+    expect(screen.getByTestId('is-validate-json')).toBeChecked();
+  });
 });
