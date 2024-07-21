@@ -92,7 +92,7 @@
     "test": "craco test src/",
     "test:all": "npm run e2e && npm run test -- --watchAll=false",
     "coverage": "craco test --env=jsdom --no-cache --collectCoverage --ci --watchAll=false --colors --silent",
-    "coveralls": "npm run coverage && coveralls < coverage/lcov.info",
+    "coveralls": "coveralls < merged_coverage.info",
     "e2e": "CYPRESS_BASE_URL=http://localhost:3000 cypress run",
     "e2e:open": "CYPRESS_BASE_URL=http://localhost:3000 cypress open",
     "eject": "craco eject",
