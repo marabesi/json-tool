@@ -84,7 +84,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: npm run coverage
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         if: github.ref == 'refs/heads/main'
         with:
           name: jest-lcov
@@ -144,7 +144,7 @@ jobs:
           browser: chrome
           headed: true
           install-command: npm install --legacy-peer-deps
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         if: github.ref == 'refs/heads/main'
         with:
           name: cypress-lcov
@@ -175,7 +175,7 @@ jobs:
             ~/.cache/Cypress
           key: ${{ hashFiles('**/package-lock.json') }}
       
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           path: coverage/
           pattern: "*-lcov"
@@ -186,7 +186,7 @@ jobs:
           mv coverage/jest-lcov/lcov.info merged_coverage/jest.info
           ./node_modules/.bin/lcov-result-merger './merged_coverage/*' merged_coverage.info
           npm run coveralls
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: merged-lcov
           path: merged_coverage.info
@@ -223,22 +223,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
-#      - name: package for windows
-#        run: npm run package-windows
-
       - name: fetch snap file
         id: snap_file
         run: echo "::set-output name=name::$(ls dist/*.snap | sed "s/dist\///g" | sed "s/\.snap//g")"
-
-#      - name: fetch windows file
-#        id: windows_file
-#        run: echo "::set-output name=name::$(ls dist/*.exe | sed "s/dist\///g" | sed "s/\.snap//g")"
-
-#      - name: Archive windows binary
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: "${{ steps.snap_file.outputs.name }}"
-#          path: "dist/${{ steps.windows_file.outputs.name }}"
 
       - name: publish snap edge channel
         uses: snapcore/action-publish@v1
