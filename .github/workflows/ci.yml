@@ -51,12 +51,6 @@ jobs:
           key: ${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ hashFiles('**/package-lock.json') }}
 
-#      - name: install wine
-#        run: |
-#          sudo dpkg --add-architecture i386
-#          sudo apt-get update
-#          sudo apt-get install -f wine-stable wine32
-
       - name: install
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install --legacy-peer-deps
@@ -88,14 +82,17 @@ jobs:
 
       - name: coverage
         if: github.ref == 'refs/heads/main'
-        run: npm run coveralls
+        run: npm run coverage
+
+      - uses: actions/upload-artifact@v2
+        if: github.ref == 'refs/heads/main'
+        with:
+          name: jest-lcov
+          path: coverage/lcov.info
 
       - name: coverage (no coveralls)
         if: github.ref != 'refs/heads/main'
         run: npm run coverage
-
-      #- name: memory leak detection
-      #  run: npm run test -- --detectLeaks
 
   acceptance:
     runs-on: ubuntu-latest
@@ -126,6 +123,8 @@ jobs:
         run: |
           /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
           echo ">>> Started xvfb"
+      - name: delete coverage folder
+        run: rm -rf coverage/
 
       - name: lint
         run: npm run lint
@@ -141,10 +140,16 @@ jobs:
         with:
           record: true
           wait-on: 'http://localhost:3000'
-          start: npm run serve
+          start: npm run start-instrumented
           browser: chrome
           headed: true
           install-command: npm install --legacy-peer-deps
+      - uses: actions/upload-artifact@v2
+        if: github.ref == 'refs/heads/main'
+        with:
+          name: cypress-lcov
+          path: coverage/lcov.info
+
 
   delivery:
     runs-on: ubuntu-latest

@@ -71,6 +71,7 @@
     "husky": "^7.0.2",
     "jest-clipboard": "^0.0.11",
     "jsdom-worker": "^0.3.0",
+    "lcov-result-merger": "^5.0.1",
     "mitt": "^3.0.0",
     "node-fetch": "3.0.0",
     "postcss": "^8.2.13",
