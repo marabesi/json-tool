@@ -180,7 +180,12 @@ jobs:
           path: coverage/
           pattern: "*-lcov"
           merge-multiple: false
-      - run: ls -R coverage
+      - run: |
+          ls -R coverage
+          mkdir merged_coverage
+          mv coverage/cypress-lcov/lcov.info merged_coverage/cypress.info
+          mv coverage/jest-lcov/lcov.info merged_coverage/jest.info
+          ./node_modules/.bin/lcov-result-merger './merged_coverage/*' merged_coverage.info
 
 
 
