@@ -1,6 +1,7 @@
 const cucumber = require('cypress-cucumber-preprocessor').default;
 const { defineConfig } = require('cypress');
 const getCompareSnapshotsPlugin = require('cypress-image-diff-js/dist/plugin');
+const coverage = require('@cypress/code-coverage/task');
 
 module.exports = defineConfig({
   viewportHeight: 920,
@@ -17,9 +18,12 @@ module.exports = defineConfig({
       'cypress/e2e/**/*.feature',
       'cypress/regression/**/*.spec.js'
     ],
+    'experimentalRunAllSpecs': true,
     setupNodeEvents(on, config) {
+      coverage(on, config);
       on('file:preprocessor', cucumber());
       getCompareSnapshotsPlugin(on, config);
+      return config;
     }
   }
 });

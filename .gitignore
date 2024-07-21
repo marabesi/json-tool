@@ -12,6 +12,8 @@ out/
 
 # testing
 /coverage
+/cypress-coverage
+/jest-coverage
 
 # production
 build/
@@ -39,3 +41,5 @@ reports/
 cypress-visual-report/
 cypress-visual-screenshots/diff/
 cypress-visual-screenshots/comparison/
+
+.nyc_output
