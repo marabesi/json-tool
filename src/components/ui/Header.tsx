@@ -16,7 +16,6 @@ export default function Header({ onDarkModeChanged, darkModeEnabled, ...props }:
           <Link to="/" data-testid="to-home">JSON tool</Link>
         </h2> |
         <a href="https://github.com/marabesi/json-tool" target="_blank" rel="noreferrer">by marabesi</a>
-        <a href="https://github.com/marabesi/json-tool/discussions/72" target="_blank" rel="noreferrer" className="ml-14">What feature are you missing?</a>
       </div>
       <div className="flex items-center">
         <Switch
