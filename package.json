@@ -73,7 +73,7 @@
     "jsdom-worker": "^0.3.0",
     "lcov-result-merger": "^5.0.1",
     "mitt": "^3.0.0",
-    "node-fetch": "3.0.0",
+    "node-fetch": "3.3.2",
     "postcss": "^8.2.13",
     "sass": "^1.43.4",
     "source-map-explorer": "^2.5.3",
