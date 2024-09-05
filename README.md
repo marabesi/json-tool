@@ -47,3 +47,8 @@ the practice of formatting or sharing information in formatting tools that are n
 ## Debounce
 
 - [How to perform debounce?](https://stackoverflow.com/questions/23123138/how-to-perform-debounce)
+
+# Related projects
+
+- [JSON crack](https://github.com/AykutSarac/jsoncrack.com)
+- [JSON formatter and validator](https://jsonformatter.curiousconcept.com/)
