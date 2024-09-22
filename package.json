@@ -77,7 +77,6 @@
     "postcss": "^8.2.13",
     "sass": "^1.43.4",
     "source-map-explorer": "^2.5.3",
-    "spectron": "^15.0.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14",
     "uuid-v4": "^0.1.0",
     "wait-on": "^7.2.0",
