@@ -132,9 +132,17 @@ jobs:
       - name: build application
         run: npm run build
 
+      - name: instrument application
+        run: |
+          npx nyc instrument src/ instrumented
+          cp -R instrumented/ src/
+          rm -rf instrumented
+
       - name: Run cypress (acceptance tests)
         uses: cypress-io/github-action@v6
         env:
+          CYPRESS_INSTRUMENT_PRODUCTION: false
+          DISABLE_ESLINT_PLUGIN: true
           CYPRESS_BASE_URL: 'http://localhost:3000'
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
