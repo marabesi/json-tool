@@ -33,7 +33,7 @@
     "@types/react-dom": "npm:types-react-dom@rc"
   },
   "devDependencies": {
-    "@craco/craco": "^7.0.0-alpha.3",
+    "@craco/craco": "^7.1.0",
     "@cypress/code-coverage": "^3.12.42",
     "@cypress/instrument-cra": "^1.4.0",
     "@stryker-mutator/core": "^6.3.0",
