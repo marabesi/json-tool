@@ -187,7 +187,6 @@ jobs:
       
       - uses: actions/download-artifact@v4.1.7
         with:
-          path: coverage/
           pattern: "*-lcov"
           merge-multiple: false
       - run: |
