@@ -185,7 +185,7 @@ jobs:
             ~/.cache/Cypress
           key: ${{ hashFiles('**/package-lock.json') }}
       
-      - uses: actions/download-artifact@v4.1.7
+      - uses: actions/download-artifact@v3
         with:
           pattern: "*-lcov"
           merge-multiple: false
