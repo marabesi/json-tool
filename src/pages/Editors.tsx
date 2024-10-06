@@ -5,10 +5,10 @@ import CleanUp from '../core/cleanUp';
 import ResultMenu from '../components/ui/menu/ResultMenu';
 import JsonMenu from '../components/ui/menu/JsonMenu';
 import EditorContainer from '../components/ui/editor/EditorContainer';
-import { EditorsPageProps } from '../types/pages';
 import Loading from '../components/ui/Loading';
 import toast from 'react-hot-toast';
 import { ReactCodeMirrorRef } from '@uiw/react-codemirror';
+import { usePersistenceContext } from 'src/PersistenceContext';
 
 const cleanUp = new CleanUp();
 const defaultSpacing = '2';
@@ -53,11 +53,12 @@ const code = `
       }
     `;
 
-export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
+export default function Editors() {
   const worker = useRef<Worker>();
+  const { savedState, saveState } = usePersistenceContext();
   const [isValidateEnabled, setValidateEnabled] = useState<boolean>(true);
   const [inProgress, setInProgress] = useState<boolean>(false);
-  const [originalJson, setOriginalResult] = useState<string>(currentJson);
+  const [originalJson, setOriginalResult] = useState<string>(savedState);
   const [result, setResult] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [spacing, setSpacing] = useState<string>(defaultSpacing);
@@ -79,9 +80,9 @@ export default function Editors({ onPersist, currentJson }: EditorsPageProps) {
 
   useEffect(() => {
     return () => {
-      onPersist(originalJson);
+      saveState(originalJson);
     };
-  }, [onPersist, originalJson]);
+  }, [saveState, originalJson]);
 
   const onChange = (eventValue: string, eventSpacing: string) =>{
     if (worker.current) {
