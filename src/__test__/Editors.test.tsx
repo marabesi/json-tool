@@ -2,15 +2,7 @@ import { render, act, waitFor, within, screen } from '@testing-library/react';
 import App from '../App';
 import { customType } from './__testutilities__/customTyping';
 import userEvent from '@testing-library/user-event';
-
-function grabCurrentEditor(container: HTMLElement): HTMLElement {
-  // eslint-disable-next-line testing-library/no-node-access
-  const editor = container.querySelector('[data-testid="json"] .cm-content');
-  if (!editor) {
-    throw new Error('Could not find editor');
-  }
-  return editor as HTMLElement;
-}
+import { grabCurrentEditor } from './__testutilities__/editorQuery';
 
 describe('Editors', () => {
   it.each([
