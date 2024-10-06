@@ -1,16 +1,16 @@
+import { ReactNode, useState } from 'react';
 import Header from '../Header';
 import Footer from '../Footer';
-import { ReactNode, useState } from 'react';
 import Drawer from './Drawer';
+import { useThemeContext } from 'src/DarkModeContext';
 
 interface Props {
   children?: ReactNode
-  onDarkThemeChanged: any
-  darkModeEnabled: boolean
 }
 
-export default function DefaultLayout({ children, onDarkThemeChanged, darkModeEnabled }: Props) {
+export default function DefaultLayout({ children }: Props) {
   const [open, setOpen] = useState(false);
+  const { onDarkThemeChanged, darkModeEnabled } = useThemeContext();
 
   return (
     <div data-testid="app-container" className={`flex flex-col ${darkModeEnabled ? 'dark': ''}`}>

@@ -1,11 +1,11 @@
+import { CSSProperties, ForwardedRef, forwardRef } from 'react';
 import CodeMirror, { BasicSetupOptions, ReactCodeMirrorRef } from '@uiw/react-codemirror';
 import fullConfig from '../../../tailwindResolver';
 import { json } from '@codemirror/lang-json';
-import { CSSProperties, ForwardedRef, forwardRef, useContext } from 'react';
 import { Option, Properties } from '../../../types/components/Editor';
 import { duotoneLight } from '@uiw/codemirror-theme-duotone';
-import { ThemeContext } from '../../../DarkModeContext';
 import { useSettingsContext } from 'src/settings/SettingsContext';
+import { useThemeContext } from 'src/DarkModeContext';
 
 type Event = {
   value: string;
@@ -23,7 +23,7 @@ interface Props{
 
 export default forwardRef(function JsonEditor(props: Props, ref: ForwardedRef<ReactCodeMirrorRef>) {
   const { input, onChange, className, ...rest } = props;
-  const theme = useContext(ThemeContext);
+  const { darkModeEnabled } = useThemeContext();
   const { editorOptions } = useSettingsContext();
 
   const handleChange = (value: string) => {
@@ -61,7 +61,7 @@ export default forwardRef(function JsonEditor(props: Props, ref: ForwardedRef<Re
         style={style}
         height="100%"
         extensions={[json()]}
-        theme={theme.darkMode ? 'dark' : duotoneLight}
+        theme={darkModeEnabled ? 'dark' : duotoneLight}
         basicSetup={basicSetup}
         {...rest}
       />
