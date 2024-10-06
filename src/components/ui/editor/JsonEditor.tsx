@@ -1,11 +1,11 @@
 import CodeMirror, { BasicSetupOptions, ReactCodeMirrorRef } from '@uiw/react-codemirror';
 import fullConfig from '../../../tailwindResolver';
 import { json } from '@codemirror/lang-json';
-import { SettingsContext } from '../../../App';
 import { CSSProperties, ForwardedRef, forwardRef, useContext } from 'react';
 import { Option, Properties } from '../../../types/components/Editor';
 import { duotoneLight } from '@uiw/codemirror-theme-duotone';
 import { ThemeContext } from '../../../DarkMode';
+import { useSettingsContext } from 'src/settings/SettingsContext';
 
 type Event = {
   value: string;
@@ -24,7 +24,7 @@ interface Props{
 export default forwardRef(function JsonEditor(props: Props, ref: ForwardedRef<ReactCodeMirrorRef>) {
   const { input, onChange, className, ...rest } = props;
   const theme = useContext(ThemeContext);
-  const settings = useContext(SettingsContext);
+  const settings = useSettingsContext();
 
   const handleChange = (value: string) => {
     if (onChange) {

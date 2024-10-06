@@ -1,14 +1,13 @@
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import Editors from './pages/Editors';
 import { Settings } from './pages/Settings';
-import { createContext, useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import DefaultLayout from './components/ui/layout/Default';
-import { editorOptions } from './components/ui/editor/default-options';
+import { editorOptions as defaultOptions } from './components/ui/editor/default-options';
 import { EditorOptions } from './types/components/Editor';
 import { theme, ThemeProvider } from './DarkMode';
 import { Toaster } from 'react-hot-toast';
-
-export const SettingsContext = createContext(editorOptions);
+import { SettingsContextProvider } from './settings/SettingsContext';
 
 const isDarkModeSet = () => {
   return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -17,10 +16,12 @@ const isDarkModeSet = () => {
 function App() {
   const [savedState, setSavedState] = useState<string>('');
   const [darkModeEnabled, setDarkMode] = useState<boolean>(theme.darkMode);
+  const [editorOptions, setEditorOptions] = useState<any>(defaultOptions);
 
   const handleChange = (changed: EditorOptions) => {
     editorOptions.properties = changed.properties;
     editorOptions.options = changed.options;
+    setEditorOptions(editorOptions);
   };
 
   const saveState = (json: string) => {
@@ -46,9 +47,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Editors onPersist={saveState} currentJson={savedState} />} />
             <Route path="/settings" element={
-              <SettingsContext.Provider value={editorOptions.options as never}>
+              <SettingsContextProvider>
                 <Settings options={editorOptions} handleChange={handleChange} />
-              </SettingsContext.Provider>
+              </SettingsContextProvider>
             } />
           </Routes>
           <Toaster />
