@@ -3,16 +3,13 @@ import { Link } from 'react-router-dom';
 import Switch from 'react-switch';
 import fullConfig from '../../tailwindResolver';
 import { usePersistenceContext } from 'src/PersistenceContext';
+import { useThemeContext } from 'src/DarkModeContext';
 
-interface Props {
-  onDarkModeChanged: (checked: boolean) => void;
-  darkModeEnabled: boolean
-}
-
-export default function Header({ onDarkModeChanged, darkModeEnabled, ...props }: Props) {
+export default function Header() {
   const { isValidateEnabled, setValidateEnabled } = usePersistenceContext();
+  const { onDarkThemeChanged, darkModeEnabled  } = useThemeContext();
   return (
-    <div className="bg-blue-900 flex justify-between p-5 dark:bg-gray-700" {...props}>
+    <div className="bg-blue-900 flex justify-between p-5 dark:bg-gray-700">
       <div className="flex items-center">
         <h2 className="text-yellow-400 font-bold">
           <Link to="/" data-testid="to-home">JSON tool</Link>
@@ -26,7 +23,7 @@ export default function Header({ onDarkModeChanged, darkModeEnabled, ...props }:
       </div>
       <div className="flex items-center">
         <Switch
-          onChange={onDarkModeChanged}
+          onChange={onDarkThemeChanged}
           checked={darkModeEnabled}
           data-testid="dark-mode"
           className="mr-5"
