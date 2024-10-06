@@ -55,11 +55,11 @@ const code = `
 
 export default function Editors() {
   const worker = useRef<Worker>();
-  const { savedState, saveState } = usePersistenceContext();
+  const { savedState, saveState, resultState } = usePersistenceContext();
+  const [originalJson, setOriginalResult] = useState<string>(savedState);
+  const [result, setResult] = useState<string>(resultState);
   const [isValidateEnabled, setValidateEnabled] = useState<boolean>(true);
   const [inProgress, setInProgress] = useState<boolean>(false);
-  const [originalJson, setOriginalResult] = useState<string>(savedState);
-  const [result, setResult] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [spacing, setSpacing] = useState<string>(defaultSpacing);
   const jsonReferenceEditor = useRef<ReactCodeMirrorRef>();
@@ -80,9 +80,9 @@ export default function Editors() {
 
   useEffect(() => {
     return () => {
-      saveState(originalJson);
+      saveState(originalJson, result);
     };
-  }, [saveState, originalJson]);
+  }, [saveState, originalJson, result]);
 
   const onChange = (eventValue: string, eventSpacing: string) =>{
     if (worker.current) {

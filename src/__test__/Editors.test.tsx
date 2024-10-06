@@ -56,6 +56,7 @@ describe('Editors', () => {
 
     await waitFor(() => {
       expect (screen.getByTestId('raw-json')).toHaveValue('{"random_json":"123"}');
+      expect (screen.getByTestId('raw-result')).toHaveValue('{\n  "random_json": "123"\n}');
     }, { timeout: 10000 });
   });
 
