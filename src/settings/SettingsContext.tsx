@@ -1,8 +1,13 @@
-import { createContext, ReactElement, useContext } from 'react';
-import { editorOptions } from 'src/components/ui/editor/default-options';
+import { createContext, ReactElement, useContext, useState } from 'react';
+import { EditorOptions } from 'src/types/components/Editor';
+import { editorOptions as defaultOptions } from 'src/components/ui/editor/default-options';
 
-const SettingsContext = createContext(editorOptions);
+interface SettingContext {
+  editorOptions: EditorOptions;
+  handleEditorOptionsChanged: (changed: EditorOptions) => void;
+}
 
+const SettingsContext = createContext<SettingContext | undefined>(undefined);
 
 export const useSettingsContext = () => {
   const context = useContext(SettingsContext);
@@ -12,10 +17,23 @@ export const useSettingsContext = () => {
   return context;
 };
 
-export const SettingsContextProvider = ({ children }: { children: ReactElement}) => (
-  <SettingsContext.Provider value={editorOptions.options as never}>
-    {children}
-  </SettingsContext.Provider>
-);
+export const SettingsContextProvider = ({ children }: { children: ReactElement }) => {
+  const [editorOptions, setEditorOptions] = useState<any>(defaultOptions);
+
+  const handleChange = (changed: EditorOptions) => {
+    editorOptions.properties = changed.properties;
+    editorOptions.options = changed.options;
+    setEditorOptions(editorOptions);
+  };
+
+  return (
+    <SettingsContext.Provider value={{
+      editorOptions: editorOptions,
+      handleEditorOptionsChanged: handleChange
+    }}>
+      {children}
+    </SettingsContext.Provider>
+  );
+};
 
 export default SettingsContext;

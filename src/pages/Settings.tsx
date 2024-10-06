@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import Button from '../components/ui/io/Button';
 import { Option, Properties } from '../types/components/Editor';
-import { SettingsPageProps } from '../types/pages';
+import { useSettingsContext } from 'src/settings/SettingsContext';
 
-export function Settings({ handleChange, options }: SettingsPageProps) {
+export function Settings() {
+  const { editorOptions: options, handleEditorOptionsChanged: handleChange } = useSettingsContext();
   const [prop, setProp] = useState<Properties>({ key: 'fontSize', value: options.properties[0].value });
   const [ops, setOps] = useState<Option[]>(options.options);
 

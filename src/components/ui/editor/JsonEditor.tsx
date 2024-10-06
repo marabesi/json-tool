@@ -24,7 +24,7 @@ interface Props{
 export default forwardRef(function JsonEditor(props: Props, ref: ForwardedRef<ReactCodeMirrorRef>) {
   const { input, onChange, className, ...rest } = props;
   const theme = useContext(ThemeContext);
-  const settings = useSettingsContext();
+  const { editorOptions } = useSettingsContext();
 
   const handleChange = (value: string) => {
     if (onChange) {
@@ -34,9 +34,9 @@ export default forwardRef(function JsonEditor(props: Props, ref: ForwardedRef<Re
   };
 
   const basicSetup: BasicSetupOptions = {};
-  if (settings.options) {
+  if (editorOptions.options) {
     // @ts-ignore
-    settings.options.forEach((item: Option) => basicSetup[item.title as keyof BasicSetupOptions] = item.active);
+    editorOptions.options.forEach((item: Option) => basicSetup[item.title as keyof BasicSetupOptions] = item.active);
   }
 
   const style: CSSProperties = {
@@ -45,9 +45,9 @@ export default forwardRef(function JsonEditor(props: Props, ref: ForwardedRef<Re
     fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
   };
 
-  if (settings.properties) {
+  if (editorOptions.properties) {
     // @ts-ignore
-    settings.properties.forEach((item: Properties) => style[item.key] = item.value);
+    editorOptions.properties.forEach((item: Properties) => style[item.key] = item.value);
   }
 
   return (
