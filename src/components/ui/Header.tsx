@@ -2,6 +2,7 @@ import { FaCoffee, FaRegSun } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Switch from 'react-switch';
 import fullConfig from '../../tailwindResolver';
+import { usePersistenceContext } from 'src/PersistenceContext';
 
 interface Props {
   onDarkModeChanged: (checked: boolean) => void;
@@ -9,13 +10,19 @@ interface Props {
 }
 
 export default function Header({ onDarkModeChanged, darkModeEnabled, ...props }: Props) {
+  const { isValidateEnabled, setValidateEnabled } = usePersistenceContext();
   return (
     <div className="bg-blue-900 flex justify-between p-5 dark:bg-gray-700" {...props}>
-      <div className="flex">
+      <div className="flex items-center">
         <h2 className="text-yellow-400 font-bold">
           <Link to="/" data-testid="to-home">JSON tool</Link>
         </h2> |
         <a href="https://github.com/marabesi/json-tool" target="_blank" rel="noreferrer">by marabesi</a>
+        <div className="ml-10">
+          <input type="checkbox" id="is-validate-json" onChange={() => setValidateEnabled(!isValidateEnabled)}
+            data-testid="is-validate-json" checked={isValidateEnabled} className="mr-1" />
+          <label htmlFor="is-validate-json">validate json</label>
+        </div>
       </div>
       <div className="flex items-center">
         <Switch
@@ -34,7 +41,7 @@ export default function Header({ onDarkModeChanged, darkModeEnabled, ...props }:
           <FaRegSun />
         </Link>
         <a className="flex items-center" data-testid="buy-me-a-coffee" href="https://www.buymeacoffee.com/marabesi" target="_blank" rel="noreferrer">
-          <FaCoffee className="mr-2"/>
+          <FaCoffee className="mr-2" />
           <span>Buy me a coffee</span>
         </a>
       </div>

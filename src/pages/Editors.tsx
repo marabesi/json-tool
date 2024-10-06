@@ -55,10 +55,9 @@ const code = `
 
 export default function Editors() {
   const worker = useRef<Worker>();
-  const { savedState, saveState, resultState } = usePersistenceContext();
-  const [originalJson, setOriginalResult] = useState<string>(savedState);
+  const { jsonState, saveState, resultState, isValidateEnabled } = usePersistenceContext();
+  const [originalJson, setOriginalResult] = useState<string>(jsonState);
   const [result, setResult] = useState<string>(resultState);
-  const [isValidateEnabled, setValidateEnabled] = useState<boolean>(true);
   const [inProgress, setInProgress] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [spacing, setSpacing] = useState<string>(defaultSpacing);
@@ -134,10 +133,6 @@ export default function Editors() {
   };
 
   return <div className="p-1 mb-8 pb-8 h-full" style={{ height: '80vh' }}>
-    <label htmlFor="is-validate-json">validate json</label>
-    <input type="checkbox" id="is-validate-json" onChange={() => setValidateEnabled(!isValidateEnabled)}
-      data-testid="is-validate-json" checked={isValidateEnabled}/>
-
     <div className="flex h-full justify-center p-1" data-testid="editor-container">
       <EditorContainer>
         <JsonMenu

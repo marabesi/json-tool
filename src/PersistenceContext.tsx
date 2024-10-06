@@ -1,9 +1,11 @@
 import { createContext, ReactElement, useContext, useState } from 'react';
 
 interface PersistenceContextInterface {
-  savedState: string;
+  jsonState: string;
   resultState: string;
   saveState: (json: string, result: string) => void;
+  isValidateEnabled: boolean;
+  setValidateEnabled: (validate: boolean) => void;
 }
 
 const PersistenceContext = createContext<PersistenceContextInterface | undefined>(undefined);
@@ -17,16 +19,17 @@ export const usePersistenceContext = () => {
 };
 
 export const PersistenceContextProvider = ({ children }: { children: ReactElement }) => {
-  const [savedState, setSavedState] = useState<string>('');
+  const [isValidateEnabled, setValidateEnabled] = useState<boolean>(true);
+  const [jsonState, setJsonState] = useState<string>('');
   const [resultState, setResultState] = useState<string>('');
 
   const saveState = (json: string, result: string) => {
-    setSavedState(json);
+    setJsonState(json);
     setResultState(result);
   };
 
   return (
-    <PersistenceContext.Provider value={{ savedState, saveState, resultState }}>
+    <PersistenceContext.Provider value={{ jsonState, saveState, resultState, isValidateEnabled, setValidateEnabled }}>
       {children}
     </PersistenceContext.Provider>
   );
