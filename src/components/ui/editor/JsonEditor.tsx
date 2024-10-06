@@ -59,6 +59,7 @@ export default forwardRef(function JsonEditor(props: Props, ref: ForwardedRef<Re
         onChange={handleChange}
         className={[className, 'h-full'].join(' ')}
         style={style}
+        width="48vw"
         height="100%"
         extensions={[json()]}
         theme={darkModeEnabled ? 'dark' : duotoneLight}
