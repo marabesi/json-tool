@@ -4,7 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import Editors from './pages/Editors';
 import { Settings } from './pages/Settings';
 import DefaultLayout from './components/ui/layout/Default';
-import { theme, ThemeProvider } from './DarkMode';
+import { theme, ThemeProvider } from './DarkModeContext';
 import { SettingsContextProvider } from './settings/SettingsContext';
 
 const isDarkModeSet = () => {

@@ -4,7 +4,7 @@ import { json } from '@codemirror/lang-json';
 import { CSSProperties, ForwardedRef, forwardRef, useContext } from 'react';
 import { Option, Properties } from '../../../types/components/Editor';
 import { duotoneLight } from '@uiw/codemirror-theme-duotone';
-import { ThemeContext } from '../../../DarkMode';
+import { ThemeContext } from '../../../DarkModeContext';
 import { useSettingsContext } from 'src/settings/SettingsContext';
 
 type Event = {
