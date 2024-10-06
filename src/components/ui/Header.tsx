@@ -1,4 +1,4 @@
-import { FaCoffee, FaRegSun } from 'react-icons/fa';
+import { FaCoffee, FaRegSun, FaRegLightbulb } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Switch from 'react-switch';
 import fullConfig from '../../tailwindResolver';
@@ -11,10 +11,11 @@ export default function Header() {
   return (
     <div className="bg-blue-900 flex justify-between p-5 dark:bg-gray-700">
       <div className="flex items-center">
-        <h2 className="text-yellow-400 font-bold">
-          <Link to="/" data-testid="to-home">JSON tool</Link>
-        </h2> |
-        <a href="https://github.com/marabesi/json-tool" target="_blank" rel="noreferrer">by marabesi</a>
+        <Link to="/" data-testid="to-home" className="flex">
+          <h2 className="text-yellow-400 font-bold">
+          JSON tool
+          </h2>|by marabesi
+        </Link>
         <div className="ml-10">
           <input type="checkbox" id="is-validate-json" onChange={() => setValidateEnabled(!isValidateEnabled)}
             data-testid="is-validate-json" checked={isValidateEnabled} className="mr-1" />
@@ -22,6 +23,9 @@ export default function Header() {
         </div>
       </div>
       <div className="flex items-center">
+        <Link className="flex items-center mr-5" data-testid="docs" to="/docs" title="JSON tool documentation">
+          <FaRegLightbulb />
+        </Link>
         <Switch
           onChange={onDarkThemeChanged}
           checked={darkModeEnabled}
@@ -34,7 +38,7 @@ export default function Header() {
           checkedIcon={false}
           uncheckedIcon={false}
         />
-        <Link className="flex items-center mr-5" data-testid="settings" to="/settings">
+        <Link className="flex items-center mr-5" data-testid="settings" to="/settings" title="JSON tool settings">
           <FaRegSun />
         </Link>
         <a className="flex items-center" data-testid="buy-me-a-coffee" href="https://www.buymeacoffee.com/marabesi" target="_blank" rel="noreferrer">

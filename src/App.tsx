@@ -2,6 +2,7 @@ import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Editors from './pages/Editors';
 import { Settings } from './pages/Settings';
+import { Docs } from './pages/Docs';
 import DefaultLayout from './components/ui/layout/Default';
 import { ThemeContextProvider } from './DarkModeContext';
 import { SettingsContextProvider } from './settings/SettingsContext';
@@ -17,6 +18,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Editors />} />
                 <Route path="/settings" element={<Settings />} />
+                <Route path="/docs" element={<Docs />} />
               </Routes>
             </SettingsContextProvider>
             <Toaster />
