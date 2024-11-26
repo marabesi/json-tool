@@ -53,7 +53,7 @@ jobs:
 
       - name: install
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm install --legacy-peer-deps
+        run: npm install 
 
   test:
     runs-on: ubuntu-latest
@@ -151,7 +151,7 @@ jobs:
           start: npm run start-instrumented
           browser: chrome
           headed: true
-          install-command: npm install --legacy-peer-deps
+          install-command: npm install 
       - name: Generate lcov
         run: npx nyc report --reporter=lcov
       - uses: actions/upload-artifact@v3
