@@ -84,7 +84,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: npm run coverage
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: github.ref == 'refs/heads/main'
         with:
           name: jest-lcov
@@ -154,7 +154,7 @@ jobs:
           install-command: npm install 
       - name: Generate lcov
         run: npx nyc report --reporter=lcov
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: github.ref == 'refs/heads/main'
         with:
           name: cypress-lcov
@@ -196,7 +196,7 @@ jobs:
           mv coverage/jest-lcov/lcov.info merged_coverage/jest.info
           ./node_modules/.bin/lcov-result-merger './merged_coverage/*' merged_coverage.info
           npm run coveralls
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: merged-lcov
           path: merged_coverage.info
