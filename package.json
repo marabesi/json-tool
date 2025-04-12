@@ -24,7 +24,7 @@
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
-    "react-switch": "^7.0.0",
+    "react-switch": "^7.1.0",
     "web-vitals": "^1.1.2"
   },
   "overrides": {
@@ -40,7 +40,7 @@
     "@stryker-mutator/typescript-checker": "^6.3.0",
     "@testing-library/dom": "^10.1.0",
     "@testing-library/jest-dom": "^6.4.5",
-    "@testing-library/react": "^16.0.0",
+    "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.5.2",
     "@types/react": "npm:types-react@rc",
     "@types/react-dom": "npm:types-react-dom@rc",
