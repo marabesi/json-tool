@@ -1,4 +1,4 @@
-import { render, act, waitFor, screen } from '@testing-library/react';
+import { render, waitFor, screen } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
@@ -27,15 +27,11 @@ describe('Error handling', () => {
 
     const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
-    await act(async () => {
-      await customType(editor, 'bla bla');
-    });
+    await customType(editor, 'bla bla');
 
-    await waitFor(() => {
-      const result = screen.getByTestId('error');
+    const result = await screen.findByTestId('error');
 
-      expect(result.innerHTML).toEqual('invalid json');
-    });
+    expect(result.innerHTML).toEqual('invalid json');
   });
 
   describe('validation disabled', () => {
@@ -43,21 +39,15 @@ describe('Error handling', () => {
     it('should not render error when validate json is disabled', async () => {
       render(<App/>);
 
-      await waitFor(() => {
-        expect(screen.getByTestId('is-validate-json')).toBeChecked();
-      });
+      expect(await screen.findByTestId('is-validate-json')).toBeChecked();
 
       await userEvent.click(screen.getByText('validate json'));
 
-      await waitFor(() => {
-        expect(screen.getByTestId('is-validate-json')).not.toBeChecked();
-      });
+      expect(await screen.findByTestId('is-validate-json')).not.toBeChecked();
 
       const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
-      await act(async () => {
-        await customType(editor, 'bla bla');
-      });
+      await customType(editor, 'bla bla');
 
       await waitFor(() => {
         expect(screen.queryByTestId('error')).not.toBeInTheDocument();

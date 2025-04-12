@@ -1,4 +1,4 @@
-import { render, waitFor, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import { setUpClipboard, tearDownClipboard, writeTextToClipboard } from 'jest-clipboard';
@@ -28,15 +28,11 @@ describe('Clean up json', () => {
 
     await userEvent.click(screen.getByTestId('paste-from-clipboard'));
 
-    await waitFor(() => {
-      expect(screen.getByTestId('raw-json')).toHaveValue(inputJson);
-    });
+    expect(await screen.findByTestId('raw-json')).toHaveValue(inputJson);
 
     await userEvent.click(screen.getByTestId('clean-spaces'));
 
-    await waitFor(() => {
-      expect(screen.getByTestId('raw-result')).toHaveValue(desiredJson);
-    });
+    expect(await screen.findByTestId('raw-result')).toHaveValue(desiredJson);
   });
 
   it.each([
@@ -71,14 +67,10 @@ describe('Clean up json', () => {
 
     await userEvent.click(screen.getByTestId('paste-from-clipboard'));
 
-    await waitFor(() => {
-      expect(screen.getByTestId('raw-json')).toHaveValue(inputJson);
-    });
+    expect(await screen.findByTestId('raw-json')).toHaveValue(inputJson);
 
     await userEvent.click(screen.getByTestId('clean-spaces'));
 
-    await waitFor(() => {
-      expect(screen.getByTestId('raw-result')).toHaveValue(desiredJson);
-    }, { timeout: 10000 });
+    expect(await screen.findByTestId('raw-result')).toHaveValue(desiredJson);
   });
 });

@@ -1,4 +1,4 @@
-import { render, waitFor, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 
@@ -66,9 +66,7 @@ describe('Settings', () => {
 
       await userEvent.click( screen.getByTestId('to-home'));
 
-      await waitFor(() => {
-        expect( screen.getByTestId('json')).toHaveAttribute('style', expect.stringContaining('font-size: 18px'));
-      });
+      expect(await screen.findByTestId('json')).toHaveAttribute('style', expect.stringContaining('font-size: 18px'));
     });
   });
 });

@@ -23,9 +23,7 @@ describe('Custom spacing for formatting json', () => {
 
       const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
-      await act(async () => {
-        await customType(editor, '{{"a":"a"}');
-      });
+      await customType(editor, '{{"a":"a"}');
 
       const result = (screen.getByTestId('result') as HTMLInputElement);
 
@@ -42,9 +40,7 @@ describe('Custom spacing for formatting json', () => {
 
       await userEvent.clear(space);
 
-      await act(async () => {
-        await customType(space, spacing);
-      });
+      await customType(space, spacing);
 
       expect(space).toHaveValue(spacing);
     });
@@ -73,15 +69,11 @@ describe('Custom spacing for formatting json', () => {
 
       await userEvent.clear(space);
 
-      await act(async () => {
-        await customType(space, spacing);
-      });
+      await customType(space, spacing);
 
       const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
-      await act(async () => {
-        await customType(editor, inputJson);
-      });
+      await customType(editor, inputJson);
 
       await waitFor(() => {
         const result = (screen.getByTestId('raw-result') as HTMLInputElement);
@@ -95,17 +87,13 @@ describe('Custom spacing for formatting json', () => {
 
       const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
-      await act(async () => {
-        await customType(editor, '{{"a":"a"}');
-      });
+      await customType(editor, '{{"a":"a"}');
 
       const space = screen.getByDisplayValue('2');
 
       await userEvent.clear(space);
 
-      await act(async () => {
-        await customType(space, '4');
-      });
+      await customType(space, '4');
 
       await waitFor(() => {
         expect(screen.getByTestId('raw-result')).toHaveValue(`{
@@ -123,11 +111,9 @@ describe('Custom spacing for formatting json', () => {
 
       await userEvent.upload(screen.getByTestId('upload-json'), file);
 
-      await waitFor(() => {
-        expect(screen.getByTestId('raw-result')).toHaveValue(`{
+      expect(await screen.findByTestId('raw-result')).toHaveValue(`{
   "a": "b"
 }`);
-      });
     });
 
     it('dismiss upload file when there is no file content', async () => {
@@ -141,9 +127,7 @@ describe('Custom spacing for formatting json', () => {
 
       fireEvent.change(screen.getByTestId('upload-json'), undefined);
 
-      await waitFor(() => {
-        expect(screen.getByTestId('raw-result')).toHaveValue('');
-      });
+      expect(await screen.findByTestId('raw-result')).toHaveValue('');
     });
 
     it('clear file input when click on delete all', async () => {
@@ -155,10 +139,8 @@ describe('Custom spacing for formatting json', () => {
 
       await userEvent.click(screen.getByText('Delete all'));
 
-      await waitFor(() => {
-        // @ts-ignore
-        expect(screen.getByTestId('upload-json').value).toBe('');
-      });
+      // @ts-ignore
+      expect((await screen.findByTestId('upload-json')).value).toBe('');
     });
   });
 });
