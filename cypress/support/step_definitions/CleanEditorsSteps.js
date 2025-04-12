@@ -27,5 +27,9 @@ Then(/^I see both editors empty$/, function () {
 });
 
 When(/^I click to clean the editor with ctrl z$/, function () {
-  cy.get('body').type('{meta}{z}');
+  if (Cypress.platform === 'darwin') {
+    cy.get('body').type('{cmd}{z}');
+  } else {
+    cy.get('body').type('{ctrl}{z}');
+  }
 });
