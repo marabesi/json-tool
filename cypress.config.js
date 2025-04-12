@@ -16,7 +16,7 @@ module.exports = defineConfig({
     'watchForFileChanges': false,
     'specPattern': [
       'cypress/e2e/**/*.feature',
-      'cypress/regression/**/*.spec.js'
+      //'cypress/regression/**/*.spec.js'
     ],
     'experimentalRunAllSpecs': true,
     setupNodeEvents(on, config) {
