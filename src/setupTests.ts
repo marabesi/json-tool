@@ -4,9 +4,12 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
 // import 'jsdom-worker';
+import { TextEncoder, TextDecoder } from 'util';
 import './jsdom';
 
 const fmt2json = require('format-to-json');
+
+Object.assign(global, { TextDecoder, TextEncoder });
 
 // @ts-ignore
 // eslint-disable-next-line no-undef

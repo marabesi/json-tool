@@ -1,5 +1,5 @@
 import { FaCoffee, FaRegSun, FaRegLightbulb } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import Switch from 'react-switch';
 import fullConfig from '../../tailwindResolver';
 import { usePersistenceContext } from 'src/PersistenceContext';
