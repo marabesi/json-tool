@@ -1,18 +1,10 @@
-import { render, within, screen } from '@testing-library/react';
+import { render, waitFor, within, screen } from '@testing-library/react';
 import App from '../App';
 import { customType } from './__testutilities__/customTyping';
 import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
 
 describe('Editors', () => {
-  beforeEach(() => {
-    jest.useFakeTimers();
-  });
-
-  beforeEach(() => {
-    jest.useRealTimers();
-  });
-
   it.each([
     ['{{}', '{}'],
     ['{{"a": "b"}', '{"a": "b"}'],
@@ -28,7 +20,7 @@ describe('Editors', () => {
     expect(result.nodeValue).toMatchSnapshot(expected);
   });
 
-  it.skip('should keep content in the editor when navigating away', async () => {
+  it('should keep content in the editor when navigating away', async () => {
     render(<App/>);
 
     const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
@@ -36,11 +28,9 @@ describe('Editors', () => {
 
     await customType(editor, json);
 
-    await screen.findByTestId('raw-json');
+    const rawEditor = await screen.findByTestId('raw-json');
 
-    jest.runAllTimers();
-
-    expect(await screen.findByTestId('raw-json')).toHaveValue('{"random_json":"123"}');
+    expect(rawEditor).toHaveValue('{"random_json":"123"}');
 
     await userEvent.click (screen.getByTestId('settings'));
 

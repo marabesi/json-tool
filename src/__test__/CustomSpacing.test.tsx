@@ -1,4 +1,4 @@
-import { render, waitFor, screen, fireEvent } from '@testing-library/react';
+import { render, act, waitFor, screen, fireEvent } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
@@ -23,7 +23,9 @@ describe('Custom spacing for formatting json', () => {
 
       const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
-      await customType(editor, '{{"a":"a"}');
+      await act(async () => {
+        await customType(editor, '{{"a":"a"}');
+      });
 
       const result = (screen.getByTestId('result') as HTMLInputElement);
 
@@ -40,7 +42,9 @@ describe('Custom spacing for formatting json', () => {
 
       await userEvent.clear(space);
 
-      await customType(space, spacing);
+      await act(async () => {
+        await customType(space, spacing);
+      });
 
       expect(space).toHaveValue(spacing);
     });
@@ -65,39 +69,49 @@ describe('Custom spacing for formatting json', () => {
     ])('should format json with %s spaces', async (spacing: string, inputJson: string, outputJson: string) => {
       render(<App />);
 
-      const space = await screen.findByDisplayValue('2');
+      const space = screen.getByDisplayValue('2');
 
       await userEvent.clear(space);
 
-      await customType(space, spacing);
+      await act(async () => {
+        await customType(space, spacing);
+      });
 
-      const editor = grabCurrentEditor(await screen.findByTestId('editor-container'));
+      const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
-      await customType(editor, inputJson);
+      await act(async () => {
+        await customType(editor, inputJson);
+      });
 
-      await screen.findByTestId('raw-result');
+      await waitFor(() => {
+        const result = (screen.getByTestId('raw-result') as HTMLInputElement);
 
-      expect(await screen.findByTestId('raw-result')).toHaveValue(outputJson);
+        expect(result).toHaveValue(outputJson);
+      });
     });
 
     it('should reformat json if space changes', async () => {
       render(<App />);
 
-      const editor = grabCurrentEditor(await screen.findByTestId('editor-container'));
+      const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
-      await customType(editor, '{{"a":"a"}');
+      await act(async () => {
+        await customType(editor, '{{"a":"a"}');
+      });
 
-      const space = await screen.findByDisplayValue('2');
+      const space = screen.getByDisplayValue('2');
 
       await userEvent.clear(space);
 
-      await customType(space, '4');
+      await act(async () => {
+        await customType(space, '4');
+      });
 
-      await waitFor(async () => {
-        expect(await screen.findByTestId('raw-result')).toHaveValue(`{
+      await waitFor(() => {
+        expect(screen.getByTestId('raw-result')).toHaveValue(`{
     "a": "a"
 }`);
-      }, { timeout: 10000 });
+      });
     });
   });
 
