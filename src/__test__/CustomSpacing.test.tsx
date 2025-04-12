@@ -136,7 +136,8 @@ describe('Custom spacing for formatting json', () => {
       // @ts-ignore when dismissing an input file without selecting a file it is normal to see undefined from the input
       // the flow is: 1. upload a file, 2. open the input file and dismiss the dialog
       // the code will return undefined
-      await userEvent.upload(screen.getByTestId('upload-json'),  ({} as unknown) as File);
+      const file = new File([], '');
+      await userEvent.upload(screen.getByTestId('upload-json'),  file);
 
       fireEvent.change(screen.getByTestId('upload-json'), undefined);
 
