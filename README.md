@@ -35,6 +35,12 @@ the practice of formatting or sharing information in formatting tools that are n
 
 ![Screenshot from 2022-09-11 11-34-35](https://user-images.githubusercontent.com/2129872/190869278-9e65e742-d2df-47c3-8ddf-740e1f42f623.png)
 
+# Contributing
+
+```sh
+make before-push BUIL_APP=true START_APP=true RUN_E2E=true
+```
+
 # Resources
 
 - [useFakeTimers not working in jest/testing-library](https://stackoverflow.com/questions/71174071/usefaketimers-not-working-in-jest-testing-library)
