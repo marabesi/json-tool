@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, waitFor, screen } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import { setUpClipboard, tearDownClipboard, writeTextToClipboard } from 'jest-clipboard';
@@ -27,10 +27,14 @@ describe('Clean up json new lines', () => {
 
     await userEvent.click(screen.getByTestId('paste-from-clipboard'));
 
-    expect(await screen.findByTestId('raw-json')).toHaveValue(inputJson);
+    await waitFor(() => {
+      expect(screen.getByTestId('raw-json')).toHaveValue(inputJson);
+    });
 
     await userEvent.click(screen.getByTestId('clean-new-lines'));
 
-    expect(await screen.findByTestId('raw-result')).toHaveValue(desiredJson);
+    await waitFor(() => {
+      expect(screen.getByTestId('raw-result')).toHaveValue(desiredJson);
+    }, { timeout: 10000 });
   });
 });

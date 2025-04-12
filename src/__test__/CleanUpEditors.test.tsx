@@ -1,4 +1,4 @@
-import { render, RenderResult, screen } from '@testing-library/react';
+import { render, RenderResult, waitFor, screen } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
@@ -25,8 +25,10 @@ describe('Clean up editors', () => {
 
     await userEvent.click(screen.getByTestId('clean'));
 
-    expect(await screen.findByTestId('raw-json')).toHaveValue('');
-    expect(await screen.findByTestId('raw-result')).toHaveValue('');
+    await waitFor(() => {
+      expect(screen.getByTestId('raw-json')).toHaveValue('');
+    });
+    expect(screen.getByTestId('raw-result')).toHaveValue('');
   });
 
   it.each([
@@ -41,10 +43,14 @@ describe('Clean up editors', () => {
 
     await userEvent.click(screen.getByTestId('paste-from-clipboard'));
 
-    expect(await screen.findByTestId('raw-json')).toHaveValue(inputJson);
+    await waitFor(() => {
+      expect(screen.getByTestId('raw-json')).toHaveValue(inputJson);
+    });
 
     await userEvent.click(screen.getByTestId('clean-new-lines-and-spaces'));
 
-    expect(await screen.findByTestId('raw-result')).toHaveValue(desiredJson);
+    await waitFor(() => {
+      expect(screen.getByTestId('raw-result')).toHaveValue(desiredJson);
+    });
   });
 });

@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, waitFor, screen } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import Formatter from '../core/formatter';
@@ -33,8 +33,10 @@ describe('Clipboard', () => {
 
       await userEvent.click(screen.getByTestId('paste-from-clipboard'));
 
-      expect(await screen.findByTestId('raw-json')).toHaveValue('{}');
-      expect(await screen.findByTestId('raw-result')).toHaveValue('{}');
+      await waitFor(() => {
+        expect(screen.getByTestId('raw-json')).toHaveValue('{}');
+      });
+      expect(screen.getByTestId('raw-result')).toHaveValue('{}');
     });
 
     it('should copy json string from result editor to transfer area on clicking the button', async () => {
@@ -46,7 +48,9 @@ describe('Clipboard', () => {
 
       await userEvent.type(editor, '{{"a":"a"}', { delay: 100 });
 
-      expect(await screen.findByTestId('raw-json')).toHaveValue('{"a":"a"}');
+      await waitFor(() => {
+        expect(screen.getByTestId('raw-json')).toHaveValue('{"a":"a"}');
+      });
 
       await userEvent.click(screen.getByTestId('copy-json'));
 
@@ -67,15 +71,19 @@ describe('Clipboard', () => {
     it('copy json should be disabled', async () => {
       render(<App/>);
 
-      expect(await screen.findByTestId('copy-json')).toBeDisabled();
-      expect(await screen.findByTitle('Copy json is disabled due lack of browser support')).toBeInTheDocument();
+      await waitFor(async () => {
+        expect(screen.getByTestId('copy-json')).toBeDisabled();
+      });
+      expect(screen.getByTitle('Copy json is disabled due lack of browser support')).toBeInTheDocument();
     });
 
     it('paste json should be disabled', async () => {
       render(<App/>);
 
-      expect(await screen.findByTestId('paste-from-clipboard')).toBeDisabled();
-      expect(await screen.findByTitle('Paste from clipboard is disabled due lack of browser support')).toBeInTheDocument();
+      await waitFor(async () => {
+        expect(screen.getByTestId('paste-from-clipboard')).toBeDisabled();
+      });
+      expect(screen.getByTitle('Paste from clipboard is disabled due lack of browser support')).toBeInTheDocument();
     });
   });
 });

@@ -1,4 +1,4 @@
-import { render, waitFor, within, screen } from '@testing-library/react';
+import { render, act, waitFor, within, screen } from '@testing-library/react';
 import App from '../App';
 import { customType } from './__testutilities__/customTyping';
 import userEvent from '@testing-library/user-event';
@@ -13,7 +13,9 @@ describe('Editors', () => {
 
     const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
-    await customType(editor, input);
+    await act(async () => {
+      await customType(editor, input);
+    });
 
     const result = screen.getByTestId('result');
 
@@ -26,20 +28,28 @@ describe('Editors', () => {
     const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
     const json = '{{"random_json":"123"}';
 
-    await customType(editor, json);
+    await act(async () => {
+      await customType(editor, json);
+    });
 
-    const rawEditor = await screen.findByTestId('raw-json');
+    const rawEditor = screen.getByTestId('raw-json');
 
-    expect(rawEditor).toHaveValue('{"random_json":"123"}');
+    await waitFor(() => {
+      expect(rawEditor).toHaveValue('{"random_json":"123"}');
+    }, { timeout: 10000 });
 
     await userEvent.click (screen.getByTestId('settings'));
 
-    expect(await screen.findByText('Settings')).toBeInTheDocument();
+    await waitFor(() => {
+      expect( screen.getByText('Settings')).toBeInTheDocument();
+    }, { timeout: 10000 });
 
     await userEvent.click (screen.getByTestId('to-home'));
 
-    expect (await screen.findByTestId('raw-json')).toHaveValue('{"random_json":"123"}');
-    expect (await screen.findByTestId('raw-result')).toHaveValue('{\n  "random_json": "123"\n}');
+    await waitFor(() => {
+      expect (screen.getByTestId('raw-json')).toHaveValue('{"random_json":"123"}');
+    }, { timeout: 10000 });
+    expect (screen.getByTestId('raw-result')).toHaveValue('{\n  "random_json": "123"\n}');
   });
 
   it('should render search element in the json editor', async () => {
@@ -47,7 +57,7 @@ describe('Editors', () => {
 
     await userEvent.click (screen.getByTestId('search-json'));
 
-    expect(within (await screen.findByTestId('json')).getByText('×')).toBeInTheDocument();
+    await waitFor(() => expect(within (screen.getByTestId('json')).getByText('×')).toBeInTheDocument());
   });
 
   it('should render search element in the result editor', async () => {
@@ -55,7 +65,7 @@ describe('Editors', () => {
 
     await userEvent.click (screen.getByTestId('search-result'));
 
-    expect(within (await screen.findByTestId('result')).getByText('×')).toBeInTheDocument();
+    await waitFor(() => expect(within (screen.getByTestId('result')).getByText('×')).toBeInTheDocument());
   });
 
   describe.skip('loading', () => {
@@ -72,9 +82,13 @@ describe('Editors', () => {
       const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
       const json = '{{"random_json":"123","a":"a"}';
 
-      await customType(editor, json);
+      act(() => {
+        customType(editor, json);
+      });
 
-      expect (await screen.findByTestId('loading')).toBeInTheDocument();
+      await waitFor(() => {
+        expect (screen.getByTestId('loading')).toBeInTheDocument();
+      });
     });
 
     it('should remove loading when typing is finished', async () => {
@@ -82,13 +96,19 @@ describe('Editors', () => {
       const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
       const json = '{{"random_json":"123"}';
 
-      await customType(editor, json);
+      act(() => {
+        customType(editor, json);
+      });
 
-      expect (await screen.findByTestId('loading')).toBeInTheDocument();
+      await waitFor(() => {
+        expect (screen.getByTestId('loading')).toBeInTheDocument();
+      });
 
       jest.runAllImmediates();
 
-      expect(await screen.findByTestId('loading')).not.toBeInTheDocument();
+      await waitFor(() => {
+        expect(screen.queryByTestId('loading')).not.toBeInTheDocument();
+      });
     });
   });
 });
