@@ -4,7 +4,8 @@ export const defaultOp: Option[] = [
   { title: 'foldGutter', active: true },
   { title: 'syntaxHighlighting', active : true },
   { title: 'highlightActiveLine', active: true },
-  { title: 'history', active: false },
+  { title: 'historyKeymap', active: true },
+  { title: 'history', active: true },
   { title: 'autocompletion', active: false } ,
   { title: 'closeBrackets', active: false },
 ];

@@ -10,6 +10,8 @@ describe('Settings', () => {
     ['highlightActiveLine'],
     ['autocompletion'],
     ['closeBrackets'],
+    ['history'],
+    ['historyKeymap'],
   ])('should  renders option %s available for editors', async (option: string) => {
     render(<App/>);
 
@@ -22,6 +24,9 @@ describe('Settings', () => {
     ['foldGutter'],
     ['syntaxHighlighting'],
     ['highlightActiveLine'],
+    // ctrl z/cmd z
+    ['history'],
+    ['historyKeymap'],
   ])('should mark option %s as true by default', async (option: string) => {
     render(<App/>);
 
@@ -31,7 +36,6 @@ describe('Settings', () => {
   });
 
   it.each([
-    ['history'],
     ['autocompletion'],
     ['closeBrackets'],
   ])('check option %s that is unchecked by default', async (option) => {

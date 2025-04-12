@@ -25,3 +25,7 @@ Then(/^I see both editors empty$/, function () {
     }
   );
 });
+
+When(/^I click to clean the editor with ctrl z$/, function () {
+  cy.get('body').type('{meta}{z}');
+});
