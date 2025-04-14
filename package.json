@@ -68,14 +68,10 @@
     "jest-clipboard": "^0.0.11",
     "jsdom-worker": "^0.3.0",
     "lcov-result-merger": "^5.0.1",
-    "mitt": "^3.0.0",
-    "node-fetch": "3.3.2",
     "postcss": "^8.2.13",
     "sass": "^1.43.4",
     "source-map-explorer": "^2.5.3",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14",
-    "uuid-v4": "^0.1.0",
-    "wait-on": "^7.2.0"
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14"
   },
   "postinstall": "electron-builder install-app-deps && husky install",
   "scripts": {
