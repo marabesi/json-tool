@@ -43,7 +43,6 @@
     "@types/react": "npm:types-react@rc",
     "@types/react-dom": "npm:types-react-dom@rc",
     "@types/react-router-dom": "^5.3.3",
-    "@types/webdriverio": "^4.13.3",
     "autoprefixer": "^9.8.7",
     "babel-jest": "^29.7.0",
     "babel-plugin-preval": "^5.0.0",
