@@ -6,22 +6,22 @@ import { useSettingsContext } from 'src/settings/SettingsContext';
 export function Settings() {
   const { editorOptions: options, handleEditorOptionsChanged: handleChange } = useSettingsContext();
   const [prop, setProp] = useState<Properties>({ key: 'fontSize', value: options.properties[0].value });
-  const [ops, setOps] = useState<Option[]>(options.options);
+  const [allEditorOptions, setAllOptionsForEditor] = useState<Option[]>(options.options);
 
   const persistChanges = () => {
     handleChange({
-      options: ops,
+      options: allEditorOptions,
       properties: [prop],
     });
   };
 
-  const onSaveOs = (option: Option) => {
-    setOps(
-      ops.map((op: Option) => {
-        if (op.title === option.title) {
-          op.active = !option.active;
+  const onSaveEditorOption = (selectedOption: Option) => {
+    setAllOptionsForEditor(
+      allEditorOptions.map((option: Option) => {
+        if (selectedOption.title === option.title) {
+          option.active = !option.active;
         }
-        return op;
+        return option;
       })
     );
   };
@@ -33,11 +33,11 @@ export function Settings() {
         <div>
           <h2>Editor</h2>
           {
-            ops.map((option: Option, index: number) =>
+            allEditorOptions.map((option: Option, index: number) =>
               <div key={index} className="m-2">
                 <label>
                   {option.title}
-                  <input type="checkbox" checked={option.active} onChange={() => onSaveOs(option)} />
+                  <input type="checkbox" checked={option.active} onChange={() => onSaveEditorOption(option)} />
                 </label>
               </div>
             )
