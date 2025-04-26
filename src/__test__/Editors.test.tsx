@@ -68,7 +68,7 @@ describe('Editors', () => {
     await waitFor(() => expect(within (screen.getByTestId('result')).getByText('×')).toBeInTheDocument());
   });
 
-  describe.skip('loading', () => {
+  describe('loading', () => {
     beforeEach(() => {
       jest.useFakeTimers({ legacyFakeTimers: true });
     });
@@ -104,7 +104,7 @@ describe('Editors', () => {
         expect (screen.getByTestId('loading')).toBeInTheDocument();
       });
 
-      jest.runAllImmediates();
+      jest.runAllTimers();
 
       await waitFor(() => {
         expect(screen.queryByTestId('loading')).not.toBeInTheDocument();
