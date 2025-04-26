@@ -27,22 +27,26 @@ export function Settings() {
   };
 
   return (
-    <>
+    <div>
       <h1 className="text-xl m-2">Settings</h1>
-      <div>
-        {
-          ops.map((option: Option, index: number) =>
-            <div key={index} className="m-2">
-              <label>
-                {option.title}
-                <input type="checkbox" checked={option.active} onChange={() => onSaveOs(option)} />
-              </label>
-            </div>
-          )
-        }
-        <input data-testid="font-size" type="text" value={prop.value} onChange={(event) => setProp({ key: 'fontSize', value: event.target.value })}/>
+      <div className="flex mr-2">
+        <div>
+          <h2>Editor</h2>
+          {
+            ops.map((option: Option, index: number) =>
+              <div key={index} className="m-2">
+                <label>
+                  {option.title}
+                  <input type="checkbox" checked={option.active} onChange={() => onSaveOs(option)} />
+                </label>
+              </div>
+            )
+          }
+          <input data-testid="font-size" type="text" value={prop.value} onChange={(event) => setProp({ key: 'fontSize', value: event.target.value })}/>
+        </div>
       </div>
+
       <Button onClick={persistChanges}>Save</Button>
-    </>
+    </div>
   );
 }

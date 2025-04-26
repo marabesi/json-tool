@@ -3,6 +3,19 @@ import userEvent from '@testing-library/user-event';
 import { renderEntireApp } from './__testutilities__/builder';
 
 describe('Settings', () => {
+
+  async function goToSettings() {
+    renderEntireApp();
+
+    await userEvent.click( screen.getByTestId('settings'));
+  }
+
+  it('renders editor title', async () => {
+    await goToSettings();
+
+    expect(await screen.findByText('Editor')).toBeInTheDocument();
+  });
+
   it.each([
     ['foldGutter'],
     ['syntaxHighlighting'],
@@ -13,11 +26,8 @@ describe('Settings', () => {
     ['history'],
     ['historyKeymap'],
   ])('should  renders option %s available for editors', async (option: string) => {
-    renderEntireApp();
-
-    await userEvent.click( screen.getByTestId('settings'));
-
-    expect( screen.getByText(option)).toBeInTheDocument();
+    await goToSettings();
+    expect(screen.getByText(option)).toBeInTheDocument();
   });
 
   it.each([
@@ -28,9 +38,7 @@ describe('Settings', () => {
     ['history'],
     ['historyKeymap'],
   ])('should mark option %s as true by default', async (option: string) => {
-    renderEntireApp();
-
-    await userEvent.click( screen.getByTestId('settings'));
+    await goToSettings();
 
     expect(screen.getByLabelText(option)).toBeChecked();
   });
@@ -39,9 +47,7 @@ describe('Settings', () => {
     ['autocompletion'],
     ['closeBrackets'],
   ])('check option %s that is unchecked by default', async (option) => {
-    renderEntireApp();
-
-    await userEvent.click( screen.getByTestId('settings'));
+    await goToSettings();
 
     expect(screen.getByLabelText(option)).not.toBeChecked();
 
@@ -52,17 +58,12 @@ describe('Settings', () => {
 
   describe('editors font size', () => {
     it('should use 12 as font size by default', async () => {
-      renderEntireApp();
-
-      await userEvent.click( screen.getByTestId('settings'));
-
+      await goToSettings();
       expect(screen.getByDisplayValue('12px')).toBeVisible();
     });
 
     it('should define font size to 18px to be used', async () => {
-      renderEntireApp();
-
-      await userEvent.click( screen.getByTestId('settings'));
+      await goToSettings();
 
       await userEvent.clear( screen.getByTestId('font-size'));
       await userEvent.type( screen.getByTestId('font-size'), '18px');
@@ -71,8 +72,12 @@ describe('Settings', () => {
       await userEvent.click( screen.getByTestId('to-home'));
 
       await waitFor(() => {
-        expect( screen.getByTestId('json')).toHaveAttribute('style', expect.stringContaining('font-size: 18px'));
+        expect(screen.getByTestId('json')).toHaveAttribute('style', expect.stringContaining('font-size: 18px'));
       });
     });
+  });
+
+  describe('features', () => {
+
   });
 });
