@@ -1,36 +1,22 @@
-import { render, waitFor, screen, act } from '@testing-library/react';
+import { render, waitFor, screen } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import Formatter from '../core/formatter';
 import { setUpClipboard, tearDownClipboard, writeTextToClipboard } from 'jest-clipboard';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
+import { emptyMatchMedia, matchMedia } from './__testutilities__/matchMedia';
 
 describe('Clipboard', () => {
 
   describe('clipboard api available', () => {
     beforeEach(() => {
       setUpClipboard();
-      Object.defineProperty(window, 'matchMedia', {
-        writable: true,
-        value: jest.fn().mockImplementation(query => ({
-          matches: false,
-          media: query,
-          onchange: null,
-          addListener: jest.fn(), // Deprecated
-          removeListener: jest.fn(), // Deprecated
-          addEventListener: jest.fn(),
-          removeEventListener: jest.fn(),
-          dispatchEvent: jest.fn(),
-        })),
-      });
+      Object.defineProperty(window, 'matchMedia', matchMedia(false));
     });
 
     afterEach(() => {
       tearDownClipboard();
-      Object.defineProperty(window, 'matchMedia', {
-        writable: true,
-        value: null
-      });
+      Object.defineProperty(window, 'matchMedia', emptyMatchMedia());
     });
 
     it('should paste json string from copy area into the editor on clicking the button', async () => {

@@ -1,30 +1,16 @@
 import { render, screen } from '@testing-library/react';
-import App from '../App';
 import userEvent from '@testing-library/user-event';
+import App from '../App';
+import { emptyMatchMedia, matchMedia } from './__testutilities__/matchMedia';
 
 describe('dark mode', () => {
   describe('when preferred dark mode is on', () => {
     beforeEach(() => {
-      Object.defineProperty(window, 'matchMedia', {
-        writable: true,
-        value: jest.fn().mockImplementation(query => ({
-          matches: true,
-          media: query,
-          onchange: null,
-          addListener: jest.fn(), // Deprecated
-          removeListener: jest.fn(), // Deprecated
-          addEventListener: jest.fn(),
-          removeEventListener: jest.fn(),
-          dispatchEvent: jest.fn(),
-        }))
-      });
+      Object.defineProperty(window, 'matchMedia', matchMedia(true));
     });
 
     afterEach(() => {
-      Object.defineProperty(window, 'matchMedia', {
-        writable: true,
-        value: null
-      });
+      Object.defineProperty(window, 'matchMedia', emptyMatchMedia());
     });
 
     it('should enable dark mode by default', async () => {
@@ -36,26 +22,11 @@ describe('dark mode', () => {
 
   describe('when preferred dark mode is off', () => {
     beforeEach(() => {
-      Object.defineProperty(window, 'matchMedia', {
-        writable: true,
-        value: jest.fn().mockImplementation(query => ({
-          matches: false,
-          media: query,
-          onchange: null,
-          addListener: jest.fn(), // Deprecated
-          removeListener: jest.fn(), // Deprecated
-          addEventListener: jest.fn(),
-          removeEventListener: jest.fn(),
-          dispatchEvent: jest.fn(),
-        }))
-      });
+      Object.defineProperty(window, 'matchMedia', matchMedia(false));
     });
 
     afterEach(() => {
-      Object.defineProperty(window, 'matchMedia', {
-        writable: true,
-        value: null
-      });
+      Object.defineProperty(window, 'matchMedia', emptyMatchMedia());
     });
 
     it('should enable dark mode in the ui', async () => {
