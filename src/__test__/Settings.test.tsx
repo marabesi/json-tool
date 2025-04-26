@@ -78,6 +78,32 @@ describe('Settings', () => {
   });
 
   describe('features', () => {
+    it('renders features title', async () => {
+      await goToSettings();
+      expect(screen.getByText('Features')).toBeInTheDocument();
+    });
 
+    it('renders option to use history', async () => {
+      await goToSettings();
+      expect(screen.getByTestId('json-history')).toBeInTheDocument();
+    });
+
+    it('renders option to use history label', async () => {
+      await goToSettings();
+      expect(screen.getByLabelText('JSON History')).toBeInTheDocument();
+    });
+
+    it('option to use history is unchecked by default', async () => {
+      await goToSettings();
+      expect(screen.getByTestId('json-history')).not.toBeChecked();
+    });
+
+    it('enable history feature', async () => {
+      await goToSettings();
+
+      await userEvent.click(screen.getByTestId('json-history'));
+
+      expect(screen.getByTestId('json-history')).toBeChecked();
+    });
   });
 });

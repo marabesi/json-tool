@@ -44,6 +44,16 @@ export function Settings() {
           }
           <input data-testid="font-size" type="text" value={prop.value} onChange={(event) => setProp({ key: 'fontSize', value: event.target.value })}/>
         </div>
+
+        <div>
+          <h2>Features</h2>
+          <div>
+            <label>
+              JSON History
+              <input data-testid="json-history" type="checkbox" />
+            </label>
+          </div>
+        </div>
       </div>
 
       <Button onClick={persistChanges}>Save</Button>
