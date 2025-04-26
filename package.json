@@ -70,7 +70,8 @@
     "postcss": "^8.5.3",
     "sass": "^1.43.4",
     "source-map-explorer": "^2.5.3",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14"
+    "tailwindcss": "^3.4.17",
+    "wait-on": "^8.0.3"
   },
   "postinstall": "electron-builder install-app-deps && husky install",
   "scripts": {
