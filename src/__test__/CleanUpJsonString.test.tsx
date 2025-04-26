@@ -1,7 +1,7 @@
-import { render, waitFor, screen } from '@testing-library/react';
-import App from '../App';
+import { waitFor, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { setUpClipboard, tearDownClipboard, writeTextToClipboard } from 'jest-clipboard';
+import { renderEntireApp } from './__testutilities__/builder';
 
 describe('Clean up json', () => {
   beforeEach(() => {
@@ -22,7 +22,7 @@ describe('Clean up json', () => {
     ['{"key with spaces" : "json from clipboard"}', '{"key with spaces":"json from clipboard"}'],
     ['{"private_key" : "-----BEGIN PRIVATE KEY-----\nMIIEvgI\n-----END PRIVATE KEY-----\n" }', '{"private_key":"-----BEGIN PRIVATE KEY-----\nMIIEvgI\n-----END PRIVATE KEY-----\n"}'],
   ])('should clean specific spaces in a json string (%s, %s)', async (inputJson: string, desiredJson: string) => {
-    render(<App />);
+    renderEntireApp();
 
     await writeTextToClipboard(inputJson);
 
@@ -65,7 +65,7 @@ describe('Clean up json', () => {
 }`
     ],
   ])('should clean firebase json white spaces (%s, %s)', async (inputJson: string, desiredJson: string) => {
-    render(<App />);
+    renderEntireApp();
 
     await writeTextToClipboard(inputJson);
 

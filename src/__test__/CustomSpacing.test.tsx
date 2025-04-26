@@ -1,12 +1,12 @@
-import { render, act, waitFor, screen, fireEvent } from '@testing-library/react';
-import App from '../App';
+import { act, waitFor, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
 import { customType } from './__testutilities__/customTyping';
+import { renderEntireApp } from './__testutilities__/builder';
 
 describe('Custom spacing for formatting json', () => {
   it('should have space of 2 as default', async () => {
-    render(<App />);
+    renderEntireApp();
 
     const space = screen.getByDisplayValue('2');
 
@@ -15,7 +15,7 @@ describe('Custom spacing for formatting json', () => {
 
   describe('typing json manually', () => {
     it('should do nothing if spacing is empty', async () => {
-      render(<App />);
+      renderEntireApp();
 
       const space = screen.getByDisplayValue('2');
 
@@ -36,7 +36,7 @@ describe('Custom spacing for formatting json', () => {
       '4',
       '16'
     ])('should change spacing for %s spaces', async (spacing: string) => {
-      render(<App/>);
+      renderEntireApp();
 
       const space = screen.getByDisplayValue('2');
 
@@ -67,7 +67,7 @@ describe('Custom spacing for formatting json', () => {
 }`
       ],
     ])('should format json with %s spaces', async (spacing: string, inputJson: string, outputJson: string) => {
-      render(<App />);
+      renderEntireApp();
 
       const space = screen.getByDisplayValue('2');
 
@@ -91,7 +91,7 @@ describe('Custom spacing for formatting json', () => {
     });
 
     it('should reformat json if space changes', async () => {
-      render(<App />);
+      renderEntireApp();
 
       const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
@@ -119,7 +119,7 @@ describe('Custom spacing for formatting json', () => {
     it('should format json from uploaded file', async () => {
       const file = new File(['{"a":"b"}'], 'hello.json', { type: 'application/json' });
 
-      render(<App />);
+      renderEntireApp();
 
       await userEvent.upload(screen.getByTestId('upload-json'), file);
 
@@ -131,7 +131,7 @@ describe('Custom spacing for formatting json', () => {
     });
 
     it('dismiss upload file when there is no file content', async () => {
-      render(<App />);
+      renderEntireApp();
 
       // @ts-ignore when dismissing an input file without selecting a file it is normal to see undefined from the input
       // the flow is: 1. upload a file, 2. open the input file and dismiss the dialog
@@ -149,7 +149,7 @@ describe('Custom spacing for formatting json', () => {
     it('clear file input when click on delete all', async () => {
       const file = new File(['{"a":"b"}'], 'hello.json', { type: 'application/json' });
 
-      render(<App />);
+      renderEntireApp();
 
       await userEvent.upload(screen.getByTestId('upload-json'),  file);
 

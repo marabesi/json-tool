@@ -1,9 +1,9 @@
-import { render, RenderResult, waitFor, screen } from '@testing-library/react';
-import App from '../App';
+import { RenderResult, waitFor, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { grabCurrentEditor } from './__testutilities__/editorQuery';
 import { setUpClipboard, tearDownClipboard, writeTextToClipboard } from 'jest-clipboard';
+import { grabCurrentEditor } from './__testutilities__/editorQuery';
 import { customType } from './__testutilities__/customTyping';
+import { renderEntireApp } from './__testutilities__/builder';
 
 describe('Clean up editors', () => {
 
@@ -16,7 +16,7 @@ describe('Clean up editors', () => {
   });
 
   it('should clean editors once clean is clicked', async () => {
-    const view: RenderResult = render(<App />);
+    const view: RenderResult = renderEntireApp();
     const { container } = view;
 
     const editor = grabCurrentEditor(container);
@@ -37,7 +37,7 @@ describe('Clean up editors', () => {
   "last_name" : "another name"
 }`, '{"name":"json from clipboard","last_name":"another name"}'],
   ])('should clean blank spaces and new lines in the json (%s, %s)', async (inputJson: string, desiredJson: string) => {
-    render(<App />);
+    renderEntireApp();
 
     await writeTextToClipboard(inputJson);
 

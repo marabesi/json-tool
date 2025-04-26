@@ -1,10 +1,10 @@
-import { render, waitFor, screen } from '@testing-library/react';
-import App from '../App';
+import { waitFor, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Formatter from '../core/formatter';
 import { setUpClipboard, tearDownClipboard, writeTextToClipboard } from 'jest-clipboard';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
 import { emptyMatchMedia, matchMedia } from './__testutilities__/matchMedia';
+import { renderEntireApp } from './__testutilities__/builder';
+import Formatter from '../core/formatter';
 
 describe('Clipboard', () => {
 
@@ -20,7 +20,7 @@ describe('Clipboard', () => {
     });
 
     it('should paste json string from copy area into the editor on clicking the button', async () => {
-      render(<App/>);
+      renderEntireApp();
 
       await writeTextToClipboard('{}');
 
@@ -33,7 +33,7 @@ describe('Clipboard', () => {
     });
 
     it('should copy json string from result editor to transfer area on clicking the button', async () => {
-      render(<App />);
+      renderEntireApp();
 
       jest.spyOn(global.navigator.clipboard, 'writeText');
 
@@ -62,7 +62,7 @@ describe('Clipboard', () => {
     });
 
     it('copy json should be disabled', async () => {
-      render(<App/>);
+      renderEntireApp();
 
       await waitFor(async () => {
         expect(screen.getByTestId('copy-json')).toBeDisabled();
@@ -71,7 +71,7 @@ describe('Clipboard', () => {
     });
 
     it('paste json should be disabled', async () => {
-      render(<App/>);
+      renderEntireApp();
 
       await waitFor(async () => {
         expect(screen.getByTestId('paste-from-clipboard')).toBeDisabled();

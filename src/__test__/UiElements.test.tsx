@@ -1,15 +1,14 @@
-import { render, screen } from '@testing-library/react';
-import App from '../App';
+import {screen} from '@testing-library/react';
+import {renderEntireApp} from './__testutilities__/builder';
 
 describe('UI elements', () => {
   it('error message is hidden by default', () => {
-    render(<App />);
-    const errorLabel = screen.queryByTestId(/error/);
-    expect(errorLabel).toBeNull();
+    renderEntireApp();
+    expect(screen.queryByTestId(/error/)).toBeNull();
   });
 
   it('should render buy me a coffee link', () => {
-    render(<App />);
+    renderEntireApp();
     expect(screen.getByTestId(/buy-me-a-coffee/)).toBeInTheDocument();
     expect(screen.queryByTestId(/buy-me-a-coffee/)).toHaveAttribute('href', 'https://www.buymeacoffee.com/marabesi');
     expect(screen.getByText(/Buy me a coffee/)).toBeInTheDocument();
@@ -18,7 +17,7 @@ describe('UI elements', () => {
   });
 
   it('should render license link', () => {
-    render(<App />);
+    renderEntireApp();
     expect(screen.getByText(/CC0 1.0 Universal/)).toBeInTheDocument();
     expect(screen.queryByText(/CC0 1.0 Universal/)).toHaveAttribute('href', 'https://github.com/marabesi/json-tool/blob/main/LICENSE.md');
     expect(screen.getByText(/CC0 1.0 Universal/)).toBeInTheDocument();
@@ -27,7 +26,7 @@ describe('UI elements', () => {
   });
 
   it('should render found a issue', () => {
-    render(<App />);
+    renderEntireApp();
     expect(screen.getByTestId(/found-issue/)).toBeInTheDocument();
     expect(screen.queryByTestId(/found-issue/)).toHaveAttribute('href', 'https://github.com/marabesi/json-tool/issues');
     expect(screen.getByText(/Found an issue?/)).toBeInTheDocument();
@@ -36,43 +35,43 @@ describe('UI elements', () => {
   });
 
   it('should render settings link', () => {
-    render(<App />);
+    renderEntireApp();
     expect(screen.getByTestId('settings')).toBeInTheDocument();
     expect(screen.getByTestId('settings')).toHaveAttribute('href', expect.stringContaining('/settings'));
   });
 
   it('should use 12 as font size', () => {
-    render(<App/>);
+    renderEntireApp();
 
     expect(screen.getByTestId('json')).toHaveAttribute('style', expect.stringContaining('font-size: 12px'));
   });
 
   it('should render search button for json editor', () => {
-    render(<App/>);
+    renderEntireApp();
 
     expect(screen.getByTestId('search-json')).toBeInTheDocument();
   });
 
   it('should render search button for result editor', () => {
-    render(<App/>);
+    renderEntireApp();
 
     expect(screen.getByTestId('search-result')).toBeInTheDocument();
   });
 
   it('should render dark mode switcher', () => {
-    render(<App/>);
+    renderEntireApp();
 
     expect(screen.getByTestId('dark-mode')).toBeInTheDocument();
   });
 
   it('should have dark mode disabled by default', () => {
-    render(<App/>);
+    renderEntireApp();
 
     expect(screen.queryByTestId('app-container')).not.toHaveClass('dark');
   });
 
   it('should render validate json checkbox', () => {
-    render(<App/>);
+    renderEntireApp();
 
     expect(screen.getByText('validate json')).toBeInTheDocument();
     expect(screen.getByTestId('is-validate-json')).toBeChecked();

@@ -1,7 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import App from '../App';
 import { emptyMatchMedia, matchMedia } from './__testutilities__/matchMedia';
+import { renderEntireApp } from './__testutilities__/builder';
 
 describe('dark mode', () => {
   describe('when preferred dark mode is on', () => {
@@ -14,7 +14,7 @@ describe('dark mode', () => {
     });
 
     it('should enable dark mode by default', async () => {
-      render(<App/>);
+      renderEntireApp();
 
       expect(screen.getByTestId('json')).toHaveClass('cm-theme-dark');
     });
@@ -30,7 +30,7 @@ describe('dark mode', () => {
     });
 
     it('should enable dark mode in the ui', async () => {
-      render(<App/>);
+      renderEntireApp();
 
       const darkModeSwitch = screen.getByTestId('dark-mode');
 
@@ -40,7 +40,7 @@ describe('dark mode', () => {
     });
 
     it('should enable dark mode in the editors', async () => {
-      render(<App/>);
+      renderEntireApp();
 
       const darkModeSwitch = screen.getByTestId('dark-mode');
 

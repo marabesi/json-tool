@@ -1,6 +1,6 @@
-import { render, waitFor, screen } from '@testing-library/react';
-import App from '../App';
+import { waitFor, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { renderEntireApp } from './__testutilities__/builder';
 
 describe('Settings', () => {
   it.each([
@@ -13,7 +13,7 @@ describe('Settings', () => {
     ['history'],
     ['historyKeymap'],
   ])('should  renders option %s available for editors', async (option: string) => {
-    render(<App/>);
+    renderEntireApp();
 
     await userEvent.click( screen.getByTestId('settings'));
 
@@ -28,7 +28,7 @@ describe('Settings', () => {
     ['history'],
     ['historyKeymap'],
   ])('should mark option %s as true by default', async (option: string) => {
-    render(<App/>);
+    renderEntireApp();
 
     await userEvent.click( screen.getByTestId('settings'));
 
@@ -39,7 +39,7 @@ describe('Settings', () => {
     ['autocompletion'],
     ['closeBrackets'],
   ])('check option %s that is unchecked by default', async (option) => {
-    render(<App/>);
+    renderEntireApp();
 
     await userEvent.click( screen.getByTestId('settings'));
 
@@ -52,7 +52,7 @@ describe('Settings', () => {
 
   describe('editors font size', () => {
     it('should use 12 as font size by default', async () => {
-      render(<App/>);
+      renderEntireApp();
 
       await userEvent.click( screen.getByTestId('settings'));
 
@@ -60,7 +60,7 @@ describe('Settings', () => {
     });
 
     it('should define font size to 18px to be used', async () => {
-      render(<App/>);
+      renderEntireApp();
 
       await userEvent.click( screen.getByTestId('settings'));
 

@@ -1,17 +1,17 @@
-import { render, screen } from '@testing-library/react';
-import App from '../App';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { renderEntireApp } from './__testutilities__/builder';
 
 describe('Documentation page', () => {
 
   it('renders docs icon', async () => {
-    render(<App/>);
+    renderEntireApp();
 
     expect(screen.getByTestId('docs')).toBeInTheDocument();
   });
 
   it('renders documentation page', async () => {
-    render(<App/>);
+    renderEntireApp();
 
     await userEvent.click( screen.getByTestId('docs'));
 

@@ -1,15 +1,15 @@
-import { render, act, waitFor, screen } from '@testing-library/react';
-import App from '../App';
+import { act, waitFor, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
 import { customType } from './__testutilities__/customTyping';
+import { renderEntireApp } from './__testutilities__/builder';
 
 describe('Error handling', () => {
   it.each([
     ['bla bla'],
     ['Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley'],
   ])('hides the error after cleaning random string (%s)', async (originalCode: string) => {
-    render(<App/>);
+    renderEntireApp();
 
     await userEvent.keyboard(originalCode);
 
@@ -23,7 +23,7 @@ describe('Error handling', () => {
   });
 
   it('inform error when json is invalid', async () => {
-    render(<App />);
+    renderEntireApp();
 
     const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
@@ -41,7 +41,7 @@ describe('Error handling', () => {
   describe('validation disabled', () => {
 
     it('should not render error when validate json is disabled', async () => {
-      render(<App/>);
+      renderEntireApp();
 
       await waitFor(() => {
         expect(screen.getByTestId('is-validate-json')).toBeChecked();

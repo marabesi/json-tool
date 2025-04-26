@@ -1,15 +1,15 @@
-import { render, act, waitFor, within, screen } from '@testing-library/react';
-import App from '../App';
+import { act, waitFor, within, screen } from '@testing-library/react';
 import { customType } from './__testutilities__/customTyping';
 import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
+import { renderEntireApp } from './__testutilities__/builder';
 
 describe('Editors', () => {
   it.each([
     ['{{}', '{}'],
     ['{{"a": "b"}', '{"a": "b"}'],
   ])('place %s text in the editor and receive %s', async (input, expected) => {
-    render(<App />);
+    renderEntireApp();
 
     const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
@@ -23,7 +23,7 @@ describe('Editors', () => {
   });
 
   it('should keep content in the editor when navigating away', async () => {
-    render(<App/>);
+    renderEntireApp();
 
     const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
     const json = '{{"random_json":"123"}';
@@ -53,7 +53,7 @@ describe('Editors', () => {
   });
 
   it('should render search element in the json editor', async () => {
-    render(<App/>);
+    renderEntireApp();
 
     await userEvent.click (screen.getByTestId('search-json'));
 
@@ -61,7 +61,7 @@ describe('Editors', () => {
   });
 
   it('should render search element in the result editor', async () => {
-    render(<App/>);
+    renderEntireApp();
 
     await userEvent.click (screen.getByTestId('search-result'));
 
@@ -78,7 +78,7 @@ describe('Editors', () => {
     });
 
     it('should render loading when typing', async () => {
-      render(<App/>);
+      renderEntireApp();
       const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
       const json = '{{"random_json":"123","a":"a"}';
 
@@ -92,7 +92,8 @@ describe('Editors', () => {
     });
 
     it('should remove loading when typing is finished', async () => {
-      render(<App/>);
+      renderEntireApp();
+
       const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
       const json = '{{"random_json":"123"}';
 

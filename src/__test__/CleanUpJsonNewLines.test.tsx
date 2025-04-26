@@ -1,7 +1,7 @@
-import { render, waitFor, screen } from '@testing-library/react';
-import App from '../App';
-import userEvent from '@testing-library/user-event';
+import { waitFor, screen } from '@testing-library/react';
 import { setUpClipboard, tearDownClipboard, writeTextToClipboard } from 'jest-clipboard';
+import userEvent from '@testing-library/user-event';
+import { renderEntireApp } from './__testutilities__/builder';
 
 describe('Clean up json new lines', () => {
   beforeEach(() => {
@@ -21,7 +21,7 @@ describe('Clean up json new lines', () => {
   "last_name" : "another name"
 }`, '{  "name" : "json from clipboard",  "last_name" : "another name"}'],
   ])('should clean json with new lines (%s, %s)', async (inputJson: string, desiredJson: string) => {
-    render(<App />);
+    renderEntireApp();
 
     await writeTextToClipboard(inputJson);
 
