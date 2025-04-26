@@ -85,7 +85,7 @@
     "e2e": "CYPRESS_BASE_URL=http://localhost:3000 cypress run",
     "e2e:open": "CYPRESS_BASE_URL=http://localhost:3000 cypress open",
     "eject": "craco eject",
-    "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
+    "dev": "concurrently -k \"npm start\" \"npm run electron\"",
     "setup": "npm run build && cp package.json ./build",
     "package": "npm run setup && electron-builder --linux snap -p never",
     "package-windows": "npm run setup && electron-builder --win --x64 -p never",
