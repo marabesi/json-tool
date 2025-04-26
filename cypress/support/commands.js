@@ -1,5 +1,6 @@
 import 'cypress-file-upload';
 import compareSnapshotCommand from 'cypress-image-diff-js/dist/command';
+import { waitFor } from './configuration';
 
 compareSnapshotCommand();
 
@@ -54,4 +55,10 @@ Cypress.Commands.add('withCleanNewLinesAndSpacesButton', () => {
 
 Cypress.Commands.add('withCleanAllButton', () => {
   return cy.get('[data-testid="clean"]');
+});
+
+Cypress.Commands.add('writeAndWait', { prevSubject: true }, (subject, text) => {
+  cy.wrap(subject)
+    .invoke('text', text)
+    .wait(waitFor);
 });

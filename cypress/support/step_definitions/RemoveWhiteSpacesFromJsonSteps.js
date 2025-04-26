@@ -1,13 +1,10 @@
 const { When, Then } = require('cypress-cucumber-preprocessor/steps');
-const { waitFor } = require('../configuration');
 
 When(/^I open json tool with valid json with white spaces$/, function () {
   cy.visit('/');
   this.jsonWithSpaces = '{"name" : "json from clipboard"}';
 
-  cy.withInputEditor()
-    .invoke('text', this.jsonWithSpaces)
-    .wait(waitFor);
+  cy.withInputEditor().writeAndWait(this.jsonWithSpaces);
 });
 
 When(/^I click to remove white spaces$/, function () {
