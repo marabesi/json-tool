@@ -1,4 +1,4 @@
-import { render, waitFor, screen } from '@testing-library/react';
+import { render, waitFor, screen, act } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import Formatter from '../core/formatter';
@@ -12,9 +12,16 @@ describe('Clipboard', () => {
       setUpClipboard();
       Object.defineProperty(window, 'matchMedia', {
         writable: true,
-        value: jest.fn().mockImplementation(() => ({
+        value: jest.fn().mockImplementation(query => ({
           matches: false,
-        }))
+          media: query,
+          onchange: null,
+          addListener: jest.fn(), // Deprecated
+          removeListener: jest.fn(), // Deprecated
+          addEventListener: jest.fn(),
+          removeEventListener: jest.fn(),
+          dispatchEvent: jest.fn(),
+        })),
       });
     });
 
@@ -27,7 +34,7 @@ describe('Clipboard', () => {
     });
 
     it('should paste json string from copy area into the editor on clicking the button', async () => {
-      render(<App />);
+      render(<App/>);
 
       await writeTextToClipboard('{}');
 
