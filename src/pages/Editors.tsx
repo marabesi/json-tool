@@ -54,15 +54,15 @@ const code = `
     `;
 
 export default function Editors() {
-  const worker = useRef<Worker>();
+  const worker = useRef<Worker>(undefined);
   const { jsonState, saveState, resultState, isValidateEnabled } = usePersistenceContext();
   const [originalJson, setOriginalResult] = useState<string>(jsonState);
   const [result, setResult] = useState<string>(resultState);
   const [inProgress, setInProgress] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [spacing, setSpacing] = useState<string>(defaultSpacing);
-  const jsonReferenceEditor = useRef<ReactCodeMirrorRef>();
-  const resultReferenceEditor: any = useRef();
+  const jsonReferenceEditor = useRef<ReactCodeMirrorRef>(undefined);
+  const resultReferenceEditor: any = useRef(undefined);
 
   useEffect(() => {
     worker.current = new Worker(URL.createObjectURL(new Blob([code])));
