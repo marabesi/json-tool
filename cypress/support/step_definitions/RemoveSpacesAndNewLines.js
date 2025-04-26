@@ -8,7 +8,7 @@ When(/^I place a json string with new lines and white spaces$/, function () {
 }`;
 
   cy.withInputEditor()
-    .type(this.jsonWithNewLinesAndSpaces, { parseSpecialCharSequences: true, delay: 50 })
+    .invoke('text', this.jsonWithNewLinesAndSpaces, { parseSpecialCharSequences: true, delay: 50 })
     .wait(waitFor);
 });
 

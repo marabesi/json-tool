@@ -5,7 +5,7 @@ const inputJson = '{"name":"json from clipboard"}';
 
 When(/^I place a json string in the editor$/, function () {
   cy.withInputEditor()
-    .type(inputJson, { parseSpecialCharSequences: false, delay: 50 })
+    .invoke('text', inputJson)
     .wait(waitFor);
 });
 
@@ -28,8 +28,8 @@ Then(/^I see both editors empty$/, function () {
 
 When(/^I click to clean the editor with ctrl z$/, function () {
   if (Cypress.platform === 'darwin') {
-    cy.get('body').type('{cmd}{z}');
+    cy.withInputEditor().type('{cmd}{z}');
   } else {
-    cy.get('body').type('{ctrl}{z}');
+    cy.withInputEditor().type('{ctrl}{z}');
   }
 });

@@ -6,7 +6,7 @@ When(/^I open json tool with valid json with white spaces$/, function () {
   this.jsonWithSpaces = '{"name" : "json from clipboard"}';
 
   cy.withInputEditor()
-    .type(this.jsonWithSpaces, { parseSpecialCharSequences: false, delay: 50 })
+    .invoke('text', this.jsonWithSpaces)
     .wait(waitFor);
 });
 

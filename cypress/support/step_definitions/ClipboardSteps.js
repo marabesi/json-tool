@@ -32,7 +32,7 @@ Then(/^I see the copied content in the right editor$/, function () {
 });
 
 When(/^I place a json string in the left editor$/, function () {
-  cy.withInputEditor().type(inputJson, { parseSpecialCharSequences: false, delay: 50 });
+  cy.withInputEditor().invoke('text', inputJson);
 });
 
 When(/^I click copy json to clipboard$/, function () {

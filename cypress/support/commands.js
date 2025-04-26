@@ -13,11 +13,11 @@ compareSnapshotCommand();
 // ***********************************************
 
 Cypress.Commands.add('withInputEditor', () => {
-  return cy.get('[data-testid="json"] .cm-content');
+  return cy.get('[data-testid="json"] [role="textbox"]');
 });
 
 Cypress.Commands.add('withOutputEditor', () => {
-  return cy.get('[data-testid="result"] .cm-content');
+  return cy.get('[data-testid="result"] [role="textbox"]');
 });
 
 Cypress.Commands.add('withError', () => {

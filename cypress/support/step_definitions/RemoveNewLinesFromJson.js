@@ -6,7 +6,7 @@ When(/^I place a valid json string with new lines$/, function () {
   "name" : "json from clipboard"
 }`;
   cy.withInputEditor()
-    .type(this.jsonWithNewLines, { parseSpecialCharSequences: false, delay: 50 })
+    .invoke('text', this.jsonWithNewLines)
     .wait(waitFor);
 });
 
@@ -18,7 +18,7 @@ Then(/^I see the json with new line in the left editor$/, function () {
   cy.withInputEditor().should(
     ($div) => {
       expect($div.get(0).innerText).to.eq(`{
-    "name" : "json from clipboard"
+  "name" : "json from clipboard"
 }`);
     }
   );
@@ -26,6 +26,6 @@ Then(/^I see the json with new line in the left editor$/, function () {
 
 Then(/^I see a json without new lines in the right editor$/, function () {
   cy.withOutputEditor().should(($div) => {
-    expect($div.get(0).innerText).to.eq('{    "name" : "json from clipboard"}');
+    expect($div.get(0).innerText).to.eq('{  "name" : "json from clipboard"}');
   });
 });
