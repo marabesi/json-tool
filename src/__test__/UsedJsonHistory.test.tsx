@@ -5,7 +5,6 @@ import { grabCurrentEditor } from './__testutilities__/editorQuery';
 import { customType } from './__testutilities__/customTyping';
 
 async function goToSettings() {
-  renderEntireApp();
   await userEvent.click(screen.getByTestId('settings'));
 }
 
@@ -16,6 +15,8 @@ async function clickHistorySetting() {
 describe('Used Json History', () => {
   describe('when history is disabled', () => {
     it('should not render drawer', async () => {
+      renderEntireApp();
+
       await goToSettings();
 
       expect(screen.queryByTestId('drawer')).not.toBeInTheDocument();
@@ -31,6 +32,8 @@ describe('Used Json History', () => {
     });
 
     it('should render drawer', async () => {
+      renderEntireApp();
+
       await goToSettings();
       await clickHistorySetting();
 
@@ -40,6 +43,8 @@ describe('Used Json History', () => {
     });
 
     it('when opening drawer it show for the user', async () => {
+      renderEntireApp();
+
       await goToSettings();
       await clickHistorySetting();
 
@@ -49,6 +54,8 @@ describe('Used Json History', () => {
     });
 
     it('renders area for history', async () => {
+      renderEntireApp();
+
       await goToSettings();
       await clickHistorySetting();
 
@@ -66,6 +73,8 @@ describe('Used Json History', () => {
       });
 
       it('should store json in the list to be used later', async () => {
+        renderEntireApp();
+
         await goToSettings();
         await clickHistorySetting();
 
@@ -84,6 +93,8 @@ describe('Used Json History', () => {
       });
 
       it('for jsons that are greater than 10 chars add a ... to it', async () => {
+        renderEntireApp();
+
         await goToSettings();
         await clickHistorySetting();
 
@@ -97,13 +108,12 @@ describe('Used Json History', () => {
         expect (screen.getByTestId('raw-result')).toHaveValue('{\n  "random_json": "123"\n}');
 
         await userEvent.click(screen.getByTestId('settings'));
-        await clickHistorySetting(); // this is flaky, the tests are keeping states
 
         await userEvent.click(await screen.findByTestId('json-drawer-history-button'));
 
         await waitFor(() => {
           // this is a wip, because for each key there is an entry in the list of jsons
-          // this is not the expectd behaviour.
+          // this is not the expected behaviour.
           expect(screen.getAllByText('{"random_j...').length).toBeGreaterThan(0);
         });
       });

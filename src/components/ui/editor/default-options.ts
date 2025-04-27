@@ -19,9 +19,9 @@ export const properties: Properties = {
   value: '12px'
 };
 
-export const editorOptions: EditorOptions = {
+export const editorOptions = (): EditorOptions => ({
   options: defaultOp,
   properties: [properties],
-};
+});
 
-export const featureOptionsDefault: FeatureOptions = { options: [ { title: 'JSON History', active: false } ] };
+export const featureOptionsDefault = (): FeatureOptions => ({ options: [ { title: 'JSON History', active: false } ] });

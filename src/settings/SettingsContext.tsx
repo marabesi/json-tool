@@ -24,8 +24,8 @@ export const useSettingsContext = () => {
 };
 
 export const SettingsContextProvider = ({ children }: { children: ReactElement }) => {
-  const [editorOptions, setEditorOptions] = useState<EditorOptions>(defaultOptions);
-  const [featureOptions, setFeatureOptions] = useState<FeatureOptions>(featureOptionsDefault);
+  const [editorOptions, setEditorOptions] = useState<EditorOptions>(defaultOptions());
+  const [featureOptions, setFeatureOptions] = useState<FeatureOptions>(featureOptionsDefault());
 
   const handleEditorOptionsChanged = (changed: EditorOptions) => {
     editorOptions.properties = changed.properties;
