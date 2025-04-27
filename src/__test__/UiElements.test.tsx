@@ -1,5 +1,5 @@
-import {screen} from '@testing-library/react';
-import {renderEntireApp} from './__testutilities__/builder';
+import { screen } from '@testing-library/react';
+import { renderEntireApp } from './__testutilities__/builder';
 
 describe('UI elements', () => {
   it('error message is hidden by default', () => {
