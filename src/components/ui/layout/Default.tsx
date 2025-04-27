@@ -28,7 +28,7 @@ export default function DefaultLayout({ children }: Props) {
         { isHistoryEnabled && <Drawer open={isOpen} setOpen={setOpen}>
           <div data-testid="history-content">
             {entries.map((item, index) => {
-              return (<p key={index} data-testid="history-entry">{item.snippet}...</p>);
+              return (<p key={index} data-testid="history-entry">{item.snippet}</p>);
             })}
           </div>
         </Drawer>}

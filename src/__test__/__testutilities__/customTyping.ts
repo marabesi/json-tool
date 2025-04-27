@@ -9,7 +9,7 @@ export const customType = (
   return userEvent.type(
     element, text, {
       ...options,
-      delay: 20
+      delay: 50
     }
   );
 };

@@ -24,10 +24,12 @@ export const JsonHistoryContextProvider = ({ children }: { children: ReactElemen
   const [entries, setEntries] = useState<HistoryEntry[]>([]);
 
   const appendEntry = (entry: string)  => {
-    const first10 = entry.slice(0, 10);
+    const MAX_TO_DISPLAY = 10;
+    const firstChars = entry.slice(0, MAX_TO_DISPLAY);
+
     setEntries([
       ...entries,
-      { snippet: first10, rawContent: entry },
+      { snippet: entry.length > MAX_TO_DISPLAY ? `${firstChars}...` : entry, rawContent: entry },
     ]);
   };
 
