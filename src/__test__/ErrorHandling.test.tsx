@@ -1,4 +1,4 @@
-import { act, waitFor, screen } from '@testing-library/react';
+import { waitFor, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
 import { customType } from './__testutilities__/customTyping';
@@ -27,9 +27,7 @@ describe('Error handling', () => {
 
     const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
-    await act(async () => {
-      await customType(editor, 'bla bla');
-    });
+    await customType(editor, 'bla bla');
 
     await waitFor(() => {
       const result = screen.getByTestId('error');
@@ -55,9 +53,7 @@ describe('Error handling', () => {
 
       const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
-      await act(async () => {
-        await customType(editor, 'bla bla');
-      });
+      await customType(editor, 'bla bla');
 
       await waitFor(() => {
         expect(screen.queryByTestId('error')).not.toBeInTheDocument();
