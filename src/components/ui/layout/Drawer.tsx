@@ -33,7 +33,7 @@ const Drawer = ({ open, setOpen, children }: Props) => {
               }}
             >
               <div
-                className='flex flex-col h-full overflow-y-scroll p-20 shadow-xl rounded-lg bg-blue-400 text-gray-100 dark:text-gray-400 dark:bg-gray-600'
+                className='flex h-full w-full overflow-y-scroll p-20 shadow-xl rounded-lg bg-blue-400 text-gray-100 dark:text-gray-400 dark:bg-gray-600'
               >
                 {children}
               </div>

@@ -115,6 +115,24 @@ describe('Used Json History', () => {
           expect(screen.getAllByText('{"random_j...').length).toBeGreaterThan(0);
         });
       });
+
+      it('render copy button', async () => {
+        renderEntireApp();
+
+        await goToSettings();
+        await clickHistorySetting();
+
+        await userEvent.click(screen.getByTestId('to-home'));
+
+        const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
+
+        await customType(editor, '{{');
+
+        expect(await within(await screen.findByTestId('history-content')).findByTestId('json-copy-entry')).toBeInTheDocument();
+
+        // we need to go back to settings bcs we have an after each to disable the flag
+        await userEvent.click(screen.getByTestId('settings'));
+      });
     });
   });
 });

@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { FaRegCopy } from 'react-icons/fa';
 import Header from '../Header';
 import Footer from '../Footer';
 import Drawer from './Drawer';
@@ -26,9 +27,14 @@ export default function DefaultLayout({ children }: Props) {
         { children }
         <Footer />
         { isHistoryEnabled && <Drawer open={isOpen} setOpen={setOpen}>
-          <div data-testid="history-content">
+          <div data-testid="history-content" className="w-full">
             {entries.map((item, index) => {
-              return (<p key={index} data-testid="history-entry">{item.snippet}</p>);
+              return (
+                <div key={index} className="flex items-center">
+                  <p data-testid="history-entry" className="mr-2 w-full">{item.snippet}</p>
+                  <FaRegCopy data-testid="json-copy-entry" />
+                </div>
+              );
             })}
           </div>
         </Drawer>}
