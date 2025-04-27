@@ -8,25 +8,28 @@ import { ThemeContextProvider } from './DarkModeContext';
 import { SettingsContextProvider } from './settings/SettingsContext';
 import { PersistenceContextProvider } from './PersistenceContext';
 import { DrawerContextProvider } from './DrawerContext';
+import { JsonHistoryContextProvider } from './JsonHistoryContext';
 
 function App() {
   return (
     <Router>
       <PersistenceContextProvider>
-        <ThemeContextProvider>
-          <DrawerContextProvider>
-            <SettingsContextProvider>
-              <DefaultLayout>
-                <Routes>
-                  <Route path="/" element={<Editors />} />
-                  <Route path="/settings" element={<Settings />} />
-                  <Route path="/docs" element={<Docs />} />
-                </Routes>
-                <Toaster />
-              </DefaultLayout>
-            </SettingsContextProvider>
-          </DrawerContextProvider>
-        </ThemeContextProvider>
+        <JsonHistoryContextProvider>
+          <ThemeContextProvider>
+            <DrawerContextProvider>
+              <SettingsContextProvider>
+                <DefaultLayout>
+                  <Routes>
+                    <Route path="/" element={<Editors />} />
+                    <Route path="/settings" element={<Settings />} />
+                    <Route path="/docs" element={<Docs />} />
+                  </Routes>
+                  <Toaster />
+                </DefaultLayout>
+              </SettingsContextProvider>
+            </DrawerContextProvider>
+          </ThemeContextProvider>
+        </JsonHistoryContextProvider>
       </PersistenceContextProvider>
     </Router>
   );

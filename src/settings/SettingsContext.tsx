@@ -48,5 +48,3 @@ export const SettingsContextProvider = ({ children }: { children: ReactElement }
     </SettingsContext.Provider>
   );
 };
-
-export default SettingsContext;

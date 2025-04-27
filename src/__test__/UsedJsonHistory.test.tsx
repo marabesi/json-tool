@@ -1,6 +1,8 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderEntireApp } from './__testutilities__/builder';
+import { grabCurrentEditor } from './__testutilities__/editorQuery';
+import { customType } from './__testutilities__/customTyping';
 
 async function goToSettings() {
   renderEntireApp();
@@ -21,7 +23,6 @@ describe('Used Json History', () => {
   });
 
   describe('when history is enabled', () => {
-
     afterEach(async () => {
       // restore to false, for some reason testing library is storing it between tests
       // once it is enabled it will keep enabled, leaking to the next test. This is
@@ -38,13 +39,38 @@ describe('Used Json History', () => {
       expect(await screen.findByTestId('drawer')).toBeInTheDocument();
     });
 
-    it('when opening drawer it show show for the user', async () => {
+    it('when opening drawer it show for the user', async () => {
       await goToSettings();
       await clickHistorySetting();
 
       await userEvent.click(screen.getByTestId('json-drawer-history-button'));
 
       expect(await screen.findByTestId('drawer')).toHaveClass('opacity-100');
+    });
+
+    it('renders area for history', async () => {
+      await goToSettings();
+      await clickHistorySetting();
+
+      await userEvent.click(screen.getByTestId('json-drawer-history-button'));
+
+      expect(await screen.findByTestId('history-content')).toBeInTheDocument();
+    });
+
+    it('should store json in the list to be used later', async () => {
+      await goToSettings();
+      await clickHistorySetting();
+
+      await userEvent.click(screen.getByTestId('to-home'));
+
+      const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
+
+      await customType(editor, '{{}');
+
+      expect(await screen.findByTestId('history-entry')).toHaveTextContent('{}');
+
+      // we need to go back to settings bcs we have an after each to disable the flag
+      await userEvent.click(screen.getByTestId('settings'));
     });
   });
 });

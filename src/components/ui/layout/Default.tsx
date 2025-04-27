@@ -5,6 +5,7 @@ import Drawer from './Drawer';
 import { useThemeContext } from 'src/DarkModeContext';
 import { useSettingsContext } from '../../../settings/SettingsContext';
 import { useDrawerContext } from '../../../DrawerContext';
+import { useJsonHistoryContext } from '../../../JsonHistoryContext';
 
 interface Props {
   children?: ReactNode
@@ -14,7 +15,11 @@ export default function DefaultLayout({ children }: Props) {
   const { darkModeEnabled } = useThemeContext();
   const { featureOptions } = useSettingsContext();
   const { isOpen, setOpen } = useDrawerContext();
+  const { entries } = useJsonHistoryContext();
+  
   const isHistoryEnabled = featureOptions.options.find(item => item.title === 'JSON History' && item.active);
+
+  console.log('aaaaa - -- - ', entries);
 
   return (
     <div data-testid="app-container" className={`flex flex-col ${darkModeEnabled ? 'dark': ''}`}>
@@ -23,7 +28,11 @@ export default function DefaultLayout({ children }: Props) {
         { children }
         <Footer />
         { isHistoryEnabled && <Drawer open={isOpen} setOpen={setOpen}>
-          <p>Working in progress</p>
+          <div data-testid="history-content">
+            {entries.map((item, index) => {
+              return (<p key={index} data-testid="history-entry">{item}</p>);
+            })}
+          </div>
         </Drawer>}
       </div>
     </div>

@@ -10,7 +10,7 @@ const DrawerContext = createContext<DrawerContextInterface | undefined>(undefine
 export const useDrawerContext = () => {
   const context = useContext(DrawerContext);
   if (context === undefined) {
-    throw new Error('useDrawerContext must be used within a DrawerContextProvider');
+    throw new Error('useDrawerContext must be uased within a DrawerContextProvider');
   }
   return context;
 };
