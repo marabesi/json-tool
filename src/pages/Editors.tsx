@@ -8,7 +8,7 @@ import EditorContainer from '../components/ui/editor/EditorContainer';
 import Loading from '../components/ui/Loading';
 import toast from 'react-hot-toast';
 import { ReactCodeMirrorRef } from '@uiw/react-codemirror';
-import { usePersistenceContext } from 'src/PersistenceContext';
+import { usePersistenceContext } from '../PersistenceContext';
 import { useJsonHistoryContext } from '../JsonHistoryContext';
 
 const cleanUp = new CleanUp();
@@ -57,7 +57,7 @@ const code = `
 export default function Editors() {
   const worker = useRef<Worker>(undefined);
   const { jsonState, saveState, resultState, isValidateEnabled } = usePersistenceContext();
-  const { appendEntry } = useJsonHistoryContext();
+  const historyContext = useJsonHistoryContext();
   const [originalJson, setOriginalResult] = useState<string>(jsonState);
   const [result, setResult] = useState<string>(resultState);
   const [inProgress, setInProgress] = useState<boolean>(false);
@@ -91,7 +91,7 @@ export default function Editors() {
     }
     setOriginalResult(eventValue);
     setInProgress(true);
-    appendEntry(eventValue);
+    historyContext.appendEntry(eventValue);
   };
 
   const pasteFromClipboard = async () => {

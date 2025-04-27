@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Button from '../components/ui/io/Button';
 import { Option, Properties } from '../types/components/Editor';
-import { useSettingsContext } from 'src/settings/SettingsContext';
+import { useSettingsContext } from '../settings/SettingsContext';
 
 export function Settings() {
   const { editorOptions: options, handleEditorOptionsChanged: handleChange, handleFeatureOptionsChanged, featureOptions } = useSettingsContext();

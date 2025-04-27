@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { act, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderEntireApp } from './__testutilities__/builder';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
@@ -57,20 +57,57 @@ describe('Used Json History', () => {
       expect(await screen.findByTestId('history-content')).toBeInTheDocument();
     });
 
-    it('should store json in the list to be used later', async () => {
-      await goToSettings();
-      await clickHistorySetting();
+    describe('storing entries', () => {
+      afterEach(async () => {
+        // restore to false, for some reason testing library is storing it between tests
+        // once it is enabled it will keep enabled, leaking to the next test. This is
+        // a workaround until a final solution is found.
+        await clickHistorySetting();
+      });
 
-      await userEvent.click(screen.getByTestId('to-home'));
+      it('should store json in the list to be used later', async () => {
+        await goToSettings();
+        await clickHistorySetting();
 
-      const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
+        await userEvent.click(screen.getByTestId('to-home'));
 
-      await customType(editor, '{{}');
+        const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
-      expect(await screen.findByTestId('history-entry')).toHaveTextContent('{}');
+        await customType(editor, '{{}');
 
-      // we need to go back to settings bcs we have an after each to disable the flag
-      await userEvent.click(screen.getByTestId('settings'));
+        jest.advanceTimersByTime(1100);
+
+        expect(await screen.findByTestId('history-entry')).toHaveTextContent('{}');
+
+        // we need to go back to settings bcs we have an after each to disable the flag
+        await userEvent.click(screen.getByTestId('settings'));
+      });
+
+      it('for jsons that are greater than 10 chars add a ... to it', async () => {
+        await goToSettings();
+        await clickHistorySetting();
+
+        await userEvent.click(screen.getByTestId('to-home'));
+
+        const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
+
+        await act(async () => {
+          const json = '{{"random_json":"123"}';
+          await customType(editor, json);
+        });
+
+        expect (screen.getByTestId('raw-result')).toHaveValue('{\n  "random_json": "123"\n}');
+
+        await userEvent.click(screen.getByTestId('settings'));
+        await clickHistorySetting(); // this is flaky, the tests are keeping states
+
+        await userEvent.click(await screen.findByTestId('json-drawer-history-button'));
+
+        await waitFor(() => {
+          expect(screen.getByText('{"random_j...')).toBeInTheDocument();
+        });
+      });
     });
   });
 });
+

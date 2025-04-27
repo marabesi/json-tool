@@ -1,10 +1,10 @@
 import { createContext, ReactElement, useContext, useState } from 'react';
-import { EditorOptions } from 'src/types/components/Editor';
+import { EditorOptions } from '../types/components/Editor';
 import {
   editorOptions as defaultOptions,
   FeatureOptions,
   featureOptionsDefault
-} from 'src/components/ui/editor/default-options';
+} from '../components/ui/editor/default-options';
 
 interface SettingContext {
   editorOptions: EditorOptions;

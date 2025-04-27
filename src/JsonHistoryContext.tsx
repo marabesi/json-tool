@@ -1,7 +1,12 @@
 import { createContext, ReactElement, useContext, useState } from 'react';
 
+interface HistoryEntry {
+  rawContent: string;
+  snippet: string;
+}
+
 interface JsonHistoryContextInterface {
-  entries: string[];
+  entries: HistoryEntry[];
   appendEntry(entries: string): void;
 }
 
@@ -16,12 +21,13 @@ export const useJsonHistoryContext = () => {
 };
 
 export const JsonHistoryContextProvider = ({ children }: { children: ReactElement }) => {
-  const [entries, setEntries] = useState<string[]>([]);
+  const [entries, setEntries] = useState<HistoryEntry[]>([]);
 
   const appendEntry = (entry: string)  => {
+    const first10 = entry.slice(0, 10);
     setEntries([
       ...entries,
-      entry,
+      { snippet: first10, rawContent: entry },
     ]);
   };
 

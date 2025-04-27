@@ -1,11 +1,11 @@
 import { CSSProperties, ForwardedRef, forwardRef } from 'react';
 import CodeMirror, { BasicSetupOptions, ReactCodeMirrorRef } from '@uiw/react-codemirror';
-import fullConfig from '../../../tailwindResolver';
-import { json } from '@codemirror/lang-json';
-import { Option, Properties } from '../../../types/components/Editor';
 import { duotoneLight } from '@uiw/codemirror-theme-duotone';
-import { useSettingsContext } from 'src/settings/SettingsContext';
-import { useThemeContext } from 'src/DarkModeContext';
+import { json } from '@codemirror/lang-json';
+import fullConfig from '../../../tailwindResolver';
+import { Option, Properties } from '../../../types/components/Editor';
+import { useSettingsContext } from '../../../settings/SettingsContext';
+import { useThemeContext } from '../../../DarkModeContext';
 
 type Event = {
   value: string;
