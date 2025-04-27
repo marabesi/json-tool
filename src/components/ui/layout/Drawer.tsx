@@ -7,7 +7,7 @@ type Props = {
 }
 
 const Drawer = ({ open, setOpen, children }: Props) => {
-  const transitionVisible = open ? 'opacity-100 duration-500 ease-in-out visible': 'opacity-0 duration-500 ease-in-out invisible';
+  const transitionVisible = open ? 'opacity-100 duration-50 ease-in-out visible': 'opacity-0 duration-50 ease-in-out invisible';
   const transitionWidth = open ? 'translate-x-0': 'translate-x-full';
   return (
     <div

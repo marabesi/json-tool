@@ -23,7 +23,7 @@ export default function DefaultLayout({ children }: Props) {
         { children }
         <Footer />
         { isHistoryEnabled && <Drawer open={isOpen} setOpen={setOpen}>
-          <p></p>
+          <p>Working in progress</p>
         </Drawer>}
       </div>
     </div>

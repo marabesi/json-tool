@@ -40,17 +40,16 @@ export function Settings() {
     handleFeatureOptionsChanged({ options: allFeatureOptions });
   };
 
-
   return (
     <div>
       <h1 className="text-xl m-2">Settings</h1>
       <div className="flex mr-2">
         <div>
-          <h2>Editor</h2>
+          <h2 className="font-bold">Editor</h2>
           {
             allEditorOptions.map((option: Option, index: number) =>
               <div key={index} className="m-2">
-                <label>
+                <label className="flex items-center justify-between cursor-pointer">
                   {option.title}
                   <input type="checkbox" checked={option.active} onChange={() => onSaveEditorOption(option)} />
                 </label>
@@ -60,14 +59,14 @@ export function Settings() {
           <input data-testid="font-size" type="text" value={prop.value} onChange={(event) => setProp({ key: 'fontSize', value: event.target.value })}/>
         </div>
 
-        <div>
-          <h2>Features</h2>
+        <div className="ml-5">
+          <h2 className="font-bold">Features</h2>
           {
             allFeatureOptions.map((option: Option, index: number) =>
               <div key={index} className="m-2">
-                <label>
+                <label className="flex items-center justify-between cursor-pointer">
                   {option.title}
-                  <input type="checkbox" data-testid="json-history-setting" checked={option.active} onChange={() => onSaveFeatureOption(option)} />
+                  <input className="ml-2" type="checkbox" data-testid="json-history-setting" checked={option.active} onChange={() => onSaveFeatureOption(option)} />
                 </label>
               </div>
             )
