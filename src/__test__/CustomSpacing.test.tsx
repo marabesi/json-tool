@@ -1,4 +1,4 @@
-import { act, waitFor, screen, fireEvent } from '@testing-library/react';
+import { waitFor, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
 import { customType } from './__testutilities__/customTyping';
@@ -23,9 +23,7 @@ describe('Custom spacing for formatting json', () => {
 
       const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
-      await act(async () => {
-        await customType(editor, '{{"a":"a"}');
-      });
+      await customType(editor, '{{"a":"a"}');
 
       const result = (screen.getByTestId('result') as HTMLInputElement);
 
@@ -42,9 +40,7 @@ describe('Custom spacing for formatting json', () => {
 
       await userEvent.clear(space);
 
-      await act(async () => {
-        await customType(space, spacing);
-      });
+      await customType(space, spacing);
 
       expect(space).toHaveValue(spacing);
     });
@@ -73,15 +69,11 @@ describe('Custom spacing for formatting json', () => {
 
       await userEvent.clear(space);
 
-      await act(async () => {
-        await customType(space, spacing);
-      });
+      await customType(space, spacing);
 
       const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
-      await act(async () => {
-        await customType(editor, inputJson);
-      });
+      await customType(editor, inputJson);
 
       await waitFor(() => {
         const result = (screen.getByTestId('raw-result') as HTMLInputElement);
@@ -95,17 +87,13 @@ describe('Custom spacing for formatting json', () => {
 
       const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
-      await act(async () => {
-        await customType(editor, '{{"a":"a"}');
-      });
+      await customType(editor, '{{"a":"a"}');
 
       const space = screen.getByDisplayValue('2');
 
       await userEvent.clear(space);
 
-      await act(async () => {
-        await customType(space, '4');
-      });
+      await customType(space, '4');
 
       await waitFor(() => {
         expect(screen.getByTestId('raw-result')).toHaveValue(`{
