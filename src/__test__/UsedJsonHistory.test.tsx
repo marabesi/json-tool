@@ -1,4 +1,4 @@
-import {screen, waitFor, within} from '@testing-library/react';
+import { screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderEntireApp } from './__testutilities__/builder';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
