@@ -1,8 +1,11 @@
-import App from '../../App';
 import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router';
+import { AppWithoutRouter } from '../../App';
 
 export function renderEntireApp() {
   return render(
-    <App />
+    <MemoryRouter>
+      <AppWithoutRouter/>
+    </MemoryRouter>
   );
 }

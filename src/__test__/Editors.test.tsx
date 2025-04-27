@@ -1,4 +1,4 @@
-import { act, waitFor, within, screen } from '@testing-library/react';
+import { waitFor, within, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { customType } from './__testutilities__/customTyping';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
@@ -13,9 +13,7 @@ describe('Editors', () => {
 
     const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
-    await act(async () => {
-      await customType(editor, input);
-    });
+    await customType(editor, input);
 
     const result = screen.getByTestId('result');
 
@@ -28,9 +26,7 @@ describe('Editors', () => {
     const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
     const json = '{{"random_json":"123"}';
 
-    await act(async () => {
-      await customType(editor, json);
-    });
+    await customType(editor, json);
 
     const rawEditor = screen.getByTestId('raw-json');
 
@@ -82,9 +78,7 @@ describe('Editors', () => {
       const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
       const json = '{{"random_json":"123","a":"a"}';
 
-      act(() => {
-        customType(editor, json);
-      });
+      customType(editor, json);
 
       await waitFor(() => {
         expect (screen.getByTestId('loading')).toBeInTheDocument();
@@ -97,9 +91,7 @@ describe('Editors', () => {
       const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
       const json = '{{"random_json":"123"}';
 
-      act(() => {
-        customType(editor, json);
-      });
+      customType(editor, json);
 
       await waitFor(() => {
         expect (screen.getByTestId('loading')).toBeInTheDocument();

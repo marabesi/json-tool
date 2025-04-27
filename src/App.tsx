@@ -10,27 +10,33 @@ import { PersistenceContextProvider } from './PersistenceContext';
 import { DrawerContextProvider } from './DrawerContext';
 import { JsonHistoryContextProvider } from './JsonHistoryContext';
 
+export function AppWithoutRouter() {
+  return (
+    <JsonHistoryContextProvider>
+      <PersistenceContextProvider>
+        <ThemeContextProvider>
+          <DrawerContextProvider>
+            <SettingsContextProvider>
+              <DefaultLayout>
+                <Routes>
+                  <Route path="/" element={<Editors/>}/>
+                  <Route path="/settings" element={<Settings/>}/>
+                  <Route path="/docs" element={<Docs/>}/>
+                </Routes>
+                <Toaster/>
+              </DefaultLayout>
+            </SettingsContextProvider>
+          </DrawerContextProvider>
+        </ThemeContextProvider>
+      </PersistenceContextProvider>
+    </JsonHistoryContextProvider>
+  );
+}
+
 function App() {
   return (
     <Router>
-      <PersistenceContextProvider>
-        <JsonHistoryContextProvider>
-          <ThemeContextProvider>
-            <DrawerContextProvider>
-              <SettingsContextProvider>
-                <DefaultLayout>
-                  <Routes>
-                    <Route path="/" element={<Editors />} />
-                    <Route path="/settings" element={<Settings />} />
-                    <Route path="/docs" element={<Docs />} />
-                  </Routes>
-                  <Toaster />
-                </DefaultLayout>
-              </SettingsContextProvider>
-            </DrawerContextProvider>
-          </ThemeContextProvider>
-        </JsonHistoryContextProvider>
-      </PersistenceContextProvider>
+      <AppWithoutRouter/>
     </Router>
   );
 }
