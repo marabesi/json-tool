@@ -89,7 +89,7 @@ describe('Editors', () => {
       renderEntireApp();
 
       const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
-      const json = '{{"random_json":"123"}';
+      const json = '{{"random_json":"12aaa ss dd d sss3","a":"a"}';
 
       customType(editor, json);
 
