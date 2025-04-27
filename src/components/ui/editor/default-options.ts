@@ -1,5 +1,9 @@
 import { EditorOptions, Option, Properties } from '../../../types/components/Editor';
 
+export interface FeatureOptions {
+  options: Option[];
+}
+
 export const defaultOp: Option[] = [
   { title: 'foldGutter', active: true },
   { title: 'syntaxHighlighting', active : true },
@@ -19,3 +23,5 @@ export const editorOptions: EditorOptions = {
   options: defaultOp,
   properties: [properties],
 };
+
+export const featureOptionsDefault: FeatureOptions = { options: [ { title: 'JSON History', active: false } ] };

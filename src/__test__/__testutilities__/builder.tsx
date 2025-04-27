@@ -1,8 +1,8 @@
 import App from '../../App';
 import { render } from '@testing-library/react';
 
-export const renderEntireApp = () => {
+export function renderEntireApp() {
   return render(
     <App />
   );
-};
+}

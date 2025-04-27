@@ -7,22 +7,25 @@ import DefaultLayout from './components/ui/layout/Default';
 import { ThemeContextProvider } from './DarkModeContext';
 import { SettingsContextProvider } from './settings/SettingsContext';
 import { PersistenceContextProvider } from './PersistenceContext';
+import { DrawerContextProvider } from './DrawerContext';
 
 function App() {
   return (
     <Router>
       <PersistenceContextProvider>
         <ThemeContextProvider>
-          <DefaultLayout>
+          <DrawerContextProvider>
             <SettingsContextProvider>
-              <Routes>
-                <Route path="/" element={<Editors />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="/docs" element={<Docs />} />
-              </Routes>
+              <DefaultLayout>
+                <Routes>
+                  <Route path="/" element={<Editors />} />
+                  <Route path="/settings" element={<Settings />} />
+                  <Route path="/docs" element={<Docs />} />
+                </Routes>
+                <Toaster />
+              </DefaultLayout>
             </SettingsContextProvider>
-            <Toaster />
-          </DefaultLayout>
+          </DrawerContextProvider>
         </ThemeContextProvider>
       </PersistenceContextProvider>
     </Router>

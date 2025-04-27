@@ -85,7 +85,7 @@ describe('Settings', () => {
 
     it('renders option to use history', async () => {
       await goToSettings();
-      expect(screen.getByTestId('json-history')).toBeInTheDocument();
+      expect(screen.getByTestId('json-history-setting')).toBeInTheDocument();
     });
 
     it('renders option to use history label', async () => {
@@ -93,17 +93,17 @@ describe('Settings', () => {
       expect(screen.getByLabelText('JSON History')).toBeInTheDocument();
     });
 
-    it('option to use history is unchecked by default', async () => {
+    it('option to use history is disabled by default', async () => {
       await goToSettings();
-      expect(screen.getByTestId('json-history')).not.toBeChecked();
+      expect(screen.queryByTestId('json-drawer-history-button')).not.toBeInTheDocument();
     });
 
     it('enable history feature', async () => {
       await goToSettings();
 
-      await userEvent.click(screen.getByTestId('json-history'));
+      await userEvent.click(screen.getByTestId('json-history-setting'));
 
-      expect(screen.getByTestId('json-history')).toBeChecked();
+      expect(await screen.findByTestId('json-drawer-history-button')).toBeInTheDocument();
     });
   });
 });

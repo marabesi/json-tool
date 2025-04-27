@@ -24,6 +24,9 @@ globalThis.importScripts = (url: string) => {
 jest.setTimeout(30000);
 
 beforeEach(() => {
+  jest.resetModules();
+  jest.resetAllMocks();
+
   document.createRange = () => {
     const range = new Range();
 
@@ -39,4 +42,9 @@ beforeEach(() => {
 
     return range;
   };
+});
+
+afterEach(() => {
+  jest.resetModules();
+  jest.resetAllMocks();
 });

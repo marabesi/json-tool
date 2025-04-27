@@ -4,9 +4,11 @@ import { Option, Properties } from '../types/components/Editor';
 import { useSettingsContext } from 'src/settings/SettingsContext';
 
 export function Settings() {
-  const { editorOptions: options, handleEditorOptionsChanged: handleChange } = useSettingsContext();
+  const { editorOptions: options, handleEditorOptionsChanged: handleChange, handleFeatureOptionsChanged, featureOptions } = useSettingsContext();
   const [prop, setProp] = useState<Properties>({ key: 'fontSize', value: options.properties[0].value });
+
   const [allEditorOptions, setAllOptionsForEditor] = useState<Option[]>(options.options);
+  const [allFeatureOptions, setAllOptionsForFeatures] = useState<Option[]>(featureOptions.options);
 
   const persistChanges = () => {
     handleChange({
@@ -25,6 +27,19 @@ export function Settings() {
       })
     );
   };
+
+  const onSaveFeatureOption = (selectedOption: Option) => {
+    setAllOptionsForFeatures(
+      allFeatureOptions.map((option: Option) => {
+        if (selectedOption.title === option.title) {
+          option.active = !option.active;
+        }
+        return option;
+      })
+    );
+    handleFeatureOptionsChanged({ options: allFeatureOptions });
+  };
+
 
   return (
     <div>
@@ -47,12 +62,16 @@ export function Settings() {
 
         <div>
           <h2>Features</h2>
-          <div>
-            <label>
-              JSON History
-              <input data-testid="json-history" type="checkbox" />
-            </label>
-          </div>
+          {
+            allFeatureOptions.map((option: Option, index: number) =>
+              <div key={index} className="m-2">
+                <label>
+                  {option.title}
+                  <input type="checkbox" data-testid="json-history-setting" checked={option.active} onChange={() => onSaveFeatureOption(option)} />
+                </label>
+              </div>
+            )
+          }
         </div>
       </div>
 

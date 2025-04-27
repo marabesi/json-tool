@@ -1,10 +1,16 @@
 import { createContext, ReactElement, useContext, useState } from 'react';
 import { EditorOptions } from 'src/types/components/Editor';
-import { editorOptions as defaultOptions } from 'src/components/ui/editor/default-options';
+import {
+  editorOptions as defaultOptions,
+  FeatureOptions,
+  featureOptionsDefault
+} from 'src/components/ui/editor/default-options';
 
 interface SettingContext {
   editorOptions: EditorOptions;
+  featureOptions: FeatureOptions;
   handleEditorOptionsChanged: (changed: EditorOptions) => void;
+  handleFeatureOptionsChanged: (changed: FeatureOptions) => void;
 }
 
 const SettingsContext = createContext<SettingContext | undefined>(undefined);
@@ -18,18 +24,25 @@ export const useSettingsContext = () => {
 };
 
 export const SettingsContextProvider = ({ children }: { children: ReactElement }) => {
-  const [editorOptions, setEditorOptions] = useState<any>(defaultOptions);
+  const [editorOptions, setEditorOptions] = useState<EditorOptions>(defaultOptions);
+  const [featureOptions, setFeatureOptions] = useState<FeatureOptions>(featureOptionsDefault);
 
-  const handleChange = (changed: EditorOptions) => {
+  const handleEditorOptionsChanged = (changed: EditorOptions) => {
     editorOptions.properties = changed.properties;
     editorOptions.options = changed.options;
     setEditorOptions(editorOptions);
   };
 
+  const handleFeatureOptionsChanged = (changed: FeatureOptions) => {
+    setFeatureOptions(changed);
+  };
+
   return (
     <SettingsContext.Provider value={{
-      editorOptions: editorOptions,
-      handleEditorOptionsChanged: handleChange
+      editorOptions,
+      featureOptions,
+      handleEditorOptionsChanged,
+      handleFeatureOptionsChanged,
     }}>
       {children}
     </SettingsContext.Provider>

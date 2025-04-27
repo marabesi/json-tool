@@ -1,13 +1,19 @@
-import { FaCoffee, FaRegSun, FaRegLightbulb } from 'react-icons/fa';
+import { FaCoffee, FaRegSun, FaRegLightbulb, FaHistory } from 'react-icons/fa';
 import { Link } from 'react-router';
 import Switch from 'react-switch';
 import fullConfig from '../../tailwindResolver';
-import { usePersistenceContext } from 'src/PersistenceContext';
-import { useThemeContext } from 'src/DarkModeContext';
+import { usePersistenceContext } from '../../PersistenceContext';
+import { useThemeContext } from '../../DarkModeContext';
+import { useSettingsContext } from '../../settings/SettingsContext';
+import { useDrawerContext } from '../../DrawerContext';
 
 export default function Header() {
   const { isValidateEnabled, setValidateEnabled } = usePersistenceContext();
   const { onDarkThemeChanged, darkModeEnabled  } = useThemeContext();
+  const { featureOptions } = useSettingsContext();
+  const{ isOpen, setOpen } = useDrawerContext();
+  const isHistoryEnabled = featureOptions.options.find(item => item.title === 'JSON History' && item.active);
+
   return (
     <div className="bg-blue-900 flex justify-between p-5 dark:bg-gray-700">
       <div className="flex items-center">
@@ -23,6 +29,11 @@ export default function Header() {
         </div>
       </div>
       <div className="flex items-center">
+        {isHistoryEnabled &&
+          <button data-testid="json-drawer-history-button" className="mr-5" onClick={() => setOpen(!isOpen)}>
+            <FaHistory />
+          </button>
+        }
         <Link className="flex items-center mr-5" data-testid="docs" to="/docs" title="JSON tool documentation">
           <FaRegLightbulb />
         </Link>

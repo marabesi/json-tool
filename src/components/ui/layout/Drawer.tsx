@@ -19,6 +19,7 @@ const Drawer = ({ open, setOpen, children }: Props) => {
       onClick={() => setOpen(!open)}
     >
       <div
+        data-testid="drawer"
         className={`fixed inset-0 bg-gray-500 bg-opacity-75 transition-all ${transitionVisible}`}
       ></div>
       <div className={open ? 'fixed inset-0 overflow-hidden' : ''}>
