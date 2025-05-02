@@ -1,4 +1,4 @@
-import { EditorOptions, Option, Properties } from '../../../types/components/Editor';
+import { EditorOptions, Option, Properties } from './types/components/Editor';
 
 export interface FeatureOptions {
   options: Option[];
@@ -23,5 +23,3 @@ export const editorOptions = (): EditorOptions => ({
   options: defaultOp,
   properties: [properties],
 });
-
-export const featureOptionsDefault = (): FeatureOptions => ({ options: [ { title: 'JSON History', active: false } ] });

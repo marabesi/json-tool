@@ -3,8 +3,8 @@ import { EditorOptions } from '../types/components/Editor';
 import {
   editorOptions as defaultOptions,
   FeatureOptions,
-  featureOptionsDefault
-} from '../components/ui/editor/default-options';
+} from '../default-options';
+import { featureOptionsDefault } from '../default-features';
 
 interface SettingContext {
   editorOptions: EditorOptions;
