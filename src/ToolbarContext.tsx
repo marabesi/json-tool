@@ -1,20 +1,15 @@
 import { createContext, ReactElement, useContext } from 'react';
-import toast from 'react-hot-toast';
 import { usePersistenceContext } from './PersistenceContext';
 import CleanUp from './core/cleanUp';
 
 const cleanUp = new CleanUp();
 
 interface ToolbarContextInterface {
-  pasteFromClipboard: () => Promise<string>;
-  writeToClipboard: () => Promise<void>;
-  isClipboardAvailable: () => boolean;
   deleteJson: () => void;
   cleanWhiteSpaces: () => void;
   cleanNewLines: () => void;
   cleanNewLinesAndSpaces: () => void;
   updateSpacing: (newSpacing: string) => void;
-
 }
 
 const ToolbarContext = createContext<ToolbarContextInterface | undefined>(undefined);
@@ -28,28 +23,7 @@ export const useToolbarContext = () => {
 };
 
 export const ToolbarContextProvider = ({ children }: { children: ReactElement }) => {
-  const { jsonState, resultState, setResultState, onChange, spacing, setSpacing } = usePersistenceContext();
-
-  const isClipboardAvailable = () => navigator.clipboard && typeof navigator.clipboard.read === 'function';
-
-  const writeToClipboard = async () => {
-    await navigator.clipboard.writeText(resultState);
-    toast.success('Copied');
-  };
-
-  const pasteFromClipboard = async () => {
-    const clipboardItems = await navigator.clipboard.read();
-    let result = '';
-    for (const clipboardItem of clipboardItems) {
-      for (const type of clipboardItem.types) {
-        const blob = await clipboardItem.getType(type);
-        const text = await blob.text();
-        result += text;
-      }
-    }
-
-    return result;
-  };
+  const { jsonState, setResultState, onChange, spacing, setSpacing } = usePersistenceContext();
 
   const deleteJson = () => onChange('', spacing);
 
@@ -75,9 +49,6 @@ export const ToolbarContextProvider = ({ children }: { children: ReactElement })
 
   return (
     <ToolbarContext.Provider value={{
-      isClipboardAvailable,
-      writeToClipboard,
-      pasteFromClipboard,
       deleteJson,
       cleanWhiteSpaces,
       cleanNewLines,

@@ -3,6 +3,7 @@ import { FaRegClipboard, FaRegFileArchive, FaRegTrashAlt, FaSearch } from 'react
 import Button from '../io/Button';
 import { useToolbarContext } from '../../../ToolbarContext';
 import { usePersistenceContext } from '../../../PersistenceContext';
+import { useClipboardContext } from '../../../ClipboardContext';
 
 interface Props {
   onLoadedFile: DetailedHTMLProps<any, any>;
@@ -10,7 +11,8 @@ interface Props {
 }
 
 export default function JsonMenu({ onLoadedFile, onSearch } : Props) {
-  const { pasteFromClipboard: pasteFromContext, isClipboardAvailable, deleteJson } = useToolbarContext();
+  const { deleteJson } = useToolbarContext();
+  const { pasteFromClipboard: pasteFromContext, isClipboardAvailable } = useClipboardContext();
   const { onChange, spacing } = usePersistenceContext();
 
   const fileContent  = useRef(null);

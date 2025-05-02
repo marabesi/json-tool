@@ -4,6 +4,7 @@ import InputText from '../io/InputText';
 import Button from '../io/Button';
 import { useToolbarContext } from '../../../ToolbarContext';
 import { usePersistenceContext } from '../../../PersistenceContext';
+import { useClipboardContext } from '../../../ClipboardContext';
 
 interface Props {
   onSearch: DetailedHTMLProps<any, any>;
@@ -13,7 +14,8 @@ export default function ResultMenu(
   { onSearch }: Props
 ) {
   const { spacing } = usePersistenceContext();
-  const { writeToClipboard, isClipboardAvailable, updateSpacing, cleanWhiteSpaces, cleanNewLinesAndSpaces, cleanNewLines } = useToolbarContext();
+  const { updateSpacing, cleanWhiteSpaces, cleanNewLinesAndSpaces, cleanNewLines } = useToolbarContext();
+  const { writeToClipboard, isClipboardAvailable } = useClipboardContext();
 
   return (
     <div className="flex justify-start items-center m-2 ml-0 h-10">

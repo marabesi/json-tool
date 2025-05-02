@@ -10,27 +10,30 @@ import { PersistenceContextProvider } from './PersistenceContext';
 import { DrawerContextProvider } from './DrawerContext';
 import { JsonHistoryContextProvider } from './JsonHistoryContext';
 import { ToolbarContextProvider } from './ToolbarContext';
+import { ClipboardContextProvider } from './ClipboardContext';
 
 export function AppWithoutRouter() {
   return (
     <JsonHistoryContextProvider>
       <PersistenceContextProvider>
-        <ThemeContextProvider>
-          <DrawerContextProvider>
-            <SettingsContextProvider>
-              <ToolbarContextProvider>
-                <DefaultLayout>
-                  <Routes>
-                    <Route path="/" element={<Editors/>}/>
-                    <Route path="/settings" element={<Settings/>}/>
-                    <Route path="/docs" element={<Docs/>}/>
-                  </Routes>
-                  <Toaster/>
-                </DefaultLayout>
-              </ToolbarContextProvider>
-            </SettingsContextProvider>
-          </DrawerContextProvider>
-        </ThemeContextProvider>
+        <ClipboardContextProvider>
+          <ThemeContextProvider>
+            <DrawerContextProvider>
+              <SettingsContextProvider>
+                <ToolbarContextProvider>
+                  <DefaultLayout>
+                    <Routes>
+                      <Route path="/" element={<Editors/>}/>
+                      <Route path="/settings" element={<Settings/>}/>
+                      <Route path="/docs" element={<Docs/>}/>
+                    </Routes>
+                    <Toaster/>
+                  </DefaultLayout>
+                </ToolbarContextProvider>
+              </SettingsContextProvider>
+            </DrawerContextProvider>
+          </ThemeContextProvider>
+        </ClipboardContextProvider>
       </PersistenceContextProvider>
     </JsonHistoryContextProvider>
   );
