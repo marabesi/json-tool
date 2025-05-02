@@ -48,7 +48,6 @@
     "autoprefixer": "^9.8.7",
     "@types/jest": "^29.5.14",
     "babel-jest": "^29.7.0",
-    "esbuild-jest": "^0.5.0",
     "jest-clipboard": "^0.0.11",
     "jsdom-worker": "^0.3.0",
     "babel-plugin-preval": "^5.0.0",
@@ -60,7 +59,6 @@
     "cypress-image-diff-js": "^1.30.0",
     "electron": "^35.2.1",
     "electron-builder": "^26.0.12",
-    "esbuild": "^0.25.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-react": "^7.26.1",
@@ -148,7 +146,7 @@
       "<rootDir>/node_modules/?!(.*)"
     ],
     "transform": {
-      "^.+\\.tsx?$": "esbuild-jest"
+      "^.+\\.tsx?$": "babel-jest"
     }
   }
 }
