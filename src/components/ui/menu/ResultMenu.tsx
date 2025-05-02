@@ -1,21 +1,20 @@
-import InputText from '../io/InputText';
-import Button from '../io/Button';
 import { FaBackspace, FaRegCopy, FaSearch, FaTerminal, FaUserFriends } from 'react-icons/fa';
 import { DetailedHTMLProps } from 'react';
+import InputText from '../io/InputText';
+import Button from '../io/Button';
+import { useToolbarContext } from '../../../ToolbarContext';
+import { usePersistenceContext } from '../../../PersistenceContext';
 
 interface Props {
-  spacing: DetailedHTMLProps<any, any>;
-  updateSpacing: DetailedHTMLProps<any, any>;
-  writeToClipboard: DetailedHTMLProps<any, any>;
-  cleanWhiteSpaces: DetailedHTMLProps<any, any>;
-  cleanNewLines: DetailedHTMLProps<any, any>;
-  cleanNewLinesAndSpaces: DetailedHTMLProps<any, any>;
   onSearch: DetailedHTMLProps<any, any>;
 }
 
 export default function ResultMenu(
-  { spacing, updateSpacing, writeToClipboard, cleanWhiteSpaces, cleanNewLines, cleanNewLinesAndSpaces, onSearch }: Props
+  { onSearch }: Props
 ) {
+  const { spacing } = usePersistenceContext();
+  const { writeToClipboard, isClipboardAvailable, updateSpacing, cleanWhiteSpaces, cleanNewLinesAndSpaces, cleanNewLines } = useToolbarContext();
+
   return (
     <div className="flex justify-start items-center m-2 ml-0 h-10">
       <Button data-testid="search-result" onClick={onSearch}>
@@ -58,7 +57,7 @@ export default function ResultMenu(
       <Button
         data-testid="copy-json"
         onClick={writeToClipboard}
-        disabled={!writeToClipboard}
+        disabled={!isClipboardAvailable()}
         title="Copy json is disabled due lack of browser support"
         className="flex items-center"
       >

@@ -1,15 +1,18 @@
 import { BaseSyntheticEvent, DetailedHTMLProps, useRef } from 'react';
-import Button from '../io/Button';
 import { FaRegClipboard, FaRegFileArchive, FaRegTrashAlt, FaSearch } from 'react-icons/fa';
+import Button from '../io/Button';
+import { useToolbarContext } from '../../../ToolbarContext';
+import { usePersistenceContext } from '../../../PersistenceContext';
 
 interface Props {
-  pasteFromClipboard: DetailedHTMLProps<any, any>;
-  cleanup: DetailedHTMLProps<any, any>;
   onLoadedFile: DetailedHTMLProps<any, any>;
   onSearch: DetailedHTMLProps<any, any>;
 }
 
-export default function JsonMenu({ pasteFromClipboard, cleanup, onLoadedFile, onSearch } : Props) {
+export default function JsonMenu({ onLoadedFile, onSearch } : Props) {
+  const { pasteFromClipboard: pasteFromContext, isClipboardAvailable, deleteJson } = useToolbarContext();
+  const { onChange, spacing } = usePersistenceContext();
+
   const fileContent  = useRef(null);
 
   function onFileUploaded(event: BaseSyntheticEvent) {
@@ -25,6 +28,10 @@ export default function JsonMenu({ pasteFromClipboard, cleanup, onLoadedFile, on
     }
   }
 
+  async function pasteFromClipboard() {
+    onChange(await pasteFromContext(), spacing);
+  }
+
   return (
     <div className="flex w-full justify-start items-center m-2 ml-0 h-10">
       <Button data-testid="search-json" onClick={onSearch}>
@@ -34,7 +41,7 @@ export default function JsonMenu({ pasteFromClipboard, cleanup, onLoadedFile, on
         onClick={pasteFromClipboard}
         data-testid="paste-from-clipboard"
         className="ml-0 flex items-center"
-        disabled={!pasteFromClipboard}
+        disabled={!isClipboardAvailable()}
         title="Paste from clipboard is disabled due lack of browser support"
       >
         <FaRegClipboard className="mr-2" />
@@ -50,7 +57,7 @@ export default function JsonMenu({ pasteFromClipboard, cleanup, onLoadedFile, on
             // @ts-ignore at the  time of this code, there were no options to reset without accessing the ref
             fileContent.current.value = '';
           }
-          cleanup();
+          deleteJson();
         }}
         data-testid="clean"
         className="flex items-center"
