@@ -31,7 +31,7 @@ export default function JsonMenu({ onLoadedFile, onSearch } : Props) {
   }
 
   async function pasteFromClipboard() {
-    onChange(await pasteFromContext(), spacing);
+    onChange(await pasteFromContext(), spacing, true);
   }
 
   return (

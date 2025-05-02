@@ -12,7 +12,7 @@ interface PersistenceContextInterface {
   setSpacing: (spacing: string) => void;
   inProgress: boolean;
   setInProgress: (inProgress: boolean) => void;
-  onChange: (eventValue: string, eventSpacing: string) => void;
+  onChange: (eventValue: string, eventSpacing: string, appendToHistory: boolean) => void;
   error: string;
   setError: (error: string) => void;
 }
@@ -91,13 +91,16 @@ export const PersistenceContextProvider = ({ children }: { children: ReactElemen
     };
   }, [setResultState]);
 
-  const onChange = (eventValue: string, eventSpacing: string) => {
+  const onChange = (eventValue: string, eventSpacing: string, append: boolean) => {
     if (worker.current) {
       worker.current.postMessage({ jsonAsString: eventValue, spacing: eventSpacing, isValidateEnabled });
     }
     setJsonState(eventValue);
     setInProgress(true);
-    historyContext.appendEntry(eventValue);
+
+    if (append) {
+      historyContext.appendEntry(eventValue);
+    }
   };
   
   return (

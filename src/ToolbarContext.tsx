@@ -25,7 +25,7 @@ export const useToolbarContext = () => {
 export const ToolbarContextProvider = ({ children }: { children: ReactElement }) => {
   const { jsonState, setResultState, onChange, spacing, setSpacing } = usePersistenceContext();
 
-  const deleteJson = () => onChange('', spacing);
+  const deleteJson = () => onChange('', spacing, true);
 
   const cleanWhiteSpaces = () => {
     const withoutSpaces = cleanUp.cleanWhiteSpaces(jsonState);
@@ -44,7 +44,7 @@ export const ToolbarContextProvider = ({ children }: { children: ReactElement })
 
   const updateSpacing = (newSpacing: string) => {
     setSpacing(newSpacing);
-    onChange(jsonState, newSpacing);
+    onChange(jsonState, newSpacing, true);
   };
 
   return (

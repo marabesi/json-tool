@@ -17,12 +17,12 @@ export default function Editors() {
     <div className="flex h-full justify-center p-1" data-testid="editor-container">
       <EditorContainer>
         <JsonMenu
-          onLoadedFile={(text: string) => onChange(text, spacing)}
+          onLoadedFile={(text: string) => onChange(text, spacing, true)}
           onSearch={() => openSearchPanel(jsonReferenceEditor.current?.view!!)}
         />
         <JsonEditor
           input={jsonState}
-          onChange={event => onChange(event.value, spacing)}
+          onChange={event => onChange(event.value, spacing, true)}
           data-testid="json"
           contenteditable={true}
           ref={jsonReferenceEditor as Ref<ReactCodeMirrorRef> | undefined}

@@ -244,6 +244,28 @@ describe('Used Json History', () => {
         // we need to go back to settings bcs we have an after each to disable the flag
         await userEvent.click(screen.getByTestId('settings'));
       });
+
+      it('restoring from json history does not add a new entry in the list', async () => {
+        renderEntireApp();
+
+        await goToSettings();
+        await clickHistorySetting();
+
+        await userEvent.click(screen.getByTestId('to-home'));
+
+        const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
+
+        await customType(editor, '{{');
+
+        await userEvent.click(await screen.findByTestId('clean'));
+
+        await userEvent.click(await screen.findByTestId('json-send-to-editor-entry'));
+
+        expect(await within(await screen.findByTestId('history-content')).findAllByTestId('json-send-to-editor-entry')).toHaveLength(1);
+
+        // we need to go back to settings bcs we have an after each to disable the flag
+        await userEvent.click(screen.getByTestId('settings'));
+      });
     });
   });
 });

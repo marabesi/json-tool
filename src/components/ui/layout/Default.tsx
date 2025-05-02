@@ -39,7 +39,7 @@ export default function DefaultLayout({ children }: Props) {
                   <FaReply
                     data-testid="json-send-to-editor-entry"
                     className="cursor-pointer m-3 hover:text-blue-300 dark:hover:text-gray-300"
-                    onClick={() => onChange(item.rawContent, spacing)}
+                    onClick={() => onChange(item.rawContent, spacing, false)}
                   />
                   <FaRegCopy
                     data-testid="json-copy-entry"
