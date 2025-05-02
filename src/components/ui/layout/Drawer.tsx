@@ -24,7 +24,7 @@ const Drawer = ({ open, setOpen, children }: Props) => {
       ></div>
       <div className={open ? 'fixed inset-0 overflow-hidden' : ''}>
         <div className="absolute inset-0 overflow-hidden">
-          <div className="pointer-events-none fixed max-w-full inset-y-0 right-0">
+          <div className="pointer-events-none fixed w-4/12 inset-y-0 right-0">
             <div
               className={`pointer-events-auto relative w-full h-full transform transition ease-in-out duration-500 ${transitionWidth}`}
               onClick={(event) => {
@@ -33,7 +33,7 @@ const Drawer = ({ open, setOpen, children }: Props) => {
               }}
             >
               <div
-                className='flex h-full w-full overflow-y-scroll p-20 shadow-xl rounded-lg bg-blue-400 text-gray-100 dark:text-gray-400 dark:bg-gray-600'
+                className='flex h-full w-full overflow-y-scroll p-2 shadow-xl bg-blue-400 text-gray-100 dark:text-gray-400 dark:bg-gray-600'
               >
                 {children}
               </div>
