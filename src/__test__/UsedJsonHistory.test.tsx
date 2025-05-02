@@ -4,7 +4,7 @@ import { renderEntireApp } from './__testutilities__/builder';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
 import { customType } from './__testutilities__/customTyping';
 import { setUpClipboard, tearDownClipboard, readTextFromClipboard } from 'jest-clipboard';
-import {emptyMatchMedia, matchMedia} from "./__testutilities__/matchMedia";
+import { emptyMatchMedia, matchMedia } from './__testutilities__/matchMedia';
 
 async function goToSettings() {
   await userEvent.click(screen.getByTestId('settings'));
@@ -135,6 +135,24 @@ describe('Used Json History', () => {
         // we need to go back to settings bcs we have an after each to disable the flag
         await userEvent.click(screen.getByTestId('settings'));
       });
+
+      it('render send to editor button', async () => {
+        renderEntireApp();
+
+        await goToSettings();
+        await clickHistorySetting();
+
+        await userEvent.click(screen.getByTestId('to-home'));
+
+        const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
+
+        await customType(editor, '{{');
+
+        expect(await within(await screen.findByTestId('history-content')).findByTestId('json-send-to-editor-entry')).toBeInTheDocument();
+
+        // we need to go back to settings bcs we have an after each to disable the flag
+        await userEvent.click(screen.getByTestId('settings'));
+      });
     });
 
     describe('clipboard', () => {
@@ -187,6 +205,41 @@ describe('Used Json History', () => {
         await userEvent.click(await screen.findByTestId('json-copy-entry'));
 
         expect(await screen.findByText('Copied')).toBeInTheDocument();
+
+        // we need to go back to settings bcs we have an after each to disable the flag
+        await userEvent.click(screen.getByTestId('settings'));
+      });
+    });
+
+    describe('use json', () => {
+      beforeEach(() => {
+      });
+
+      afterEach(async () => {
+        await clickHistorySetting();
+      });
+
+      it('send json to the editor', async () => {
+        renderEntireApp();
+
+        await goToSettings();
+        await clickHistorySetting();
+
+        await userEvent.click(screen.getByTestId('to-home'));
+
+        const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
+
+        await customType(editor, '{{');
+
+        await userEvent.click(await screen.findByTestId('clean'));
+
+        await userEvent.click(await screen.findByTestId('json-send-to-editor-entry'));
+
+        const rawEditor = screen.getByTestId('raw-json');
+
+        await waitFor(() => {
+          expect(rawEditor).toHaveValue('{');
+        });
 
         // we need to go back to settings bcs we have an after each to disable the flag
         await userEvent.click(screen.getByTestId('settings'));

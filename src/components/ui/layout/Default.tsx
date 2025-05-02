@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { FaRegCopy } from 'react-icons/fa';
+import { FaRegCopy, FaReply } from 'react-icons/fa';
 import Header from '../Header';
 import Footer from '../Footer';
 import Drawer from './Drawer';
@@ -8,6 +8,7 @@ import { useSettingsContext } from '../../../settings/SettingsContext';
 import { useDrawerContext } from '../../../DrawerContext';
 import { useJsonHistoryContext } from '../../../JsonHistoryContext';
 import { useClipboardContext } from '../../../ClipboardContext';
+import { usePersistenceContext } from '../../../PersistenceContext';
 
 interface Props {
   children?: ReactNode
@@ -19,6 +20,7 @@ export default function DefaultLayout({ children }: Props) {
   const { isOpen, setOpen } = useDrawerContext();
   const { entries } = useJsonHistoryContext();
   const { sendStringToClipboard } = useClipboardContext();
+  const { spacing, onChange } = usePersistenceContext();
   
   const isHistoryEnabled = featureOptions.options.find(item => item.title === 'JSON History' && item.active);
 
@@ -32,8 +34,13 @@ export default function DefaultLayout({ children }: Props) {
           <div data-testid="history-content" className="w-full">
             {entries.map((item, index) => {
               return (
-                <div key={index} className="flex items-center">
+                <div key={index} className="flex items-center justify-around">
                   <p data-testid="history-entry" className="mr-2 w-full">{item.snippet}</p>
+                  <FaReply
+                    data-testid="json-send-to-editor-entry"
+                    className="cursor-pointer"
+                    onClick={() => onChange(item.rawContent, spacing)}
+                  />
                   <FaRegCopy
                     data-testid="json-copy-entry"
                     className="cursor-pointer"
