@@ -5,6 +5,7 @@ import { usePersistenceContext } from './PersistenceContext';
 interface ClipboardContextInterface {
   pasteFromClipboard: () => Promise<string>;
   writeToClipboard: () => Promise<void>;
+  sendStringToClipboard: (data: string) => Promise<void>;
   isClipboardAvailable: () => boolean;
 }
 
@@ -28,6 +29,11 @@ export const ClipboardContextProvider = ({ children }: { children: ReactElement 
     toast.success('Copied');
   };
 
+  const sendStringToClipboard= async (data: string) => {
+    await navigator.clipboard.writeText(data);
+    toast.success('Copied');
+  };
+
   const pasteFromClipboard = async () => {
     const clipboardItems = await navigator.clipboard.read();
     let result = '';
@@ -47,6 +53,7 @@ export const ClipboardContextProvider = ({ children }: { children: ReactElement 
       isClipboardAvailable,
       writeToClipboard,
       pasteFromClipboard,
+      sendStringToClipboard,
     }}>
       {children}
     </ClipboardContext.Provider>

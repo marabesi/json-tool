@@ -3,6 +3,8 @@ import userEvent from '@testing-library/user-event';
 import { renderEntireApp } from './__testutilities__/builder';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
 import { customType } from './__testutilities__/customTyping';
+import { setUpClipboard, tearDownClipboard, readTextFromClipboard } from 'jest-clipboard';
+import {emptyMatchMedia, matchMedia} from "./__testutilities__/matchMedia";
 
 async function goToSettings() {
   await userEvent.click(screen.getByTestId('settings'));
@@ -129,6 +131,62 @@ describe('Used Json History', () => {
         await customType(editor, '{{');
 
         expect(await within(await screen.findByTestId('history-content')).findByTestId('json-copy-entry')).toBeInTheDocument();
+
+        // we need to go back to settings bcs we have an after each to disable the flag
+        await userEvent.click(screen.getByTestId('settings'));
+      });
+    });
+
+    describe('clipboard', () => {
+      beforeEach(() => {
+        setUpClipboard();
+        Object.defineProperty(window, 'matchMedia', matchMedia(false));
+      });
+
+      afterEach(async () => {
+        tearDownClipboard();
+        // restore to false, for some reason testing library is storing it between tests
+        // once it is enabled it will keep enabled, leaking to the next test. This is
+        // a workaround until a final solution is found.
+        await clickHistorySetting();
+        Object.defineProperty(window, 'matchMedia', emptyMatchMedia());
+      });
+
+      it('copy json to clipboard', async () => {
+        renderEntireApp();
+
+        await goToSettings();
+        await clickHistorySetting();
+
+        await userEvent.click(screen.getByTestId('to-home'));
+
+        const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
+
+        await customType(editor, '{{');
+
+        await userEvent.click(await within(await screen.findByTestId('history-content')).findByTestId('json-copy-entry'));
+
+        expect(await readTextFromClipboard()).toEqual('{');
+
+        // we need to go back to settings bcs we have an after each to disable the flag
+        await userEvent.click(screen.getByTestId('settings'));
+      });
+
+      it('show feedback message when json is copied to clipboard', async () => {
+        renderEntireApp();
+
+        await goToSettings();
+        await clickHistorySetting();
+
+        await userEvent.click(screen.getByTestId('to-home'));
+
+        const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
+
+        await customType(editor, '{{');
+
+        await userEvent.click(await screen.findByTestId('json-copy-entry'));
+
+        expect(await screen.findByText('Copied')).toBeInTheDocument();
 
         // we need to go back to settings bcs we have an after each to disable the flag
         await userEvent.click(screen.getByTestId('settings'));

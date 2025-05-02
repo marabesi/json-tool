@@ -3,6 +3,7 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
+import toast from 'react-hot-toast';
 import 'jsdom-worker';
 import { TextEncoder, TextDecoder } from 'util';
 
@@ -42,9 +43,17 @@ beforeEach(() => {
 
     return range;
   };
+
+  // reset because the screen persists the toast between tests for some
+  // reason. It is cached, and I am not sure where the reset should be.
+  toast.dismiss();
 });
 
 afterEach(() => {
   jest.resetModules();
   jest.resetAllMocks();
+
+  // reset because the screen persists the toast between tests for some
+  // reason. It is cached, and I am not sure where the reset should be.
+  toast.dismiss();
 });

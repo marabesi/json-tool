@@ -10,9 +10,7 @@ interface Props {
   onSearch: DetailedHTMLProps<any, any>;
 }
 
-export default function ResultMenu(
-  { onSearch }: Props
-) {
+export default function ResultMenu({ onSearch }: Props) {
   const { spacing } = usePersistenceContext();
   const { updateSpacing, cleanWhiteSpaces, cleanNewLinesAndSpaces, cleanNewLines } = useToolbarContext();
   const { writeToClipboard, isClipboardAvailable } = useClipboardContext();

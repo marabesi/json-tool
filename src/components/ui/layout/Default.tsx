@@ -7,6 +7,7 @@ import { useThemeContext } from '../../../DarkModeContext';
 import { useSettingsContext } from '../../../settings/SettingsContext';
 import { useDrawerContext } from '../../../DrawerContext';
 import { useJsonHistoryContext } from '../../../JsonHistoryContext';
+import { useClipboardContext } from '../../../ClipboardContext';
 
 interface Props {
   children?: ReactNode
@@ -17,6 +18,7 @@ export default function DefaultLayout({ children }: Props) {
   const { featureOptions } = useSettingsContext();
   const { isOpen, setOpen } = useDrawerContext();
   const { entries } = useJsonHistoryContext();
+  const { sendStringToClipboard } = useClipboardContext();
   
   const isHistoryEnabled = featureOptions.options.find(item => item.title === 'JSON History' && item.active);
 
@@ -32,7 +34,11 @@ export default function DefaultLayout({ children }: Props) {
               return (
                 <div key={index} className="flex items-center">
                   <p data-testid="history-entry" className="mr-2 w-full">{item.snippet}</p>
-                  <FaRegCopy data-testid="json-copy-entry" />
+                  <FaRegCopy
+                    data-testid="json-copy-entry"
+                    className="cursor-pointer"
+                    onClick={() => sendStringToClipboard(item.rawContent)}
+                  />
                 </div>
               );
             })}
