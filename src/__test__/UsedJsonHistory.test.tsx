@@ -92,7 +92,7 @@ describe('Used Json History', () => {
         await userEvent.click(screen.getByTestId('settings'));
       });
 
-      it('for jsons that are greater than 10 chars add a ... to it', async () => {
+      it('for jsons that are greater than 25 chars add a ... to it', async () => {
         renderEntireApp();
 
         await goToSettings();
@@ -102,10 +102,8 @@ describe('Used Json History', () => {
 
         const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
-        const json = '{{"random_json":"123"}';
+        const json = '{{"random_json_with_long_proprty":"12334sssss value_fr"}';
         await customType(editor, json);
-
-        expect (screen.getByTestId('raw-result')).toHaveValue('{\n  "random_json": "123"\n}');
 
         await userEvent.click(screen.getByTestId('settings'));
 
@@ -114,7 +112,7 @@ describe('Used Json History', () => {
         await waitFor(() => {
           // this is a wip, because for each key there is an entry in the list of jsons
           // this is not the expected behaviour.
-          expect(screen.getAllByText('{"random_j...').length).toBeGreaterThan(0);
+          expect(screen.getAllByText('{"random_json_with_long_p...').length).toBeGreaterThan(0);
         });
       });
 

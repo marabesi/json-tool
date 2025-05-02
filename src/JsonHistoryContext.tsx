@@ -28,7 +28,7 @@ export const JsonHistoryContextProvider = ({ children }: { children: ReactElemen
       return;
     }
 
-    const MAX_TO_DISPLAY = 10;
+    const MAX_TO_DISPLAY = 25;
     const firstChars = entry.slice(0, MAX_TO_DISPLAY);
 
     setEntries([
