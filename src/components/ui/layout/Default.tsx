@@ -6,7 +6,6 @@ import Drawer from './Drawer';
 import { useThemeContext } from '../../../DarkModeContext';
 import { useSettingsContext } from '../../../settings/SettingsContext';
 import { useDrawerContext } from '../../../DrawerContext';
-import { useJsonHistoryContext } from '../../../JsonHistoryContext';
 import { useClipboardContext } from '../../../ClipboardContext';
 import { usePersistenceContext } from '../../../PersistenceContext';
 
@@ -18,9 +17,8 @@ export default function DefaultLayout({ children }: Props) {
   const { darkModeEnabled } = useThemeContext();
   const { featureOptions } = useSettingsContext();
   const { isOpen, setOpen } = useDrawerContext();
-  const { entries } = useJsonHistoryContext();
   const { sendStringToClipboard } = useClipboardContext();
-  const { spacing, onChange } = usePersistenceContext();
+  const { spacing, onChange, entries } = usePersistenceContext();
   
   const isHistoryEnabled = featureOptions.options.find(item => item.title === 'JSON History' && item.active);
 

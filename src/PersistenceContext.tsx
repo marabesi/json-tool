@@ -1,5 +1,5 @@
 import { createContext, ReactElement, useContext, useState, useEffect, useRef } from 'react';
-import { useJsonHistoryContext } from './JsonHistoryContext';
+import { HistoryEntry } from './types/jsonHistory';
 
 interface PersistenceContextInterface {
   jsonState: string;
@@ -15,6 +15,8 @@ interface PersistenceContextInterface {
   onChange: (eventValue: string, eventSpacing: string, appendToHistory: boolean) => void;
   error: string;
   setError: (error: string) => void;
+  entries: HistoryEntry[];
+  appendEntry(entries: string): void;
 }
 
 const code = `
@@ -70,13 +72,28 @@ export const usePersistenceContext = () => {
 
 export const PersistenceContextProvider = ({ children }: { children: ReactElement }) => {
   const worker = useRef<Worker>(undefined);
-  const historyContext = useJsonHistoryContext();
   const [inProgress, setInProgress] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [spacing, setSpacing] = useState<string>(defaultSpacing);
   const [isValidateEnabled, setValidateEnabled] = useState<boolean>(true);
   const [jsonState, setJsonState] = useState<string>('');
   const [resultState, setResultState] = useState<string>('');
+
+  const [entries, setEntries] = useState<HistoryEntry[]>([]);
+
+  const appendEntry = (entry: string)  => {
+    if (!entry) {
+      return;
+    }
+
+    const MAX_TO_DISPLAY = 25;
+    const firstChars = entry.slice(0, MAX_TO_DISPLAY);
+
+    setEntries([
+      ...entries,
+      { snippet: entry.length > MAX_TO_DISPLAY ? `${firstChars}...` : entry, rawContent: entry },
+    ]);
+  };
 
   useEffect(() => {
     worker.current = new Worker(URL.createObjectURL(new Blob([code])));
@@ -99,7 +116,7 @@ export const PersistenceContextProvider = ({ children }: { children: ReactElemen
     setInProgress(true);
 
     if (append) {
-      historyContext.appendEntry(eventValue);
+      appendEntry(eventValue);
     }
   };
   
@@ -118,6 +135,8 @@ export const PersistenceContextProvider = ({ children }: { children: ReactElemen
       onChange,
       error,
       setError,
+      entries,
+      appendEntry,
     }}>
       {children}
     </PersistenceContext.Provider>
