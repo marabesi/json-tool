@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import { renderEntireApp } from './__testutilities__/builder';
-import userEvent from "@testing-library/user-event";
+import userEvent from '@testing-library/user-event';
 
 describe('UI elements', () => {
   it('error message is hidden by default', () => {
