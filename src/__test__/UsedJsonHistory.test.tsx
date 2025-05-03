@@ -14,6 +14,10 @@ async function clickHistorySetting() {
   await userEvent.click(screen.getByTestId('json-history-setting'));
 }
 
+async function clickJsonHistoryDrawer() {
+  await userEvent.click(screen.getByTestId('json-drawer-history-button'));
+}
+
 describe('Used Json History', () => {
   describe('when history is disabled', () => {
     it('should not render drawer', async () => {
@@ -39,7 +43,7 @@ describe('Used Json History', () => {
       await goToSettings();
       await clickHistorySetting();
 
-      await userEvent.click(screen.getByTestId('json-drawer-history-button'));
+      await clickJsonHistoryDrawer();
 
       expect(await screen.findByTestId('drawer')).toBeInTheDocument();
     });
@@ -50,7 +54,7 @@ describe('Used Json History', () => {
       await goToSettings();
       await clickHistorySetting();
 
-      await userEvent.click(screen.getByTestId('json-drawer-history-button'));
+      await clickJsonHistoryDrawer();
 
       expect(await screen.findByTestId('drawer')).toHaveClass('opacity-100');
     });
@@ -61,7 +65,7 @@ describe('Used Json History', () => {
       await goToSettings();
       await clickHistorySetting();
 
-      await userEvent.click(screen.getByTestId('json-drawer-history-button'));
+      await clickJsonHistoryDrawer();
 
       expect(await screen.findByTestId('history-content')).toBeInTheDocument();
     });
@@ -72,7 +76,7 @@ describe('Used Json History', () => {
       await goToSettings();
       await clickHistorySetting();
 
-      await userEvent.click(screen.getByTestId('json-drawer-history-button'));
+      await clickJsonHistoryDrawer();
 
       expect(await within(await screen.findByTestId('history-content')).findByText('No entries yet. Start using the editor and come back here!')).toBeInTheDocument();
     });
@@ -97,12 +101,12 @@ describe('Used Json History', () => {
 
         await customType(editor, '{{}');
 
-        await userEvent.click(screen.getByTestId('json-drawer-history-button'));
+        await clickJsonHistoryDrawer();
 
         expect(await within(await screen.findByTestId('history-content')).findByText('{}')).toBeInTheDocument();
 
         // we need to go back to settings bcs we have an after each to disable the flag
-        await userEvent.click(screen.getByTestId('settings'));
+        await goToSettings();
       });
 
       it('should remove empty entry message when adding one', async () => {
@@ -117,12 +121,12 @@ describe('Used Json History', () => {
 
         await customType(editor, '{{}');
 
-        await userEvent.click(screen.getByTestId('json-drawer-history-button'));
+        await clickJsonHistoryDrawer();
 
         expect(within(await screen.findByTestId('history-content')).queryByText('No entries yet. Start using the editor and come back here!')).not.toBeInTheDocument();
 
         // we need to go back to settings bcs we have an after each to disable the flag
-        await userEvent.click(screen.getByTestId('settings'));
+        await goToSettings();
       });
 
       it('for jsons that are greater than 25 chars add a ... to it', async () => {
@@ -138,9 +142,9 @@ describe('Used Json History', () => {
         const json = '{{"random_json_with_long_proprty":"12334sssss value_fr"}';
         await customType(editor, json);
 
-        await userEvent.click(screen.getByTestId('settings'));
+        await goToSettings();
 
-        await userEvent.click(await screen.findByTestId('json-drawer-history-button'));
+        await clickJsonHistoryDrawer();
 
         await waitFor(() => {
           // this is a wip, because for each key there is an entry in the list of jsons
@@ -161,12 +165,12 @@ describe('Used Json History', () => {
 
         await customType(editor, '{{');
 
-        await userEvent.click(screen.getByTestId('json-drawer-history-button'));
+        await clickJsonHistoryDrawer();
 
         expect(await within(await screen.findByTestId('history-content')).findByTestId('json-copy-entry')).toBeInTheDocument();
 
         // we need to go back to settings bcs we have an after each to disable the flag
-        await userEvent.click(screen.getByTestId('settings'));
+        await goToSettings();
       });
 
       it('render send to editor button', async () => {
@@ -181,12 +185,12 @@ describe('Used Json History', () => {
 
         await customType(editor, '{{');
 
-        await userEvent.click(screen.getByTestId('json-drawer-history-button'));
+        await clickJsonHistoryDrawer();
 
         expect(await within(await screen.findByTestId('history-content')).findByTestId('json-send-to-editor-entry')).toBeInTheDocument();
 
         // we need to go back to settings bcs we have an after each to disable the flag
-        await userEvent.click(screen.getByTestId('settings'));
+        await goToSettings();
       });
     });
 
@@ -217,14 +221,14 @@ describe('Used Json History', () => {
 
         await customType(editor, '{{');
 
-        await userEvent.click(screen.getByTestId('json-drawer-history-button'));
+        await clickJsonHistoryDrawer();
 
         await userEvent.click(await within(await screen.findByTestId('history-content')).findByTestId('json-copy-entry'));
 
         expect(await readTextFromClipboard()).toEqual('{');
 
         // we need to go back to settings bcs we have an after each to disable the flag
-        await userEvent.click(screen.getByTestId('settings'));
+        await goToSettings();
       });
 
       it('show feedback message when json is copied to clipboard', async () => {
@@ -239,21 +243,18 @@ describe('Used Json History', () => {
 
         await customType(editor, '{{');
 
-        await userEvent.click(screen.getByTestId('json-drawer-history-button'));
+        await clickJsonHistoryDrawer();
 
         await userEvent.click(await screen.findByTestId('json-copy-entry'));
 
         expect(await screen.findByText('Copied')).toBeInTheDocument();
 
         // we need to go back to settings bcs we have an after each to disable the flag
-        await userEvent.click(screen.getByTestId('settings'));
+        await goToSettings();
       });
     });
 
     describe('use json', () => {
-      beforeEach(() => {
-      });
-
       afterEach(async () => {
         await clickHistorySetting();
       });
@@ -272,7 +273,7 @@ describe('Used Json History', () => {
 
         await userEvent.click(await screen.findByTestId('clean'));
 
-        await userEvent.click(screen.getByTestId('json-drawer-history-button'));
+        await clickJsonHistoryDrawer();
 
         await userEvent.click(await screen.findByTestId('json-send-to-editor-entry'));
 
@@ -283,7 +284,7 @@ describe('Used Json History', () => {
         });
 
         // we need to go back to settings bcs we have an after each to disable the flag
-        await userEvent.click(screen.getByTestId('settings'));
+        await goToSettings();
       });
 
       it('restoring from json history does not add a new entry in the list', async () => {
@@ -300,14 +301,14 @@ describe('Used Json History', () => {
 
         await userEvent.click(await screen.findByTestId('clean'));
 
-        await userEvent.click(screen.getByTestId('json-drawer-history-button'));
+        await clickJsonHistoryDrawer();
 
         await userEvent.click(await screen.findByTestId('json-send-to-editor-entry'));
 
         expect(await within(await screen.findByTestId('history-content')).findAllByTestId('json-send-to-editor-entry')).toHaveLength(1);
 
         // we need to go back to settings bcs we have an after each to disable the flag
-        await userEvent.click(screen.getByTestId('settings'));
+        await goToSettings();
       });
 
       it('close drawer once clicked to restore json', async () => {
@@ -322,14 +323,14 @@ describe('Used Json History', () => {
 
         await customType(editor, '{{');
 
-        await userEvent.click(screen.getByTestId('json-drawer-history-button'));
+        await clickJsonHistoryDrawer();
 
         await userEvent.click(await screen.findByTestId('json-send-to-editor-entry'));
 
         expect(await screen.findByTestId('drawer')).not.toHaveClass('opacity-100');
 
         // we need to go back to settings bcs we have an after each to disable the flag
-        await userEvent.click(screen.getByTestId('settings'));
+        await goToSettings();
       });
     });
   });
