@@ -8,6 +8,7 @@ import { useSettingsContext } from '../../../settings/SettingsContext';
 import { useDrawerContext } from '../../../DrawerContext';
 import { useClipboardContext } from '../../../ClipboardContext';
 import { usePersistenceContext } from '../../../PersistenceContext';
+import { HistoryEntry } from '../../../types/jsonHistory';
 
 interface Props {
   children?: ReactNode
@@ -21,6 +22,11 @@ export default function DefaultLayout({ children }: Props) {
   const { spacing, onChange, entries } = usePersistenceContext();
   
   const isHistoryEnabled = featureOptions.options.find(item => item.title === 'JSON History' && item.active);
+
+  function sendToEditor(item: HistoryEntry) {
+    onChange(item.rawContent, spacing, false);
+    setOpen(false);
+  }
 
   return (
     <div data-testid="app-container" className={`flex flex-col ${darkModeEnabled ? 'dark': ''}`}>
@@ -37,7 +43,7 @@ export default function DefaultLayout({ children }: Props) {
                   <FaReply
                     data-testid="json-send-to-editor-entry"
                     className="cursor-pointer m-3 hover:text-blue-300 dark:hover:text-gray-300"
-                    onClick={() => onChange(item.rawContent, spacing, false)}
+                    onClick={() => sendToEditor(item)}
                   />
                   <FaRegCopy
                     data-testid="json-copy-entry"

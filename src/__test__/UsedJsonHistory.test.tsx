@@ -128,6 +128,8 @@ describe('Used Json History', () => {
 
         await customType(editor, '{{');
 
+        await userEvent.click(screen.getByTestId('json-drawer-history-button'));
+
         expect(await within(await screen.findByTestId('history-content')).findByTestId('json-copy-entry')).toBeInTheDocument();
 
         // we need to go back to settings bcs we have an after each to disable the flag
@@ -145,6 +147,8 @@ describe('Used Json History', () => {
         const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
         await customType(editor, '{{');
+
+        await userEvent.click(screen.getByTestId('json-drawer-history-button'));
 
         expect(await within(await screen.findByTestId('history-content')).findByTestId('json-send-to-editor-entry')).toBeInTheDocument();
 
@@ -180,6 +184,8 @@ describe('Used Json History', () => {
 
         await customType(editor, '{{');
 
+        await userEvent.click(screen.getByTestId('json-drawer-history-button'));
+
         await userEvent.click(await within(await screen.findByTestId('history-content')).findByTestId('json-copy-entry'));
 
         expect(await readTextFromClipboard()).toEqual('{');
@@ -199,6 +205,8 @@ describe('Used Json History', () => {
         const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
         await customType(editor, '{{');
+
+        await userEvent.click(screen.getByTestId('json-drawer-history-button'));
 
         await userEvent.click(await screen.findByTestId('json-copy-entry'));
 
@@ -231,6 +239,8 @@ describe('Used Json History', () => {
 
         await userEvent.click(await screen.findByTestId('clean'));
 
+        await userEvent.click(screen.getByTestId('json-drawer-history-button'));
+
         await userEvent.click(await screen.findByTestId('json-send-to-editor-entry'));
 
         const rawEditor = screen.getByTestId('raw-json');
@@ -257,9 +267,33 @@ describe('Used Json History', () => {
 
         await userEvent.click(await screen.findByTestId('clean'));
 
+        await userEvent.click(screen.getByTestId('json-drawer-history-button'));
+
         await userEvent.click(await screen.findByTestId('json-send-to-editor-entry'));
 
         expect(await within(await screen.findByTestId('history-content')).findAllByTestId('json-send-to-editor-entry')).toHaveLength(1);
+
+        // we need to go back to settings bcs we have an after each to disable the flag
+        await userEvent.click(screen.getByTestId('settings'));
+      });
+
+      it('close drawer once clicked to restore json', async () => {
+        renderEntireApp();
+
+        await goToSettings();
+        await clickHistorySetting();
+
+        await userEvent.click(screen.getByTestId('to-home'));
+
+        const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
+
+        await customType(editor, '{{');
+
+        await userEvent.click(screen.getByTestId('json-drawer-history-button'));
+
+        await userEvent.click(await screen.findByTestId('json-send-to-editor-entry'));
+
+        expect(await screen.findByTestId('drawer')).not.toHaveClass('opacity-100');
 
         // we need to go back to settings bcs we have an after each to disable the flag
         await userEvent.click(screen.getByTestId('settings'));
