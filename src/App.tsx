@@ -11,37 +11,29 @@ import { DrawerContextProvider } from './DrawerContext';
 import { ToolbarContextProvider } from './ToolbarContext';
 import { ClipboardContextProvider } from './ClipboardContext';
 
-export function AppWithoutRouter() {
-  return (
-    <PersistenceContextProvider>
-      <ClipboardContextProvider>
-        <ThemeContextProvider>
-          <DrawerContextProvider>
-            <SettingsContextProvider>
-              <ToolbarContextProvider>
-                <DefaultLayout>
-                  <Routes>
-                    <Route path="/" element={<Editors/>}/>
-                    <Route path="/settings" element={<Settings/>}/>
-                    <Route path="/docs" element={<Docs/>}/>
-                  </Routes>
-                  <Toaster/>
-                </DefaultLayout>
-              </ToolbarContextProvider>
-            </SettingsContextProvider>
-          </DrawerContextProvider>
-        </ThemeContextProvider>
-      </ClipboardContextProvider>
-    </PersistenceContextProvider>
-  );
-}
-
-function App() {
+export default function App() {
   return (
     <Router>
-      <AppWithoutRouter/>
+      <PersistenceContextProvider>
+        <ClipboardContextProvider>
+          <ThemeContextProvider>
+            <DrawerContextProvider>
+              <SettingsContextProvider>
+                <ToolbarContextProvider>
+                  <DefaultLayout>
+                    <Routes>
+                      <Route path="/" element={<Editors/>}/>
+                      <Route path="/settings" element={<Settings/>}/>
+                      <Route path="/docs" element={<Docs/>}/>
+                    </Routes>
+                    <Toaster/>
+                  </DefaultLayout>
+                </ToolbarContextProvider>
+              </SettingsContextProvider>
+            </DrawerContextProvider>
+          </ThemeContextProvider>
+        </ClipboardContextProvider>
+      </PersistenceContextProvider>
     </Router>
   );
 }
-
-export default App;

@@ -1,11 +1,14 @@
 import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router';
-import { AppWithoutRouter } from '../../App';
+import App from '../../App';
+
+jest.mock('react-router', () => {
+  const { MemoryRouter, Route, Routes, ...rest } = jest.requireActual('react-router');
+  // swap real router with in memory
+  return { ...rest, HashRouter:  MemoryRouter, Route, Routes };
+});
 
 export function renderEntireApp() {
   return render(
-    <MemoryRouter>
-      <AppWithoutRouter/>
-    </MemoryRouter>
+    <App/>
   );
 }
