@@ -1,23 +1,27 @@
 import { ReactNode } from 'react';
 import { FaRegSun, FaRegLightbulb, FaHistory } from 'react-icons/fa';
-import { Link } from 'react-router';
+import { NavLink, LinkProps } from 'react-router';
 import Switch from 'react-switch';
 import fullConfig from '../../tailwindResolver';
 import { usePersistenceContext } from '../../PersistenceContext';
 import { useThemeContext } from '../../DarkModeContext';
 import { useSettingsContext } from '../../settings/SettingsContext';
 import { useDrawerContext } from '../../DrawerContext';
-import { LinkProps } from 'react-router-dom';
 
 type TabProps = LinkProps & { children: ReactNode };
 
 function TabWrapper({ children, ...props }: TabProps) {
+  const { className, to, ...rest } = props;
   return (
-    <div className="p-5 hover:bg-blue-400 hover:dark:bg-gray-600">
-      <Link {...props}>
-        {children}
-      </Link>
-    </div>
+    <NavLink
+      to={to}
+      className={({ isActive }) => {
+        return [className, 'p-5', isActive ? 'bg-blue-400 dark:bg-gray-600' : ''].join(' ');
+      }}
+      {...rest}
+    >
+      {children}
+    </NavLink>
   );
 }
 

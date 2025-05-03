@@ -1,5 +1,6 @@
 import { screen } from '@testing-library/react';
 import { renderEntireApp } from './__testutilities__/builder';
+import userEvent from "@testing-library/user-event";
 
 describe('UI elements', () => {
   it('error message is hidden by default', () => {
@@ -75,5 +76,29 @@ describe('UI elements', () => {
 
     expect(screen.getByText('validate json')).toBeInTheDocument();
     expect(screen.getByTestId('is-validate-json')).toBeChecked();
+  });
+
+  describe('navigation', () => {
+    it('should mark main page as active by default', () => {
+      renderEntireApp();
+
+      expect(screen.getByTestId('to-home')).toHaveClass('bg-blue-400 dark:bg-gray-600');
+    });
+
+    it('should mark docs page as active by default', async () => {
+      renderEntireApp();
+
+      await userEvent.click(screen.getByTestId('docs'));
+
+      expect(screen.getByTestId('docs')).toHaveClass('bg-blue-400 dark:bg-gray-600');
+    });
+
+    it('should mark settings page as active by default', async () => {
+      renderEntireApp();
+
+      await userEvent.click(screen.getByTestId('settings'));
+
+      expect(screen.getByTestId('settings')).toHaveClass('bg-blue-400 dark:bg-gray-600');
+    });
   });
 });
