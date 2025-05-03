@@ -7,11 +7,16 @@ import { usePersistenceContext } from '../../PersistenceContext';
 import { useThemeContext } from '../../DarkModeContext';
 import { useSettingsContext } from '../../settings/SettingsContext';
 import { useDrawerContext } from '../../DrawerContext';
+import { LinkProps } from 'react-router-dom';
 
-function TabWrapper({ children }: { children: ReactNode }) {
+type TabProps = LinkProps & { children: ReactNode };
+
+function TabWrapper({ children, ...props }: TabProps) {
   return (
     <div className="p-5 hover:bg-blue-400 hover:dark:bg-gray-600">
-      {children}
+      <Link {...props}>
+        {children}
+      </Link>
     </div>
   );
 }
@@ -25,22 +30,16 @@ export default function Header() {
   return (
     <div className="bg-blue-900 flex justify-between dark:bg-gray-700">
       <div className="h-14 flex items-center">
-        <TabWrapper>
-          <Link to="/" data-testid="to-home" className="flex">
-            <h2 className="text-yellow-400 font-bold">
+        <TabWrapper to="/" data-testid="to-home" className="flex">
+          <h2 className="text-yellow-400 font-bold">
               JSON tool
-            </h2>|by marabesi
-          </Link>
+          </h2>|by marabesi
         </TabWrapper>
-        <TabWrapper>
-          <Link data-testid="docs" to="/docs" title="JSON tool documentation">
-            <FaRegLightbulb />
-          </Link>
+        <TabWrapper  data-testid="docs" to="/docs" title="JSON tool documentation">
+          <FaRegLightbulb />
         </TabWrapper>
-        <TabWrapper>
-          <Link data-testid="settings" to="/settings" title="JSON tool settings">
-            <FaRegSun />
-          </Link>
+        <TabWrapper  data-testid="settings" to="/settings" title="JSON tool settings">
+          <FaRegSun />
         </TabWrapper>
       </div>
 
