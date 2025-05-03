@@ -11,6 +11,7 @@ interface SettingContext {
   featureOptions: FeatureOptions;
   handleEditorOptionsChanged: (changed: EditorOptions) => void;
   handleFeatureOptionsChanged: (changed: FeatureOptions) => void;
+  isHistoryEnabled: boolean;
 }
 
 const SettingsContext = createContext<SettingContext | undefined>(undefined);
@@ -37,12 +38,15 @@ export const SettingsContextProvider = ({ children }: { children: ReactElement }
     setFeatureOptions(changed);
   };
 
+  const isHistoryEnabled = featureOptions.options.find(item => item.title === 'JSON History' && item.active) !== undefined;
+
   return (
     <SettingsContext.Provider value={{
       editorOptions,
       featureOptions,
       handleEditorOptionsChanged,
       handleFeatureOptionsChanged,
+      isHistoryEnabled
     }}>
       {children}
     </SettingsContext.Provider>

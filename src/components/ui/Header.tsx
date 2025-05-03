@@ -10,9 +10,8 @@ import { useDrawerContext } from '../../DrawerContext';
 export default function Header() {
   const { isValidateEnabled, setValidateEnabled } = usePersistenceContext();
   const { onDarkThemeChanged, darkModeEnabled  } = useThemeContext();
-  const { featureOptions } = useSettingsContext();
+  const { isHistoryEnabled } = useSettingsContext();
   const{ toggle } = useDrawerContext();
-  const isHistoryEnabled = featureOptions.options.find(item => item.title === 'JSON History' && item.active);
 
   return (
     <div className="bg-blue-900 flex justify-between p-5 dark:bg-gray-700">
