@@ -13,8 +13,8 @@ export default function Editors() {
   const jsonReferenceEditor = useRef<ReactCodeMirrorRef>(undefined);
   const resultReferenceEditor: any = useRef(undefined);
 
-  return <div className="p-1 mb-8 pb-8 h-full" style={{ height: '80vh' }}>
-    <div className="flex h-full justify-center p-1" data-testid="editor-container">
+  return <div className="p-1 pt-0 mb-8 pb-8 h-full" style={{ height: '80vh' }}>
+    <div className="flex h-full justify-center p-1 pt-0" data-testid="editor-container">
       <EditorContainer>
         <JsonMenu
           onLoadedFile={(text: string) => onChange(text, spacing, true)}

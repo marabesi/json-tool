@@ -35,7 +35,7 @@ export default function JsonMenu({ onLoadedFile, onSearch } : Props) {
   }
 
   return (
-    <div className="flex w-full justify-start items-center m-2 ml-0 h-10">
+    <div className="flex w-full justify-between items-center m-2 ml-0 h-10">
       <Button data-testid="search-json" onClick={onSearch}>
         <FaSearch className="mr-2" />
       </Button>
