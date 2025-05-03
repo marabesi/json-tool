@@ -66,6 +66,17 @@ describe('Used Json History', () => {
       expect(await screen.findByTestId('history-content')).toBeInTheDocument();
     });
 
+    it('renders friendly message when json entries are empty', async () => {
+      renderEntireApp();
+
+      await goToSettings();
+      await clickHistorySetting();
+
+      await userEvent.click(screen.getByTestId('json-drawer-history-button'));
+
+      expect(await within(await screen.findByTestId('history-content')).findByText('No entries yet. Start using the editor and come back here!')).toBeInTheDocument();
+    });
+
     describe('storing entries', () => {
       afterEach(async () => {
         // restore to false, for some reason testing library is storing it between tests
@@ -86,7 +97,29 @@ describe('Used Json History', () => {
 
         await customType(editor, '{{}');
 
+        await userEvent.click(screen.getByTestId('json-drawer-history-button'));
+
         expect(await within(await screen.findByTestId('history-content')).findByText('{}')).toBeInTheDocument();
+
+        // we need to go back to settings bcs we have an after each to disable the flag
+        await userEvent.click(screen.getByTestId('settings'));
+      });
+
+      it('should remove empty entry message when adding one', async () => {
+        renderEntireApp();
+
+        await goToSettings();
+        await clickHistorySetting();
+
+        await userEvent.click(screen.getByTestId('to-home'));
+
+        const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
+
+        await customType(editor, '{{}');
+
+        await userEvent.click(screen.getByTestId('json-drawer-history-button'));
+
+        expect(within(await screen.findByTestId('history-content')).queryByText('No entries yet. Start using the editor and come back here!')).not.toBeInTheDocument();
 
         // we need to go back to settings bcs we have an after each to disable the flag
         await userEvent.click(screen.getByTestId('settings'));

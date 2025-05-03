@@ -44,6 +44,8 @@ const Drawer = () => {
                 className='flex h-full w-full overflow-y-scroll p-2 shadow-xl bg-blue-400 text-gray-100 dark:text-gray-400 dark:bg-gray-600'
               >
                 <div data-testid="history-content" className="w-full">
+                  {entries.length === 0 && <h2>No entries yet. Start using the editor and come back here!</h2>}
+
                   {entries.map((item, index) => {
                     return (
                       <div key={index} className="flex items-center justify-around p-1 hover:bg-blue-800 dark:hover:bg-gray-800">
