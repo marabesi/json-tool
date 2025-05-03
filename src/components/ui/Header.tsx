@@ -11,7 +11,7 @@ export default function Header() {
   const { isValidateEnabled, setValidateEnabled } = usePersistenceContext();
   const { onDarkThemeChanged, darkModeEnabled  } = useThemeContext();
   const { featureOptions } = useSettingsContext();
-  const{ isOpen, setOpen } = useDrawerContext();
+  const{ toggle } = useDrawerContext();
   const isHistoryEnabled = featureOptions.options.find(item => item.title === 'JSON History' && item.active);
 
   return (
@@ -30,7 +30,7 @@ export default function Header() {
       </div>
       <div className="flex items-center">
         {isHistoryEnabled &&
-          <button data-testid="json-drawer-history-button" className="mr-5" onClick={() => setOpen(!isOpen)}>
+          <button data-testid="json-drawer-history-button" className="mr-5" onClick={toggle}>
             <FaHistory />
           </button>
         }

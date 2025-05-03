@@ -17,7 +17,7 @@ interface Props {
 export default function DefaultLayout({ children }: Props) {
   const { darkModeEnabled } = useThemeContext();
   const { featureOptions } = useSettingsContext();
-  const { isOpen, setOpen } = useDrawerContext();
+  const { close } = useDrawerContext();
   const { sendStringToClipboard } = useClipboardContext();
   const { spacing, onChange, entries } = usePersistenceContext();
   
@@ -25,7 +25,7 @@ export default function DefaultLayout({ children }: Props) {
 
   function sendToEditor(item: HistoryEntry) {
     onChange(item.rawContent, spacing, false);
-    setOpen(false);
+    close();
   }
 
   return (
@@ -34,7 +34,7 @@ export default function DefaultLayout({ children }: Props) {
         <Header />
         { children }
         <Footer />
-        { isHistoryEnabled && <Drawer open={isOpen} setOpen={setOpen}>
+        { isHistoryEnabled && <Drawer>
           <div data-testid="history-content" className="w-full">
             {entries.map((item, index) => {
               return (

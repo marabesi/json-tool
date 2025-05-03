@@ -1,14 +1,14 @@
 import { ReactElement } from 'react';
+import { useDrawerContext } from '../../../DrawerContext';
 
 type Props = {
-  open: boolean;
-  setOpen: (open: boolean) => void;
   children: ReactElement
 }
 
-const Drawer = ({ open, setOpen, children }: Props) => {
-  const transitionVisible = open ? 'opacity-100 duration-50 ease-in-out visible': 'opacity-0 duration-50 ease-in-out invisible';
-  const transitionWidth = open ? 'translate-x-0': 'translate-x-full';
+const Drawer = ({ children }: Props) => {
+  const { isOpen, toggle } = useDrawerContext();
+  const transitionVisible = isOpen ? 'opacity-100 duration-50 ease-in-out visible': 'opacity-0 duration-50 ease-in-out invisible';
+  const transitionWidth = isOpen ? 'translate-x-0': 'translate-x-full';
   return (
     <div
       id="dialog-right"
@@ -16,13 +16,13 @@ const Drawer = ({ open, setOpen, children }: Props) => {
       aria-labelledby="slide-over"
       role="dialog"
       aria-modal="true"
-      onClick={() => setOpen(!open)}
+      onClick={toggle}
     >
       <div
         data-testid="drawer"
         className={`fixed inset-0 bg-gray-500 bg-opacity-75 transition-all ${transitionVisible}`}
       ></div>
-      <div className={open ? 'fixed inset-0 overflow-hidden' : ''}>
+      <div className={isOpen ? 'fixed inset-0 overflow-hidden' : ''}>
         <div className="absolute inset-0 overflow-hidden">
           <div className="pointer-events-none fixed w-4/12 inset-y-0 right-0">
             <div

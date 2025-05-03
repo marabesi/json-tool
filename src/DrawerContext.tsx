@@ -1,8 +1,9 @@
 import { createContext, ReactElement, useContext, useState } from 'react';
 
 interface DrawerContextInterface {
-  setOpen: (isOpen: boolean) => void;
   isOpen: boolean;
+  close: () => void;
+  toggle: () => void;
 }
 
 const DrawerContext = createContext<DrawerContextInterface | undefined>(undefined);
@@ -18,12 +19,12 @@ export const useDrawerContext = () => {
 export const DrawerContextProvider = ({ children }: { children: ReactElement }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const setOpen = (isOpen: boolean)  => {
-    setIsOpen(isOpen);
-  };
+  const close = () => setIsOpen(false);
+
+  const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <DrawerContext.Provider value={{ setOpen, isOpen }}>
+    <DrawerContext.Provider value={{ isOpen, close, toggle }}>
       {children}
     </DrawerContext.Provider>
   );
