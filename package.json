@@ -1,6 +1,6 @@
 {
   "name": "json-tool",
-  "version": "0.22.0",
+  "version": "0.23.0",
   "homepage": "./",
   "private": true,
   "main": "electron.js",
