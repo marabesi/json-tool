@@ -37,11 +37,21 @@ export const ClipboardContextProvider = ({ children }: { children: ReactElement 
   const pasteFromClipboard = async () => {
     const clipboardItems = await navigator.clipboard.read();
     let result = '';
+    
     for (const clipboardItem of clipboardItems) {
-      for (const type of clipboardItem.types) {
-        const blob = await clipboardItem.getType(type);
+      // Prioritize text/plain over other types to avoid HTML markup
+      if (clipboardItem.types.includes('text/plain')) {
+        const blob = await clipboardItem.getType('text/plain');
         const text = await blob.text();
         result += text;
+      } else {
+        // Fall back to the first available type if text/plain is not available
+        const firstType = clipboardItem.types[0];
+        if (firstType) {
+          const blob = await clipboardItem.getType(firstType);
+          const text = await blob.text();
+          result += text;
+        }
       }
     }
 
