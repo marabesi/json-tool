@@ -147,6 +147,8 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
           record: true
+          parallel: true
+          group: 'json-tool'
           wait-on: 'http://localhost:3000'
           start: npm run start-instrumented
           browser: chrome
