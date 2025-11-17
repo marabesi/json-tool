@@ -63,7 +63,7 @@
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-react": "^7.26.1",
     "http-server": "^14.1.1",
-    "husky": "^7.0.4",
+    "husky": "^9.1.7",
     "lcov-result-merger": "^5.0.1",
     "source-map-explorer": "^2.5.3",
     "tailwindcss": "^3.4.17",
@@ -91,7 +91,8 @@
     "electron": "npm run setup && wait-on tcp:3000 && electron build/",
     "lint": "eslint src/**/*.{ts,tsx}",
     "lint:fix": "eslint src/**/*.{ts,tsx} --fix",
-    "serve": "http-server ./build -p 3000"
+    "serve": "http-server ./build -p 3000",
+    "prepare": "husky"
   },
   "eslintConfig": {
     "extends": [
