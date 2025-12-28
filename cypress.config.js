@@ -2,6 +2,7 @@ const cucumber = require('cypress-cucumber-preprocessor').default;
 const { defineConfig } = require('cypress');
 const getCompareSnapshotsPlugin = require('cypress-image-diff-js/dist/plugin');
 const coverage = require('@cypress/code-coverage/task');
+const { installPlugin } = require('@chromatic-com/cypress');
 
 module.exports = defineConfig({
   viewportHeight: 920,
@@ -23,6 +24,7 @@ module.exports = defineConfig({
       coverage(on, config);
       on('file:preprocessor', cucumber());
       getCompareSnapshotsPlugin(on, config);
+      installPlugin(on, config);
       return config;
     }
   }
