@@ -153,9 +153,14 @@ jobs:
           start: npm run start-instrumented
           browser: chrome
           headed: true
-          install-command: npm install 
+          install-command: npm install
+
       - name: Generate lcov
         run: npx nyc report --reporter=lcov
+
+      - name: Chromatic
+        run: npx chromatic --cypress --project-token=${{ secrets.CHROMATIC_KEY }}
+
       - uses: actions/upload-artifact@v4
         if: github.ref == 'refs/heads/main'
         with:

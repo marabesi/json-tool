@@ -1,17 +1,11 @@
 const cucumber = require('cypress-cucumber-preprocessor').default;
 const { defineConfig } = require('cypress');
-const getCompareSnapshotsPlugin = require('cypress-image-diff-js/dist/plugin');
 const coverage = require('@cypress/code-coverage/task');
 const { installPlugin } = require('@chromatic-com/cypress');
 
 module.exports = defineConfig({
   viewportHeight: 920,
   viewportWidth: 1280,
-  env: {
-    cypressImageDiff: {
-      FAILURE_THRESHOLD: 0.5,
-    }
-  },
   e2e: {
     'projectId': 'wpcwmv',
     'watchForFileChanges': false,
@@ -21,10 +15,9 @@ module.exports = defineConfig({
     ],
     'experimentalRunAllSpecs': true,
     setupNodeEvents(on, config) {
+      installPlugin(on, config);
       coverage(on, config);
       on('file:preprocessor', cucumber());
-      getCompareSnapshotsPlugin(on, config);
-      installPlugin(on, config);
       return config;
     }
   }
