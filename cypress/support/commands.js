@@ -1,8 +1,5 @@
 import 'cypress-file-upload';
-import compareSnapshotCommand from 'cypress-image-diff-js/dist/command';
 import { waitFor } from './configuration';
-
-compareSnapshotCommand();
 
 // This example commands.js shows you how to
 // create various custom commands and overwrite
