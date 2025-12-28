@@ -41,8 +41,8 @@ export function Settings() {
   };
 
   return (
-    <div>
-      <h1 className="text-xl m-2">Settings</h1>
+    <div className="p-8">
+      <h1 className="text-xl m-2 ml-0">Settings</h1>
       <div className="flex mr-2">
         <div>
           <h2 className="font-bold">Editor</h2>

@@ -59,3 +59,11 @@ Cypress.Commands.add('writeAndWait', { prevSubject: true }, (subject, text) => {
     .invoke('text', text)
     .wait(waitFor);
 });
+
+Cypress.Commands.add('goToSettings', () => {
+  return cy.get('[data-testid="settings"]');
+});
+
+Cypress.Commands.add('withTitle', () => {
+  return cy.get('h1');
+});
