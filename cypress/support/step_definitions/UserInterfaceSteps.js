@@ -22,3 +22,11 @@ Then(/^I see (\d+) as the default space size$/, function () {
 Then(/^I see the settings options$/, function () {
   cy.withTitle().should('have.text', 'Settings');
 });
+
+When(/^I go to docs$/, function () {
+  cy.goToDocs().click();
+});
+
+Then(/^I see the docs page$/, function () {
+  cy.withTitle().should('have.text', 'JSON tool docs');
+});

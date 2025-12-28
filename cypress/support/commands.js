@@ -64,6 +64,10 @@ Cypress.Commands.add('goToSettings', () => {
   return cy.get('[data-testid="settings"]');
 });
 
+Cypress.Commands.add('goToDocs', () => {
+  return cy.get('[data-testid="docs"]');
+});
+
 Cypress.Commands.add('withTitle', () => {
   return cy.get('h1');
 });
