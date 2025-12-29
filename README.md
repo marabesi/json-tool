@@ -27,6 +27,19 @@ the practice of formatting or sharing information in formatting tools that are n
 - Buttons to allow easy interaction with the clipboard (paste and copy to the clipboard)
 - Search through the json string (offered by the code mirror editor)
 - Upload a json file
+- Full keyboard navigation support
+
+## Keyboard Shortcuts
+
+Navigate the application efficiently using these keyboard shortcuts:
+
+- **Alt + S** - Open Settings page
+- **Alt + D** - Open Documentation page  
+- **Alt + Home** - Return to Home page
+- **Alt + H** - Toggle History drawer (when history is enabled)
+- **Escape** - Close History drawer
+- **Tab** - Navigate between interactive elements
+- **Enter/Space** - Activate buttons and links
 
 ![Screenshot from 2022-09-11 11-32-55](https://user-images.githubusercontent.com/2129872/190869274-51b3ae2b-e6db-401b-a058-0f8f887f82e7.png)
 
