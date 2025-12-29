@@ -14,8 +14,12 @@ const Drawer = () => {
   const { spacing, onChange, entries } = usePersistenceContext();
 
   useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && isOpen) {
+      if (event.key === 'Escape') {
         close();
       }
     };

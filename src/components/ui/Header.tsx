@@ -34,11 +34,6 @@ export default function Header() {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      // Alt+H to toggle history drawer
-      if (event.altKey && event.key.toLowerCase() === 'h' && isHistoryEnabled) {
-        event.preventDefault();
-        toggle();
-      }
       // Alt+S to go to settings
       if (event.altKey && event.key.toLowerCase() === 's') {
         event.preventDefault();
@@ -58,7 +53,24 @@ export default function Header() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isHistoryEnabled, toggle, navigate]);
+  }, [navigate]);
+
+  useEffect(() => {
+    if (!isHistoryEnabled) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Alt+H to toggle history drawer
+      if (event.altKey && event.key.toLowerCase() === 'h') {
+        event.preventDefault();
+        toggle();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isHistoryEnabled, toggle]);
 
   return (
     <div className="bg-blue-900 flex justify-between dark:bg-gray-700">
