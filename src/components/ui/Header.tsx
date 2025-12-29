@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { FaRegSun, FaRegLightbulb, FaHistory } from 'react-icons/fa';
-import { NavLink, LinkProps } from 'react-router';
+import { NavLink, LinkProps, useNavigate } from 'react-router';
 import Switch from 'react-switch';
 import fullConfig from '../../tailwindResolver';
 import { usePersistenceContext } from '../../PersistenceContext';
@@ -16,7 +16,7 @@ function TabWrapper({ children, ...props }: TabProps) {
     <NavLink
       to={to}
       className={({ isActive }) => {
-        return [className, 'p-5', isActive ? 'bg-blue-400 dark:bg-gray-600' : ''].join(' ');
+        return [className, 'p-5 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-inset', isActive ? 'bg-blue-400 dark:bg-gray-600' : ''].join(' ');
       }}
       {...rest}
     >
@@ -30,6 +30,35 @@ export default function Header() {
   const { onDarkThemeChanged, darkModeEnabled  } = useThemeContext();
   const { isHistoryEnabled } = useSettingsContext();
   const{ toggle } = useDrawerContext();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Alt+H to toggle history drawer
+      if (event.altKey && event.key.toLowerCase() === 'h' && isHistoryEnabled) {
+        event.preventDefault();
+        toggle();
+      }
+      // Alt+S to go to settings
+      if (event.altKey && event.key.toLowerCase() === 's') {
+        event.preventDefault();
+        navigate('/settings');
+      }
+      // Alt+D to go to docs
+      if (event.altKey && event.key.toLowerCase() === 'd') {
+        event.preventDefault();
+        navigate('/docs');
+      }
+      // Alt+Home to go to home
+      if (event.altKey && event.key === 'Home') {
+        event.preventDefault();
+        navigate('/');
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isHistoryEnabled, toggle, navigate]);
 
   return (
     <div className="bg-blue-900 flex justify-between dark:bg-gray-700">
@@ -39,17 +68,17 @@ export default function Header() {
               JSON tool
           </h2>|by marabesi
         </TabWrapper>
-        <TabWrapper  data-testid="docs" to="/docs" title="JSON tool documentation">
+        <TabWrapper  data-testid="docs" to="/docs" title="JSON tool documentation (Alt+D)">
           <FaRegLightbulb />
         </TabWrapper>
-        <TabWrapper  data-testid="settings" to="/settings" title="JSON tool settings">
+        <TabWrapper  data-testid="settings" to="/settings" title="JSON tool settings (Alt+S)">
           <FaRegSun />
         </TabWrapper>
       </div>
 
       <div className="flex items-center">
         {isHistoryEnabled &&
-          <button data-testid="json-drawer-history-button" className="mr-5" onClick={toggle}>
+          <button data-testid="json-drawer-history-button" className="mr-5 focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded p-1" onClick={toggle} title="Open history drawer (Alt+H)" aria-label="Open history drawer">
             <FaHistory />
           </button>
         }
@@ -61,7 +90,8 @@ export default function Header() {
             onChange={() => setValidateEnabled(!isValidateEnabled)}
             data-testid="is-validate-json"
             checked={isValidateEnabled}
-            className="mr-1 cursor-pointer"
+            className="mr-1 cursor-pointer focus:ring-2 focus:ring-yellow-400"
+            aria-label="Toggle JSON validation"
           />
           <label htmlFor="is-validate-json" className="cursor-pointer">validate json</label>
         </div>

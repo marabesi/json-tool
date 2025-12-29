@@ -5,7 +5,7 @@ type InputTextProps = {
 }
 
 export default function inputText({ value, onChange, className, ...rest }: InputTextProps) {
-  const classes = [className, 'p-1 bg-blue-300 dark:bg-gray-500', ''].join(' ').trim();
+  const classes = [className, 'p-1 bg-blue-300 dark:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400', ''].join(' ').trim();
   return (
     <input
       type="text"

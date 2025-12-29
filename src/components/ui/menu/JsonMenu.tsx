@@ -51,7 +51,15 @@ export default function JsonMenu({ onLoadedFile, onSearch } : Props) {
       </Button>
       <Button className="ml-0 flex items-center">
         <FaRegFileArchive className="mr-2" />
-        <input type="file" ref={fileContent} accept="application/json" onChange={onFileUploaded} data-testid="upload-json" />
+        <input 
+          type="file" 
+          ref={fileContent} 
+          accept="application/json" 
+          onChange={onFileUploaded} 
+          data-testid="upload-json"
+          className="focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          aria-label="Upload JSON file"
+        />
       </Button>
       <Button
         onClick={() => {

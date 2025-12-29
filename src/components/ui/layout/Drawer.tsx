@@ -1,4 +1,5 @@
 import { FaRegCopy, FaReply } from 'react-icons/fa';
+import { useEffect } from 'react';
 import { useDrawerContext } from '../../../DrawerContext';
 import { HistoryEntry } from '../../../types/jsonHistory';
 import { useClipboardContext } from '../../../ClipboardContext';
@@ -11,6 +12,17 @@ const Drawer = () => {
   const { close } = useDrawerContext();
   const { sendStringToClipboard } = useClipboardContext();
   const { spacing, onChange, entries } = usePersistenceContext();
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isOpen) {
+        close();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, close]);
 
   function sendToEditor(item: HistoryEntry) {
     onChange(item.rawContent, spacing, false);
@@ -50,16 +62,24 @@ const Drawer = () => {
                     return (
                       <div key={index} className="flex items-center justify-around p-1 hover:bg-blue-800 dark:hover:bg-gray-800">
                         <p data-testid="history-entry" className="mr-2 w-full">{item.snippet}</p>
-                        <FaReply
+                        <button
                           data-testid="json-send-to-editor-entry"
-                          className="cursor-pointer m-3 hover:text-blue-300 dark:hover:text-gray-300"
+                          className="cursor-pointer m-3 hover:text-blue-300 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded p-1 bg-transparent border-0"
                           onClick={() => sendToEditor(item)}
-                        />
-                        <FaRegCopy
+                          aria-label="Send to editor"
+                          title="Send to editor (Enter)"
+                        >
+                          <FaReply />
+                        </button>
+                        <button
                           data-testid="json-copy-entry"
-                          className="cursor-pointer m-3 hover:text-blue-300 dark:hover:text-gray-300"
+                          className="cursor-pointer m-3 hover:text-blue-300 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded p-1 bg-transparent border-0"
                           onClick={() => sendStringToClipboard(item.rawContent)}
-                        />
+                          aria-label="Copy to clipboard"
+                          title="Copy to clipboard (Enter)"
+                        >
+                          <FaRegCopy />
+                        </button>
                       </div>
                     );
                   })}

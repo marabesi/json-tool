@@ -51,12 +51,25 @@ export function Settings() {
               <div key={index} className="m-2">
                 <label className="flex items-center justify-between cursor-pointer">
                   {option.title}
-                  <input type="checkbox" checked={option.active} onChange={() => onSaveEditorOption(option)} />
+                  <input 
+                    type="checkbox" 
+                    checked={option.active} 
+                    onChange={() => onSaveEditorOption(option)}
+                    className="focus:ring-2 focus:ring-yellow-400"
+                    aria-label={`Toggle ${option.title}`}
+                  />
                 </label>
               </div>
             )
           }
-          <input data-testid="font-size" type="text" value={prop.value} onChange={(event) => setProp({ key: 'fontSize', value: event.target.value })}/>
+          <input 
+            data-testid="font-size" 
+            type="text" 
+            value={prop.value} 
+            onChange={(event) => setProp({ key: 'fontSize', value: event.target.value })}
+            className="focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded p-1"
+            aria-label="Font size"
+          />
         </div>
 
         <div className="ml-5">
@@ -66,7 +79,14 @@ export function Settings() {
               <div key={index} className="m-2">
                 <label className="flex items-center justify-between cursor-pointer">
                   {option.title}
-                  <input className="ml-2" type="checkbox" data-testid="json-history-setting" checked={option.active} onChange={() => onSaveFeatureOption(option)} />
+                  <input 
+                    className="ml-2 focus:ring-2 focus:ring-yellow-400" 
+                    type="checkbox" 
+                    data-testid="json-history-setting" 
+                    checked={option.active} 
+                    onChange={() => onSaveFeatureOption(option)}
+                    aria-label={`Toggle ${option.title}`}
+                  />
                 </label>
               </div>
             )
