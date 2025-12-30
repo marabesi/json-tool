@@ -7,6 +7,7 @@ module.exports = defineConfig({
   viewportHeight: 920,
   viewportWidth: 1280,
   e2e: {
+    'experimentalFastVisibility': true,
     'projectId': 'wpcwmv',
     'watchForFileChanges': false,
     'specPattern': [
