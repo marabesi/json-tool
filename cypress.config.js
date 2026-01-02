@@ -6,7 +6,7 @@ const { installPlugin } = require('@chromatic-com/cypress');
 module.exports = defineConfig({
   viewportHeight: 920,
   viewportWidth: 1280,
-  experimentalFastVisibility: true
+  experimentalFastVisibility: true,
   e2e: {
     'projectId': 'wpcwmv',
     'watchForFileChanges': false,
