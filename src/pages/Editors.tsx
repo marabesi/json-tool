@@ -1,4 +1,4 @@
-import { Ref, useRef } from 'react';
+import { Ref, useRef, useEffect } from 'react';
 import { openSearchPanel } from '@codemirror/search';
 import { ReactCodeMirrorRef } from '@uiw/react-codemirror';
 import JsonEditor from '../components/ui/editor/JsonEditor';
@@ -12,6 +12,56 @@ export default function Editors() {
   const { error, inProgress, onChange, jsonState, resultState, isValidateEnabled, spacing } = usePersistenceContext();
   const jsonReferenceEditor = useRef<ReactCodeMirrorRef>(undefined);
   const resultReferenceEditor: any = useRef(undefined);
+  const isSyncingScroll = useRef(false);
+
+  useEffect(() => {
+    const jsonEditor = jsonReferenceEditor.current;
+    const resultEditor = resultReferenceEditor.current;
+
+    if (!jsonEditor?.view || !resultEditor?.view) {
+      return;
+    }
+
+    const syncScroll = (sourceView: any, targetView: any) => {
+      if (isSyncingScroll.current) return;
+      
+      isSyncingScroll.current = true;
+      
+      const sourceScroll = sourceView.scrollDOM.scrollTop;
+      const sourceHeight = sourceView.scrollDOM.scrollHeight - sourceView.scrollDOM.clientHeight;
+      const targetHeight = targetView.scrollDOM.scrollHeight - targetView.scrollDOM.clientHeight;
+      
+      if (sourceHeight > 0 && targetHeight > 0) {
+        const scrollRatio = sourceScroll / sourceHeight;
+        targetView.scrollDOM.scrollTop = scrollRatio * targetHeight;
+      } else {
+        targetView.scrollDOM.scrollTop = sourceScroll;
+      }
+      
+      setTimeout(() => {
+        isSyncingScroll.current = false;
+      }, 0);
+    };
+
+    const handleJsonScroll = () => {
+      syncScroll(jsonEditor.view, resultEditor.view);
+    };
+
+    const handleResultScroll = () => {
+      syncScroll(resultEditor.view, jsonEditor.view);
+    };
+
+    const jsonScrollDOM = jsonEditor.view.scrollDOM;
+    const resultScrollDOM = resultEditor.view.scrollDOM;
+
+    jsonScrollDOM.addEventListener('scroll', handleJsonScroll);
+    resultScrollDOM.addEventListener('scroll', handleResultScroll);
+
+    return () => {
+      jsonScrollDOM.removeEventListener('scroll', handleJsonScroll);
+      resultScrollDOM.removeEventListener('scroll', handleResultScroll);
+    };
+  }, [jsonState, resultState]);
 
   return <div className="p-1 pt-0 mb-8 pb-8 h-full" style={{ height: '80vh' }}>
     <div className="flex h-full justify-center p-1 pt-0" data-testid="editor-container">
