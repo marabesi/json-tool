@@ -1,6 +1,7 @@
 import { Ref, useRef, useEffect } from 'react';
 import { openSearchPanel } from '@codemirror/search';
 import { ReactCodeMirrorRef } from '@uiw/react-codemirror';
+import { EditorView } from '@codemirror/view';
 import JsonEditor from '../components/ui/editor/JsonEditor';
 import ResultMenu from '../components/ui/menu/ResultMenu';
 import JsonMenu from '../components/ui/menu/JsonMenu';
@@ -22,7 +23,7 @@ export default function Editors() {
       return;
     }
 
-    const syncScroll = (sourceView: any, targetView: any) => {
+    const syncScroll = (sourceView: EditorView, targetView: EditorView) => {
       if (isSyncingScroll.current) return;
       
       isSyncingScroll.current = true;
@@ -38,9 +39,9 @@ export default function Editors() {
         targetView.scrollDOM.scrollTop = sourceScroll;
       }
       
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         isSyncingScroll.current = false;
-      }, 0);
+      });
     };
 
     const handleJsonScroll = () => {
