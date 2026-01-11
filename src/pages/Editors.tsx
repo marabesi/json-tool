@@ -23,6 +23,10 @@ export default function Editors() {
       return;
     }
 
+    // Store views in local variables to satisfy TypeScript
+    const jsonView = jsonEditor.view;
+    const resultView = resultEditor.view;
+
     const syncScroll = (sourceView: EditorView, targetView: EditorView) => {
       if (isSyncingScroll.current) return;
       
@@ -45,15 +49,15 @@ export default function Editors() {
     };
 
     const handleJsonScroll = () => {
-      syncScroll(jsonEditor.view, resultEditor.view);
+      syncScroll(jsonView, resultView);
     };
 
     const handleResultScroll = () => {
-      syncScroll(resultEditor.view, jsonEditor.view);
+      syncScroll(resultView, jsonView);
     };
 
-    const jsonScrollDOM = jsonEditor.view.scrollDOM;
-    const resultScrollDOM = resultEditor.view.scrollDOM;
+    const jsonScrollDOM = jsonView.scrollDOM;
+    const resultScrollDOM = resultView.scrollDOM;
 
     jsonScrollDOM.addEventListener('scroll', handleJsonScroll);
     resultScrollDOM.addEventListener('scroll', handleResultScroll);
