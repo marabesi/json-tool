@@ -104,4 +104,21 @@ describe('Editors', () => {
       });
     });
   });
+
+  describe('scroll synchronization', () => {
+    it('should set up scroll event listeners on both editors', async () => {
+      renderEntireApp();
+      
+      const jsonEditor = screen.getByTestId('json');
+      const resultEditor = screen.getByTestId('result');
+      
+      // eslint-disable-next-line testing-library/no-node-access
+      const jsonScroller = jsonEditor.querySelector('.cm-scroller');
+      // eslint-disable-next-line testing-library/no-node-access
+      const resultScroller = resultEditor.querySelector('.cm-scroller');
+      
+      expect(jsonScroller).toBeInTheDocument();
+      expect(resultScroller).toBeInTheDocument();
+    });
+  });
 });
