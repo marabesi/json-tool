@@ -1,5 +1,5 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/52eb1fd278d54e29ae01cc1ea5b3133b)](https://app.codacy.com/gh/marabesi/json-tool?utm_source=github.com&utm_medium=referral&utm_content=marabesi/json-tool&utm_campaign=Badge_Grade_Settings)
-[![Node CI](https://github.com/marabesi/json-tool/actions/workflows/ci.yml/badge.svg)](https://github.com/marabesi/json-tool/actions/workflows/delivery.yml) [![Coverage Status](https://coveralls.io/repos/github/marabesi/json-tool/badge.svg?branch=)](https://coveralls.io/github/marabesi/json-tool?branch=)
+[![Node CI](https://github.com/marabesi/json-tool/actions/workflows/ci.yml/badge.svg)](https://github.com/marabesi/json-tool/actions/workflows/ci.yml) [![Coverage Status](https://coveralls.io/repos/github/marabesi/json-tool/badge.svg?branch=)](https://coveralls.io/github/marabesi/json-tool?branch=)
 [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg?logo=jest)](https://github.com/jestjs/jest)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=marabesi_json-tool&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=marabesi_json-tool)
 
