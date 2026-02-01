@@ -6,12 +6,7 @@ const { installPlugin } = require('@chromatic-com/cypress');
 module.exports = defineConfig({
   viewportHeight: 920,
   viewportWidth: 1280,
-<<<<<<< Updated upstream
   experimentalFastVisibility: true,
-||||||| Stash base
-=======
-  'experimentalFastVisibility': true,
->>>>>>> Stashed changes
   e2e: {
     'projectId': 'wpcwmv',
     'watchForFileChanges': false,
