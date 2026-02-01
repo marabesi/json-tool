@@ -36,6 +36,24 @@ export function Docs() {
             </ul>
           </details>
         </li>
+        <li className="pb-5">
+          <details open={true}>
+            <summary className="cursor-pointer">
+              <span className="text-xl mt-5">Five Years of Open Source json-tool and 3,000 Active Users Later</span>
+            </summary>
+            <ul className="pt-1">
+              <li>
+                Five years ago, I started working on json-tool out of necessity. I needed a JSON formatting tool I
+                could trust with sensitive data: one that wouldn’t send my information to third-party servers filled with
+                ads and tracking scripts. What began as a personal weekend project has quietly grown into something used
+                by 3,000 active users. This milestone made me pause and reflect on what this journey has taught me about
+                building and maintaining open source software.
+                <a href="https://marabesi.com/thoughts/five-years-json-tool-3000-active-users.html?utm_source=json-tool&utm_medium=direct&utm_campaign=jsontool&utm_id=json-tool-docs" target="_blank" rel="noreferrer">
+                  <div className="text-blue-500 hover:underline">Read more</div>
+                </a></li>
+            </ul>
+          </details>
+        </li>
         {/* <li>
           <details open={true}>
             <summary>
