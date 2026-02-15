@@ -159,6 +159,7 @@ jobs:
         run: npx nyc report --reporter=lcov
 
       - name: Chromatic
+        if: github.ref == 'refs/heads/main'
         run: npx chromatic --cypress --project-token="${{ secrets.CHROMATIC_KEY }}" --exit-zero-on-changes
 
       - uses: actions/upload-artifact@v4
