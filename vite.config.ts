@@ -15,6 +15,7 @@ export default defineConfig(async () => {
         exclude: ['node_modules', 'src/__test__/**'],
         extension: ['.js', '.ts', '.tsx'],
         requireEnv: false,
+        cypress: true,
       })
     );
   }
