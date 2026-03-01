@@ -16,6 +16,9 @@ module.exports = defineConfig({
     ],
     'experimentalRunAllSpecs': true,
     setupNodeEvents(on, config) {
+      coverage(on, config);
+      on('file:preprocessor', cucumber());
+
       if (process.env.ELECTRON_EXTRA_LAUNCH_ARGS) {
         on('task', {
           prepareArchives: () => {
@@ -28,8 +31,6 @@ module.exports = defineConfig({
       if (process.env.CI) {
         installPlugin(on, config);
       }
-      coverage(on, config);
-      on('file:preprocessor', cucumber());
       return config;
     }
   }
