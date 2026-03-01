@@ -34,7 +34,7 @@
     "@babel/preset-react": "^7.26.0",
     "@babel/preset-typescript": "^7.26.0",
     "@chromatic-com/cypress": "^0.11.3",
-    "@cypress/code-coverage": "^3.14.7",
+    "@cypress/code-coverage": "^4.0.1",
     "@stryker-mutator/core": "^9.0.1",
     "@stryker-mutator/jest-runner": "^9.0.1",
     "@stryker-mutator/typescript-checker": "^9.0.1",

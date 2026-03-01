@@ -15,7 +15,6 @@
 
 // Import commands.js using ES2015 syntax:
 import '@chromatic-com/cypress/dist/support';
-import '@cypress/code-coverage/support';
 import './commands';
 
 // Alternatively you can use CommonJS syntax:
