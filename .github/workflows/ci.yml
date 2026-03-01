@@ -132,12 +132,6 @@ jobs:
       - name: build application
         run: npm run build
 
-      - name: instrument application
-        run: |
-          npx nyc instrument src/ instrumented
-          cp -R instrumented/ src/
-          rm -rf instrumented
-
       - name: Run cypress (acceptance tests)
         uses: cypress-io/github-action@v6
         env:
