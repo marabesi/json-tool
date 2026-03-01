@@ -27,7 +27,12 @@
   },
   "overrides": {
     "@types/react": "npm:types-react@rc",
-    "@types/react-dom": "npm:types-react-dom@rc"
+    "@types/react-dom": "npm:types-react-dom@rc",
+    "elliptic": "6.6.1",
+    "serialize-javascript": "7.0.3",
+    "storybook": "8.6.17",
+    "@storybook/builder-webpack5": "8.6.17",
+    "@storybook/server-webpack5": "8.6.17"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.26.0",
