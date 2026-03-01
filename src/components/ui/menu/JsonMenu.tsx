@@ -1,4 +1,4 @@
-import { BaseSyntheticEvent, DetailedHTMLProps, useRef } from 'react';
+import { BaseSyntheticEvent, useRef } from 'react';
 import { FaRegClipboard, FaRegFileArchive, FaRegTrashAlt, FaSearch } from 'react-icons/fa';
 import Button from '../io/Button';
 import { useToolbarContext } from '../../../ToolbarContext';
@@ -6,8 +6,8 @@ import { usePersistenceContext } from '../../../PersistenceContext';
 import { useClipboardContext } from '../../../ClipboardContext';
 
 interface Props {
-  onLoadedFile: DetailedHTMLProps<any, any>;
-  onSearch: DetailedHTMLProps<any, any>;
+  onLoadedFile: (content: string | ArrayBuffer | null) => void;
+  onSearch: () => void;
 }
 
 export default function JsonMenu({ onLoadedFile, onSearch } : Props) {
@@ -56,7 +56,7 @@ export default function JsonMenu({ onLoadedFile, onSearch } : Props) {
       <Button
         onClick={() => {
           if (fileContent.current) {
-            // @ts-ignore at the  time of this code, there were no options to reset without accessing the ref
+            // @ts-expect-error no typed API to reset a file input via ref
             fileContent.current.value = '';
           }
           deleteJson();

@@ -1,5 +1,4 @@
 import { FaBackspace, FaRegCopy, FaSearch, FaTerminal, FaUserFriends } from 'react-icons/fa';
-import { DetailedHTMLProps } from 'react';
 import InputText from '../io/InputText';
 import Button from '../io/Button';
 import { useToolbarContext } from '../../../ToolbarContext';
@@ -7,7 +6,7 @@ import { usePersistenceContext } from '../../../PersistenceContext';
 import { useClipboardContext } from '../../../ClipboardContext';
 
 interface Props {
-  onSearch: DetailedHTMLProps<any, any>;
+  onSearch: () => void;
 }
 
 export default function ResultMenu({ onSearch }: Props) {

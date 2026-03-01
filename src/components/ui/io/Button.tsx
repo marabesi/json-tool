@@ -1,7 +1,7 @@
-import { DetailedHTMLProps, ReactNode } from 'react';
+import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
 
 type ButtonProps = {
-  onClick?: DetailedHTMLProps<any, any>
+  onClick?: DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>['onClick']
   children?: ReactNode
   className?: string
   title?: string

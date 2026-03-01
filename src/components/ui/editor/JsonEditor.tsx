@@ -35,7 +35,7 @@ export default forwardRef(function JsonEditor(props: Props, ref: ForwardedRef<Re
 
   const basicSetup: BasicSetupOptions = {};
   if (editorOptions.options) {
-    // @ts-ignore
+    // @ts-expect-error dynamic key assignment into BasicSetupOptions
     editorOptions.options.forEach((item: Option) => basicSetup[item.title as keyof BasicSetupOptions] = item.active);
   }
 
@@ -46,7 +46,7 @@ export default forwardRef(function JsonEditor(props: Props, ref: ForwardedRef<Re
   };
 
   if (editorOptions.properties) {
-    // @ts-ignore
+    // @ts-expect-error dynamic key assignment into CSSProperties
     editorOptions.properties.forEach((item: Properties) => style[item.key] = item.value);
   }
 

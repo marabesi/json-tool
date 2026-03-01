@@ -6,16 +6,16 @@ import '@testing-library/jest-dom';
 import toast from 'react-hot-toast';
 import 'jsdom-worker';
 import { TextEncoder, TextDecoder } from 'util';
-
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const fmt2json = require('format-to-json');
 
 Object.assign(global, { TextDecoder, TextEncoder });
 
-// @ts-ignore
+// @ts-expect-error fmt2json is injected as a global for the worker simulation
 // eslint-disable-next-line no-undef
 globalThis.fmt2json = fmt2json;
 
-// @ts-ignore
+// @ts-expect-error importScripts is a worker-only global, stubbed here for jsdom
 // eslint-disable-next-line no-undef
 globalThis.importScripts = (url: string) => {
   console.log(`returning null for url ${url}`);
