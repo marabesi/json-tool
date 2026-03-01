@@ -3,7 +3,7 @@
 docker compose run --rm json-tool rm -rf node_modules/ coverage/ build/ .nyc_output
 docker compose run --rm json-tool npm i 
 docker compose run --rm json-tool npm run build
-docker compose run --service-ports --rm -d json-tool npm run start
+docker compose run --service-ports --rm -d json-tool npm run start-instrumented
 echo "Sleeping 10 seconds for the application to start"
 sleep 10
 echo "Woke up, after 10 seconds, running tests now..."
