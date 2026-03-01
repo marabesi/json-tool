@@ -8,9 +8,6 @@
     "html"
   ],
   "coverageAnalysis": "off",
-  "jest": {
-    "projectType": "create-react-app"
-  },
   "checkers": [
     "typescript"
   ],

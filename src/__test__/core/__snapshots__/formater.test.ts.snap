@@ -2,7 +2,7 @@
 
 exports[`json utility tool should format json with two space 1`] = `
 "{
-  \\"a\\": true,
-  \\"b\\": false
+  "a": true,
+  "b": false
 }"
 `;
