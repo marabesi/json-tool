@@ -23,7 +23,7 @@ module.exports = defineConfig({
           return null; // or return a value if needed
         },
       });
-      // installPlugin(on, config);
+      installPlugin(on, config);
       coverage(on, config);
       on('file:preprocessor', cucumber());
       return config;
