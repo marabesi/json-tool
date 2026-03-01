@@ -23,7 +23,9 @@ module.exports = defineConfig({
           return null; // or return a value if needed
         },
       });
-      installPlugin(on, config);
+      if (process.env.ELECTRON_EXTRA_LAUNCH_ARGS) {
+        installPlugin(on, config);
+      }
       coverage(on, config);
       on('file:preprocessor', cucumber());
       return config;

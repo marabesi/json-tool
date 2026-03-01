@@ -15,7 +15,7 @@ start:
 e2e:
 		@echo "Running tests..."
 		docker compose run --rm -e CI=true json-tool npm run test
-		docker run --network=host --rm -e CYPRESS_BASE_URL=http://localhost:3000 -v $(shell pwd):/app -w /app cypress/included:14.3.0 npm run e2e
+		docker run --network=host --rm -e CYPRESS_BASE_URL=http://localhost:3000 -v $(shell pwd):/app -w /app cypress/included:15.10.0 npm run e2e
 
 clean:
 		@echo "Cleaning up..."
