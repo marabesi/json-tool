@@ -16,16 +16,14 @@ module.exports = defineConfig({
     ],
     'experimentalRunAllSpecs': true,
     setupNodeEvents(on, config) {
-      if (process.env.ELECTRON_EXTRA_LAUNCH_ARGS) {
-        on('task', {
-          prepareArchives: () => {
-            // Your task logic here (e.g., file operations, cleanup, etc.)
-            console.log('Preparing archives...');
-            return null; // or return a value if needed
-          },
-        });
-        installPlugin(on, config);
-      }
+      on('task', {
+        prepareArchives: () => {
+          // Your task logic here (e.g., file operations, cleanup, etc.)
+          console.log('Preparing archives...');
+          return null; // or return a value if needed
+        },
+      });
+      installPlugin(on, config);
       coverage(on, config);
       on('file:preprocessor', cucumber());
       return config;
