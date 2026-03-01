@@ -121,7 +121,7 @@ describe('Custom spacing for formatting json', () => {
     it('dismiss upload file when there is no file content', async () => {
       renderEntireApp();
 
-      // @ts-ignore when dismissing an input file without selecting a file it is normal to see undefined from the input
+      // @ts-expect-error when dismissing an input file without selecting a file it is normal to see undefined from the input
       // the flow is: 1. upload a file, 2. open the input file and dismiss the dialog
       // the code will return undefined
       const file = new File([], '');
@@ -144,7 +144,7 @@ describe('Custom spacing for formatting json', () => {
       await userEvent.click(screen.getByText('Delete all'));
 
       await waitFor(() => {
-        // @ts-ignore
+        // @ts-expect-error HTMLInputElement.value is a string but assertion needs cast
         expect(screen.getByTestId('upload-json').value).toBe('');
       });
     });

@@ -11,14 +11,14 @@ import { usePersistenceContext } from '../PersistenceContext';
 export default function Editors() {
   const { error, inProgress, onChange, jsonState, resultState, isValidateEnabled, spacing } = usePersistenceContext();
   const jsonReferenceEditor = useRef<ReactCodeMirrorRef>(undefined);
-  const resultReferenceEditor: any = useRef(undefined);
+  const resultReferenceEditor = useRef<ReactCodeMirrorRef>(undefined);
 
   return <div className="p-1 pt-0 mb-8 pb-8 h-full" style={{ height: '80vh' }}>
     <div className="flex h-full justify-center p-1 pt-0" data-testid="editor-container">
       <EditorContainer>
         <JsonMenu
           onLoadedFile={(text: string) => onChange(text, spacing, true)}
-          onSearch={() => openSearchPanel(jsonReferenceEditor.current?.view!!)}
+          onSearch={() => openSearchPanel(jsonReferenceEditor.current!.view)}
         />
         <JsonEditor
           input={jsonState}

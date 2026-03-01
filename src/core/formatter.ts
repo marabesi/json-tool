@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const fmt2json = require('format-to-json');
 
 export default class Formatter {

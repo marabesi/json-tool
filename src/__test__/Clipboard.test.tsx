@@ -57,7 +57,7 @@ describe('Clipboard', () => {
 
   describe('clipboard api not available', () => {
     beforeEach(() => {
-      // @ts-ignore
+      // @ts-expect-error intentionally overwrite clipboard with incomplete stub
       global.navigator.clipboard = {};
     });
 

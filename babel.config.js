@@ -1,4 +1,4 @@
-// Babel config used by Jest (standalone, without react-scripts)
+// Babel config used by Jest (standalone, without bundler involvement)
 module.exports = {
   presets: [
     ['@babel/preset-env', { targets: { node: 'current' }, modules: 'commonjs' }],

@@ -21,13 +21,9 @@ export default defineConfig(async () => {
 
   return {
     plugins,
-    // Use public/ as Vite root so index.html lives there alongside static assets.
-    // publicDir is disabled because the root itself acts as the static-assets folder.
-    root: 'public',
-    publicDir: false,
     base: './',
     build: {
-      outDir: '../build',
+      outDir: 'build',
       sourcemap: true,
     },
     server: {
