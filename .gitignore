@@ -47,3 +47,5 @@ cypress-visual-screenshots/comparison/
 .nyc_output
 # stryker temp files
 .stryker-tmp
+*.log
+benchmark-results.csv
