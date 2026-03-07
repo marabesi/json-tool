@@ -100,7 +100,7 @@
     "e2e": "ELECTRON_EXTRA_LAUNCH_ARGS=--remote-debugging-port=9222 CYPRESS_BASE_URL=http://localhost:3000 cypress run",
     "e2e:open": "ELECTRON_EXTRA_LAUNCH_ARGS=--remote-debugging-port=9222 CYPRESS_BASE_URL=http://localhost:3000 cypress open",
     "dev": "concurrently -k \"vite\" \"npm run electron\"",
-    "setup": "npm run build && cp package.json ./build",
+    "setup": "npm run build && cp package.json electron.js ./build",
     "package": "npm run setup && electron-builder --linux snap -p never",
     "package-windows": "npm run setup && electron-builder --win --x64 -p never",
     "package-macos": "npm run setup && electron-builder --macos -p never",
