@@ -171,6 +171,11 @@
   "build": {
     "productName": "json-tool",
     "appId": "org.marabesi.json-tool",
+    "files": [
+      "build/**/*",
+      "electron.js",
+      "package.json"
+    ],
     "linux": {
       "category": "Utility",
       "icon": "logo512.png"

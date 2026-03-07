@@ -20,11 +20,13 @@ function createWindow () {
   mainWindow.maximize();
   mainWindow.show();
 
+  console.log('__dirname  ---  ', __dirname)
+
   // and load the index.html of the app.
   mainWindow.loadURL(
     isDev
       ? 'http://localhost:3000'
-      : `file://${path.join(__dirname, '/index.html')}`
+      : `file://${path.join(__dirname, '/build/index.html')}`
   );
 }
 
