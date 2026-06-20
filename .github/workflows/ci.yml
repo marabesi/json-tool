@@ -152,9 +152,9 @@ jobs:
       - name: Generate lcov
         run: npx nyc report --reporter=lcov
 
-      - name: Chromatic
-        if: github.ref == 'refs/heads/main'
-        run: npx chromatic --cypress --project-token="${{ secrets.CHROMATIC_KEY }}" --exit-zero-on-changes
+      # - name: Chromatic
+      #   if: github.ref == 'refs/heads/main'
+      #   run: npx chromatic --cypress --project-token="${{ secrets.CHROMATIC_KEY }}" --exit-zero-on-changes
 
       - uses: actions/upload-artifact@v4
         if: github.ref == 'refs/heads/main'
@@ -203,6 +203,10 @@ jobs:
           name: merged-lcov
           path: merged_coverage.info
 
+      - name: Sonarqube upload
+        uses: SonarSource/sonarqube-scan-action@v7
+        env:
+          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
 
   delivery:
     runs-on: ubuntu-latest
