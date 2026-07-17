@@ -16,9 +16,12 @@ export default function Editors() {
   const resultReferenceEditor = useRef<ReactCodeMirrorRef>(undefined);
 
   const isVertical = layout === 'vertical';
+  const editorContainerClass = isVertical
+    ? 'flex-col h-full justify-center p-1 pt-0'
+    : 'flex h-full justify-center p-1 pt-0';
 
   return <div className="p-1 pt-0 mb-8 pb-8 h-full" style={{ height: '80vh' }}>
-    <div className={`${isVertical ? 'flex-col' : 'flex'} h-full justify-center p-1 pt-0`} data-testid="editor-container">
+    <div className={editorContainerClass} data-testid="editor-container">
       <EditorContainer>
         <JsonMenu
           onLoadedFile={(text: string) => onChange(text, spacing, true)}
