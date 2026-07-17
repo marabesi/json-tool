@@ -7,14 +7,18 @@ import JsonMenu from '../components/ui/menu/JsonMenu';
 import EditorContainer from '../components/ui/editor/EditorContainer';
 import Loading from '../components/ui/Loading';
 import { usePersistenceContext } from '../PersistenceContext';
+import { useSettingsContext } from '../settings/SettingsContext';
 
 export default function Editors() {
   const { error, inProgress, onChange, jsonState, resultState, isValidateEnabled, spacing } = usePersistenceContext();
+  const { layout } = useSettingsContext();
   const jsonReferenceEditor = useRef<ReactCodeMirrorRef>(undefined);
   const resultReferenceEditor = useRef<ReactCodeMirrorRef>(undefined);
 
+  const isVertical = layout === 'vertical';
+
   return <div className="p-1 pt-0 mb-8 pb-8 h-full" style={{ height: '80vh' }}>
-    <div className="flex h-full justify-center p-1 pt-0" data-testid="editor-container">
+    <div className={`${isVertical ? 'flex-col' : 'flex'} h-full justify-center p-1 pt-0`} data-testid="editor-container">
       <EditorContainer>
         <JsonMenu
           onLoadedFile={(text: string) => onChange(text, spacing, true)}

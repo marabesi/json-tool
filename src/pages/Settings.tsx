@@ -1,10 +1,15 @@
 import { useState } from 'react';
 import Button from '../components/ui/io/Button';
-import { Option, Properties } from '../types/components/Editor';
+import { Option, Properties, LayoutOption } from '../types/components/Editor';
 import { useSettingsContext } from '../settings/SettingsContext';
 
+const LAYOUT_OPTIONS: { value: LayoutOption; label: string }[] = [
+  { value: 'horizontal', label: 'Horizontal' },
+  { value: 'vertical', label: 'Vertical' },
+];
+
 export function Settings() {
-  const { editorOptions: options, handleEditorOptionsChanged: handleChange, handleFeatureOptionsChanged, featureOptions } = useSettingsContext();
+  const { editorOptions: options, handleEditorOptionsChanged: handleChange, handleFeatureOptionsChanged, featureOptions, layout, handleLayoutChanged } = useSettingsContext();
   const [prop, setProp] = useState<Properties>({ key: 'fontSize', value: options.properties[0].value });
 
   const [allEditorOptions, setAllOptionsForEditor] = useState<Option[]>(options.options);
@@ -67,6 +72,28 @@ export function Settings() {
                 <label className="flex items-center justify-between cursor-pointer">
                   {option.title}
                   <input className="ml-2" type="checkbox" data-testid="json-history-setting" checked={option.active} onChange={() => onSaveFeatureOption(option)} />
+                </label>
+              </div>
+            )
+          }
+        </div>
+
+        <div className="ml-5">
+          <h2 className="font-bold">Layout</h2>
+          {
+            LAYOUT_OPTIONS.map(({ value, label }) =>
+              <div key={value} className="m-2">
+                <label className="flex items-center justify-between cursor-pointer">
+                  {label}
+                  <input
+                    className="ml-2"
+                    type="radio"
+                    name="layout"
+                    data-testid={`layout-${value}`}
+                    value={value}
+                    checked={layout === value}
+                    onChange={() => handleLayoutChanged(value)}
+                  />
                 </label>
               </div>
             )

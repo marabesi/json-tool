@@ -93,4 +93,54 @@ describe('Settings', () => {
       expect(screen.getByLabelText('JSON History')).toBeInTheDocument();
     });
   });
+
+  describe('layout', () => {
+    it('renders layout title', async () => {
+      await goToSettings();
+      expect(screen.getByText('Layout')).toBeInTheDocument();
+    });
+
+    it('renders horizontal layout option', async () => {
+      await goToSettings();
+      expect(screen.getByTestId('layout-horizontal')).toBeInTheDocument();
+    });
+
+    it('renders vertical layout option', async () => {
+      await goToSettings();
+      expect(screen.getByTestId('layout-vertical')).toBeInTheDocument();
+    });
+
+    it('should use horizontal layout by default', async () => {
+      await goToSettings();
+      expect(screen.getByTestId('layout-horizontal')).toBeChecked();
+      expect(screen.getByTestId('layout-vertical')).not.toBeChecked();
+    });
+
+    it('should switch to vertical layout when selected', async () => {
+      await goToSettings();
+
+      await userEvent.click(screen.getByLabelText('Vertical'));
+
+      expect(screen.getByTestId('layout-vertical')).toBeChecked();
+      expect(screen.getByTestId('layout-horizontal')).not.toBeChecked();
+    });
+
+    it('should apply vertical layout to editor container when vertical is selected', async () => {
+      await goToSettings();
+
+      await userEvent.click(screen.getByLabelText('Vertical'));
+
+      await userEvent.click(screen.getByTestId('to-home'));
+
+      await waitFor(() => {
+        expect(screen.getByTestId('editor-container')).toHaveClass('flex-col');
+      });
+    });
+
+    it('should apply horizontal layout to editor container by default', async () => {
+      renderEntireApp();
+
+      expect(screen.getByTestId('editor-container')).toHaveClass('flex');
+    });
+  });
 });

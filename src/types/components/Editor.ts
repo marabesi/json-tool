@@ -13,3 +13,5 @@ export interface EditorOptions {
   properties: Properties[]
 }
 
+export type LayoutOption = 'horizontal' | 'vertical';
+

@@ -1,10 +1,10 @@
 import { createContext, ReactElement, useContext, useState } from 'react';
-import { EditorOptions } from '../types/components/Editor';
+import { EditorOptions, LayoutOption } from '../types/components/Editor';
 import {
   editorOptions as defaultOptions,
   FeatureOptions,
 } from '../default-options';
-import { featureOptionsDefault } from '../default-features';
+import { defaultLayout, featureOptionsDefault } from '../default-features';
 
 interface SettingContext {
   editorOptions: EditorOptions;
@@ -12,6 +12,8 @@ interface SettingContext {
   handleEditorOptionsChanged: (changed: EditorOptions) => void;
   handleFeatureOptionsChanged: (changed: FeatureOptions) => void;
   isHistoryEnabled: boolean;
+  layout: LayoutOption;
+  handleLayoutChanged: (layout: LayoutOption) => void;
 }
 
 const SettingsContext = createContext<SettingContext | undefined>(undefined);
@@ -27,6 +29,7 @@ export const useSettingsContext = () => {
 export const SettingsContextProvider = ({ children }: { children: ReactElement }) => {
   const [editorOptions, setEditorOptions] = useState<EditorOptions>(defaultOptions());
   const [featureOptions, setFeatureOptions] = useState<FeatureOptions>(featureOptionsDefault());
+  const [layout, setLayout] = useState<LayoutOption>(defaultLayout());
 
   const handleEditorOptionsChanged = (changed: EditorOptions) => {
     editorOptions.properties = changed.properties;
@@ -38,6 +41,10 @@ export const SettingsContextProvider = ({ children }: { children: ReactElement }
     setFeatureOptions(changed);
   };
 
+  const handleLayoutChanged = (newLayout: LayoutOption) => {
+    setLayout(newLayout);
+  };
+
   const isHistoryEnabled = featureOptions.options.find(item => item.title === 'JSON History' && item.active) !== undefined;
 
   return (
@@ -46,7 +53,9 @@ export const SettingsContextProvider = ({ children }: { children: ReactElement }
       featureOptions,
       handleEditorOptionsChanged,
       handleFeatureOptionsChanged,
-      isHistoryEnabled
+      isHistoryEnabled,
+      layout,
+      handleLayoutChanged,
     }}>
       {children}
     </SettingsContext.Provider>
