@@ -58,7 +58,7 @@
     "autoprefixer": "^10.4.21",
     "babel-jest": "^29.7.0",
     "chromatic": "^13.3.4",
-    "concurrently": "^10.0.3",
+    "concurrently": "^10.0.5",
     "coveralls-next": "^6.0.0 ",
     "cypress": "^15.17.0",
     "cypress-cucumber-preprocessor": "^4.3.1",
