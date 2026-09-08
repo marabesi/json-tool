@@ -77,7 +77,7 @@
     "jest-clipboard": "^0.0.11",
     "jest-environment-jsdom": "^30.5.1",
     "jsdom-worker": "^0.3.0",
-    "lcov-result-merger": "^5.0.1",
+    "lcov-result-merger": "^6.0.0",
     "node-fetch": "^2.7.0",
     "nyc": "^18.0.0",
     "source-map-explorer": "^2.5.3",
