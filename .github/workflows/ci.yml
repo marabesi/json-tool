@@ -5,6 +5,9 @@ concurrency:
   cancel-in-progress: true
 
 on:
+  schedule:
+    # run every day at midnight UTC
+    - cron: '0 0 * * *'
   pull_request:
   workflow_dispatch:
   push:
