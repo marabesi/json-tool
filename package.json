@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.26.0",
-    "@babel/preset-react": "^7.26.0",
+    "@babel/preset-react": "^8.0.1",
     "@babel/preset-typescript": "^7.26.0",
     "@chromatic-com/cypress": "^0.13.2",
     "@cypress/code-coverage": "^4.0.3",
