@@ -1,7 +1,8 @@
-FROM node:24.6.0
+FROM node:26.8.2
+RUN npm install -g pnpm@latest
 WORKDIR /app
 COPY package.json ./
-COPY package-lock.json ./
+COPY pnpm-lock.yaml ./
 COPY ./ ./
-RUN npm i 
-CMD ["npm", "run", "start"]
+RUN pnpm install
+CMD ["pnpm", "run", "start"]

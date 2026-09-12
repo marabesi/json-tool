@@ -10,4 +10,4 @@ services:
       context: ./
     volumes:
       - ./:/app
-    command: npm run start
+    command: pnpm run start

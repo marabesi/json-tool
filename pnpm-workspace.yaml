@@ -1,0 +1,9 @@
+allowBuilds:
+  '@parcel/watcher': true
+  core-js: true
+  cucumber-expressions: true
+  cypress: true
+  electron-winstaller: true
+  es5-ext: true
+  esbuild: true
+  unrs-resolver: false

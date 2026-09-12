@@ -17,8 +17,13 @@ export default function Editors() {
     <div className="flex h-full justify-center p-1 pt-0" data-testid="editor-container">
       <EditorContainer>
         <JsonMenu
-          onLoadedFile={(text: string) => onChange(text, spacing, true)}
-          onSearch={() => openSearchPanel(jsonReferenceEditor.current!.view)}
+          onLoadedFile={(text) => onChange(text, spacing, true)}
+          onSearch={() => {
+            const target = jsonReferenceEditor?.current?.view;
+            if (target !== undefined) {
+              openSearchPanel(target);
+            }
+          }}
         />
         <JsonEditor
           input={jsonState}

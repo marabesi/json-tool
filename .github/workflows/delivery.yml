@@ -19,25 +19,30 @@ jobs:
         with:
           envFilePath: ./envvars.for.actions
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
       - name: Use Node.js
         uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: install
-        run: npm install 
+        run: pnpm install --frozen-lockfile
 
       - name: lint
-        run: npm run lint
+        run: pnpm lint
 
       - name: build
         env:
           NODE_OPTIONS: --openssl-legacy-provider
-        run: npm run build
+        run: pnpm build
 
       - name: package
-        run: npm run package
+        run: pnpm package
 
       - name: publish snap
         uses: snapcore/action-publish@v1

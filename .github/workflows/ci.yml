@@ -37,6 +37,11 @@ jobs:
         with:
           envFilePath: ./envvars.for.actions
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: Use Node.js
         uses: actions/setup-node@v6
         with:
@@ -49,12 +54,12 @@ jobs:
           path: |
             ./node_modules
             ~/.cache/Cypress
-          key: ${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ hashFiles('**/package-lock.json') }}
+          key: ${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: install
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm install 
+        run: pnpm install --frozen-lockfile
 
   test:
     runs-on: ubuntu-latest
@@ -65,6 +70,11 @@ jobs:
         uses: tw3lveparsecs/github-actions-setvars@v0.2
         with:
           envFilePath: ./envvars.for.actions
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
 
       - name: Use Node.js
         uses: actions/setup-node@v6
@@ -79,11 +89,11 @@ jobs:
           path: |
             ./node_modules
             ~/.cache/Cypress
-          key: ${{ hashFiles('**/package-lock.json') }}
+          key: ${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: coverage
         if: github.ref == 'refs/heads/main'
-        run: npm run coverage
+        run: pnpm coverage
 
       - uses: actions/upload-artifact@v7
         if: github.ref == 'refs/heads/main'
@@ -93,7 +103,7 @@ jobs:
 
       - name: coverage (no coveralls)
         if: github.ref != 'refs/heads/main'
-        run: npm run coverage
+        run: pnpm coverage
 
   acceptance:
     runs-on: ubuntu-latest
@@ -107,6 +117,11 @@ jobs:
         with:
           envFilePath: ./envvars.for.actions
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
       - name: Use Node.js
         uses: actions/setup-node@v6
         with:
@@ -120,7 +135,7 @@ jobs:
           path: |
             ./node_modules
             ~/.cache/Cypress
-          key: ${{ hashFiles('**/package-lock.json') }}
+          key: ${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: export display
         run: |
@@ -130,13 +145,13 @@ jobs:
         run: rm -rf coverage/
 
       - name: Apply dependency patches
-        run: npx patch-package
+        run: pnpm exec patch-package
 
       - name: lint
-        run: npm run lint
+        run: pnpm lint
 
       - name: build application
-        run: npm run build
+        run: pnpm build
 
       - name: Run cypress (acceptance tests)
         uses: cypress-io/github-action@v6
@@ -150,17 +165,17 @@ jobs:
           parallel: true
           group: 'json-tool'
           wait-on: 'http://localhost:3000'
-          start: npm run start-instrumented
+          start: pnpm start-instrumented
           browser: chrome
           headed: true
-          install-command: npm install
+          install-command: pnpm install --frozen-lockfile
 
       - name: Generate lcov
-        run: npx nyc report --reporter=lcov
+        run: pnpm exec nyc report --reporter=lcov
 
       # - name: Chromatic
       #   if: github.ref == 'refs/heads/main'
-      #   run: npx chromatic --cypress --project-token="${{ secrets.CHROMATIC_KEY }}" --exit-zero-on-changes
+      #   run: pnpm exec chromatic --cypress --project-token="${{ secrets.CHROMATIC_KEY }}" --exit-zero-on-changes
 
       - uses: actions/upload-artifact@v7
         if: github.ref == 'refs/heads/main'
@@ -179,6 +194,11 @@ jobs:
         with:
           envFilePath: ./envvars.for.actions
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
       - name: Use Node.js
         uses: actions/setup-node@v6
         with:
@@ -191,7 +211,7 @@ jobs:
           path: |
             ./node_modules
             ~/.cache/Cypress
-          key: ${{ hashFiles('**/package-lock.json') }}
+          key: ${{ hashFiles('**/pnpm-lock.yaml') }}
       
       - uses: actions/download-artifact@v8
         with:
@@ -202,8 +222,8 @@ jobs:
           mkdir merged_coverage
           mv coverage/cypress-lcov/lcov.info merged_coverage/cypress.info
           mv coverage/jest-lcov/lcov.info merged_coverage/jest.info
-          ./node_modules/.bin/lcov-result-merger './merged_coverage/*' merged_coverage.info
-          npm run coveralls
+          pnpm exec lcov-result-merger './merged_coverage/*' merged_coverage.info
+          pnpm coveralls
       - uses: actions/upload-artifact@v7
         with:
           name: merged-lcov
@@ -227,6 +247,11 @@ jobs:
         with:
           envFilePath: ./envvars.for.actions
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
       - name: Use Node.js
         uses: actions/setup-node@v6
         with:
@@ -240,10 +265,10 @@ jobs:
           path: |
             ./node_modules
             ~/.cache/Cypress
-          key: ${{ hashFiles('**/package-lock.json') }}
+          key: ${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: package
-        run: npm run package
+        run: pnpm package
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
