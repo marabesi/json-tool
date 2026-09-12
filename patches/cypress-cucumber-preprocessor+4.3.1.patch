@@ -1,0 +1,13 @@
+diff --git a/node_modules/cypress-cucumber-preprocessor/lib/tagsHelper.js b/node_modules/cypress-cucumber-preprocessor/lib/tagsHelper.js
+index 7ec6605..ffa1917 100644
+--- a/node_modules/cypress-cucumber-preprocessor/lib/tagsHelper.js
++++ b/node_modules/cypress-cucumber-preprocessor/lib/tagsHelper.js
+@@ -1,7 +1,7 @@
+ const { TagExpressionParser } = require("cucumber-tag-expressions");
+ 
+ function getEnvTags() {
+-  return Cypress.env("TAGS") || "";
++  return Cypress.expose("TAGS") || "";
+ }
+ 
+ function shouldProceedCurrentStep(tags = [], envTags = getEnvTags()) {

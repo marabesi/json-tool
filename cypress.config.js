@@ -6,7 +6,6 @@ const { installPlugin } = require('@chromatic-com/cypress');
 module.exports = defineConfig({
   viewportHeight: 920,
   viewportWidth: 1280,
-  experimentalFastVisibility: true,
   e2e: {
     'projectId': 'wpcwmv',
     'watchForFileChanges': false,
@@ -19,15 +18,10 @@ module.exports = defineConfig({
       coverage(on, config);
       on('file:preprocessor', cucumber());
 
-      if (process.env.ELECTRON_EXTRA_LAUNCH_ARGS) {
-        on('task', {
-          prepareArchives: () => {
-            // Your task logic here (e.g., file operations, cleanup, etc.)
-            console.log('Preparing archives...');
-            return null; // or return a value if needed
-          },
-        });
-      }
+      on('task', {
+        prepareArchives: () => null,
+      });
+
       if (process.env.CI) {
         installPlugin(on, config);
       }
