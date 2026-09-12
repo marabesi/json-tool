@@ -85,7 +85,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: npm run coverage
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: github.ref == 'refs/heads/main'
         with:
           name: jest-lcov
@@ -162,7 +162,7 @@ jobs:
       #   if: github.ref == 'refs/heads/main'
       #   run: npx chromatic --cypress --project-token="${{ secrets.CHROMATIC_KEY }}" --exit-zero-on-changes
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: github.ref == 'refs/heads/main'
         with:
           name: cypress-lcov
@@ -204,7 +204,7 @@ jobs:
           mv coverage/jest-lcov/lcov.info merged_coverage/jest.info
           ./node_modules/.bin/lcov-result-merger './merged_coverage/*' merged_coverage.info
           npm run coveralls
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: merged-lcov
           path: merged_coverage.info
