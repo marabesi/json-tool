@@ -126,6 +126,9 @@ jobs:
       - name: delete coverage folder
         run: rm -rf coverage/
 
+      - name: Apply dependency patches
+        run: npx patch-package
+
       - name: lint
         run: npm run lint
 
