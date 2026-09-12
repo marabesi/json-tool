@@ -43,7 +43,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Attempt to restore the cache
-        uses: actions/cache@v3
+        uses: actions/cache@v6
         id: cache
         with:
           path: |
@@ -72,7 +72,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Attempt to restore the cache
-        uses: actions/cache@v3
+        uses: actions/cache@v6
         id: cache_restore
         with:
           fail-on-cache-miss: true
@@ -113,7 +113,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Attempt to restore the cache
-        uses: actions/cache@v3
+        uses: actions/cache@v6
         id: cache_restore
         with:
           fail-on-cache-miss: true
@@ -185,7 +185,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Attempt to restore the cache
-        uses: actions/cache@v3
+        uses: actions/cache@v6
         with:
           fail-on-cache-miss: true
           path: |
@@ -233,7 +233,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Attempt to restore the cache
-        uses: actions/cache@v3
+        uses: actions/cache@v6
         id: cache_restore
         with:
           fail-on-cache-miss: true
@@ -272,7 +272,7 @@ jobs:
     steps:
       - name: Dependabot metadata
         id: metadata
-        uses: dependabot/fetch-metadata@v1.3.4
+        uses: dependabot/fetch-metadata@v3.1.0
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
           skip-commit-verification: true
