@@ -17,7 +17,7 @@ jobs:
       # refs https://arinco.com.au/blog/github-actions-share-environment-variables-across-workflows
       # refs https://github.com/marketplace/actions/set-environment-variables
       - name: Set Environment Variables
-        uses: tw3lveparsecs/github-actions-setvars@v0.1
+        uses: tw3lveparsecs/github-actions-setvars@v0.2
         with:
           envFilePath: ./envvars.for.actions
 
