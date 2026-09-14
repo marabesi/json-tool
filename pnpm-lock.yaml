@@ -118,8 +118,8 @@ importers:
         specifier: ^30.5.1
         version: 30.5.1(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
       chromatic:
-        specifier: ^13.3.5
-        version: 13.3.5(@chromatic-com/cypress@0.13.2(@testing-library/dom@10.4.1)(cypress@16.0.0)(react@19.3.0))
+        specifier: ^18.8.1
+        version: 18.8.1(@chromatic-com/cypress@0.13.2(@testing-library/dom@10.4.1)(cypress@16.0.0)(react@19.3.0))
       concurrently:
         specifier: ^10.0.5
         version: 10.0.5
@@ -2836,16 +2836,20 @@ packages:
     resolution: {integrity: sha512-+IxzY9BZOQd/XuYPRmrvEVjF/nqj5kgT4kEq7VofrDoM1MxoRjEWkrCC3EtLi59TVawxTAn+orJwFQcrqEN1+g==}
     engines: {node: '>=18'}
 
-  chromatic@13.3.5:
-    resolution: {integrity: sha512-MzPhxpl838qJUo0A55osCF2ifwPbjcIPeElr1d4SHcjnHoIcg7l1syJDrAYK/a+PcCBrOGi06jPNpQAln5hWgw==}
+  chromatic@18.8.1:
+    resolution: {integrity: sha512-ATJyUUuUrK1GA3bPNHPHgwQtqw/cSapC/hReF53EBO0HT0yYCl5jEeWBQP64+bAlZTK7zTSjzKe4109qbdKTvQ==}
+    engines: {node: '>=22.0.0'}
     hasBin: true
     peerDependencies:
       '@chromatic-com/cypress': ^0.*.* || ^1.0.0
       '@chromatic-com/playwright': ^0.*.* || ^1.0.0
+      '@chromatic-com/vitest': ^0.*.* || ^1.0.0
     peerDependenciesMeta:
       '@chromatic-com/cypress':
         optional: true
       '@chromatic-com/playwright':
+        optional: true
+      '@chromatic-com/vitest':
         optional: true
 
   chrome-remote-interface@0.33.3:
@@ -10100,7 +10104,9 @@ snapshots:
 
   chownr@3.0.0: {}
 
-  chromatic@13.3.5(@chromatic-com/cypress@0.13.2(@testing-library/dom@10.4.1)(cypress@16.0.0)(react@19.3.0)):
+  chromatic@18.8.1(@chromatic-com/cypress@0.13.2(@testing-library/dom@10.4.1)(cypress@16.0.0)(react@19.3.0)):
+    dependencies:
+      semver: 7.8.5
     optionalDependencies:
       '@chromatic-com/cypress': 0.13.2(@testing-library/dom@10.4.1)(cypress@16.0.0)(react@19.3.0)
 
