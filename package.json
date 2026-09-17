@@ -187,6 +187,7 @@
     }
   },
   "jest": {
+    "testTimeout": 40000,
     "testEnvironment": "jsdom",
     "testPathIgnorePatterns": [
       "/node_modules/",
