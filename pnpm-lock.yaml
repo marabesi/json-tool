@@ -36,8 +36,8 @@ importers:
         specifier: ^19.3.0
         version: 19.3.0(react@19.3.0)
       react-hot-toast:
-        specifier: ^2.6.0
-        version: 2.6.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        specifier: ^2.6.1
+        version: 2.6.1(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)
       react-icons:
         specifier: ^5.7.0
         version: 5.7.0(react@19.3.0)
@@ -5586,12 +5586,19 @@ packages:
     peerDependencies:
       react: ^19.3.0
 
-  react-hot-toast@2.6.0:
-    resolution: {integrity: sha512-bH+2EBMZ4sdyou/DPrfgIouFpcRLCJ+HoCA32UoAYHn6T3Ur5yfcDCeSr5mwldl6pFOsiocmrXMuoCJ1vV8bWg==}
+  react-hot-toast@2.6.1:
+    resolution: {integrity: sha512-gjFsf05dxcku0FkyMtFH+XmYFdA2odXfBVknEr/IZ+XpUjwsgvtY2616sOpUynK+l9ykQDRNpaJ1hYfuximUiA==}
     engines: {node: '>=10'}
     peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
       react: '>=16'
       react-dom: '>=16'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
 
   react-icons@5.7.0:
     resolution: {integrity: sha512-LBLy340Rzqy6+/yVhZKT3B/QpP1BZaesGqasf09HPOBzRarcDIFH0WwXlXQfE7q7ipxK4MSiC5DIBWURCny6fw==}
@@ -13311,12 +13318,15 @@ snapshots:
       react: 19.3.0
       scheduler: 0.28.0
 
-  react-hot-toast@2.6.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
+  react-hot-toast@2.6.1(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1):
     dependencies:
       csstype: 3.2.3
       goober: 2.1.19(csstype@3.2.3)
       react: 19.3.0
       react-dom: 19.3.0(react@19.3.0)
+    optionalDependencies:
+      '@types/react': types-react@19.0.0-rc.1
+      '@types/react-dom': types-react-dom@19.0.0-rc.1
 
   react-icons@5.7.0(react@19.3.0):
     dependencies:
