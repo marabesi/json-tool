@@ -79,7 +79,7 @@
     "istanbul-lib-coverage": "^3.2.2",
     "jest": "^30.5.2",
     "jest-clipboard": "^0.0.11",
-    "jest-environment-jsdom": "^30.5.1",
+    "jest-environment-jsdom": "^30.5.2",
     "jsdom-worker": "^0.3.0",
     "lcov-result-merger": "^6.0.0",
     "node-fetch": "^3.3.2",

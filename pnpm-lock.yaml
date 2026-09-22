@@ -172,8 +172,8 @@ importers:
         specifier: ^0.0.11
         version: 0.0.11
       jest-environment-jsdom:
-        specifier: ^30.5.1
-        version: 30.5.1(supports-color@8.1.1)
+        specifier: ^30.5.2
+        version: 30.5.2(supports-color@8.1.1)
       jsdom-worker:
         specifier: ^0.3.0
         version: 0.3.0(node-fetch@3.3.2)
@@ -1410,8 +1410,8 @@ packages:
     resolution: {integrity: sha512-OsqBjHXCn8cadasoAZBP6nWYvMsRhpMzGXTpxJ5aO04NlbdhIz+FVe3q49l0AwVhsz/cEmIpBes6gAFl1/dWQg==}
     engines: {node: ^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0}
 
-  '@jest/environment-jsdom-abstract@30.5.1':
-    resolution: {integrity: sha512-J395vmP3Fb2Te0JmF7pe4si4jpfbXef1YsY4UpHYL6OOxS2molu9Dsie1VmIiUalXdtmz1P5QRgc+5hBD+ssBg==}
+  '@jest/environment-jsdom-abstract@30.5.2':
+    resolution: {integrity: sha512-8/P+8hKv7L4mhFoB6gpYLj/fuzXk8PWrde7TDHh8tJz5pE1ktlMbg0y6hDY/V8MfAnispFlPl/vPifowLy3JGQ==}
     engines: {node: ^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0}
     peerDependencies:
       '@types/jsdom': '*'
@@ -1420,10 +1420,6 @@ packages:
     peerDependenciesMeta:
       canvas:
         optional: true
-
-  '@jest/environment@30.5.1':
-    resolution: {integrity: sha512-eYJAkOsrpwDXPcoLNEG6lN9Zo3Cy35pxnVQD74vyIfsi/Q8wB/lZFsEjU4wrecOgT4ZviQDZaX/cFIJyMdMxTw==}
-    engines: {node: ^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0}
 
   '@jest/environment@30.5.2':
     resolution: {integrity: sha512-nwFPOUMbmsjNNRCpnJpB9HbSZu4C07wDDds++5j+j1MezzPLxMPDdbdUVjr2o4RULDOValnDd70taPFI1EtxAg==}
@@ -1439,10 +1435,6 @@ packages:
 
   '@jest/expect@30.5.2':
     resolution: {integrity: sha512-2E+1Pg6jJxbRjLNLpciC71iri/3qsKJL222/aXJEFwC0VdUSvfS+JZQQLEVjUYYc8t8pQu2MGE3cF2+bNTYRsg==}
-    engines: {node: ^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0}
-
-  '@jest/fake-timers@30.5.1':
-    resolution: {integrity: sha512-rEkV6YzpBXo/L9cnj2ibyuYZuyGiNWaPUsyCu3HYJbqCV4jnEiKmf7hId20z8eKjZ0JQ9jtIYKxRSmYB/OYSsA==}
     engines: {node: ^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0}
 
   '@jest/fake-timers@30.5.2':
@@ -1948,9 +1940,6 @@ packages:
 
   '@types/node@24.13.4':
     resolution: {integrity: sha512-YJ7EqCstVTzIr0fMr7qul/977en+pQHrfmuKIo6Zr9i75Be21dr3MovcfvGtyvi2HAUrRerWps5sMO9I7WaxDw==}
-
-  '@types/node@26.6.1':
-    resolution: {integrity: sha512-VqGJBMCtdhqkBUCcBLvywI0NJ+KLuVzgNnlBUNFOQjqVxzo2lxLUNg1DSey8+u2u6ktswSAxg+s68QLzWHNOuA==}
 
   '@types/node@26.6.2':
     resolution: {integrity: sha512-X1P21scMv4zGKLYqjdGjaKa7COa0RKVYYZZN/NfvLQ1JegxFhdhpZG/Lyn8AXx6CDUavKAd11v6BvfpkDByK8g==}
@@ -4504,8 +4493,8 @@ packages:
     resolution: {integrity: sha512-GRrW+7fmmgmkvyfEBqc1QFdWnF1Ex5yG6Y6AWL4TTxnkWlKIT98dsKh3P3UuWm6v4XsQwVE6DEzXIPMzWJ3ZbA==}
     engines: {node: ^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0}
 
-  jest-environment-jsdom@30.5.1:
-    resolution: {integrity: sha512-8lzKbC/SRbQE24wr1OOJV+aYtDAuVNKBryN6YcFiCcaZZ3I7grcZY7w91BwNvGET0ubKDmomEHZFHMaF+6pAlA==}
+  jest-environment-jsdom@30.5.2:
+    resolution: {integrity: sha512-6NOZjEP+WNi4WXjbxb/1ROnfaMxn6Dhqu6uSC22o0H28z+uppejs/jZ9KCVoLepqqoCjcNZujtzQqC9jSV15jg==}
     engines: {node: ^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0}
     peerDependencies:
       canvas: ^3.0.0
@@ -8378,23 +8367,16 @@ snapshots:
 
   '@jest/diff-sequences@30.5.0': {}
 
-  '@jest/environment-jsdom-abstract@30.5.1(@types/jsdom@21.1.7)(jsdom@26.1.0(supports-color@8.1.1))':
+  '@jest/environment-jsdom-abstract@30.5.2(@types/jsdom@21.1.7)(jsdom@26.1.0(supports-color@8.1.1))':
     dependencies:
-      '@jest/environment': 30.5.1
-      '@jest/fake-timers': 30.5.1
+      '@jest/environment': 30.5.2
+      '@jest/fake-timers': 30.5.2
       '@jest/types': 30.5.1
       '@types/jsdom': 21.1.7
       '@types/node': 26.6.2
-      jest-mock: 30.5.1
+      jest-mock: 30.5.2
       jest-util: 30.5.1
       jsdom: 26.1.0(supports-color@8.1.1)
-
-  '@jest/environment@30.5.1':
-    dependencies:
-      '@jest/fake-timers': 30.5.1
-      '@jest/types': 30.5.1
-      '@types/node': 26.6.2
-      jest-mock: 30.5.1
 
   '@jest/environment@30.5.2':
     dependencies:
@@ -8417,15 +8399,6 @@ snapshots:
       jest-snapshot: 30.5.2(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
-
-  '@jest/fake-timers@30.5.1':
-    dependencies:
-      '@jest/types': 30.5.1
-      '@sinonjs/fake-timers': 15.4.0
-      '@types/node': 26.6.2
-      jest-message-util: 30.5.1
-      jest-mock: 30.5.1
-      jest-util: 30.5.1
 
   '@jest/fake-timers@30.5.2':
     dependencies:
@@ -8930,7 +8903,7 @@ snapshots:
     dependencies:
       '@types/http-cache-semantics': 4.2.0
       '@types/keyv': 3.1.4
-      '@types/node': 26.6.1
+      '@types/node': 26.6.2
       '@types/responselike': 1.0.3
 
   '@types/chai@5.2.3':
@@ -8948,7 +8921,7 @@ snapshots:
 
   '@types/fs-extra@9.0.13':
     dependencies:
-      '@types/node': 26.6.1
+      '@types/node': 26.6.2
 
   '@types/history@4.7.11': {}
 
@@ -8979,17 +8952,13 @@ snapshots:
 
   '@types/keyv@3.1.4':
     dependencies:
-      '@types/node': 26.6.1
+      '@types/node': 26.6.2
 
   '@types/ms@2.1.0': {}
 
   '@types/node@24.13.4':
     dependencies:
       undici-types: 7.18.2
-
-  '@types/node@26.6.1':
-    dependencies:
-      undici-types: 8.9.0
 
   '@types/node@26.6.2':
     dependencies:
@@ -9012,7 +8981,7 @@ snapshots:
 
   '@types/responselike@1.0.3':
     dependencies:
-      '@types/node': 26.6.1
+      '@types/node': 26.6.2
 
   '@types/sinonjs__fake-timers@8.1.1': {}
 
@@ -12180,10 +12149,10 @@ snapshots:
       jest-util: 30.5.1
       pretty-format: 30.5.1
 
-  jest-environment-jsdom@30.5.1(supports-color@8.1.1):
+  jest-environment-jsdom@30.5.2(supports-color@8.1.1):
     dependencies:
-      '@jest/environment': 30.5.1
-      '@jest/environment-jsdom-abstract': 30.5.1(@types/jsdom@21.1.7)(jsdom@26.1.0(supports-color@8.1.1))
+      '@jest/environment': 30.5.2
+      '@jest/environment-jsdom-abstract': 30.5.2(@types/jsdom@21.1.7)(jsdom@26.1.0(supports-color@8.1.1))
       '@types/jsdom': 21.1.7
       jsdom: 26.1.0(supports-color@8.1.1)
     transitivePeerDependencies:
@@ -12392,7 +12361,7 @@ snapshots:
 
   jest-worker@27.5.1:
     dependencies:
-      '@types/node': 26.6.1
+      '@types/node': 26.6.2
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
