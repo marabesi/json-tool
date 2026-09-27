@@ -29,9 +29,11 @@ export const SettingsContextProvider = ({ children }: { children: ReactElement }
   const [featureOptions, setFeatureOptions] = useState<FeatureOptions>(featureOptionsDefault());
 
   const handleEditorOptionsChanged = (changed: EditorOptions) => {
-    editorOptions.properties = changed.properties;
-    editorOptions.options = changed.options;
-    setEditorOptions(editorOptions);
+    setEditorOptions((currentOptions) => ({
+      ...currentOptions,
+      properties: changed.properties,
+      options: changed.options,
+    }));
   };
 
   const handleFeatureOptionsChanged = (changed: FeatureOptions) => {

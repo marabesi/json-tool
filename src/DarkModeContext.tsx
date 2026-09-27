@@ -1,4 +1,4 @@
-import { createContext, ReactElement, useContext, useLayoutEffect, useState } from 'react';
+import { createContext, ReactElement, useContext, useState } from 'react';
 
 interface ThemeContextInterface {
   onDarkThemeChanged: (isDarkThemeEnabled: boolean) => void;
@@ -20,7 +20,7 @@ export const useThemeContext = () => {
 };
 
 export const ThemeContextProvider = ({ children }: { children: ReactElement }) => {
-  const [darkModeEnabled, setDarkMode] = useState<boolean>(false);
+  const [darkModeEnabled, setDarkMode] = useState<boolean>(() => isDarkModeSet());
 
   const onDarkThemeChanged = (isDarkThemeEnabled: boolean)  => {
     // for some reason the event is fired with undefined
@@ -28,10 +28,6 @@ export const ThemeContextProvider = ({ children }: { children: ReactElement }) =
       setDarkMode(isDarkThemeEnabled);
     }
   };
-
-  useLayoutEffect(() => {
-    onDarkThemeChanged(isDarkModeSet());
-  }, []);
 
   return (
     <ThemeContext.Provider value={{ onDarkThemeChanged, darkModeEnabled }}>
