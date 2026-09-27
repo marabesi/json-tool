@@ -27,6 +27,11 @@ export default defineConfig(async () => {
       outDir: 'build',
       sourcemap: true,
     },
+    // Only scan the app entry point. Without this, Vite also scans generated
+    // HTML under cypress/downloads (Chromatic archives), which fails the scan.
+    optimizeDeps: {
+      entries: ['index.html'],
+    },
     server: {
       host: '0.0.0.0',
       port: 3000,
