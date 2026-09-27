@@ -68,6 +68,26 @@ Cypress.Commands.add('goToDocs', () => {
   return cy.get('[data-testid="docs"]');
 });
 
+Cypress.Commands.add('goToTable', () => {
+  return cy.get('[data-testid="table"]');
+});
+
+Cypress.Commands.add('withJsonTable', () => {
+  return cy.get('[data-testid="json-table"]');
+});
+
+Cypress.Commands.add('withTablePane', () => {
+  return cy.get('[data-testid="table-pane"]');
+});
+
+Cypress.Commands.add('withToggleFullscreen', () => {
+  return cy.get('[data-testid="toggle-fullscreen"]');
+});
+
+Cypress.Commands.add('withTableSearch', () => {
+  return cy.get('[data-testid="table-search"]');
+});
+
 Cypress.Commands.add('withTitle', () => {
   return cy.get('h1');
 });

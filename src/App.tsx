@@ -1,6 +1,7 @@
 import { HashRouter as Router, Route, Routes } from 'react-router';
 import { Toaster } from 'react-hot-toast';
 import Editors from './pages/Editors';
+import Table from './pages/Table';
 import { Settings } from './pages/Settings';
 import { Docs } from './pages/Docs';
 import DefaultLayout from './components/ui/layout/Default';
@@ -23,6 +24,7 @@ export default function App() {
                   <DefaultLayout>
                     <Routes>
                       <Route path="/" element={<Editors/>}/>
+                      <Route path="/table" element={<Table/>}/>
                       <Route path="/settings" element={<Settings/>}/>
                       <Route path="/docs" element={<Docs/>}/>
                     </Routes>
