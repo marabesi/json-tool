@@ -8,7 +8,8 @@ export default class Formatter {
     const formatted = await fmt2json(this.rawJson, {
       expand: true,
       escape: false,
-      indent: this.spacing
+      indent: this.spacing,
+      withDetails: true
     });
     return formatted.result;
   }

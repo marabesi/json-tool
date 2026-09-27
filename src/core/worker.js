@@ -12,7 +12,8 @@ const onmessage = async (event) => {
     const format = await fmt2json(value, {
       expand: true,
       escape: false,
-      indent: parseInt(spacing)
+      indent: parseInt(spacing),
+      withDetails: true
     });
 
     try {

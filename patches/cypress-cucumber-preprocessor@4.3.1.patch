@@ -1,0 +1,13 @@
+diff --git a/lib/tagsHelper.js b/lib/tagsHelper.js
+index 7ec6605056e25f408875178597a3274996d161fd..ffa19173655bf154d7f7256a731e59955bfc99e0 100644
+--- a/lib/tagsHelper.js
++++ b/lib/tagsHelper.js
+@@ -1,7 +1,7 @@
+ const { TagExpressionParser } = require("cucumber-tag-expressions");
+ 
+ function getEnvTags() {
+-  return Cypress.env("TAGS") || "";
++  return Cypress.expose("TAGS") || "";
+ }
+ 
+ function shouldProceedCurrentStep(tags = [], envTags = getEnvTags()) {

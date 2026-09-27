@@ -7,3 +7,5 @@ allowBuilds:
   es5-ext: true
   esbuild: true
   unrs-resolver: false
+patchedDependencies:
+  cypress-cucumber-preprocessor@4.3.1: patches/cypress-cucumber-preprocessor@4.3.1.patch

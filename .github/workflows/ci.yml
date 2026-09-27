@@ -144,9 +144,6 @@ jobs:
       - name: delete coverage folder
         run: rm -rf coverage/
 
-      - name: Apply dependency patches
-        run: pnpm exec patch-package
-
       - name: lint
         run: pnpm lint
 

@@ -20,7 +20,7 @@ interface PersistenceContextInterface {
 }
 
 const code = `
-      importScripts('https://unpkg.com/format-to-json@2.1.2/fmt2json.min.js');
+      importScripts('https://unpkg.com/format-to-json@4.0.0/fmt2json.min.js');
 
       if('function' === typeof importScripts) {
         addEventListener('message', async (event) => {
@@ -37,7 +37,8 @@ const code = `
              const format = await fmt2json(value, {
                expand: true,
                escape: false,
-               indent: parseInt(spacing)
+               indent: parseInt(spacing),
+               withDetails: true
              });
 
              try {
