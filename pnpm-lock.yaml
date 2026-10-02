@@ -61,8 +61,8 @@ importers:
         specifier: ^7.29.7
         version: 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
       '@chromatic-com/cypress':
-        specifier: ^0.13.2
-        version: 0.13.2(@testing-library/dom@10.4.2)(cypress@16.1.1)(react@19.3.0)
+        specifier: ^1.0.0
+        version: 1.0.0(@testing-library/dom@10.4.2)(cypress@16.1.1)(react@19.3.0)
       '@cypress/code-coverage':
         specifier: ^4.0.3
         version: 4.0.3(@babel/core@7.29.7(supports-color@8.1.1))(@babel/preset-env@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(babel-loader@10.1.1(@babel/core@7.29.7(supports-color@8.1.1))(webpack@5.111.1(esbuild@0.27.7)(lightningcss@1.33.0)(postcss@8.5.28)(uglify-js@3.19.3)))(cypress@16.1.1)(supports-color@8.1.1)(webpack@5.111.1(esbuild@0.27.7)(lightningcss@1.33.0)(postcss@8.5.28)(uglify-js@3.19.3))
@@ -116,7 +116,7 @@ importers:
         version: 30.5.2(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
       chromatic:
         specifier: ^18.10.1
-        version: 18.10.1(@chromatic-com/cypress@0.13.2(@testing-library/dom@10.4.2)(cypress@16.1.1)(react@19.3.0))
+        version: 18.10.1(@chromatic-com/cypress@1.0.0(@testing-library/dom@10.4.2)(cypress@16.1.1)(react@19.3.0))
       concurrently:
         specifier: ^10.0.5
         version: 10.0.5
@@ -883,8 +883,9 @@ packages:
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
 
-  '@chromatic-com/cypress@0.13.2':
-    resolution: {integrity: sha512-URDvVjHveVfqE/QDN4r1Efro0DZUh5YkZQ8S8ShxDuvvmHL5ww3W938KabMt07xukN5CMmHNMGuPsp8uVk7Ztw==}
+  '@chromatic-com/cypress@1.0.0':
+    resolution: {integrity: sha512-sZTKydNMEi58De3aSduVeS38lbRX5wHMXfmTINd9wl2ONhaFjKfClnBZrbhTi1ZgWYGzWv9CrNvks1cMrYBzwg==}
+    engines: {node: '>=22'}
     hasBin: true
     peerDependencies:
       cypress: '>=15.10.0'
@@ -7724,7 +7725,7 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@chromatic-com/cypress@0.13.2(@testing-library/dom@10.4.2)(cypress@16.1.1)(react@19.3.0)':
+  '@chromatic-com/cypress@1.0.0(@testing-library/dom@10.4.2)(cypress@16.1.1)(react@19.3.0)':
     dependencies:
       '@chromaui/rrweb-snapshot': 2.0.0-alpha.19-noAbsolute
       chrome-remote-interface: 0.33.3
@@ -10095,11 +10096,11 @@ snapshots:
 
   chownr@3.0.0: {}
 
-  chromatic@18.10.1(@chromatic-com/cypress@0.13.2(@testing-library/dom@10.4.2)(cypress@16.1.1)(react@19.3.0)):
+  chromatic@18.10.1(@chromatic-com/cypress@1.0.0(@testing-library/dom@10.4.2)(cypress@16.1.1)(react@19.3.0)):
     dependencies:
       semver: 7.8.5
     optionalDependencies:
-      '@chromatic-com/cypress': 0.13.2(@testing-library/dom@10.4.2)(cypress@16.1.1)(react@19.3.0)
+      '@chromatic-com/cypress': 1.0.0(@testing-library/dom@10.4.2)(cypress@16.1.1)(react@19.3.0)
 
   chrome-remote-interface@0.33.3:
     dependencies:
