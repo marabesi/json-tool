@@ -62,10 +62,10 @@ importers:
         version: 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
       '@chromatic-com/cypress':
         specifier: ^0.13.2
-        version: 0.13.2(@testing-library/dom@10.4.2)(cypress@16.1.0)(react@19.3.0)
+        version: 0.13.2(@testing-library/dom@10.4.2)(cypress@16.1.1)(react@19.3.0)
       '@cypress/code-coverage':
         specifier: ^4.0.3
-        version: 4.0.3(@babel/core@7.29.7(supports-color@8.1.1))(@babel/preset-env@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(babel-loader@10.1.1(@babel/core@7.29.7(supports-color@8.1.1))(webpack@5.111.1(esbuild@0.27.7)(lightningcss@1.33.0)(postcss@8.5.28)(uglify-js@3.19.3)))(cypress@16.1.0)(supports-color@8.1.1)(webpack@5.111.1(esbuild@0.27.7)(lightningcss@1.33.0)(postcss@8.5.28)(uglify-js@3.19.3))
+        version: 4.0.3(@babel/core@7.29.7(supports-color@8.1.1))(@babel/preset-env@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(babel-loader@10.1.1(@babel/core@7.29.7(supports-color@8.1.1))(webpack@5.111.1(esbuild@0.27.7)(lightningcss@1.33.0)(postcss@8.5.28)(uglify-js@3.19.3)))(cypress@16.1.1)(supports-color@8.1.1)(webpack@5.111.1(esbuild@0.27.7)(lightningcss@1.33.0)(postcss@8.5.28)(uglify-js@3.19.3))
       '@stryker-mutator/core':
         specifier: ^9.6.1
         version: 9.6.1(@types/node@26.6.3)(supports-color@8.1.1)
@@ -116,7 +116,7 @@ importers:
         version: 30.5.2(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
       chromatic:
         specifier: ^18.10.1
-        version: 18.10.1(@chromatic-com/cypress@0.13.2(@testing-library/dom@10.4.2)(cypress@16.1.0)(react@19.3.0))
+        version: 18.10.1(@chromatic-com/cypress@0.13.2(@testing-library/dom@10.4.2)(cypress@16.1.1)(react@19.3.0))
       concurrently:
         specifier: ^10.0.5
         version: 10.0.5
@@ -124,14 +124,14 @@ importers:
         specifier: ^6.0.2
         version: 6.0.2
       cypress:
-        specifier: ^16.1.0
-        version: 16.1.0
+        specifier: ^16.1.1
+        version: 16.1.1
       cypress-cucumber-preprocessor:
         specifier: ^4.3.1
         version: 4.3.1(patch_hash=89e8c737c29033a14b70a87af92a36bc57b6c1b0d367a40352ea4e5dcd7c8fae)(supports-color@8.1.1)
       cypress-file-upload:
         specifier: ^5.0.8
-        version: 5.0.8(cypress@16.1.0)
+        version: 5.0.8(cypress@16.1.1)
       electron:
         specifier: ^44.5.0
         version: 44.5.0(supports-color@8.1.1)
@@ -3134,8 +3134,8 @@ packages:
     peerDependencies:
       cypress: '>3.0.0'
 
-  cypress@16.1.0:
-    resolution: {integrity: sha512-t8suSUVzQyHI7v6KhhA07M9ChftdfqVZNLCekhguIb+2f0fCmI8WAih5L0oGH7K6slapNduGy5zpJ+17LmSXkQ==}
+  cypress@16.1.1:
+    resolution: {integrity: sha512-T09qNpMKssD6eEMqqfywQ8OUub/VrNCvIUFAyQCfWsJ6o4CZ5Yeapce+WoZY9FXly6+3+pk7sjEB5voxduWQlQ==}
     engines: {node: ^22.0.0 || ^24.0.0 || >=26.0.0}
     hasBin: true
 
@@ -7724,11 +7724,11 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@chromatic-com/cypress@0.13.2(@testing-library/dom@10.4.2)(cypress@16.1.0)(react@19.3.0)':
+  '@chromatic-com/cypress@0.13.2(@testing-library/dom@10.4.2)(cypress@16.1.1)(react@19.3.0)':
     dependencies:
       '@chromaui/rrweb-snapshot': 2.0.0-alpha.19-noAbsolute
       chrome-remote-interface: 0.33.3
-      cypress: 16.1.0
+      cypress: 16.1.1
       storybook: 10.2.13(@testing-library/dom@10.4.2)(react@19.3.0)
     transitivePeerDependencies:
       - '@testing-library/dom'
@@ -7842,14 +7842,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@cypress/code-coverage@4.0.3(@babel/core@7.29.7(supports-color@8.1.1))(@babel/preset-env@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(babel-loader@10.1.1(@babel/core@7.29.7(supports-color@8.1.1))(webpack@5.111.1(esbuild@0.27.7)(lightningcss@1.33.0)(postcss@8.5.28)(uglify-js@3.19.3)))(cypress@16.1.0)(supports-color@8.1.1)(webpack@5.111.1(esbuild@0.27.7)(lightningcss@1.33.0)(postcss@8.5.28)(uglify-js@3.19.3))':
+  '@cypress/code-coverage@4.0.3(@babel/core@7.29.7(supports-color@8.1.1))(@babel/preset-env@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(babel-loader@10.1.1(@babel/core@7.29.7(supports-color@8.1.1))(webpack@5.111.1(esbuild@0.27.7)(lightningcss@1.33.0)(postcss@8.5.28)(uglify-js@3.19.3)))(cypress@16.1.1)(supports-color@8.1.1)(webpack@5.111.1(esbuild@0.27.7)(lightningcss@1.33.0)(postcss@8.5.28)(uglify-js@3.19.3))':
     dependencies:
       '@babel/core': 7.29.7(supports-color@8.1.1)
       '@babel/preset-env': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
       '@cypress/webpack-preprocessor': 6.0.4(@babel/core@7.29.7(supports-color@8.1.1))(@babel/preset-env@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(babel-loader@10.1.1(@babel/core@7.29.7(supports-color@8.1.1))(webpack@5.111.1(esbuild@0.27.7)(lightningcss@1.33.0)(postcss@8.5.28)(uglify-js@3.19.3)))(supports-color@8.1.1)(webpack@5.111.1(esbuild@0.27.7)(lightningcss@1.33.0)(postcss@8.5.28)(uglify-js@3.19.3))
       babel-loader: 10.1.1(@babel/core@7.29.7(supports-color@8.1.1))(webpack@5.111.1(esbuild@0.27.7)(lightningcss@1.33.0)(postcss@8.5.28)(uglify-js@3.19.3))
       chalk: 4.1.2
-      cypress: 16.1.0
+      cypress: 16.1.1
       dayjs: 1.11.20
       debug: 4.4.3(supports-color@8.1.1)
       execa: 4.1.0
@@ -10095,11 +10095,11 @@ snapshots:
 
   chownr@3.0.0: {}
 
-  chromatic@18.10.1(@chromatic-com/cypress@0.13.2(@testing-library/dom@10.4.2)(cypress@16.1.0)(react@19.3.0)):
+  chromatic@18.10.1(@chromatic-com/cypress@0.13.2(@testing-library/dom@10.4.2)(cypress@16.1.1)(react@19.3.0)):
     dependencies:
       semver: 7.8.5
     optionalDependencies:
-      '@chromatic-com/cypress': 0.13.2(@testing-library/dom@10.4.2)(cypress@16.1.0)(react@19.3.0)
+      '@chromatic-com/cypress': 0.13.2(@testing-library/dom@10.4.2)(cypress@16.1.1)(react@19.3.0)
 
   chrome-remote-interface@0.33.3:
     dependencies:
@@ -10415,11 +10415,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  cypress-file-upload@5.0.8(cypress@16.1.0):
+  cypress-file-upload@5.0.8(cypress@16.1.1):
     dependencies:
-      cypress: 16.1.0
+      cypress: 16.1.1
 
-  cypress@16.1.0:
+  cypress@16.1.1:
     dependencies:
       '@cypress/request': 4.0.1
       '@cypress/xvfb': 1.2.4(supports-color@8.1.1)
@@ -14399,7 +14399,7 @@ snapshots:
     dependencies:
       assert-plus: 1.0.0
       core-util-is: 1.0.2
-      extsprintf: 1.3.0
+      extsprintf: 1.4.1
 
   verror@1.10.1:
     dependencies:
