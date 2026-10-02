@@ -87,7 +87,7 @@
     "typescript": "^6.0.3",
     "vite": "^8.3.1",
     "vite-plugin-istanbul": "^9.0.1",
-    "wait-on": "^9.1.0"
+    "wait-on": "^9.5.1"
   },
   "postinstall": "electron-builder install-app-deps && husky install",
   "scripts": {
