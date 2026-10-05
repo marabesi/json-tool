@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { FaRegSun, FaRegLightbulb, FaHistory, FaTable } from 'react-icons/fa';
+import { FaRegSun, FaRegLightbulb, FaHistory, FaTable, FaProjectDiagram } from 'react-icons/fa';
 import { NavLink, LinkProps } from 'react-router';
 import Switch from 'react-switch';
 import fullConfig from '../../tailwindResolver';
@@ -41,6 +41,9 @@ export default function Header() {
         </TabWrapper>
         <TabWrapper data-testid="table" to="/table" title="Show JSON as a table">
           <FaTable />
+        </TabWrapper>
+        <TabWrapper data-testid="schema" to="/schema" title="Show JSON shape and property statistics">
+          <FaProjectDiagram />
         </TabWrapper>
         <TabWrapper  data-testid="docs" to="/docs" title="JSON tool documentation">
           <FaRegLightbulb />

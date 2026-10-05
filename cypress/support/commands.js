@@ -72,6 +72,10 @@ Cypress.Commands.add('goToTable', () => {
   return cy.get('[data-testid="table"]');
 });
 
+Cypress.Commands.add('goToSchema', () => {
+  return cy.get('[data-testid="schema"]');
+});
+
 Cypress.Commands.add('withJsonTable', () => {
   return cy.get('[data-testid="json-table"]');
 });
