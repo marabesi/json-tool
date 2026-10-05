@@ -53,7 +53,8 @@ Then(/^I see no matching data$/, function () {
 });
 
 Then(/^I see (\d+) rows? displayed$/, function (count) {
-  const label = count === '1' ? '1 row' : `${count} rows`;
+  const value = Number(count);
+  const label = value === 1 ? '1 row' : `${value} rows`;
   cy.withTableRowCount().should('have.text', label);
 });
 
