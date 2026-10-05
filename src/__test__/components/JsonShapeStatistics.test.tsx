@@ -1,4 +1,5 @@
 import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import JsonShapeStatistics from '../../components/ui/schema/JsonShapeStatistics';
 import { analyzeShapeReport } from '../../core/jsonToSchema';
 import { JsonValue } from '../../core/jsonToTable';
@@ -45,6 +46,23 @@ describe('JsonShapeStatistics', () => {
     const author = screen.getByText('author').closest('details')!;
     expect(within(author).getByTestId('json-shape-node-objects-value')).toHaveTextContent('1');
     expect(within(author).getByTestId('json-shape-node-properties-value')).toHaveTextContent('1');
+  });
+
+  it('collapses and expands all nested shapes', async () => {
+    renderReport({
+      slideshows: [{ author: { name: 'a' } }],
+      author: { name: 'x' },
+    });
+
+    const nodes = screen.getAllByTestId('json-shape-node');
+    expect(nodes.length).toBeGreaterThan(1);
+    nodes.forEach((node) => expect(node).toHaveAttribute('open'));
+
+    await userEvent.click(screen.getByTestId('json-shape-collapse-all'));
+    screen.getAllByTestId('json-shape-node').forEach((node) => expect(node).not.toHaveAttribute('open'));
+
+    await userEvent.click(screen.getByTestId('json-shape-expand-all'));
+    screen.getAllByTestId('json-shape-node').forEach((node) => expect(node).toHaveAttribute('open'));
   });
 
   it('does not render a line by line field list', () => {

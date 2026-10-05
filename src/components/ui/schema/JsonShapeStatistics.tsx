@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import Button from '../io/Button';
 import { ShapeNode, ShapeStatistics } from '../../../core/jsonToSchema';
 
 const cardClasses = 'rounded border border-blue-900/30 bg-white/40 p-2 dark:border-gray-600 dark:bg-gray-800/40';
@@ -77,11 +79,18 @@ function StatisticsPanel({ statistics, testIdPrefix }: PanelProps) {
 
 interface NodeProps {
   node: ShapeNode;
+  collapsedPaths: ReadonlySet<string>;
+  onToggle: (path: string, open: boolean) => void;
 }
 
-function ShapeNodeView({ node }: NodeProps) {
+function ShapeNodeView({ node, collapsedPaths, onToggle }: NodeProps) {
   return (
-    <details data-testid="json-shape-node" className="rounded border border-blue-900/30 dark:border-gray-600" open>
+    <details
+      data-testid="json-shape-node"
+      className="rounded border border-blue-900/30 dark:border-gray-600"
+      open={!collapsedPaths.has(node.path)}
+      onToggle={(event) => onToggle(node.path, event.currentTarget.open)}
+    >
       <summary data-testid="json-shape-node-summary" className="cursor-pointer p-2 text-sm">
         <span className="font-semibold" data-testid="json-shape-node-path">{node.path}</span>
         <span className="ml-2 rounded bg-blue-900 px-1 py-0.5 text-xs font-semibold text-white dark:bg-gray-600" data-testid="json-shape-node-type">
@@ -96,7 +105,7 @@ function ShapeNodeView({ node }: NodeProps) {
         {node.children.length > 0 && (
           <div className="mt-2 flex flex-col gap-2 pl-3" data-testid="json-shape-node-children">
             {node.children.map((child) => (
-              <ShapeNodeView key={child.path} node={child} />
+              <ShapeNodeView key={child.path} node={child} collapsedPaths={collapsedPaths} onToggle={onToggle} />
             ))}
           </div>
         )}
@@ -105,19 +114,49 @@ function ShapeNodeView({ node }: NodeProps) {
   );
 }
 
+function collectPaths(node: ShapeNode): string[] {
+  return node.children.flatMap((child) => [child.path, ...collectPaths(child)]);
+}
+
 interface Props {
   report: ShapeNode;
 }
 
 export default function JsonShapeStatistics({ report }: Props) {
+  const [collapsedPaths, setCollapsedPaths] = useState<ReadonlySet<string>>(new Set());
+
+  const expandAll = () => setCollapsedPaths(new Set());
+
+  const collapseAll = () => setCollapsedPaths(new Set(collectPaths(report)));
+
+  const onToggle = (path: string, open: boolean) => {
+    setCollapsedPaths((previous) => {
+      const next = new Set(previous);
+
+      if (open) {
+        next.delete(path);
+      } else {
+        next.add(path);
+      }
+
+      return next;
+    });
+  };
+
   return (
     <div data-testid="json-shape" className="flex flex-col gap-3">
       <StatisticsPanel statistics={report.statistics} testIdPrefix="json-shape" />
       {report.children.length > 0 && (
         <div className="flex flex-col gap-2" data-testid="json-shape-nested">
-          <h2 className="text-sm font-semibold">Nested shapes</h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm font-semibold">Nested shapes</h2>
+            <div className="flex gap-1">
+              <Button data-testid="json-shape-expand-all" onClick={expandAll}>Expand all</Button>
+              <Button data-testid="json-shape-collapse-all" onClick={collapseAll}>Collapse all</Button>
+            </div>
+          </div>
           {report.children.map((child) => (
-            <ShapeNodeView key={child.path} node={child} />
+            <ShapeNodeView key={child.path} node={child} collapsedPaths={collapsedPaths} onToggle={onToggle} />
           ))}
         </div>
       )}

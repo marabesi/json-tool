@@ -13,3 +13,11 @@ Feature: JSON shape
     When I open json tool with nested json
     And I go to the shape
     Then I see the nested shapes statistics
+
+  Scenario: collapse and expand all nested shapes
+    When I open json tool with nested json
+    And I go to the shape
+    And I collapse all nested shapes
+    Then I see all nested shapes collapsed
+    And I expand all nested shapes
+    Then I see all nested shapes expanded
