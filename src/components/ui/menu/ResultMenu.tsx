@@ -15,53 +15,50 @@ export default function ResultMenu({ onSearch }: Props) {
   const { writeToClipboard, isClipboardAvailable } = useClipboardContext();
 
   return (
-    <div className="flex justify-between items-center m-2 ml-0 h-10">
-      <Button data-testid="search-result" onClick={onSearch}>
-        <FaSearch className="mr-2" />
+    <div className="flex flex-wrap justify-start items-center m-2 ml-0 min-h-10 gap-y-1 gap-x-2" data-testid="result-menu">
+      <Button data-testid="search-result" onClick={onSearch} title="Search in the result">
+        <FaSearch />
       </Button>
-      <div className="flex items-center">
-        <span className="mr-2 text-sm">Space tabulation</span>
-        <InputText
-          data-testid="space-size"
-          className="w-10 rounded mr-2"
-          value={spacing}
-          onChange={eventValue => updateSpacing(eventValue)}
-        />
-      </div>
+      <InputText
+        data-testid="space-size"
+        className="w-10 rounded"
+        title="Space tabulation"
+        value={spacing}
+        onChange={eventValue => updateSpacing(eventValue)}
+      />
       <Button
         onClick={cleanWhiteSpaces}
         data-testid="clean-spaces"
         className="flex items-center"
+        title="Clean spaces"
       >
-        <FaBackspace className="mr-2" />
-                Clean spaces
+        <FaBackspace />
       </Button>
       <Button
         onClick={cleanNewLines}
         data-testid="clean-new-lines"
         className="flex items-center"
+        title="Clean new lines"
       >
-        <FaTerminal className="mr-2" />
-                Clean new lines
+        <FaTerminal />
       </Button>
       <Button
         onClick={cleanNewLinesAndSpaces}
         data-testid="clean-new-lines-and-spaces"
         className="flex items-center"
+        title="Clean new lines and spaces"
       >
-        <FaUserFriends className="mr-2" />
-                Clean new lines and spaces
+        <FaUserFriends />
       </Button>
 
       <Button
         data-testid="copy-json"
         onClick={writeToClipboard}
         disabled={!isClipboardAvailable()}
-        title="Copy json is disabled due lack of browser support"
+        title={isClipboardAvailable() ? 'Copy json' : 'Copy json is disabled due lack of browser support'}
         className="flex items-center"
       >
-        <FaRegCopy className="mr-2" />
-                Copy json
+        <FaRegCopy />
       </Button>
     </div>
   );

@@ -95,3 +95,19 @@ Cypress.Commands.add('withTableSearch', () => {
 Cypress.Commands.add('withTitle', () => {
   return cy.get('h1');
 });
+
+Cypress.Commands.add('withEditorResizer', () => {
+  return cy.get('[data-testid="editor-resizer"]');
+});
+
+Cypress.Commands.add('withEditorLeft', () => {
+  return cy.get('[data-testid="editor-left"]');
+});
+
+Cypress.Commands.add('withJsonMenu', () => {
+  return cy.get('[data-testid="json-menu"]');
+});
+
+Cypress.Commands.add('withResultMenu', () => {
+  return cy.get('[data-testid="result-menu"]');
+});

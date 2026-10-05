@@ -1,8 +1,11 @@
 import { Ref, useMemo, useRef, useState } from 'react';
+import { openSearchPanel } from '@codemirror/search';
 import { ReactCodeMirrorRef } from '@uiw/react-codemirror';
 import Button from '../components/ui/io/Button';
-import EditorContainer from '../components/ui/editor/EditorContainer';
 import JsonEditor from '../components/ui/editor/JsonEditor';
+import ResizableEditors from '../components/ui/editor/ResizableEditors';
+import EditorPage from '../components/ui/layout/EditorPage';
+import JsonMenu from '../components/ui/menu/JsonMenu';
 import JsonTable from '../components/ui/table/JsonTable';
 import { JsonValue } from '../core/jsonToTable';
 import { usePersistenceContext } from '../PersistenceContext';
@@ -33,26 +36,31 @@ export default function Table() {
   const { data, error } = useMemo(() => parseJson(jsonState), [jsonState]);
 
   return (
-    <div className="p-1 pt-0 mb-8 pb-8 flex flex-col h-full" style={{ height: '80vh' }}>
-      <h1 className="text-xl m-2 ml-0" data-testid="table-title">JSON as a table</h1>
-      <div className="flex flex-1 min-h-0 p-1 pt-0" data-testid="table-page">
-        <div className="shrink-0">
-          <EditorContainer>
+    <EditorPage pageTestId="table-page">
+      <ResizableEditors
+        left={
+          <>
+            <JsonMenu
+              onLoadedFile={(text) => onChange(text, spacing, true)}
+              onSearch={() => {
+                const target = jsonReferenceEditor?.current?.view;
+                if (target !== undefined) {
+                  openSearchPanel(target);
+                }
+              }}
+            />
             <JsonEditor
               input={jsonState}
               onChange={(event) => onChange(event.value, spacing, false)}
               data-testid="table-json"
               contenteditable={true}
+              width="100%"
               ref={jsonReferenceEditor as Ref<ReactCodeMirrorRef> | undefined}
             />
-          </EditorContainer>
-        </div>
-        <div
-          data-testid="table-pane"
-          data-fullscreen={isFullscreen}
-          className={isFullscreen ? 'fixed inset-0 z-50 bg-blue-400 p-2 dark:bg-gray-600' : 'flex-1 min-w-0'}
-        >
-          <EditorContainer>
+          </>
+        }
+        right={
+          <>
             <div className="m-1 flex flex-wrap items-center gap-1">
               <input
                 data-testid="table-search"
@@ -75,9 +83,12 @@ export default function Table() {
               )}
               {data !== undefined && <JsonTable data={data} search={search} />}
             </div>
-          </EditorContainer>
-        </div>
-      </div>
-    </div>
+          </>
+        }
+        rightTestId="table-pane"
+        rightFullscreen={isFullscreen}
+        rightClassName={isFullscreen ? 'fixed inset-0 z-50 bg-blue-400 p-2 dark:bg-gray-600 !m-0' : ''}
+      />
+    </EditorPage>
   );
 }

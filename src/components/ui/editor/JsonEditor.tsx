@@ -16,13 +16,14 @@ type EventChange = (event: Event) => void;
 interface Props{
   input: string;
   className?: string;
+  width?: string;
   onChange?: EventChange;
   'data-testid': string;
   contenteditable: boolean;
 }
 
 export default forwardRef(function JsonEditor(props: Props, ref: ForwardedRef<ReactCodeMirrorRef>) {
-  const { input, onChange, className, ...rest } = props;
+  const { input, onChange, className, width = '48vw', ...rest } = props;
   const { darkModeEnabled } = useThemeContext();
   const { editorOptions } = useSettingsContext();
 
@@ -53,19 +54,21 @@ export default forwardRef(function JsonEditor(props: Props, ref: ForwardedRef<Re
   return (
     <>
       <textarea data-testid={`raw-${rest['data-testid']}`} className="hidden" defaultValue={input}></textarea>
-      <CodeMirror
-        ref={ref}
-        value={input}
-        onChange={handleChange}
-        className={[className, 'h-full'].join(' ')}
-        style={style}
-        width="48vw"
-        height="100%"
-        extensions={[json()]}
-        theme={darkModeEnabled ? 'dark' : duotoneLight}
-        basicSetup={basicSetup}
-        {...rest}
-      />
+      <div className="flex-1 min-h-0 min-w-0">
+        <CodeMirror
+          ref={ref}
+          value={input}
+          onChange={handleChange}
+          className={[className, 'h-full'].join(' ')}
+          style={style}
+          width={width}
+          height="100%"
+          extensions={[json()]}
+          theme={darkModeEnabled ? 'dark' : duotoneLight}
+          basicSetup={basicSetup}
+          {...rest}
+        />
+      </div>
     </>
   );
 });

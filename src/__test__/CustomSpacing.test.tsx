@@ -141,7 +141,7 @@ describe('Custom spacing for formatting json', () => {
 
       await userEvent.upload(screen.getByTestId('upload-json'),  file);
 
-      await userEvent.click(screen.getByText('Delete all'));
+      await userEvent.click(screen.getByTestId('clean'));
 
       await waitFor(() => {
         // @ts-expect-error HTMLInputElement.value is a string but assertion needs cast

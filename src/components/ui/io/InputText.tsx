@@ -2,6 +2,8 @@ type InputTextProps = {
   onChange?: (value: string) => void;
   value?: string
   className?: string
+  title?: string
+  'data-testid'?: string
 }
 
 export default function inputText({ value, onChange, className, ...rest }: InputTextProps) {

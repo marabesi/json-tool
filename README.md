@@ -32,6 +32,7 @@ the practice of formatting or sharing information in formatting tools that are n
 - Buttons to allow easy interaction with the clipboard (paste and copy to the clipboard)
 - Search through the json string (offered by the code mirror editor)
 - Upload a json file
+- Resizable editors on the home, table and shape views, drag the divider (or use the left/right arrow keys) to change the width of each editor. The editor menus show icons only, hover over an icon to see what it does
 
 ![Screenshot from 2022-09-11 11-32-55](https://user-images.githubusercontent.com/2129872/190869274-51b3ae2b-e6db-401b-a058-0f8f887f82e7.png)
 

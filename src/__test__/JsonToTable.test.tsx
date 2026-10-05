@@ -25,7 +25,7 @@ describe('JSON as a table page', () => {
     });
 
     await userEvent.click(screen.getByTestId('table'));
-    await screen.findByTestId('table-title');
+    await screen.findByTestId('table-page');
   };
 
   it('renders the table navigation link', () => {

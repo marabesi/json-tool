@@ -12,31 +12,34 @@ import { PersistenceContextProvider } from './PersistenceContext';
 import { DrawerContextProvider } from './DrawerContext';
 import { ToolbarContextProvider } from './ToolbarContext';
 import { ClipboardContextProvider } from './ClipboardContext';
+import { EditorLayoutContextProvider } from './EditorLayoutContext';
 
 export default function App() {
   return (
     <Router>
       <PersistenceContextProvider>
-        <ClipboardContextProvider>
-          <ThemeContextProvider>
-            <DrawerContextProvider>
-              <SettingsContextProvider>
-                <ToolbarContextProvider>
-                  <DefaultLayout>
-                    <Routes>
-                      <Route path="/" element={<Editors/>}/>
-                      <Route path="/table" element={<Table/>}/>
-                      <Route path="/schema" element={<Schema/>}/>
-                      <Route path="/settings" element={<Settings/>}/>
-                      <Route path="/docs" element={<Docs/>}/>
-                    </Routes>
-                    <Toaster/>
-                  </DefaultLayout>
-                </ToolbarContextProvider>
-              </SettingsContextProvider>
-            </DrawerContextProvider>
-          </ThemeContextProvider>
-        </ClipboardContextProvider>
+        <EditorLayoutContextProvider>
+          <ClipboardContextProvider>
+            <ThemeContextProvider>
+              <DrawerContextProvider>
+                <SettingsContextProvider>
+                  <ToolbarContextProvider>
+                    <DefaultLayout>
+                      <Routes>
+                        <Route path="/" element={<Editors/>}/>
+                        <Route path="/table" element={<Table/>}/>
+                        <Route path="/schema" element={<Schema/>}/>
+                        <Route path="/settings" element={<Settings/>}/>
+                        <Route path="/docs" element={<Docs/>}/>
+                      </Routes>
+                      <Toaster/>
+                    </DefaultLayout>
+                  </ToolbarContextProvider>
+                </SettingsContextProvider>
+              </DrawerContextProvider>
+            </ThemeContextProvider>
+          </ClipboardContextProvider>
+        </EditorLayoutContextProvider>
       </PersistenceContextProvider>
     </Router>
   );

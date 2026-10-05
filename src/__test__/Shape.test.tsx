@@ -25,7 +25,7 @@ describe('JSON shape page', () => {
     });
 
     await userEvent.click(screen.getByTestId('schema'));
-    await screen.findByTestId('schema-title');
+    await screen.findByTestId('schema-page');
   };
 
   it('renders the schema navigation link', () => {
