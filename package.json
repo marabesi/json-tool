@@ -51,7 +51,7 @@
     "@testing-library/react": "^16.3.3",
     "@testing-library/user-event": "^14.6.7",
     "@types/jest": "^30.0.0",
-    "@types/node": "^26.6.3",
+    "@types/node": "^26.6.4",
     "@types/react": "npm:types-react@rc",
     "@types/react-dom": "npm:types-react-dom@rc",
     "@typescript-eslint/eslint-plugin": "^8.70.1",
@@ -85,7 +85,7 @@
     "source-map-explorer": "^2.5.3",
     "tailwindcss": "^3.4.19",
     "typescript": "^6.0.3",
-    "vite": "^8.3.1",
+    "vite": "^8.3.2",
     "vite-plugin-istanbul": "^9.0.1",
     "wait-on": "^9.5.1"
   },
