@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import {
   JsonPrimitive,
   JsonValue,
@@ -19,9 +19,10 @@ const bodyRowClasses = 'odd:bg-white/30 even:bg-black/5 dark:odd:bg-gray-800/40 
 interface CellProps {
   value: JsonValue | undefined;
   search: string;
+  exact: boolean;
 }
 
-function Cell({ value, search }: CellProps) {
+function Cell({ value, search, exact }: CellProps) {
   if (Array.isArray(value) && isPrimitiveArray(value)) {
     return <>{value.map((item: JsonPrimitive) => toSearchText(item)).join(', ')}</>;
   }
@@ -29,7 +30,7 @@ function Cell({ value, search }: CellProps) {
   if (value !== undefined && (Array.isArray(value) || isPlainObject(value))) {
     return (
       <div className="inline-block min-w-full rounded border border-blue-900/30 dark:border-gray-500">
-        <JsonTable data={value} search={search} nested />
+        <JsonTable data={value} search={search} exact={exact} nested />
       </div>
     );
   }
@@ -44,21 +45,22 @@ function NoMatch() {
 interface Props {
   data: JsonValue;
   search?: string;
+  exact?: boolean;
   nested?: boolean;
 }
 
-export default function JsonTable({ data, search = '', nested = false }: Props) {
+const JsonTable = memo(function JsonTableComponent({ data, search = '', exact = false, nested = false }: Props) {
   const model = useMemo(() => toTableModel(data), [data]);
   const testId = nested ? 'json-subtable' : 'json-table';
 
   if (model.kind === 'scalar') {
-    if (!matchesSearch(model.value, search)) {
+    if (!matchesSearch(model.value, search, exact)) {
       return <NoMatch />;
     }
 
     return (
       <div data-testid="json-table-scalar" className="p-1">
-        <Cell value={model.value} search={search} />
+        <Cell value={model.value} search={search} exact={exact} />
       </div>
     );
   }
@@ -68,7 +70,7 @@ export default function JsonTable({ data, search = '', nested = false }: Props) 
       return <code data-testid="json-table-object" className="text-sm">{'{}'}</code>;
     }
 
-    const rows = filterKeyValueRows(model.rows, search);
+    const rows = filterKeyValueRows(model.rows, search, exact);
 
     if (rows.length === 0) {
       return <NoMatch />;
@@ -87,7 +89,7 @@ export default function JsonTable({ data, search = '', nested = false }: Props) 
             <tr key={`${row.key}-${index}`} className={bodyRowClasses}>
               <td className={bodyCellClasses}>{row.key}</td>
               <td className={bodyCellClasses}>
-                <Cell value={row.value} search={search} />
+                <Cell value={row.value} search={search} exact={exact} />
               </td>
             </tr>
           ))}
@@ -100,7 +102,7 @@ export default function JsonTable({ data, search = '', nested = false }: Props) 
     return <code data-testid="json-table-array" className="text-sm">[]</code>;
   }
 
-  const rows = filterColumnsRows(model.rows, model.columns, search);
+  const rows = filterColumnsRows(model.rows, model.columns, search, exact);
 
   if (rows.length === 0) {
     return <NoMatch />;
@@ -120,7 +122,7 @@ export default function JsonTable({ data, search = '', nested = false }: Props) 
           <tr key={index} className={bodyRowClasses}>
             {model.columns.map((column) => (
               <td key={column} className={bodyCellClasses}>
-                <Cell value={row[column]} search={search} />
+                <Cell value={row[column]} search={search} exact={exact} />
               </td>
             ))}
           </tr>
@@ -128,4 +130,6 @@ export default function JsonTable({ data, search = '', nested = false }: Props) 
       </tbody>
     </table>
   );
-}
+});
+
+export default JsonTable;

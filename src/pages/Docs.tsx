@@ -33,6 +33,9 @@ export function Docs() {
                 <p className="pt-2 font-semibold">Searching in the table</p>
                 <ul className="list-disc pl-6 pt-1">
                   <li>Type in the search box to filter the rows. The search is case-insensitive and checks every column, including nested values.</li>
+                  <li>Search a specific column with <code>column:value</code>, for example <code>index:0</code> keeps only the rows where the <code>index</code> column matches <code>0</code>. The column name is matched case-insensitively and can also be abbreviated.</li>
+                  <li>Matching is fuzzy by default: the characters of the term only need to appear in order, so <code>mse</code> matches <code>Mouse</code>. This works for both the column name and the value.</li>
+                  <li>Turn on <strong>Exact match</strong> to require the value to be exactly the term (ignoring case) instead of fuzzy matching. For example, <code>index:0</code> with exact match keeps only the rows where the index is <code>0</code>, not <code>10</code>.</li>
                   <li>Only the rows that match stay visible. Rows without any match are hidden and <code>No matching data</code> is shown when nothing matches.</li>
                   <li>The counter next to the search box shows how many rows are currently displayed (for example <code>2 rows</code>) and updates while you type.</li>
                   <li>Use full screen to expand the table to the whole page, and exit full screen to go back.</li>

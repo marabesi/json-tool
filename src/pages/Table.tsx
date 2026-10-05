@@ -1,4 +1,4 @@
-import { Ref, useMemo, useRef, useState } from 'react';
+import { Ref, useCallback, useDeferredValue, useMemo, useRef, useState } from 'react';
 import { openSearchPanel } from '@codemirror/search';
 import { ReactCodeMirrorRef } from '@uiw/react-codemirror';
 import Button from '../components/ui/io/Button';
@@ -30,11 +30,21 @@ function parseJson(value: string): ParseResult {
 export default function Table() {
   const { jsonState, onChange, spacing } = usePersistenceContext();
   const [search, setSearch] = useState('');
+  const [exactMatch, setExactMatch] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const jsonReferenceEditor = useRef<ReactCodeMirrorRef>(undefined);
 
+  const deferredSearch = useDeferredValue(search);
+  const deferredExactMatch = useDeferredValue(exactMatch);
   const { data, error } = useMemo(() => parseJson(jsonState), [jsonState]);
-  const rowCount = useMemo(() => (data === undefined ? 0 : countTableRows(data, search)), [data, search]);
+  const rowCount = useMemo(
+    () => (data === undefined ? 0 : countTableRows(data, deferredSearch, deferredExactMatch)),
+    [data, deferredSearch, deferredExactMatch],
+  );
+
+  const handleEditorChange = useCallback((event: { value: string }) => {
+    onChange(event.value, spacing, false);
+  }, [onChange, spacing]);
 
   return (
     <EditorPage pageTestId="table-page">
@@ -52,7 +62,7 @@ export default function Table() {
             />
             <JsonEditor
               input={jsonState}
-              onChange={(event) => onChange(event.value, spacing, false)}
+              onChange={handleEditorChange}
               data-testid="table-json"
               contenteditable={true}
               width="100%"
@@ -67,12 +77,21 @@ export default function Table() {
                 data-testid="table-search"
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
-                placeholder="Search..."
+                placeholder="Search or column:value"
                 className="p-1 text-sm bg-blue-300 dark:bg-gray-500"
               />
               <Button data-testid="toggle-fullscreen" onClick={() => setIsFullscreen((value) => !value)}>
                 {isFullscreen ? 'Exit full screen' : 'Full screen'}
               </Button>
+              <label className="flex items-center gap-1 text-sm">
+                <input
+                  type="checkbox"
+                  data-testid="table-exact-match"
+                  checked={exactMatch}
+                  onChange={(event) => setExactMatch(event.target.checked)}
+                />
+                Exact match
+              </label>
               <span data-testid="table-row-count" className="text-sm">
                 {rowCount} {rowCount === 1 ? 'row' : 'rows'}
               </span>
@@ -85,7 +104,7 @@ export default function Table() {
               {error === '' && data === undefined && (
                 <p data-testid="table-empty" className="p-2">Paste JSON to see it as a table.</p>
               )}
-              {data !== undefined && <JsonTable data={data} search={search} />}
+              {data !== undefined && <JsonTable data={data} search={deferredSearch} exact={deferredExactMatch} />}
             </div>
           </>
         }

@@ -1,4 +1,4 @@
-import { CSSProperties, ForwardedRef, forwardRef } from 'react';
+import { CSSProperties, ForwardedRef, forwardRef, memo } from 'react';
 import CodeMirror, { BasicSetupOptions, ReactCodeMirrorRef } from '@uiw/react-codemirror';
 import { duotoneLight } from '@uiw/codemirror-theme-duotone';
 import { json } from '@codemirror/lang-json';
@@ -22,7 +22,7 @@ interface Props{
   contenteditable: boolean;
 }
 
-export default forwardRef(function JsonEditor(props: Props, ref: ForwardedRef<ReactCodeMirrorRef>) {
+export default memo(forwardRef(function JsonEditor(props: Props, ref: ForwardedRef<ReactCodeMirrorRef>) {
   const { input, onChange, className, width = '48vw', ...rest } = props;
   const { darkModeEnabled } = useThemeContext();
   const { editorOptions } = useSettingsContext();
@@ -71,4 +71,4 @@ export default forwardRef(function JsonEditor(props: Props, ref: ForwardedRef<Re
       </div>
     </>
   );
-});
+}));

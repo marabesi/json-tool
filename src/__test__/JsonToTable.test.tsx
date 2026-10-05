@@ -59,6 +59,32 @@ describe('JSON as a table page', () => {
     expect(screen.queryByText('Laptop')).not.toBeInTheDocument();
   });
 
+  it('searches a specific column', async () => {
+    await openTableWith(tableJson);
+
+    await userEvent.type(screen.getByTestId('table-search'), 'product:Lap');
+
+    await waitFor(() => expect(screen.getByTestId('table-row-count')).toHaveTextContent('1 row'));
+    expect(screen.getByText('Laptop')).toBeInTheDocument();
+    expect(screen.queryByText('Mouse')).not.toBeInTheDocument();
+  });
+
+  it('searches exact values when exact match is enabled', async () => {
+    await openTableWith(tableJson);
+
+    await userEvent.type(screen.getByTestId('table-search'), 'product:Mou');
+
+    await waitFor(() => expect(screen.getByTestId('table-row-count')).toHaveTextContent('1 row'));
+
+    await userEvent.click(screen.getByTestId('table-exact-match'));
+
+    await waitFor(() => expect(screen.getByTestId('table-row-count')).toHaveTextContent('0 rows'));
+
+    await userEvent.click(screen.getByTestId('table-exact-match'));
+
+    await waitFor(() => expect(screen.getByTestId('table-row-count')).toHaveTextContent('1 row'));
+  });
+
   it('shows how many rows are being displayed', async () => {
     await openTableWith(tableJson);
 
@@ -66,7 +92,7 @@ describe('JSON as a table page', () => {
 
     await userEvent.type(screen.getByTestId('table-search'), 'Mouse');
 
-    expect(screen.getByTestId('table-row-count')).toHaveTextContent('1 row');
+    await waitFor(() => expect(screen.getByTestId('table-row-count')).toHaveTextContent('1 row'));
   });
 
   it('expands the table to full screen and back', async () => {

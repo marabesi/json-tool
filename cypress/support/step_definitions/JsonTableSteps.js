@@ -56,3 +56,11 @@ Then(/^I see (\d+) rows? displayed$/, function (count) {
   const label = count === '1' ? '1 row' : `${count} rows`;
   cy.withTableRowCount().should('have.text', label);
 });
+
+And(/^I enable exact match$/, function () {
+  cy.get('[data-testid="table-exact-match"]').check();
+});
+
+And(/^I disable exact match$/, function () {
+  cy.get('[data-testid="table-exact-match"]').uncheck();
+});

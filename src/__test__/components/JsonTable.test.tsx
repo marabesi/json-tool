@@ -36,4 +36,32 @@ describe('JsonTable', () => {
     expect(screen.getByText('Mouse')).toBeInTheDocument();
     expect(screen.queryByText('Laptop')).not.toBeInTheDocument();
   });
+
+  it('filters rows by a fuzzy term', () => {
+    render(<JsonTable data={[{ product: 'Laptop' }, { product: 'Mouse' }]} search="mse" />);
+
+    expect(screen.getByText('Mouse')).toBeInTheDocument();
+    expect(screen.queryByText('Laptop')).not.toBeInTheDocument();
+  });
+
+  it('filters a specific column with column:value', () => {
+    render(<JsonTable data={[{ product: 'Laptop' }, { product: 'Mouse' }]} search="product:mouse" />);
+
+    expect(screen.getByText('Mouse')).toBeInTheDocument();
+    expect(screen.queryByText('Laptop')).not.toBeInTheDocument();
+  });
+
+  it('requires the whole value when exact match is set', () => {
+    render(<JsonTable data={[{ product: 'Laptop' }, { product: 'Mouse' }]} search="Mou" exact />);
+
+    expect(screen.getByText('No matching data')).toBeInTheDocument();
+    expect(screen.queryByText('Mouse')).not.toBeInTheDocument();
+  });
+
+  it('matches an exact column value when exact match is set', () => {
+    render(<JsonTable data={[{ index: 0 }, { index: 10 }]} search="index:0" exact />);
+
+    expect(screen.getByText('0')).toBeInTheDocument();
+    expect(screen.queryByText('10')).not.toBeInTheDocument();
+  });
 });

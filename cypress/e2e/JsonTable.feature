@@ -31,3 +31,20 @@ Feature: JSON as a table
     Then I see 2 rows displayed
     And I search the table for "Mouse"
     Then I see 1 row displayed
+
+  Scenario: search a specific column
+    When I open json tool with a json array
+    And I go to the table
+    And I search the table for "product:Mouse"
+    Then I see "Mouse" in the table
+    And I do not see "Laptop" in the table
+
+  Scenario: search with exact match
+    When I open json tool with a json array
+    And I go to the table
+    And I search the table for "product:Mou"
+    Then I see "Mouse" in the table
+    And I enable exact match
+    Then I see no matching data
+    And I disable exact match
+    Then I see "Mouse" in the table

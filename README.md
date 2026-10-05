@@ -54,7 +54,7 @@ The table view renders the JSON as a table:
 - a single object becomes a list of key/value rows;
 - nested objects and arrays are shown as smaller tables inside the cell.
 
-**Searching in the table** — type in the search box to filter the rows. The match is case-insensitive and checks every column, including nested values. Only the rows that match stay visible, and `No matching data` is shown when nothing matches. The counter next to the search box shows how many rows are currently displayed (for example `2 rows`) and updates while you type. Use full screen to expand the table and exit full screen to go back.
+**Searching in the table** — type in the search box to filter the rows. The match is case-insensitive and checks every column, including nested values. Search a specific column with `column:value` (for example `index:0` keeps the rows where the `index` column matches `0`); the column name is matched case-insensitively and can be abbreviated. Matching is fuzzy by default: the characters only need to appear in order, so `mse` matches `Mouse`, and this applies to both the column name and the value. Turn on **Exact match** to require the value to be exactly the term (ignoring case) instead of fuzzy matching — for example `index:0` with exact match keeps only the rows where the index is `0`, not `10`. Only the rows that match stay visible, and `No matching data` is shown when nothing matches. The counter next to the search box shows how many rows are currently displayed (for example `2 rows`) and updates while you type. Use full screen to expand the table and exit full screen to go back.
 
 ## Shape
 

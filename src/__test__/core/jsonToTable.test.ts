@@ -1,4 +1,11 @@
-import { countTableRows, toTableModel } from '../../core/jsonToTable';
+import {
+  countTableRows,
+  filterColumnsRows,
+  fuzzyMatch,
+  matchesTerm,
+  parseSearch,
+  toTableModel,
+} from '../../core/jsonToTable';
 
 describe('json to table', () => {
   describe('toTableModel', () => {
@@ -66,6 +73,95 @@ describe('json to table', () => {
 
     it('counts an empty array as zero rows', () => {
       expect(countTableRows([])).toBe(0);
+    });
+
+    it('counts only the rows that match a column search', () => {
+      expect(countTableRows(data, 'product:laptop')).toBe(1);
+      expect(countTableRows(data, 'inStock:false')).toBe(1);
+      expect(countTableRows(data, 'product:missing')).toBe(0);
+    });
+
+    it('counts only the exact matches when exact is true', () => {
+      expect(countTableRows(data, 'product:Laptop', true)).toBe(1);
+      expect(countTableRows(data, 'product:Lap', true)).toBe(0);
+    });
+  });
+
+  describe('matchesTerm', () => {
+    it('fuzzy matches by default', () => {
+      expect(matchesTerm('Mouse', 'mse')).toBe(true);
+    });
+
+    it('requires the value to be exactly the term when exact is true', () => {
+      expect(matchesTerm('Mouse', 'Mouse', true)).toBe(true);
+      expect(matchesTerm('Mouse', 'mouse', true)).toBe(true);
+      expect(matchesTerm('Mouse', 'Mou', true)).toBe(false);
+    });
+
+    it('matches everything for an empty query in both modes', () => {
+      expect(matchesTerm('Mouse', '')).toBe(true);
+      expect(matchesTerm('Mouse', '', true)).toBe(true);
+    });
+  });
+
+  describe('fuzzyMatch', () => {
+    it('matches characters in order, ignoring case', () => {
+      expect(fuzzyMatch('Mouse', 'mse')).toBe(true);
+      expect(fuzzyMatch('Mouse', 'MOUSE')).toBe(true);
+    });
+
+    it('does not match when the characters are out of order or missing', () => {
+      expect(fuzzyMatch('Mouse', 'xyz')).toBe(false);
+      expect(fuzzyMatch('Mouse', 'eu')).toBe(false);
+    });
+
+    it('matches everything for an empty query', () => {
+      expect(fuzzyMatch('Mouse', '')).toBe(true);
+    });
+  });
+
+  describe('parseSearch', () => {
+    const columns = ['index', 'product'];
+
+    it('parses a column and its value', () => {
+      expect(parseSearch('index:0', columns)).toEqual({ column: 'index', term: '0' });
+    });
+
+    it('matches the column name ignoring case and fuzzily', () => {
+      expect(parseSearch('INDEX:0', columns)).toEqual({ column: 'index', term: '0' });
+      expect(parseSearch('prd:mouse', columns)).toEqual({ column: 'product', term: 'mouse' });
+    });
+
+    it('falls back to a global term when no column matches', () => {
+      expect(parseSearch('unknown:0', columns)).toEqual({ term: 'unknown:0' });
+      expect(parseSearch('Mouse', columns)).toEqual({ term: 'Mouse' });
+    });
+
+    it('treats a query that starts with the separator as a global term', () => {
+      expect(parseSearch(':0', columns)).toEqual({ term: ':0' });
+    });
+  });
+
+  describe('filterColumnsRows', () => {
+    const rows = [
+      { index: 0, product: 'Laptop' },
+      { index: 1, product: 'Mouse' },
+    ];
+    const columns = ['index', 'product'];
+
+    it('keeps only the rows whose column matches the value', () => {
+      expect(filterColumnsRows(rows, columns, 'index:0')).toEqual([{ index: 0, product: 'Laptop' }]);
+      expect(filterColumnsRows(rows, columns, 'product:mse')).toEqual([{ index: 1, product: 'Mouse' }]);
+    });
+
+    it('searches every column when no column is given', () => {
+      expect(filterColumnsRows(rows, columns, 'laptop')).toEqual([{ index: 0, product: 'Laptop' }]);
+    });
+
+    it('keeps only exact values when exact is true', () => {
+      expect(filterColumnsRows(rows, columns, 'index:0', true)).toEqual([{ index: 0, product: 'Laptop' }]);
+      expect(filterColumnsRows(rows, columns, 'product:Mouse', true)).toEqual([{ index: 1, product: 'Mouse' }]);
+      expect(filterColumnsRows(rows, columns, 'product:Mou', true)).toEqual([]);
     });
   });
 });
