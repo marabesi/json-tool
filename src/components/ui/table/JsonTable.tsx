@@ -2,8 +2,12 @@ import { useMemo } from 'react';
 import {
   JsonPrimitive,
   JsonValue,
+  filterColumnsRows,
+  filterKeyValueRows,
   isPlainObject,
   isPrimitiveArray,
+  matchesSearch,
+  toSearchText,
   toTableModel,
 } from '../../../core/jsonToTable';
 
@@ -11,26 +15,6 @@ const tableClasses = 'w-full border-collapse text-left text-sm';
 const headerCellClasses = 'border border-blue-900/40 bg-blue-900 px-2 py-1 font-semibold text-white dark:border-gray-500 dark:bg-gray-700';
 const bodyCellClasses = 'border border-blue-900/30 px-2 py-1 align-top dark:border-gray-600';
 const bodyRowClasses = 'odd:bg-white/30 even:bg-black/5 dark:odd:bg-gray-800/40 dark:even:bg-gray-700/40';
-
-export function toSearchText(value: JsonValue | undefined): string {
-  if (value === undefined || value === null) {
-    return value === null ? 'null' : '';
-  }
-
-  if (typeof value === 'object') {
-    return JSON.stringify(value);
-  }
-
-  return String(value);
-}
-
-function matchesSearch(value: JsonValue | undefined, search: string): boolean {
-  if (search === '') {
-    return true;
-  }
-
-  return toSearchText(value).toLowerCase().includes(search.toLowerCase());
-}
 
 interface CellProps {
   value: JsonValue | undefined;
@@ -84,7 +68,7 @@ export default function JsonTable({ data, search = '', nested = false }: Props) 
       return <code data-testid="json-table-object" className="text-sm">{'{}'}</code>;
     }
 
-    const rows = model.rows.filter((row) => matchesSearch(row.key, search) || matchesSearch(row.value, search));
+    const rows = filterKeyValueRows(model.rows, search);
 
     if (rows.length === 0) {
       return <NoMatch />;
@@ -116,7 +100,7 @@ export default function JsonTable({ data, search = '', nested = false }: Props) 
     return <code data-testid="json-table-array" className="text-sm">[]</code>;
   }
 
-  const rows = model.rows.filter((row) => model.columns.some((column) => matchesSearch(row[column], search)));
+  const rows = filterColumnsRows(model.rows, model.columns, search);
 
   if (rows.length === 0) {
     return <NoMatch />;

@@ -29,4 +29,6 @@ When(/^I go to docs$/, function () {
 
 Then(/^I see the docs page$/, function () {
   cy.withTitle().should('have.text', 'JSON tool docs');
+  cy.contains('Using JSON tool').should('be.visible');
+  cy.contains('Searching in the table').should('be.visible');
 });

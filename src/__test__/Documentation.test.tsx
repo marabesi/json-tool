@@ -17,4 +17,16 @@ describe('Documentation page', () => {
 
     expect(screen.getByText('JSON tool docs')).toBeInTheDocument();
   });
+
+  it('documents the views, the table and the table search', async () => {
+    renderEntireApp();
+
+    await userEvent.click(screen.getByTestId('docs'));
+
+    expect(screen.getByText('Using JSON tool')).toBeInTheDocument();
+    expect(screen.getByText('Editor (home)')).toBeInTheDocument();
+    expect(screen.getByText('Table view')).toBeInTheDocument();
+    expect(screen.getByText('Searching in the table')).toBeInTheDocument();
+    expect(screen.getByText('Shape view')).toBeInTheDocument();
+  });
 });

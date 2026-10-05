@@ -34,6 +34,32 @@ the practice of formatting or sharing information in formatting tools that are n
 - Upload a json file
 - Resizable editors on the home, table and shape views, drag the divider (or use the left/right arrow keys) to change the width of each editor. The editor menus show icons only, hover over an icon to see what it does
 
+# Views
+
+Switch between views using the tabs in the header. The divider between the editors can be dragged (or moved with the left/right arrow keys) to resize them, and its position is kept while you switch views.
+
+## Editor (home)
+
+- Paste or type JSON in the left editor; the right editor shows the formatted result as you type.
+- Toggle **validate json** in the header to show an error when the content is not valid JSON.
+- Left toolbar (hover an icon to see its name): search in the JSON, paste from clipboard, upload a JSON file and delete all.
+- Right toolbar: search in the result, space tabulation (indentation, 2 spaces by default), clean spaces, clean new lines, clean new lines and spaces and copy json.
+
+## Table
+
+The table view renders the JSON as a table:
+
+- an array of objects becomes one row per element, with a column for every property found in the array;
+- an array of simple values (strings, numbers, booleans) becomes a single `value` column;
+- a single object becomes a list of key/value rows;
+- nested objects and arrays are shown as smaller tables inside the cell.
+
+**Searching in the table** — type in the search box to filter the rows. The match is case-insensitive and checks every column, including nested values. Only the rows that match stay visible, and `No matching data` is shown when nothing matches. The counter next to the search box shows how many rows are currently displayed (for example `2 rows`) and updates while you type. Use full screen to expand the table and exit full screen to go back.
+
+## Shape
+
+The shape view shows the JSON statistics: total objects, arrays, distinct properties, values, filled and empty values, the average number of properties per object and a breakdown by type. Every nested object and array gets the same statistics, with expand all / collapse all.
+
 ![Screenshot from 2022-09-11 11-32-55](https://user-images.githubusercontent.com/2129872/190869274-51b3ae2b-e6db-401b-a058-0f8f887f82e7.png)
 
 ![banner-blue](https://user-images.githubusercontent.com/2129872/190869247-4ecb2b87-e9a7-4f0a-b9b3-0ee5f3cefb00.png)

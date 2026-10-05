@@ -33,6 +33,52 @@ export function isPrimitiveArray(value: JsonValue): value is JsonPrimitive[] {
   return Array.isArray(value) && value.every((item) => !Array.isArray(item) && !isPlainObject(item));
 }
 
+export function toSearchText(value: JsonValue | undefined): string {
+  if (value === undefined || value === null) {
+    return value === null ? 'null' : '';
+  }
+
+  if (typeof value === 'object') {
+    return JSON.stringify(value);
+  }
+
+  return String(value);
+}
+
+export function matchesSearch(value: JsonValue | undefined, search: string): boolean {
+  if (search === '') {
+    return true;
+  }
+
+  return toSearchText(value).toLowerCase().includes(search.toLowerCase());
+}
+
+export function filterKeyValueRows(rows: KeyValueRow[], search: string): KeyValueRow[] {
+  return rows.filter((row) => matchesSearch(row.key, search) || matchesSearch(row.value, search));
+}
+
+export function filterColumnsRows(
+  rows: Array<Record<string, JsonValue>>,
+  columns: string[],
+  search: string,
+): Array<Record<string, JsonValue>> {
+  return rows.filter((row) => columns.some((column) => matchesSearch(row[column], search)));
+}
+
+export function countTableRows(data: JsonValue, search = ''): number {
+  const model = toTableModel(data);
+
+  if (model.kind === 'scalar') {
+    return matchesSearch(model.value, search) ? 1 : 0;
+  }
+
+  if (model.kind === 'keyValue') {
+    return filterKeyValueRows(model.rows, search).length;
+  }
+
+  return filterColumnsRows(model.rows, model.columns, search).length;
+}
+
 export function toTableModel(data: JsonValue): TableModel {
   if (Array.isArray(data)) {
     return toColumnsTable(data);

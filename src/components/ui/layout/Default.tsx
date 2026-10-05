@@ -14,8 +14,8 @@ export default function DefaultLayout({ children }: Props) {
   const { isHistoryEnabled } = useSettingsContext();
 
   return (
-    <div data-testid="app-container" className={`flex flex-col ${darkModeEnabled ? 'dark': ''}`}>
-      <div className="bg-blue-400 h-screen text-gray-100 dark:text-gray-400 dark:bg-gray-600">
+    <div data-testid="app-container" className={`flex min-h-screen flex-col ${darkModeEnabled ? 'dark': ''}`}>
+      <div className="bg-blue-400 min-h-screen text-gray-100 dark:text-gray-400 dark:bg-gray-600">
         <Header />
         { children }
         <Footer />

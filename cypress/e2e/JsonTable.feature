@@ -24,3 +24,10 @@ Feature: JSON as a table
     And I go to the table
     And I search the table for "unexisting product"
     Then I see no matching data
+
+  Scenario: see how many rows are displayed
+    When I open json tool with a json array
+    And I go to the table
+    Then I see 2 rows displayed
+    And I search the table for "Mouse"
+    Then I see 1 row displayed

@@ -59,6 +59,16 @@ describe('JSON as a table page', () => {
     expect(screen.queryByText('Laptop')).not.toBeInTheDocument();
   });
 
+  it('shows how many rows are being displayed', async () => {
+    await openTableWith(tableJson);
+
+    expect(screen.getByTestId('table-row-count')).toHaveTextContent('2 rows');
+
+    await userEvent.type(screen.getByTestId('table-search'), 'Mouse');
+
+    expect(screen.getByTestId('table-row-count')).toHaveTextContent('1 row');
+  });
+
   it('expands the table to full screen and back', async () => {
     await openTableWith(tableJson);
 

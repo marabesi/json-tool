@@ -7,7 +7,7 @@ import ResizableEditors from '../components/ui/editor/ResizableEditors';
 import EditorPage from '../components/ui/layout/EditorPage';
 import JsonMenu from '../components/ui/menu/JsonMenu';
 import JsonTable from '../components/ui/table/JsonTable';
-import { JsonValue } from '../core/jsonToTable';
+import { JsonValue, countTableRows } from '../core/jsonToTable';
 import { usePersistenceContext } from '../PersistenceContext';
 
 interface ParseResult {
@@ -34,6 +34,7 @@ export default function Table() {
   const jsonReferenceEditor = useRef<ReactCodeMirrorRef>(undefined);
 
   const { data, error } = useMemo(() => parseJson(jsonState), [jsonState]);
+  const rowCount = useMemo(() => (data === undefined ? 0 : countTableRows(data, search)), [data, search]);
 
   return (
     <EditorPage pageTestId="table-page">
@@ -72,6 +73,9 @@ export default function Table() {
               <Button data-testid="toggle-fullscreen" onClick={() => setIsFullscreen((value) => !value)}>
                 {isFullscreen ? 'Exit full screen' : 'Full screen'}
               </Button>
+              <span data-testid="table-row-count" className="text-sm">
+                {rowCount} {rowCount === 1 ? 'row' : 'rows'}
+              </span>
             </div>
             <div
               data-testid="table-container"

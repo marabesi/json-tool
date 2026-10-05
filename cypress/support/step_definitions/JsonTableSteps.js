@@ -51,3 +51,8 @@ And(/^I do not see "([^"]*)" in the table$/, function (value) {
 Then(/^I see no matching data$/, function () {
   cy.get('[data-testid="json-table-no-match"]').should('be.visible');
 });
+
+Then(/^I see (\d+) rows? displayed$/, function (count) {
+  const label = count === '1' ? '1 row' : `${count} rows`;
+  cy.withTableRowCount().should('have.text', label);
+});

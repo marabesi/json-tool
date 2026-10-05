@@ -92,6 +92,10 @@ Cypress.Commands.add('withTableSearch', () => {
   return cy.get('[data-testid="table-search"]');
 });
 
+Cypress.Commands.add('withTableRowCount', () => {
+  return cy.get('[data-testid="table-row-count"]');
+});
+
 Cypress.Commands.add('withTitle', () => {
   return cy.get('h1');
 });
