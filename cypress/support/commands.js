@@ -115,3 +115,11 @@ Cypress.Commands.add('withJsonMenu', () => {
 Cypress.Commands.add('withResultMenu', () => {
   return cy.get('[data-testid="result-menu"]');
 });
+
+Cypress.Commands.add('withInputEditorScroller', () => {
+  return cy.get('[data-testid="json"] .cm-scroller');
+});
+
+Cypress.Commands.add('withOutputEditorScroller', () => {
+  return cy.get('[data-testid="result"] .cm-scroller');
+});

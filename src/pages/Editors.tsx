@@ -1,5 +1,6 @@
-import { Ref, useRef } from 'react';
+import { Ref, useRef, useState } from 'react';
 import { openSearchPanel } from '@codemirror/search';
+import { EditorView } from '@codemirror/view';
 import { ReactCodeMirrorRef } from '@uiw/react-codemirror';
 import JsonEditor from '../components/ui/editor/JsonEditor';
 import ResultMenu from '../components/ui/menu/ResultMenu';
@@ -8,11 +9,16 @@ import ResizableEditors from '../components/ui/editor/ResizableEditors';
 import EditorPage from '../components/ui/layout/EditorPage';
 import Loading from '../components/ui/Loading';
 import { usePersistenceContext } from '../PersistenceContext';
+import { useScrollSync } from '../hooks/useScrollSync';
 
 export default function Editors() {
-  const { error, inProgress, onChange, jsonState, resultState, isValidateEnabled, spacing } = usePersistenceContext();
+  const { error, inProgress, onChange, jsonState, resultState, isValidateEnabled, isScrollSyncEnabled, spacing } = usePersistenceContext();
   const jsonReferenceEditor = useRef<ReactCodeMirrorRef>(undefined);
   const resultReferenceEditor = useRef<ReactCodeMirrorRef>(undefined);
+  const [jsonEditorView, setJsonEditorView] = useState<EditorView>();
+  const [resultEditorView, setResultEditorView] = useState<EditorView>();
+
+  useScrollSync(jsonEditorView, resultEditorView, isScrollSyncEnabled);
 
   return <EditorPage
     pageTestId="editors-page"
@@ -40,6 +46,7 @@ export default function Editors() {
           <JsonEditor
             input={jsonState}
             onChange={event => onChange(event.value, spacing, true)}
+            onCreateEditor={setJsonEditorView}
             data-testid="json"
             contenteditable={true}
             width="100%"
@@ -53,6 +60,7 @@ export default function Editors() {
           <JsonEditor
             input={resultState}
             className="result"
+            onCreateEditor={setResultEditorView}
             data-testid="result"
             contenteditable={true}
             width="100%"

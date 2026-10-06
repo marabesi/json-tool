@@ -26,7 +26,7 @@ function TabWrapper({ children, ...props }: TabProps) {
 }
 
 export default function Header() {
-  const { isValidateEnabled, setValidateEnabled } = usePersistenceContext();
+  const { isValidateEnabled, setValidateEnabled, isScrollSyncEnabled, setScrollSyncEnabled } = usePersistenceContext();
   const { onDarkThemeChanged, darkModeEnabled  } = useThemeContext();
   const { isHistoryEnabled } = useSettingsContext();
   const{ toggle } = useDrawerContext();
@@ -70,6 +70,18 @@ export default function Header() {
             className="mr-1 cursor-pointer"
           />
           <label htmlFor="is-validate-json" className="cursor-pointer">validate json</label>
+        </div>
+
+        <div className="mr-5">
+          <input
+            type="checkbox"
+            id="is-sync-scroll"
+            onChange={() => setScrollSyncEnabled(!isScrollSyncEnabled)}
+            data-testid="is-sync-scroll"
+            checked={isScrollSyncEnabled}
+            className="mr-1 cursor-pointer"
+          />
+          <label htmlFor="is-sync-scroll" className="cursor-pointer">sync scroll</label>
         </div>
         
         <Switch

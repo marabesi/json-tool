@@ -1,5 +1,6 @@
 import { CSSProperties, ForwardedRef, forwardRef, memo } from 'react';
 import CodeMirror, { BasicSetupOptions, ReactCodeMirrorRef } from '@uiw/react-codemirror';
+import { EditorView } from '@codemirror/view';
 import { duotoneLight } from '@uiw/codemirror-theme-duotone';
 import { json } from '@codemirror/lang-json';
 import fullConfig from '../../../tailwindResolver';
@@ -18,6 +19,7 @@ interface Props{
   className?: string;
   width?: string;
   onChange?: EventChange;
+  onCreateEditor?: (view: EditorView) => void;
   'data-testid': string;
   contenteditable: boolean;
 }

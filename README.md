@@ -41,6 +41,7 @@ Switch between views using the tabs in the header. The divider between the edito
 ## Editor (home)
 
 - Paste or type JSON in the left editor; the right editor shows the formatted result as you type.
+- Turn on **sync scroll** in the header to keep both editors on the same relative line while scrolling.
 - Toggle **validate json** in the header to show an error when the content is not valid JSON.
 - Left toolbar (hover an icon to see its name): search in the JSON, paste from clipboard, upload a JSON file and delete all.
 - Right toolbar: search in the result, space tabulation (indentation, 2 spaces by default), clean spaces, clean new lines, clean new lines and spaces and copy json.

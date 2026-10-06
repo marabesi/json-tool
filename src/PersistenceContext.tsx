@@ -8,6 +8,8 @@ interface PersistenceContextInterface {
   setResultState: (result: string) => void;
   isValidateEnabled: boolean;
   setValidateEnabled: (validate: boolean) => void;
+  isScrollSyncEnabled: boolean;
+  setScrollSyncEnabled: (syncScroll: boolean) => void;
   spacing: string;
   setSpacing: (spacing: string) => void;
   inProgress: boolean;
@@ -77,6 +79,7 @@ export const PersistenceContextProvider = ({ children }: { children: ReactElemen
   const [error, setError] = useState<string>('');
   const [spacing, setSpacing] = useState<string>(defaultSpacing);
   const [isValidateEnabled, setValidateEnabled] = useState<boolean>(true);
+  const [isScrollSyncEnabled, setScrollSyncEnabled] = useState<boolean>(false);
   const [jsonState, setJsonState] = useState<string>('');
   const [resultState, setResultState] = useState<string>('');
 
@@ -127,6 +130,8 @@ export const PersistenceContextProvider = ({ children }: { children: ReactElemen
       resultState,
       isValidateEnabled,
       setValidateEnabled,
+      isScrollSyncEnabled,
+      setScrollSyncEnabled,
       spacing,
       setSpacing,
       setJsonState,

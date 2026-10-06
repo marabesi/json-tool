@@ -1,4 +1,4 @@
-import { waitFor, within, screen } from '@testing-library/react';
+import { waitFor, within, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { customType } from './__testutilities__/customTyping';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
@@ -62,6 +62,78 @@ describe('Editors', () => {
     await userEvent.click (screen.getByTestId('search-result'));
 
     await waitFor(() => expect(within (screen.getByTestId('result')).getByText('×')).toBeInTheDocument());
+  });
+
+  describe('scroll synchronization', () => {
+    const makeScrollable = (element: HTMLElement, scrollHeight: number, clientHeight: number) => {
+      Object.defineProperty(element, 'scrollHeight', { value: scrollHeight, configurable: true });
+      Object.defineProperty(element, 'clientHeight', { value: clientHeight, configurable: true });
+    };
+
+    const scrollers = () => {
+      return {
+        jsonScroller: screen.getByTestId('json').querySelector('.cm-scroller') as HTMLElement,
+        resultScroller: screen.getByTestId('result').querySelector('.cm-scroller') as HTMLElement,
+      };
+    };
+
+    it('should be disabled by default', () => {
+      renderEntireApp();
+
+      expect(screen.getByTestId('is-sync-scroll')).not.toBeChecked();
+    });
+
+    it('should sync both editors on the same relative line once enabled', async () => {
+      renderEntireApp();
+
+      await userEvent.click(screen.getByTestId('is-sync-scroll'));
+
+      const { jsonScroller, resultScroller } = scrollers();
+
+      makeScrollable(jsonScroller, 1000, 100);
+      makeScrollable(resultScroller, 2000, 100);
+
+      jsonScroller.scrollTop = 450;
+      fireEvent.scroll(jsonScroller);
+
+      await waitFor(() => {
+        expect(resultScroller.scrollTop).toBe(950);
+      });
+    });
+
+    it('should sync the json editor when the result editor scrolls once enabled', async () => {
+      renderEntireApp();
+
+      await userEvent.click(screen.getByTestId('is-sync-scroll'));
+
+      const { jsonScroller, resultScroller } = scrollers();
+
+      makeScrollable(jsonScroller, 1000, 100);
+      makeScrollable(resultScroller, 2000, 100);
+
+      resultScroller.scrollTop = 950;
+      fireEvent.scroll(resultScroller);
+
+      await waitFor(() => {
+        expect(jsonScroller.scrollTop).toBe(450);
+      });
+    });
+
+    it('should not sync the editors while the toggle is off', async () => {
+      renderEntireApp();
+
+      const { jsonScroller, resultScroller } = scrollers();
+
+      makeScrollable(jsonScroller, 1000, 100);
+      makeScrollable(resultScroller, 2000, 100);
+
+      jsonScroller.scrollTop = 450;
+      fireEvent.scroll(jsonScroller);
+
+      await waitFor(() => {
+        expect(resultScroller.scrollTop).toBe(0);
+      });
+    });
   });
 
   describe('loading', () => {

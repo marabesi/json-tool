@@ -19,6 +19,7 @@ export function Docs() {
                   <li>Left toolbar (hover an icon to see its name): search in the JSON, paste from clipboard, upload a JSON file and delete all.</li>
                   <li>Right toolbar: search in the result, set the indentation with space tabulation (2 spaces by default), clean spaces, clean new lines, clean new lines and spaces, and copy the result to the clipboard.</li>
                   <li>Resize the editors by dragging the divider between them, or by focusing it and pressing the left/right arrow keys. The divider position is kept while you switch between views.</li>
+                  <li>Turn on <strong>sync scroll</strong> in the header to keep both editors on the same relative line while scrolling.</li>
                 </ul>
               </section>
               <section>

@@ -78,6 +78,13 @@ describe('UI elements', () => {
     expect(screen.getByTestId('is-validate-json')).toBeChecked();
   });
 
+  it('should render sync scroll checkbox unchecked by default', () => {
+    renderEntireApp();
+
+    expect(screen.getByText('sync scroll')).toBeInTheDocument();
+    expect(screen.getByTestId('is-sync-scroll')).not.toBeChecked();
+  });
+
   describe('navigation', () => {
     it('should mark main page as active by default', () => {
       renderEntireApp();
