@@ -115,8 +115,8 @@ importers:
         specifier: ^30.5.2
         version: 30.5.2(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
       chromatic:
-        specifier: ^18.10.2
-        version: 18.10.2(@chromatic-com/cypress@0.13.2(@testing-library/dom@10.4.2)(cypress@16.1.1)(react@19.3.0))
+        specifier: ^18.11.0
+        version: 18.11.0(@chromatic-com/cypress@0.13.2(@testing-library/dom@10.4.2)(cypress@16.1.1)(react@19.3.0))
       concurrently:
         specifier: ^10.0.5
         version: 10.0.5
@@ -2846,8 +2846,8 @@ packages:
     resolution: {integrity: sha512-+IxzY9BZOQd/XuYPRmrvEVjF/nqj5kgT4kEq7VofrDoM1MxoRjEWkrCC3EtLi59TVawxTAn+orJwFQcrqEN1+g==}
     engines: {node: '>=18'}
 
-  chromatic@18.10.2:
-    resolution: {integrity: sha512-LMvfsX9xg+Db+QGLCpqzY8ICdV4lf2HLo7VUIlGcuU7a6gcnH6SAEHZL45/r5OJ0ByE3FOMkiNiU2f9/osuESw==}
+  chromatic@18.11.0:
+    resolution: {integrity: sha512-gn5wXxt26Lr1ZMa7Bp0epTvcN0t+33ZEJaPtpbtnnNH8jtoS4EA0xsLuThukKoI2zpu64lFVUN3TMYqZYHMcgQ==}
     engines: {node: '>=22.0.0'}
     hasBin: true
     peerDependencies:
@@ -10095,7 +10095,7 @@ snapshots:
 
   chownr@3.0.0: {}
 
-  chromatic@18.10.2(@chromatic-com/cypress@0.13.2(@testing-library/dom@10.4.2)(cypress@16.1.1)(react@19.3.0)):
+  chromatic@18.11.0(@chromatic-com/cypress@0.13.2(@testing-library/dom@10.4.2)(cypress@16.1.1)(react@19.3.0)):
     dependencies:
       semver: 7.8.5
     optionalDependencies:
