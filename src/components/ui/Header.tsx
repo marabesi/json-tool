@@ -45,8 +45,16 @@ export default function Header() {
         <TabWrapper data-testid="schema" to="/schema" title="Show JSON shape and property statistics">
           <FaProjectDiagram />
         </TabWrapper>
-        <a data-testid="docs" href="./docs/" title="JSON tool documentation" className="p-5">
+        <a
+          data-testid="docs"
+          href="./docs/"
+          target="_blank"
+          rel="noreferrer"
+          title="Open the JSON tool documentation"
+          className="flex items-center gap-2 p-5"
+        >
           <FaRegLightbulb />
+          <span>Docs</span>
         </a>
         <TabWrapper  data-testid="settings" to="/settings" title="JSON tool settings">
           <FaRegSun />

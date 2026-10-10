@@ -18,7 +18,7 @@ out/
 # production
 build/
 
-# documentation (VitePress build is published under /json-tool/docs on GitHub Pages)
+# documentation (VitePress build is published under /docs on GitHub Pages)
 public/docs/
 docs/.vitepress/cache
 docs/.vitepress/dist

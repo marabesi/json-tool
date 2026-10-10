@@ -26,5 +26,7 @@ Then(/^I see the settings options$/, function () {
 Then(/^I see the docs link$/, function () {
   cy.goToDocs()
     .should('be.visible')
-    .should('have.attr', 'href', './docs/');
+    .should('contain', 'Docs')
+    .should('have.attr', 'href', './docs/')
+    .should('have.attr', 'target', '_blank');
 });

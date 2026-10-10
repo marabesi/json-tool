@@ -1,18 +1,32 @@
 import { defineConfig } from 'vitepress';
 import { fileURLToPath } from 'node:url';
 
+const base = process.env.DOCS_BASE ?? '/docs/';
+
 export default defineConfig({
   title: 'json-tool',
   description:
     'Privacy-first JSON formatter, validator and beautifier. Format, validate and inspect your JSON without sending your data anywhere.',
   lang: 'en-US',
-  base: '/json-tool/docs/',
+  base,
   outDir: fileURLToPath(new URL('../../public/docs', import.meta.url)),
   cleanUrls: true,
   lastUpdated: true,
   head: [
-    ['link', { rel: 'icon', type: 'image/x-icon', href: '/json-tool/docs/favicon.ico' }],
+    ['link', { rel: 'icon', type: 'image/x-icon', href: `${base}favicon.ico` }],
     ['meta', { name: 'theme-color', content: '#1e3a8a' }],
+    [
+      'script',
+      { async: '', src: 'https://www.googletagmanager.com/gtag/js?id=G-3X215RLQFD' },
+    ],
+    [
+      'script',
+      {},
+      `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-3X215RLQFD');`,
+    ],
   ],
   themeConfig: {
     logo: '/logo192.png',

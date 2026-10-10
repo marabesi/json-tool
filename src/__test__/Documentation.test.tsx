@@ -9,6 +9,8 @@ describe('Documentation link', () => {
 
     expect(docs).toBeInTheDocument();
     expect(docs).toHaveAttribute('href', './docs/');
-    expect(docs).toHaveAttribute('title', 'JSON tool documentation');
+    expect(docs).toHaveAttribute('target', '_blank');
+    expect(docs).toHaveAttribute('rel', 'noreferrer');
+    expect(docs).toHaveTextContent('Docs');
   });
 });
