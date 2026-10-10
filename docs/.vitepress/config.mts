@@ -31,14 +31,14 @@ gtag('config', 'G-3X215RLQFD');`,
   themeConfig: {
     logo: '/logo192.png',
     nav: [
-      { text: 'Guide', link: '/guide/', activeMatch: '/guide/' },
+      { text: 'User manual', link: '/guide/', activeMatch: '/guide/' },
       { text: 'About', link: '/about/why', activeMatch: '/about/' },
       { text: 'Open the app', link: 'https://marabesi.github.io/json-tool' },
     ],
     sidebar: {
       '/guide/': [
         {
-          text: 'Guide',
+          text: 'User manual',
           items: [
             { text: 'Getting started', link: '/guide/' },
             { text: 'Editor (home)', link: '/guide/editor' },

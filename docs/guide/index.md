@@ -1,55 +1,59 @@
-# Getting started
+# User manual
 
-json-tool allows you to quickly format JSON content with a click of a button,
-and much more:
+Welcome to the json-tool user manual. json-tool is a privacy-first JSON
+formatter, validator and beautifier. It runs entirely in your browser: none of
+your JSON ever leaves your machine.
 
-- **JSON validation** — shows an error message warning about invalid JSON.
-- **Clipboard** — buttons to paste and copy JSON easily.
-- **Search** — search through the JSON and the result (provided by CodeMirror).
-- **File upload** — upload a JSON file.
-- **Table view** — inspect your JSON as a table.
-- **Shape view** — inspect the JSON shape and statistics.
-- **Dark mode** and a **history drawer**.
+## The tool at a glance
 
-The tool is available as a web app and as an Electron desktop app.
+json-tool lets you:
 
-## Open the app
+- **Format** JSON content with a click of a button.
+- **Validate** JSON and be warned about invalid content.
+- **Beautify** the result with configurable indentation.
+- Search, clean and copy the content easily.
+- Inspect JSON as a **table** and as **shape statistics**.
 
-You can use the hosted version at
-[marabesi.github.io/json-tool](https://marabesi.github.io/json-tool), or run
-it locally.
+## The views
 
-## Basic usage
+Switch between views using the tabs in the header:
 
-1. Open the app and paste or type JSON into the working editor on the left.
+| View | Tab / route | Description |
+| --- | --- | --- |
+| Home | home tab, `/` | Format and validate JSON in two editors |
+| Table | table tab, `/table` | See the JSON as a table |
+| Shape | shape tab, `/schema` | See the JSON shape and statistics |
+| Settings | settings tab, `/settings` | Configure the editors and features |
+
+The documentation icon in the header (**Docs**) opens this manual in a new tab.
+
+## The header
+
+From left to right the header shows:
+
+- The **JSON tool** logo (goes back home) and the view tabs.
+- The **history** button (only when the JSON History feature is enabled). It
+  opens a drawer with the JSON you have used previously.
+- The **validate json** checkbox. When on, invalid JSON is reported below the
+  editors.
+- The **sync scroll** checkbox. When on, both editors scroll together on the
+  same relative line.
+- The **dark mode** switch.
+
+## The footer
+
+The footer contains the license (**CC0 1.0 Universal**), a **Found an issue?**
+link to the GitHub issue tracker and a **Buy me a coffee** link.
+
+## A quick first run
+
+1. Open the app and paste or type JSON in the editor on the left.
 2. The editor on the right shows the formatted result as you type.
-3. Use the tabs in the header to switch between the views:
+3. Use the tabs to switch to the table view, the shape view or the settings.
 
-   | Tab | Route | What it shows |
-   | --- | --- | --- |
-   | home | `/` | Format and validate editors |
-   | table | `/table` | The JSON as a table |
-   | shape | `/schema` | JSON shape and statistics |
-   | settings | `/settings` | Application settings |
+Continue to the next pages for the details of every view:
 
-4. Toggle **validate json** and **sync scroll**, and switch **dark mode** from
-   the header.
-
-## Run it locally
-
-Install the dependencies and start the development server:
-
-```sh
-pnpm install
-pnpm start
-```
-
-The app runs at `http://localhost:3000`. To run the Electron desktop app
-together with the dev server use `pnpm dev`.
-
-## Next steps
-
-- [Editor (home)](/guide/editor)
+- [Home (editor)](/guide/editor)
 - [Table view](/guide/table)
 - [Shape view](/guide/shape)
 - [Settings](/guide/settings)
