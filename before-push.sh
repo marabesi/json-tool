@@ -2,6 +2,7 @@
 
 docker compose run --rm json-tool rm -rf node_modules/ coverage/ build/ .nyc_output
 docker compose run --rm json-tool pnpm install
+docker compose run --rm json-tool pnpm run docs:build
 docker compose run --rm json-tool pnpm run build
 docker compose run --service-ports --rm -d json-tool pnpm run start-instrumented
 echo "Sleeping 20 seconds for the application to start"

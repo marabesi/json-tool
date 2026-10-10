@@ -23,12 +23,8 @@ Then(/^I see the settings options$/, function () {
   cy.withTitle().should('have.text', 'Settings');
 });
 
-When(/^I go to docs$/, function () {
-  cy.goToDocs().click();
-});
-
-Then(/^I see the docs page$/, function () {
-  cy.withTitle().should('have.text', 'JSON tool docs');
-  cy.contains('Using JSON tool').should('be.visible');
-  cy.contains('Searching in the table').should('be.visible');
+Then(/^I see the docs link$/, function () {
+  cy.goToDocs()
+    .should('be.visible')
+    .should('have.attr', 'href', './docs/');
 });

@@ -147,6 +147,9 @@ jobs:
       - name: lint
         run: pnpm lint
 
+      - name: build documentation
+        run: pnpm docs:build
+
       - name: build application
         run: pnpm build
 

@@ -35,6 +35,9 @@ jobs:
       - name: Install
         run: pnpm install --frozen-lockfile
 
+      - name: Build documentation 📚
+        run: pnpm docs:build
+
       - name: Build 🔧
         env:
           NODE_OPTIONS: --openssl-legacy-provider
@@ -46,3 +49,4 @@ jobs:
         with:
           branch: gh-pages
           folder: build
+          clean: true

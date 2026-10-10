@@ -12,7 +12,6 @@ Feature: User interface
     And I go to settings
     Then I see the settings options
 
-  Scenario: I want to navigate to the docs
+  Scenario: I want to open the documentation
     When I open json tool
-    And I go to docs
-    Then I see the docs page
+    Then I see the docs link

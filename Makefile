@@ -4,6 +4,7 @@ build:
 		@echo "Running build steps..."
 		docker compose run --rm json-tool rm -rf node_modules/ coverage/ build/ .nyc_output
 		docker compose run --rm json-tool npm i 
+		docker compose run --rm json-tool npm run docs:build
 		docker compose run --rm json-tool npm run build
 
 start:

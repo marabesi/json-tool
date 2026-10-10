@@ -4,7 +4,6 @@ import Editors from './pages/Editors';
 import Table from './pages/Table';
 import Schema from './pages/Schema';
 import { Settings } from './pages/Settings';
-import { Docs } from './pages/Docs';
 import DefaultLayout from './components/ui/layout/Default';
 import { ThemeContextProvider } from './DarkModeContext';
 import { SettingsContextProvider } from './settings/SettingsContext';
@@ -30,7 +29,6 @@ export default function App() {
                         <Route path="/table" element={<Table/>}/>
                         <Route path="/schema" element={<Schema/>}/>
                         <Route path="/settings" element={<Settings/>}/>
-                        <Route path="/docs" element={<Docs/>}/>
                       </Routes>
                       <Toaster/>
                     </DefaultLayout>

@@ -92,14 +92,6 @@ describe('UI elements', () => {
       expect(screen.getByTestId('to-home')).toHaveClass('bg-blue-400 dark:bg-gray-600');
     });
 
-    it('should mark docs page as active by default', async () => {
-      renderEntireApp();
-
-      await userEvent.click(screen.getByTestId('docs'));
-
-      expect(screen.getByTestId('docs')).toHaveClass('bg-blue-400 dark:bg-gray-600');
-    });
-
     it('should mark settings page as active by default', async () => {
       renderEntireApp();
 
