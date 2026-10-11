@@ -4,6 +4,8 @@ The table view renders your JSON as a table. Switch to it using the **table**
 tab in the header (route `/table`). Paste JSON in the working editor on the
 left and the table appears on the right.
 
+![Table view](/screenshots/table.png)
+
 ## How JSON becomes a table
 
 - An **array of objects** becomes one row per element, with a column for every

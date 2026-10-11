@@ -30,6 +30,13 @@ pnpm docs:dev    # start the docs dev server
 pnpm docs:build  # build the docs into public/docs
 ```
 
+The screenshots in the user manual are generated automatically with
+[Playwright](https://playwright.dev/) and saved to `docs/public/screenshots/`:
+
+```sh
+pnpm docs:screenshots  # regenerate the manual screenshots
+```
+
 # Publications
 
 - [Web Workers to the Rescue – How to Work with JSON Strings without Blocking User Interactions](https://dev.to/marabesi/web-workers-to-the-rescue-how-to-work-with-json-strings-without-blocking-user-interactions-2jf2)

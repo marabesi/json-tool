@@ -4,6 +4,8 @@ Open the settings view using the **settings** tab in the header (route
 `/settings`). Settings are stored locally in your browser; json-tool never
 sends your data to a server.
 
+![Settings](/screenshots/settings.png)
+
 ## Editor
 
 Configure the CodeMirror editor with the following options:

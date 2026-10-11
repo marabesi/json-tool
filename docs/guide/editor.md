@@ -4,6 +4,8 @@ The home view is where you format and validate JSON. It has two editors side by
 side: the **working editor** on the left and the **result editor** on the
 right. Each editor has its own toolbar above it.
 
+![Home: the working editor on the left and the formatted result on the right](/screenshots/editor.png)
+
 ## Formatting
 
 - Paste or type your JSON in the editor on the left.
@@ -73,3 +75,7 @@ JSON you have used. Open the drawer from the header to see the entries:
 
 The drawer shows a short snippet of each entry and the full content is stored
 for the actions above. It is empty until you start using the editor.
+
+json-tool also ships with a dark theme, switched from the header:
+
+![Home in dark mode](/screenshots/editor-dark.png)

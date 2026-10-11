@@ -5,6 +5,8 @@ The shape view summarizes the structure of your JSON. Switch to it using the
 editor and the right pane shows an aggregate analysis of the whole document
 plus the same analysis for every nested object/array shape.
 
+![Shape view](/screenshots/shape.png)
+
 ## Statistics
 
 For the whole document and for every nested shape, json-tool reports:
