@@ -66,7 +66,7 @@
     "cypress-cucumber-preprocessor": "^4.3.1",
     "cypress-file-upload": "^5.0.8",
     "electron": "^44.8.0",
-    "electron-builder": "^26.15.3",
+    "electron-builder": "^26.18.0",
     "eslint": "^8.57.1",
     "eslint-plugin-cypress": "^3.6.0",
     "eslint-plugin-react": "^7.37.5",
