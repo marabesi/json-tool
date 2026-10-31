@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { FaRegSun, FaRegLightbulb, FaHistory, FaTable, FaProjectDiagram } from 'react-icons/fa';
+import { FaRegSun, FaRegLightbulb, FaHistory, FaTable, FaProjectDiagram, FaExchangeAlt } from 'react-icons/fa';
 import { NavLink, LinkProps } from 'react-router';
 import Switch from 'react-switch';
 import fullConfig from '../../tailwindResolver';
@@ -44,6 +44,9 @@ export default function Header() {
         </TabWrapper>
         <TabWrapper data-testid="schema" to="/schema" title="Show JSON shape and property statistics">
           <FaProjectDiagram />
+        </TabWrapper>
+        <TabWrapper data-testid="diff" to="/diff" title="Compare two JSON documents">
+          <FaExchangeAlt />
         </TabWrapper>
         <TabWrapper  data-testid="settings" to="/settings" title="JSON tool settings">
           <FaRegSun />

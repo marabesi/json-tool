@@ -6,26 +6,9 @@ import ResizableEditors from '../components/ui/editor/ResizableEditors';
 import EditorPage from '../components/ui/layout/EditorPage';
 import JsonMenu from '../components/ui/menu/JsonMenu';
 import JsonShapeStatistics from '../components/ui/schema/JsonShapeStatistics';
-import { JsonValue } from '../core/jsonToTable';
 import { analyzeShapeReport } from '../core/jsonToSchema';
+import { parseJson } from '../core/parseJson';
 import { usePersistenceContext } from '../PersistenceContext';
-
-interface ParseResult {
-  data?: JsonValue;
-  error: string;
-}
-
-function parseJson(value: string): ParseResult {
-  if (value.trim() === '') {
-    return { error: '' };
-  }
-
-  try {
-    return { data: JSON.parse(value) as JsonValue, error: '' };
-  } catch {
-    return { error: 'invalid json' };
-  }
-}
 
 export default function Schema() {
   const { jsonState, onChange, spacing } = usePersistenceContext();

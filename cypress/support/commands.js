@@ -76,6 +76,18 @@ Cypress.Commands.add('goToSchema', () => {
   return cy.get('[data-testid="schema"]');
 });
 
+Cypress.Commands.add('goToDiff', () => {
+  return cy.get('[data-testid="diff"]');
+});
+
+Cypress.Commands.add('withDiffInputEditor', () => {
+  return cy.get('[data-testid="diff-json"] [role="textbox"]');
+});
+
+Cypress.Commands.add('withDiffComparedEditor', () => {
+  return cy.get('[data-testid="diff-compare-json"] [role="textbox"]');
+});
+
 Cypress.Commands.add('withJsonTable', () => {
   return cy.get('[data-testid="json-table"]');
 });

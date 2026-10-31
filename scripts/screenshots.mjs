@@ -20,6 +20,18 @@ const sample = `{
   "total": 3
 }`;
 
+const comparedSample = `{
+  "project": "json-tool",
+  "users": [
+    { "id": 1, "name": "Ada", "roles": ["admin"], "active": true },
+    { "id": 2, "name": "Grace", "roles": ["editor"], "active": false },
+    { "id": 3, "name": "Alan", "roles": ["viewer"], "active": false },
+    { "id": 4, "name": "Linus", "roles": ["viewer"], "active": true }
+  ],
+  "settings": { "theme": "light", "notifications": null },
+  "total": 4
+}`;
+
 function startServer() {
   console.log(`[screenshots] starting vite on ${ORIGIN}`);
   const server = spawn(process.execPath, [viteBin, '--port', PORT, '--strictPort'], {
@@ -114,6 +126,17 @@ async function run() {
     await page.getByTestId('json-shape-nested').waitFor({ state: 'visible' });
     await page.waitForTimeout(500);
     await page.screenshot({ path: `${OUT_DIR}/shape.png` });
+
+    console.log('📸 diff.png');
+    await page.getByTestId('diff').click();
+    await page.getByTestId('diff-page').waitFor({ state: 'visible' });
+    await page.evaluate(async (text) => {
+      await navigator.clipboard.writeText(text);
+    }, comparedSample);
+    await page.getByTestId('diff-compare-paste-from-clipboard').click();
+    await page.getByTestId('json-diff').waitFor({ state: 'visible' });
+    await page.waitForTimeout(500);
+    await page.screenshot({ path: `${OUT_DIR}/diff.png` });
 
     console.log('📸 settings.png');
     await page.getByTestId('settings').click();

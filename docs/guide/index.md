@@ -12,7 +12,8 @@ json-tool lets you:
 - **Validate** JSON and be warned about invalid content.
 - **Beautify** the result with configurable indentation.
 - Search, clean and copy the content easily.
-- Inspect JSON as a **table** and as **shape statistics**.
+- Inspect JSON as a **table**, as **shape statistics** and as a **diff between
+  two documents**.
 
 ## The views
 
@@ -23,6 +24,7 @@ Switch between views using the tabs in the header:
 | Home | home tab, `/` | Format and validate JSON in two editors |
 | Table | table tab, `/table` | See the JSON as a table |
 | Shape | shape tab, `/schema` | See the JSON shape and statistics |
+| Diff | diff tab, `/diff` | Compare two JSON documents |
 | Settings | settings tab, `/settings` | Configure the editors and features |
 
 The documentation icon in the header (**Docs**) opens this manual in a new tab.
@@ -49,11 +51,13 @@ link to the GitHub issue tracker and a **Buy me a coffee** link.
 
 1. Open the app and paste or type JSON in the editor on the left.
 2. The editor on the right shows the formatted result as you type.
-3. Use the tabs to switch to the table view, the shape view or the settings.
+3. Use the tabs to switch to the table view, the shape view, the diff view or
+   the settings.
 
 Continue to the next pages for the details of every view:
 
 - [Home (editor)](/guide/editor)
 - [Table view](/guide/table)
 - [Shape view](/guide/shape)
+- [Diff view](/guide/diff)
 - [Settings](/guide/settings)

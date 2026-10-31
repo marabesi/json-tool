@@ -3,6 +3,7 @@ import { Toaster } from 'react-hot-toast';
 import Editors from './pages/Editors';
 import Table from './pages/Table';
 import Schema from './pages/Schema';
+import Diff from './pages/Diff';
 import { Settings } from './pages/Settings';
 import DefaultLayout from './components/ui/layout/Default';
 import { ThemeContextProvider } from './DarkModeContext';
@@ -28,6 +29,7 @@ export default function App() {
                         <Route path="/" element={<Editors/>}/>
                         <Route path="/table" element={<Table/>}/>
                         <Route path="/schema" element={<Schema/>}/>
+                        <Route path="/diff" element={<Diff/>}/>
                         <Route path="/settings" element={<Settings/>}/>
                       </Routes>
                       <Toaster/>

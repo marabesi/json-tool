@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import Button from '../io/Button';
+import StatCard from '../StatCard';
 import { ShapeNode, ShapeStatistics } from '../../../core/jsonToSchema';
 
-const cardClasses = 'rounded border border-blue-900/30 bg-white/40 p-2 dark:border-gray-600 dark:bg-gray-800/40';
-const cardLabelClasses = 'text-xs uppercase tracking-wide text-gray-700 dark:text-gray-400';
-const cardValueClasses = 'text-lg font-semibold';
 const headerCellClasses = 'border border-blue-900/40 bg-blue-900 px-2 py-1 font-semibold text-white dark:border-gray-500 dark:bg-gray-700';
 const bodyCellClasses = 'border border-blue-900/30 px-2 py-1 dark:border-gray-600';
 const bodyRowClasses = 'odd:bg-white/30 even:bg-black/5 dark:odd:bg-gray-800/40 dark:even:bg-gray-700/40';
@@ -15,21 +13,6 @@ function toPercentage(count: number, total: number): number {
   }
 
   return Math.round((count / total) * 100);
-}
-
-interface CardProps {
-  label: string;
-  value: string | number;
-  testId: string;
-}
-
-function StatCard({ label, value, testId }: CardProps) {
-  return (
-    <div className={cardClasses} data-testid={testId}>
-      <div className={cardLabelClasses}>{label}</div>
-      <div className={cardValueClasses} data-testid={`${testId}-value`}>{value}</div>
-    </div>
-  );
 }
 
 interface PanelProps {

@@ -25,6 +25,8 @@ features:
     details: Inspect an array of objects as a table, with fuzzy search across every column and nested values.
   - title: Shape and statistics
     details: Understand the structure of a document at a glance, with statistics for the whole document and every nested shape.
+  - title: Diff
+    details: Compare two JSON documents and see every added, removed and changed value, with paths and before/after values.
 ---
 
 ## Why json-tool?

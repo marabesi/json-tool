@@ -50,7 +50,8 @@ pnpm docs:screenshots  # regenerate the manual screenshots
 - Buttons to allow easy interaction with the clipboard (paste and copy to the clipboard)
 - Search through the json string (offered by the code mirror editor)
 - Upload a json file
-- Resizable editors on the home, table and shape views, drag the divider (or use the left/right arrow keys) to change the width of each editor. The editor menus show icons only, hover over an icon to see what it does
+- Diff two JSON documents and see every added, removed and changed value
+- Resizable editors on the home, table, shape and diff views, drag the divider (or use the left/right arrow keys) to change the width of each editor. The editor menus show icons only, hover over an icon to see what it does
 
 # Views
 
@@ -78,6 +79,10 @@ The table view renders the JSON as a table:
 ## Shape
 
 The shape view shows the JSON statistics: total objects, arrays, distinct properties, values, filled and empty values, the average number of properties per object and a breakdown by type. Every nested object and array gets the same statistics, with expand all / collapse all.
+
+## Diff
+
+The diff view compares two JSON documents. The left editor holds the original document and the right editor holds the document to compare with. The result shows every added, removed and changed value with its JSONPath-like path (`$.user.name`, `$.users[0].name`) and the before/after values. Arrays are compared by index, and a summary counts the differences. When both documents are identical, the view says so.
 
 ![Screenshot from 2022-09-11 11-32-55](https://user-images.githubusercontent.com/2129872/190869274-51b3ae2b-e6db-401b-a058-0f8f887f82e7.png)
 

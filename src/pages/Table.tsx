@@ -7,25 +7,9 @@ import ResizableEditors from '../components/ui/editor/ResizableEditors';
 import EditorPage from '../components/ui/layout/EditorPage';
 import JsonMenu from '../components/ui/menu/JsonMenu';
 import JsonTable from '../components/ui/table/JsonTable';
-import { JsonValue, countTableRows } from '../core/jsonToTable';
+import { countTableRows } from '../core/jsonToTable';
+import { parseJson } from '../core/parseJson';
 import { usePersistenceContext } from '../PersistenceContext';
-
-interface ParseResult {
-  data?: JsonValue;
-  error: string;
-}
-
-function parseJson(value: string): ParseResult {
-  if (value.trim() === '') {
-    return { error: '' };
-  }
-
-  try {
-    return { data: JSON.parse(value) as JsonValue, error: '' };
-  } catch {
-    return { error: 'invalid json' };
-  }
-}
 
 export default function Table() {
   const { jsonState, onChange, spacing } = usePersistenceContext();

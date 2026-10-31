@@ -8,14 +8,19 @@ import { useClipboardContext } from '../../../ClipboardContext';
 interface Props {
   onLoadedFile: (content: string | ArrayBuffer | null) => void;
   onSearch: () => void;
+  onPaste?: (content: string) => void;
+  onDelete?: () => void;
+  label?: string;
+  testIdPrefix?: string;
 }
 
-export default function JsonMenu({ onLoadedFile, onSearch } : Props) {
+export default function JsonMenu({ onLoadedFile, onSearch, onPaste, onDelete, label, testIdPrefix } : Props) {
   const { deleteJson } = useToolbarContext();
   const { pasteFromClipboard: pasteFromContext, isClipboardAvailable } = useClipboardContext();
   const { onChange, spacing } = usePersistenceContext();
 
   const fileContent  = useRef<HTMLInputElement>(null);
+  const testId = (name: string) => testIdPrefix === undefined ? name : `${testIdPrefix}-${name}`;
 
   function onFileUploaded(event: BaseSyntheticEvent) {
     const [fileAt] = event.target.files as File[];
@@ -31,17 +36,27 @@ export default function JsonMenu({ onLoadedFile, onSearch } : Props) {
   }
 
   async function pasteFromClipboard() {
-    onChange(await pasteFromContext(), spacing, true);
+    const content = await pasteFromContext();
+
+    if (onPaste) {
+      onPaste(content);
+      return;
+    }
+
+    onChange(content, spacing, true);
   }
 
   return (
-    <div className="flex flex-wrap w-full justify-start items-center m-2 ml-0 min-h-10 gap-y-1 gap-x-2" data-testid="json-menu">
-      <Button data-testid="search-json" onClick={onSearch} title="Search in the json">
+    <div className="flex flex-wrap w-full justify-start items-center m-2 ml-0 min-h-10 gap-y-1 gap-x-2" data-testid={testId('json-menu')}>
+      {label !== undefined && (
+        <span className="mr-1 text-sm font-semibold" data-testid={testId('json-menu-label')}>{label}</span>
+      )}
+      <Button data-testid={testId('search-json')} onClick={onSearch} title="Search in the json">
         <FaSearch />
       </Button>
       <Button
         onClick={pasteFromClipboard}
-        data-testid="paste-from-clipboard"
+        data-testid={testId('paste-from-clipboard')}
         className="ml-0 flex items-center"
         disabled={!isClipboardAvailable()}
         title={isClipboardAvailable() ? 'Paste from clipboard' : 'Paste from clipboard is disabled due lack of browser support'}
@@ -51,7 +66,7 @@ export default function JsonMenu({ onLoadedFile, onSearch } : Props) {
       <label
         className="bg-transparent border-0 cursor-pointer p-1 outline-none text-sm hover:bg-blue-800 dark:hover:bg-gray-800 flex items-center"
         title="Upload a json file"
-        data-testid="upload-json-button"
+        data-testid={testId('upload-json-button')}
       >
         <FaRegFileArchive />
         <input
@@ -59,7 +74,7 @@ export default function JsonMenu({ onLoadedFile, onSearch } : Props) {
           ref={fileContent}
           accept="application/json"
           onChange={onFileUploaded}
-          data-testid="upload-json"
+          data-testid={testId('upload-json')}
           className="sr-only"
         />
       </label>
@@ -68,9 +83,15 @@ export default function JsonMenu({ onLoadedFile, onSearch } : Props) {
           if (fileContent.current) {
             fileContent.current.value = '';
           }
+
+          if (onDelete) {
+            onDelete();
+            return;
+          }
+
           deleteJson();
         }}
-        data-testid="clean"
+        data-testid={testId('clean')}
         className="flex items-center"
         title="Delete all"
       >
