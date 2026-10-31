@@ -154,7 +154,7 @@ jobs:
         run: pnpm build
 
       - name: Run cypress (acceptance tests)
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         env:
           CYPRESS_INSTRUMENT_PRODUCTION: false
           DISABLE_ESLINT_PLUGIN: true
@@ -166,7 +166,7 @@ jobs:
           group: 'json-tool'
           wait-on: 'http://localhost:3000'
           start: pnpm start-instrumented
-          browser: chrome
+          browser: chrome-for-testing
           headed: true
           install-command: pnpm install --frozen-lockfile
 
