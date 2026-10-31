@@ -154,10 +154,13 @@ jobs:
         run: pnpm build
 
       - name: Install Chrome for Testing
-        id: setup-chrome
-        uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: stable
+        id: cft
+        run: |
+          INSTALL_OUTPUT=$(pnpm dlx @puppeteer/browsers@2 install chrome@stable --path "$RUNNER_TEMP/chrome-for-testing")
+          CHROME_PATH=$(printf '%s\n' "$INSTALL_OUTPUT" | awk '/^chrome@/ {print $2}' | tail -n 1)
+          test -x "$CHROME_PATH"
+          "$CHROME_PATH" --version
+          echo "chrome-path=$CHROME_PATH" >> "$GITHUB_OUTPUT"
 
       - name: Run cypress (acceptance tests)
         uses: cypress-io/github-action@v7
@@ -172,7 +175,7 @@ jobs:
           group: 'json-tool'
           wait-on: 'http://localhost:3000'
           start: pnpm start-instrumented
-          browser: ${{ steps.setup-chrome.outputs.chrome-path }}
+          browser: ${{ steps.cft.outputs.chrome-path }}
           headed: true
           install-command: pnpm install --frozen-lockfile
 
