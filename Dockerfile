@@ -1,4 +1,4 @@
-FROM node:26.8.2
+FROM node:26.12.1
 RUN npm install -g pnpm@latest
 WORKDIR /app
 COPY package.json ./
