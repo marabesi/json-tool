@@ -159,6 +159,13 @@ jobs:
         with:
           chrome-version: stable
 
+      - name: Verify Chrome for Testing executable
+        run: |
+          CHROME_PATH="${{ steps.setup-chrome.outputs.chrome-path }}"
+          test -x "$CHROME_PATH"
+          "$CHROME_PATH" --version
+          echo "CHROME_PATH=$CHROME_PATH" >> "$GITHUB_ENV"
+
       - name: Run cypress (acceptance tests)
         uses: cypress-io/github-action@v7
         env:
@@ -172,7 +179,7 @@ jobs:
           group: 'json-tool'
           wait-on: 'http://localhost:3000'
           start: pnpm start-instrumented
-          browser: ${{ steps.setup-chrome.outputs.chrome-path }}
+          browser: ${{ env.CHROME_PATH }}
           headed: true
           install-command: pnpm install --frozen-lockfile
 
