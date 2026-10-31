@@ -18,12 +18,12 @@ module.exports = defineConfig({
       coverage(on, config);
       on('file:preprocessor', cucumber());
 
-      on('task', {
-        prepareArchives: () => null,
-      });
-
       if (process.env.CI) {
         installPlugin(on, config);
+      } else {
+        on('task', {
+          prepareArchives: () => null,
+        });
       }
       return config;
     }

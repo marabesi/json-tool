@@ -153,6 +153,12 @@ jobs:
       - name: build application
         run: pnpm build
 
+      - name: Install Chrome for Testing
+        id: setup-chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+
       - name: Run cypress (acceptance tests)
         uses: cypress-io/github-action@v7
         env:
@@ -166,7 +172,7 @@ jobs:
           group: 'json-tool'
           wait-on: 'http://localhost:3000'
           start: pnpm start-instrumented
-          browser: chrome-for-testing
+          browser: ${{ steps.setup-chrome.outputs.chrome-path }}
           headed: true
           install-command: pnpm install --frozen-lockfile
 
