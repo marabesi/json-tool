@@ -155,7 +155,7 @@ jobs:
 
       - name: Install Chrome for Testing
         id: setup-chrome
-        uses: browser-actions/setup-chrome@v1
+        uses: browser-actions/setup-chrome@v2
         with:
           chrome-version: stable
 
