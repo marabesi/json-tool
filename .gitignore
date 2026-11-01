@@ -15,6 +15,9 @@ out/
 /cypress-coverage
 /jest-coverage
 
+# local downloads (Chrome for Testing)
+/tmp/
+
 # production
 build/
 

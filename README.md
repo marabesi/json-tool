@@ -98,6 +98,16 @@ The diff view compares two JSON documents. The left editor holds the original do
 make before-push BUIL_APP=true START_APP=true RUN_E2E=true
 ```
 
+To run the acceptance tests with the same Chrome for Testing used in CI,
+download it into the repository (ignored by git) and run Cypress with its full
+executable path:
+
+```sh
+pnpm chrome:setup
+pnpm e2e:chrome
+pnpm e2e:chrome:open
+```
+
 # Resources
 
 - [useFakeTimers not working in jest/testing-library](https://stackoverflow.com/questions/71174071/usefaketimers-not-working-in-jest-testing-library)

@@ -1,0 +1,13 @@
+FROM cypress/included:16.2.1
+
+USER root
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends unzip \
+  && rm -rf /var/lib/apt/lists/*
+
+COPY scripts/chrome-for-testing.mjs /opt/json-tool/chrome-for-testing.mjs
+COPY scripts/setup-chrome-for-testing.mjs /opt/json-tool/setup-chrome-for-testing.mjs
+
+ENV CHROME_FOR_TESTING_DIR=/opt/chrome-for-testing
+RUN node /opt/json-tool/setup-chrome-for-testing.mjs
