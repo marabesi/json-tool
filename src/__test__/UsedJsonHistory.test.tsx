@@ -103,6 +103,7 @@ describe('Used Json History', () => {
       await clickJsonHistoryDrawer();
 
       expect(await within(await screen.findByTestId('history-content')).findByTestId('json-copy-entry')).toBeInTheDocument();
+      expect(screen.getByTestId('json-copy-entry')).toHaveProperty('tagName', 'BUTTON');
     });
 
     it('render send to editor button', async () => {
@@ -117,6 +118,7 @@ describe('Used Json History', () => {
       await clickJsonHistoryDrawer();
 
       expect(await within(await screen.findByTestId('history-content')).findByTestId('json-send-to-editor-entry')).toBeInTheDocument();
+      expect(screen.getByTestId('json-send-to-editor-entry')).toHaveProperty('tagName', 'BUTTON');
     });
   });
 

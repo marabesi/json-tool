@@ -68,6 +68,7 @@ export default memo(forwardRef(function JsonEditor(props: Props, ref: ForwardedR
           extensions={[json()]}
           theme={darkModeEnabled ? 'dark' : duotoneLight}
           basicSetup={basicSetup}
+          indentWithTab={false}
           {...rest}
         />
       </div>

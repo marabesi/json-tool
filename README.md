@@ -52,6 +52,35 @@ pnpm docs:screenshots  # regenerate the manual screenshots
 - Upload a json file
 - Diff two JSON documents and see every added, removed and changed value
 - Resizable editors on the home, table, shape and diff views, drag the divider (or use the left/right arrow keys) to change the width of each editor. The editor menus show icons only, hover over an icon to see what it does
+- Full keyboard navigation: every control is reachable with Tab and Enter/Space (including moving out of the editors), with shortcuts to switch views, open the history drawer and show the shortcut list
+
+# Keyboard shortcuts
+
+Press **?** in the app (when you are not typing in an editor) to open the
+shortcut list. The main shortcuts are:
+
+| Shortcut | Action |
+| --- | --- |
+| Alt + 1 or Alt + Home | Home view |
+| Alt + 2 | Table view |
+| Alt + 3 | Shape view |
+| Alt + 4 | Diff view |
+| Alt + 5 or Alt + S | Settings view |
+| Alt + H | Open or close the history drawer |
+| Alt + D or Alt + Shift + D | Open the documentation |
+| ? | Open or close the shortcut list |
+| Esc | Close a dialog or exit the table full screen |
+
+Every toolbar action has its own shortcut as well, for example **Ctrl/⌘ + F**
+to search, **Alt + V** to paste, **Alt + O** to upload, **Alt + Delete** to
+clear the editor, **Alt + Shift + S** to clean spaces and **Alt + Shift + C**
+to copy the result. Use **Alt + Shift + W** to focus the working editor and
+**Alt + Shift + R** to focus the result/compare editor. The header toggles use
+**Alt + J** (validate json), **Alt + Y** (sync scroll) and **Alt + M** (dark
+mode).
+
+See the [keyboard shortcuts page](https://marabesi.github.io/json-tool/docs/guide/keyboard)
+for the complete list.
 
 # Views
 

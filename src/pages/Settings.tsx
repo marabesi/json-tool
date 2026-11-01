@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Button from '../components/ui/io/Button';
 import { Option, Properties } from '../types/components/Editor';
 import { useSettingsContext } from '../settings/SettingsContext';
+import { useShortcut } from '../ShortcutsContext';
 
 export function Settings() {
   const { editorOptions: options, handleEditorOptionsChanged: handleChange, handleFeatureOptionsChanged, featureOptions } = useSettingsContext();
@@ -16,6 +17,14 @@ export function Settings() {
       properties: [prop],
     });
   };
+
+  useShortcut({
+    id: 'settings-save',
+    keys: ['Alt+Enter'],
+    description: 'Save the settings',
+    section: 'Settings view',
+    handler: persistChanges,
+  });
 
   const onSaveEditorOption = (selectedOption: Option) => {
     setAllOptionsForEditor(
@@ -41,7 +50,7 @@ export function Settings() {
   };
 
   return (
-    <div className="p-8">
+    <div className="p-8" data-testid="settings-page">
       <h1 className="text-xl m-2 ml-0">Settings</h1>
       <div className="flex mr-2">
         <div>
@@ -56,7 +65,14 @@ export function Settings() {
               </div>
             )
           }
-          <input data-testid="font-size" type="text" value={prop.value} onChange={(event) => setProp({ key: 'fontSize', value: event.target.value })}/>
+          <label htmlFor="font-size" className="m-2 block">Font size</label>
+          <input
+            id="font-size"
+            data-testid="font-size"
+            type="text"
+            value={prop.value}
+            onChange={(event) => setProp({ key: 'fontSize', value: event.target.value })}
+          />
         </div>
 
         <div className="ml-5">

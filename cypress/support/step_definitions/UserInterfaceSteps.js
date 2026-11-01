@@ -4,6 +4,7 @@ const url = '/';
 
 When(/^I open json tool$/, function () {
   cy.visit(url);
+  cy.get('[data-testid="json-menu"]').should('be.visible');
 });
 
 And(/^I go to settings$/, function () {

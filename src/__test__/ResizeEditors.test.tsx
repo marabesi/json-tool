@@ -141,6 +141,18 @@ describe('Resize editors', () => {
     await waitFor(() => expect(resizer).toHaveAttribute('aria-valuenow', '50'));
   });
 
+  it('should resize to the minimum and maximum width with the keyboard', async () => {
+    renderEntireApp();
+
+    const resizer = screen.getByTestId('editor-resizer');
+
+    fireEvent.keyDown(resizer, { key: 'Home' });
+    await waitFor(() => expect(resizer).toHaveAttribute('aria-valuenow', '20'));
+
+    fireEvent.keyDown(resizer, { key: 'End' });
+    await waitFor(() => expect(resizer).toHaveAttribute('aria-valuenow', '80'));
+  });
+
   it('should keep the editors within the minimum and maximum width', async () => {
     renderEntireApp();
 

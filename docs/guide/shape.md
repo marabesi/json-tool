@@ -41,4 +41,5 @@ Each nested shape is a collapsible section showing its **path**, its **type**
 same statistics panel and its own nested shapes.
 
 Use **Expand all** and **Collapse all** to open or close every nested shape at
-once.
+once. The keyboard shortcuts are **Alt + E** (expand all) and **Alt + W**
+(collapse all).

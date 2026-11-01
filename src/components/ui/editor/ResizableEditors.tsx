@@ -66,6 +66,10 @@ export default function ResizableEditors({
       setLeftWidth((current) => clamp(current - KEYBOARD_STEP));
     } else if (event.key === 'ArrowRight') {
       setLeftWidth((current) => clamp(current + KEYBOARD_STEP));
+    } else if (event.key === 'Home') {
+      setLeftWidth(MIN_WIDTH);
+    } else if (event.key === 'End') {
+      setLeftWidth(MAX_WIDTH);
     } else {
       return;
     }
@@ -82,14 +86,16 @@ export default function ResizableEditors({
         ref={resizerReference}
         role="separator"
         aria-orientation="vertical"
-        aria-label="Resize editors"
+        aria-label="Resize editors (use the left and right arrow keys)"
         aria-valuenow={Math.round(leftWidth)}
         aria-valuemin={MIN_WIDTH}
         aria-valuemax={MAX_WIDTH}
+        aria-valuetext={`${Math.round(leftWidth)}%`}
+        title="Drag or use the left and right arrow keys to resize"
         tabIndex={0}
         onMouseDown={startResizing}
         onKeyDown={resizeWithKeyboard}
-        className="w-12 shrink-0 flex justify-center items-center cursor-col-resize select-none outline-none focus:bg-blue-300 dark:focus:bg-gray-500"
+        className="w-12 shrink-0 flex justify-center items-center cursor-col-resize select-none focus:bg-blue-300 dark:focus:bg-gray-500"
         data-testid="editor-resizer"
       >
         {indicator ?? <div className="h-8 w-1 rounded bg-blue-900/40 dark:bg-gray-300/40" data-testid="editor-resizer-grip" />}

@@ -23,15 +23,24 @@ right. Each editor has its own toolbar above it.
 
 ## Editors
 
+The editors do not capture the **Tab** key. Use **Tab** and **Shift + Tab** to
+move between an editor, its toolbar, the divider, the other editor and the
+header controls.
+
+Press **Alt + Shift + W** to focus the working editor and **Alt + Shift + R**
+to focus the result/compare editor directly.
+
 ### Search inside an editor
 
 Each toolbar has a search button that opens the CodeMirror search panel in the
 corresponding editor. The search supports plain text and regular expressions.
+Press **Esc** to close it.
 
 ### Resizing the editors
 
 Drag the divider between the editors to resize them, or focus it and press the
-**left/right arrow** keys. The divider position is kept while you switch views.
+**left/right arrow** keys (or **Home/End** for the minimum/maximum width). The
+divider position is kept while you switch views.
 
 ### Sync scroll
 
@@ -65,13 +74,20 @@ line while scrolling.
 > API. All the toolbar buttons show their purpose as a tooltip when you hover
 > over them.
 
+Every toolbar action also has a keyboard shortcut. See
+[Keyboard shortcuts](/guide/keyboard) for the list.
+
 ## History
 
 When the **JSON History** feature is enabled (default), json-tool records the
-JSON you have used. Open the drawer from the header to see the entries:
+JSON you have used. Open the drawer from the header (or press **Alt + H**) to
+see the entries:
 
 - **Send to editor** — put the entry back into the working editor.
 - **Copy** — copy the full content of the entry to the clipboard.
+
+Press **Esc** or use the close button to close the drawer. The drawer keeps the
+keyboard focus inside it while it is open.
 
 The drawer shows a short snippet of each entry and the full content is stored
 for the actions above. It is empty until you start using the editor.

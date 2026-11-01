@@ -1,16 +1,78 @@
-import { FaRegCopy, FaReply } from 'react-icons/fa';
+import { KeyboardEvent as ReactKeyboardEvent, useEffect, useRef } from 'react';
+import { FaRegCopy, FaReply, FaTimes } from 'react-icons/fa';
 import { useDrawerContext } from '../../../DrawerContext';
 import { HistoryEntry } from '../../../types/jsonHistory';
 import { useClipboardContext } from '../../../ClipboardContext';
 import { usePersistenceContext } from '../../../PersistenceContext';
+import { getFocusableElements } from '../../../core/keyboard';
 
 const Drawer = () => {
-  const { isOpen, toggle } = useDrawerContext();
+  const { isOpen, toggle, close } = useDrawerContext();
   const transitionVisible = isOpen ? 'opacity-100 duration-50 ease-in-out visible': 'opacity-0 duration-50 ease-in-out invisible';
   const transitionWidth = isOpen ? 'translate-x-0': 'translate-x-full';
-  const { close } = useDrawerContext();
   const { sendStringToClipboard } = useClipboardContext();
   const { spacing, onChange, entries } = usePersistenceContext();
+  const drawerReference = useRef<HTMLDivElement>(null);
+  const closeReference = useRef<HTMLButtonElement>(null);
+  const previousFocus = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    previousFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    closeReference.current?.focus();
+
+    return () => {
+      if (previousFocus.current?.isConnected) {
+        previousFocus.current.focus();
+      }
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        close();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, close]);
+
+  const handleDrawerKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
+    if (event.key !== 'Tab') {
+      return;
+    }
+
+    const focusable = getFocusableElements(drawerReference.current);
+
+    if (focusable.length === 0) {
+      return;
+    }
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+      return;
+    }
+
+    if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  };
 
   function sendToEditor(item: HistoryEntry) {
     onChange(item.rawContent, spacing, false);
@@ -21,45 +83,75 @@ const Drawer = () => {
     <div
       id="dialog-right"
       className="relative z-10"
-      aria-labelledby="slide-over"
-      role="dialog"
-      aria-modal="true"
+      aria-hidden={!isOpen}
+      inert={!isOpen}
       onClick={toggle}
     >
       <div
         data-testid="drawer"
+        aria-hidden="true"
         className={`fixed inset-0 bg-gray-500 bg-opacity-75 transition-all ${transitionVisible}`}
       ></div>
       <div className={isOpen ? 'fixed inset-0 overflow-hidden' : ''}>
         <div className="absolute inset-0 overflow-hidden">
           <div className="pointer-events-none fixed w-4/12 inset-y-0 right-0">
             <div
+              ref={drawerReference}
+              role="dialog"
+              aria-modal="true"
+              aria-label="JSON history"
               className={`pointer-events-auto relative w-full h-full transform transition ease-in-out duration-500 ${transitionWidth}`}
               onClick={(event) => {
                 event.preventDefault();
                 event.stopPropagation();
               }}
+              onKeyDown={handleDrawerKeyDown}
             >
               <div
                 className='flex h-full w-full overflow-y-scroll p-2 shadow-xl bg-blue-400 text-gray-100 dark:text-gray-400 dark:bg-gray-600'
               >
                 <div data-testid="history-content" className="w-full">
+                  <div className="mb-2 flex items-center justify-between gap-2">
+                    <h2 className="text-lg font-semibold">History</h2>
+                    <button
+                      ref={closeReference}
+                      type="button"
+                      data-testid="close-drawer"
+                      onClick={close}
+                      title="Close history (Esc)"
+                      aria-label="Close history"
+                      className="rounded p-1 hover:bg-blue-800 dark:hover:bg-gray-800"
+                    >
+                      <FaTimes />
+                    </button>
+                  </div>
+
                   {entries.length === 0 && <h2>No entries yet. Start using the editor and come back here!</h2>}
 
                   {entries.map((item, index) => {
                     return (
                       <div key={index} className="flex items-center justify-around p-1 hover:bg-blue-800 dark:hover:bg-gray-800">
                         <p data-testid="history-entry" className="mr-2 w-full">{item.snippet}</p>
-                        <FaReply
+                        <button
+                          type="button"
                           data-testid="json-send-to-editor-entry"
-                          className="cursor-pointer m-3 hover:text-blue-300 dark:hover:text-gray-300"
+                          className="cursor-pointer m-3 rounded p-1 hover:text-blue-300 dark:hover:text-gray-300"
                           onClick={() => sendToEditor(item)}
-                        />
-                        <FaRegCopy
+                          aria-label="Send to editor"
+                          title="Send to editor (Enter)"
+                        >
+                          <FaReply />
+                        </button>
+                        <button
+                          type="button"
                           data-testid="json-copy-entry"
-                          className="cursor-pointer m-3 hover:text-blue-300 dark:hover:text-gray-300"
+                          className="cursor-pointer m-3 rounded p-1 hover:text-blue-300 dark:hover:text-gray-300"
                           onClick={() => sendStringToClipboard(item.rawContent)}
-                        />
+                          aria-label="Copy to clipboard"
+                          title="Copy to clipboard (Enter)"
+                        >
+                          <FaRegCopy />
+                        </button>
                       </div>
                     );
                   })}

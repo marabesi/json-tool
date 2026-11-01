@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Button from '../io/Button';
 import StatCard from '../StatCard';
 import { ShapeNode, ShapeStatistics } from '../../../core/jsonToSchema';
+import { useShortcut } from '../../../ShortcutsContext';
 
 const headerCellClasses = 'border border-blue-900/40 bg-blue-900 px-2 py-1 font-semibold text-white dark:border-gray-500 dark:bg-gray-700';
 const bodyCellClasses = 'border border-blue-900/30 px-2 py-1 dark:border-gray-600';
@@ -111,6 +112,22 @@ export default function JsonShapeStatistics({ report }: Props) {
   const expandAll = () => setCollapsedPaths(new Set());
 
   const collapseAll = () => setCollapsedPaths(new Set(collectPaths(report)));
+
+  useShortcut({
+    id: 'shape-expand-all',
+    keys: ['Alt+E'],
+    description: 'Expand all nested shapes',
+    section: 'Shape view',
+    handler: expandAll,
+  });
+
+  useShortcut({
+    id: 'shape-collapse-all',
+    keys: ['Alt+W'],
+    description: 'Collapse all nested shapes',
+    section: 'Shape view',
+    handler: collapseAll,
+  });
 
   const onToggle = (path: string, open: boolean) => {
     setCollapsedPaths((previous) => {

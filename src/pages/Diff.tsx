@@ -73,6 +73,8 @@ export default function Diff() {
             <JsonMenu
               label="Compare with"
               testIdPrefix="diff-compare"
+              shortcutPrefix="Alt+Shift"
+              searchShortcuts={['Mod+Shift+F']}
               onLoadedFile={(text) => setComparedState(text as string)}
               onPaste={(content) => setComparedState(content)}
               onDelete={() => setComparedState('')}

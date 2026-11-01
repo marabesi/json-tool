@@ -13,34 +13,37 @@ import { DrawerContextProvider } from './DrawerContext';
 import { ToolbarContextProvider } from './ToolbarContext';
 import { ClipboardContextProvider } from './ClipboardContext';
 import { EditorLayoutContextProvider } from './EditorLayoutContext';
+import { ShortcutsContextProvider } from './ShortcutsContext';
 
 export default function App() {
   return (
     <Router>
-      <PersistenceContextProvider>
-        <EditorLayoutContextProvider>
-          <ClipboardContextProvider>
-            <ThemeContextProvider>
-              <DrawerContextProvider>
-                <SettingsContextProvider>
-                  <ToolbarContextProvider>
-                    <DefaultLayout>
-                      <Routes>
-                        <Route path="/" element={<Editors/>}/>
-                        <Route path="/table" element={<Table/>}/>
-                        <Route path="/schema" element={<Schema/>}/>
-                        <Route path="/diff" element={<Diff/>}/>
-                        <Route path="/settings" element={<Settings/>}/>
-                      </Routes>
-                      <Toaster/>
-                    </DefaultLayout>
-                  </ToolbarContextProvider>
-                </SettingsContextProvider>
-              </DrawerContextProvider>
-            </ThemeContextProvider>
-          </ClipboardContextProvider>
-        </EditorLayoutContextProvider>
-      </PersistenceContextProvider>
+      <ShortcutsContextProvider>
+        <PersistenceContextProvider>
+          <EditorLayoutContextProvider>
+            <ClipboardContextProvider>
+              <ThemeContextProvider>
+                <DrawerContextProvider>
+                  <SettingsContextProvider>
+                    <ToolbarContextProvider>
+                      <DefaultLayout>
+                        <Routes>
+                          <Route path="/" element={<Editors/>}/>
+                          <Route path="/table" element={<Table/>}/>
+                          <Route path="/schema" element={<Schema/>}/>
+                          <Route path="/diff" element={<Diff/>}/>
+                          <Route path="/settings" element={<Settings/>}/>
+                        </Routes>
+                        <Toaster/>
+                      </DefaultLayout>
+                    </ToolbarContextProvider>
+                  </SettingsContextProvider>
+                </DrawerContextProvider>
+              </ThemeContextProvider>
+            </ClipboardContextProvider>
+          </EditorLayoutContextProvider>
+        </PersistenceContextProvider>
+      </ShortcutsContextProvider>
     </Router>
   );
 }

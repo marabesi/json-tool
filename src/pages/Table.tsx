@@ -1,4 +1,4 @@
-import { Ref, useCallback, useDeferredValue, useMemo, useRef, useState } from 'react';
+import { Ref, useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import { openSearchPanel } from '@codemirror/search';
 import { ReactCodeMirrorRef } from '@uiw/react-codemirror';
 import Button from '../components/ui/io/Button';
@@ -10,6 +10,7 @@ import JsonTable from '../components/ui/table/JsonTable';
 import { countTableRows } from '../core/jsonToTable';
 import { parseJson } from '../core/parseJson';
 import { usePersistenceContext } from '../PersistenceContext';
+import { useShortcut } from '../ShortcutsContext';
 
 export default function Table() {
   const { jsonState, onChange, spacing } = usePersistenceContext();
@@ -17,6 +18,7 @@ export default function Table() {
   const [exactMatch, setExactMatch] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const jsonReferenceEditor = useRef<ReactCodeMirrorRef>(undefined);
+  const tableSearchReference = useRef<HTMLInputElement>(null);
 
   const deferredSearch = useDeferredValue(search);
   const deferredExactMatch = useDeferredValue(exactMatch);
@@ -29,6 +31,50 @@ export default function Table() {
   const handleEditorChange = useCallback((event: { value: string }) => {
     onChange(event.value, spacing, false);
   }, [onChange, spacing]);
+
+  useEffect(() => {
+    if (!isFullscreen) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setIsFullscreen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isFullscreen]);
+
+  useShortcut({
+    id: 'table-search',
+    keys: ['Alt+G'],
+    description: 'Focus the table search',
+    section: 'Table view',
+    handler: () => {
+      tableSearchReference.current?.focus();
+      tableSearchReference.current?.select();
+    },
+  });
+
+  useShortcut({
+    id: 'table-fullscreen',
+    keys: ['Alt+Enter'],
+    description: 'Toggle the table full screen',
+    section: 'Table view',
+    handler: () => setIsFullscreen((value) => !value),
+  });
+
+  useShortcut({
+    id: 'table-exact-match',
+    keys: ['Alt+E'],
+    description: 'Toggle exact match',
+    section: 'Table view',
+    handler: () => setExactMatch((value) => !value),
+  });
 
   return (
     <EditorPage pageTestId="table-page">
@@ -58,13 +104,20 @@ export default function Table() {
           <>
             <div className="m-1 flex flex-wrap items-center gap-1">
               <input
+                ref={tableSearchReference}
                 data-testid="table-search"
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
                 placeholder="Search or column:value"
+                aria-label="Search in the table"
                 className="p-1 text-sm bg-blue-300 dark:bg-gray-500"
               />
-              <Button data-testid="toggle-fullscreen" onClick={() => setIsFullscreen((value) => !value)}>
+              <Button
+                data-testid="toggle-fullscreen"
+                onClick={() => setIsFullscreen((value) => !value)}
+                title={isFullscreen ? 'Exit full screen (Esc)' : 'Show the table in full screen'}
+                aria-pressed={isFullscreen}
+              >
                 {isFullscreen ? 'Exit full screen' : 'Full screen'}
               </Button>
               <label className="flex items-center gap-1 text-sm">

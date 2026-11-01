@@ -29,6 +29,13 @@ Switch between views using the tabs in the header:
 
 The documentation icon in the header (**Docs**) opens this manual in a new tab.
 
+## Keyboard navigation
+
+Every control can be reached with **Tab** and activated with **Enter** or
+**Space**. Use **Alt + 1** to **Alt + 5** to switch views, **Alt + H** to open
+the history drawer, and press **?** to see the full shortcut list. See
+[Keyboard shortcuts](/guide/keyboard) for every shortcut.
+
 ## The header
 
 From left to right the header shows:
@@ -61,3 +68,4 @@ Continue to the next pages for the details of every view:
 - [Shape view](/guide/shape)
 - [Diff view](/guide/diff)
 - [Settings](/guide/settings)
+- [Keyboard shortcuts](/guide/keyboard)

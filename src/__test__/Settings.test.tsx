@@ -1,4 +1,4 @@
-import { waitFor, screen } from '@testing-library/react';
+import { fireEvent, waitFor, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderEntireApp } from './__testutilities__/builder';
 
@@ -68,6 +68,20 @@ describe('Settings', () => {
       await userEvent.clear( screen.getByTestId('font-size'));
       await userEvent.type( screen.getByTestId('font-size'), '18px');
       await userEvent.click( screen.getByText('Save'));
+
+      await userEvent.click( screen.getByTestId('to-home'));
+
+      await waitFor(() => {
+        expect(screen.getByTestId('json')).toHaveAttribute('style', expect.stringContaining('font-size: 18px'));
+      });
+    });
+
+    it('should save the font size with Alt+Enter', async () => {
+      await goToSettings();
+
+      await userEvent.clear( screen.getByTestId('font-size'));
+      await userEvent.type( screen.getByTestId('font-size'), '18px');
+      fireEvent.keyDown(window, { key: 'Enter', code: 'Enter', altKey: true });
 
       await userEvent.click( screen.getByTestId('to-home'));
 

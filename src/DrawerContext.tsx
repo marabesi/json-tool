@@ -1,4 +1,4 @@
-import { createContext, ReactElement, useContext, useState } from 'react';
+import { createContext, ReactElement, useCallback, useContext, useState } from 'react';
 
 interface DrawerContextInterface {
   isOpen: boolean;
@@ -19,9 +19,9 @@ export const useDrawerContext = () => {
 export const DrawerContextProvider = ({ children }: { children: ReactElement }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const close = () => setIsOpen(false);
+  const close = useCallback(() => setIsOpen(false), []);
 
-  const toggle = () => setIsOpen(!isOpen);
+  const toggle = useCallback(() => setIsOpen((open) => !open), []);
 
   return (
     <DrawerContext.Provider value={{ isOpen, close, toggle }}>

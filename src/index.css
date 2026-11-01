@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  summary:focus-visible,
+  [role='switch']:focus-visible,
+  [role='separator']:focus-visible {
+    outline: 2px solid #facc15;
+    outline-offset: 2px;
+  }
+}

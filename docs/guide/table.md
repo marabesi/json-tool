@@ -49,4 +49,12 @@ Type in the search box to filter the rows.
 ## Full screen
 
 Use **Full screen** to expand the table to the whole page, and **Exit full
-screen** to go back.
+screen** (or press **Esc**) to go back.
+
+## Keyboard shortcuts
+
+| Shortcut | Action |
+| --- | --- |
+| Alt + G | Focus the table search |
+| Alt + E | Toggle **Exact match** |
+| Alt + Enter | Toggle full screen |

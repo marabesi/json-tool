@@ -23,8 +23,8 @@ Configure the CodeMirror editor with the following options:
 The **font size** input controls the size of the text in the editors (`12px` by
 default).
 
-Click **Save** to persist the changes. Editor changes take effect in the
-editors on the home, table and shape views.
+Click **Save** to persist the changes (or press **Alt + Enter**). Editor changes
+take effect in the editors on the home, table and shape views.
 
 > The indentation (the number of spaces used when formatting) is changed from
 > the right toolbar in the [editor](/guide/editor), not in the settings.
