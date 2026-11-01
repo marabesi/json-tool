@@ -41,6 +41,8 @@ Features:
 - JSON as a table view.
 - JSON shape and statistics view.
 - Dark mode and a history drawer.
+- Full keyboard support: every action has a shortcut, and `?` opens the
+  shortcut list for the current page.
 
 Docs live in `README.md` and in the VitePress documentation under `docs/`
 (user manual, published under `/docs` on GitHub Pages). The VitePress site is
@@ -78,6 +80,69 @@ Using the app:
    - shape (`/schema`, test id `schema`) - JSON shape and statistics.
    - settings (`/settings`). The docs are external (header "Docs" link).
 3. Toggle "validate json" and dark mode from the header.
+
+# Keyboard support and shortcuts
+
+Keyboard support is a first-class feature. When adding or changing an action,
+follow the existing keyboard definitions instead of inventing new key handlers.
+
+- The shortcut registry in `src/ShortcutsContext.tsx` is the source of truth and
+  `src/components/ui/KeyboardShortcuts.tsx` renders the `?` dialog from it. The
+  user-facing list is `docs/guide/keyboard.md`. Read those files before answering
+  or adding shortcuts; do not duplicate the list here.
+- Register actions with
+  `useShortcut({ id, keys, description, section, handler, enabled })`.
+  Do not add ad-hoc `window.addEventListener('keydown', ...)` handlers in
+  components.
+- Use `Mod+<key>` for cross-platform shortcuts (`Ctrl` on Windows/Linux, `⌘` on
+  macOS). Shortcuts are matched against both `event.code` and `event.key`.
+- The registry listens in the capture phase so shortcuts work while a CodeMirror
+  editor is focused. CodeMirror must not swallow them.
+- Use `ignoreWhileTyping` only for printable shortcuts such as `?`, so typing in
+  an editor still works.
+- Keep `indentWithTab={false}` in `src/components/ui/editor/JsonEditor.tsx` so
+  Tab moves focus out of an editor instead of inserting indentation.
+- Reuse an existing shortcut when one already covers the action. Before adding a
+  new shortcut, check `src/ShortcutsContext.tsx` and `docs/guide/keyboard.md`
+  to avoid conflicts.
+
+When asked how to perform an action, use the documented shortcut from the
+registry/docs rather than guessing. When adding an action, register its shortcut,
+update the keyboard docs and add Jest/Cypress coverage.
+
+# Testing conventions
+
+Follow the existing test helpers; do not reach into the DOM with brittle index
+lookups.
+
+- Render with `renderEntireApp()` from
+  `src/__test__/__testutilities__/builder.tsx`.
+- Query editors with `grabCurrentEditor(container)` for the working editor and
+  `grabResultEditor(container)` for the result editor. For other editors use
+  `grabEditor(container, testId)`. These live in
+  `src/__test__/__testutilities__/editorQuery.ts`.
+- **Never** use `document.querySelectorAll('.cm-content')[0]`,
+  `[1]`, or any indexed `.cm-content` lookup in tests. Use the editor helpers.
+- Use `customType(editor, text)` from
+  `src/__test__/__testutilities__/customTyping.ts` to type into an editor.
+- Use the existing test ids and `screen.getByTestId` / `within`. Prefer
+  `data-testid` over CSS structure.
+- Clipboard tests use `setUpClipboard`, `tearDownClipboard`,
+  `writeTextToClipboard` and `readTextFromClipboard` from `jest-clipboard`.
+  Restore `window.matchMedia` with `matchMedia(false)` / `emptyMatchMedia()`.
+- Keyboard Jest tests use `fireEvent.keyDown(window, ...)` or
+  `userEvent.keyboard(...)`, then assert focus with `toHaveFocus()`.
+- Cypress keyboard steps must dispatch a native `KeyboardEvent` on the active
+  element (see `pressKey` in `KeyboardNavigationSteps.js`). Do not use
+  `cy.get('body').trigger('keydown', ...)`; it does not reach the window
+  listener reliably.
+- Add shortcut coverage to `src/__test__/KeyboardNavigation.test.tsx` and
+  `src/__test__/ActionShortcuts.test.tsx`, plus a scenario in
+  `cypress/e2e/KeyboardNavigation.feature` with steps in
+  `cypress/support/step_definitions/KeyboardNavigationSteps.js`.
+- When changing keyboard behavior, update `docs/guide/keyboard.md` and the
+  README shortcut section, then run `pnpm test`, `pnpm lint`, `pnpm build`,
+  `pnpm docs:build` and the keyboard Cypress feature.
 
 # JSON shape and statistics feature
 
