@@ -21,3 +21,11 @@ Feature: JSON shape
     Then I see all nested shapes collapsed
     And I expand all nested shapes
     Then I see all nested shapes expanded
+
+  Scenario: collapse and expand all nested shapes with the keyboard
+    When I open json tool with nested json
+    And I go to the shape
+    And I press the Alt+W shortcut
+    Then I see all nested shapes collapsed
+    And I press the Alt+E shortcut
+    Then I see all nested shapes expanded

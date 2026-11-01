@@ -56,6 +56,18 @@ describe('Settings', () => {
     expect(screen.getByLabelText(option)).toBeChecked();
   });
 
+  it('toggles an editor option with the space key', async () => {
+    await goToSettings();
+
+    const checkbox = screen.getByLabelText('foldGutter');
+    expect(checkbox).toBeChecked();
+
+    checkbox.focus();
+    await userEvent.keyboard(' ');
+
+    expect(checkbox).not.toBeChecked();
+  });
+
   describe('editors font size', () => {
     it('should use 12 as font size by default', async () => {
       await goToSettings();

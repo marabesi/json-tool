@@ -42,7 +42,7 @@ When(/^I click copy json to clipboard$/, function () {
 Then(/^I see the copied content in the clipboard$/, function () {
   cy.window().then((win) => {
     win.navigator.clipboard.readText().then((text) => {
-      assert.equal(text, desiredJson);
+      assert.equal(text.replace(/\r\n/g, '\n'), desiredJson);
     });
   });
 });

@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import JsonShapeStatistics from '../../components/ui/schema/JsonShapeStatistics';
 import { analyzeShapeReport } from '../../core/jsonToSchema';
@@ -68,25 +68,6 @@ describe('JsonShapeStatistics', () => {
 
     await userEvent.click(screen.getByTestId('json-shape-expand-all'));
     screen.getAllByTestId('json-shape-node').forEach((node) => expect(node).toHaveAttribute('open'));
-  });
-
-  it('collapses and expands all nested shapes with the keyboard', async () => {
-    renderReport({
-      slideshows: [{ author: { name: 'a' } }],
-      author: { name: 'x' },
-    });
-
-    fireEvent.keyDown(window, { key: 'w', code: 'KeyW', altKey: true });
-
-    await waitFor(() => {
-      screen.getAllByTestId('json-shape-node').forEach((node) => expect(node).not.toHaveAttribute('open'));
-    });
-
-    fireEvent.keyDown(window, { key: 'e', code: 'KeyE', altKey: true });
-
-    await waitFor(() => {
-      screen.getAllByTestId('json-shape-node').forEach((node) => expect(node).toHaveAttribute('open'));
-    });
   });
 
   it('does not render a line by line field list', () => {

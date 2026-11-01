@@ -55,3 +55,7 @@ Then(/^I see the diff error$/, function () {
   cy.get('[data-testid="diff-error"]').should('be.visible');
   cy.get('[data-testid="diff-error"]').should('have.text', 'invalid json');
 });
+
+Then(/^the compare editor has focus$/, function () {
+  cy.get('[data-testid="diff-compare-json"] .cm-content').should('have.focus');
+});

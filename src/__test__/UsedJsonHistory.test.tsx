@@ -1,4 +1,4 @@
-import { screen, waitFor, within } from '@testing-library/react';
+import { fireEvent, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderEntireApp } from './__testutilities__/builder';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
@@ -25,6 +25,44 @@ describe('Used Json History', () => {
     await clickJsonHistoryDrawer();
 
     expect(await screen.findByTestId('drawer')).toHaveClass('opacity-100');
+  });
+
+  it('opens and closes the drawer with Alt+H', async () => {
+    renderEntireApp();
+
+    fireEvent.keyDown(window, { key: 'h', code: 'KeyH', altKey: true });
+
+    expect(await screen.findByTestId('drawer')).toHaveClass('opacity-100');
+
+    fireEvent.keyDown(window, { key: 'h', code: 'KeyH', altKey: true });
+
+    await waitFor(() => expect(screen.getByTestId('drawer')).not.toHaveClass('opacity-100'));
+  });
+
+  it('closes the drawer with Escape', async () => {
+    renderEntireApp();
+
+    await clickJsonHistoryDrawer();
+    expect(await screen.findByTestId('drawer')).toHaveClass('opacity-100');
+
+    fireEvent.keyDown(window, { key: 'Escape', code: 'Escape' });
+
+    await waitFor(() => expect(screen.getByTestId('drawer')).not.toHaveClass('opacity-100'));
+  });
+
+  it('moves the focus into the drawer and back to the history button', async () => {
+    renderEntireApp();
+
+    const historyButton = screen.getByTestId('json-drawer-history-button');
+    historyButton.focus();
+    await userEvent.keyboard('{Enter}');
+
+    const closeButton = await screen.findByTestId('close-drawer');
+    await waitFor(() => expect(closeButton).toHaveFocus());
+
+    await userEvent.keyboard('{Escape}');
+
+    await waitFor(() => expect(historyButton).toHaveFocus());
   });
 
   it('renders area for history', async () => {

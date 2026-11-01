@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { setUpClipboard, tearDownClipboard, writeTextToClipboard } from 'jest-clipboard';
 import { renderEntireApp } from './__testutilities__/builder';
@@ -109,5 +109,36 @@ describe('JSON as a table page', () => {
 
     expect(screen.getByTestId('table-pane')).toHaveAttribute('data-fullscreen', 'false');
     expect(screen.getByText('Full screen')).toBeInTheDocument();
+  });
+
+  it('focuses the table search with Alt+G', async () => {
+    await openTableWith(tableJson);
+
+    fireEvent.keyDown(window, { key: 'g', code: 'KeyG', altKey: true });
+
+    expect(screen.getByTestId('table-search')).toHaveFocus();
+  });
+
+  it('toggles exact match with Alt+E', async () => {
+    await openTableWith(tableJson);
+
+    const exactMatch = screen.getByTestId('table-exact-match');
+    expect(exactMatch).not.toBeChecked();
+
+    fireEvent.keyDown(window, { key: 'e', code: 'KeyE', altKey: true });
+
+    expect(exactMatch).toBeChecked();
+  });
+
+  it('toggles full screen with Alt+Enter and exits with Escape', async () => {
+    await openTableWith(tableJson);
+
+    fireEvent.keyDown(window, { key: 'Enter', code: 'Enter', altKey: true });
+
+    await waitFor(() => expect(screen.getByTestId('table-pane')).toHaveAttribute('data-fullscreen', 'true'));
+
+    fireEvent.keyDown(window, { key: 'Escape', code: 'Escape' });
+
+    await waitFor(() => expect(screen.getByTestId('table-pane')).toHaveAttribute('data-fullscreen', 'false'));
   });
 });

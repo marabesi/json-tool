@@ -48,3 +48,21 @@ Feature: JSON as a table
     Then I see no matching data
     And I disable exact match
     Then I see "Mouse" in the table
+
+  Scenario: use the table shortcuts
+    When I open json tool with a json array
+    And I go to the table
+    And I press the Alt+G shortcut
+    Then the table search has focus
+    And I press the Alt+E shortcut
+    Then exact match is enabled
+    And I press the Alt+Enter shortcut
+    Then I see the table in full screen
+
+  Scenario: exit full screen with Escape
+    When I open json tool with a json array
+    And I go to the table
+    And I expand the table
+    Then I see the table in full screen
+    And I press Escape
+    Then I see the table in its regular size

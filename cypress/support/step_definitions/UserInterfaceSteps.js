@@ -31,3 +31,63 @@ Then(/^I see the docs link$/, function () {
     .should('have.attr', 'href', './docs/')
     .should('have.attr', 'target', '_blank');
 });
+
+Then(/^I see the home view$/, function () {
+  cy.get('[data-testid="editors-page"]').should('be.visible');
+});
+
+Then(/^I see the table view$/, function () {
+  cy.get('[data-testid="table-page"]').should('be.visible');
+});
+
+Then(/^I see the shape view$/, function () {
+  cy.get('[data-testid="schema-page"]').should('be.visible');
+});
+
+Then(/^I see the diff view$/, function () {
+  cy.get('[data-testid="diff-page"]').should('be.visible');
+});
+
+Then(/^I see the keyboard shortcuts$/, function () {
+  cy.get('[data-testid="keyboard-shortcuts"]').should('be.visible');
+});
+
+Then(/^I do not see the keyboard shortcuts$/, function () {
+  cy.get('[data-testid="keyboard-shortcuts"]').should('not.exist');
+});
+
+And(/^I open the keyboard shortcuts from the header$/, function () {
+  cy.get('[data-testid="keyboard-shortcuts-open"]').click();
+});
+
+And(/^I close the keyboard shortcuts$/, function () {
+  cy.get('[data-testid="keyboard-shortcuts-close"]').click();
+});
+
+Then(/^validate json is disabled$/, function () {
+  cy.get('[data-testid="is-validate-json"]').should('not.be.checked');
+});
+
+Then(/^sync scroll is enabled$/, function () {
+  cy.get('[data-testid="is-sync-scroll"]').should('be.checked');
+});
+
+Then(/^dark mode is enabled$/, function () {
+  cy.get('[data-testid="app-container"]').should('have.class', 'dark');
+});
+
+Then(/^the working editor has focus$/, function () {
+  cy.get('[data-testid="json"] .cm-content').should('have.focus');
+});
+
+Then(/^the result editor has focus$/, function () {
+  cy.get('[data-testid="result"] .cm-content').should('have.focus');
+});
+
+And(/^I open the history drawer$/, function () {
+  cy.get('[data-testid="json-drawer-history-button"]').click();
+});
+
+Then(/^the history drawer is closed$/, function () {
+  cy.get('[data-testid="drawer"]').should('not.have.class', 'opacity-100');
+});

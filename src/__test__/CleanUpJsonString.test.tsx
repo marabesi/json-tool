@@ -1,4 +1,4 @@
-import { waitFor, screen } from '@testing-library/react';
+import { fireEvent, waitFor, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { setUpClipboard, tearDownClipboard, writeTextToClipboard } from 'jest-clipboard';
 import { renderEntireApp } from './__testutilities__/builder';
@@ -80,5 +80,20 @@ describe('Clean up json', () => {
     await waitFor(() => {
       expect(screen.getByTestId('raw-result')).toHaveValue(desiredJson);
     }, { timeout: 10000 });
+  });
+
+  it('should clean spaces with Alt+Shift+S', async () => {
+    renderEntireApp();
+
+    const inputJson = '{"name" : "json from clipboard"}';
+
+    await writeTextToClipboard(inputJson);
+    await userEvent.click(screen.getByTestId('paste-from-clipboard'));
+
+    await waitFor(() => expect(screen.getByTestId('raw-json')).toHaveValue(inputJson));
+
+    fireEvent.keyDown(window, { key: 's', code: 'KeyS', altKey: true, shiftKey: true });
+
+    await waitFor(() => expect(screen.getByTestId('raw-result')).toHaveValue('{"name":"json from clipboard"}'));
   });
 });

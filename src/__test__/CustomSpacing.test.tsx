@@ -101,9 +101,37 @@ describe('Custom spacing for formatting json', () => {
 }`);
       });
     });
+
+    it('should focus the space input with Alt+Shift+T', () => {
+      renderEntireApp();
+
+      fireEvent.keyDown(window, { key: 't', code: 'KeyT', altKey: true, shiftKey: true });
+
+      expect(screen.getByTestId('space-size')).toHaveFocus();
+    });
   });
 
   describe('uploading a json file', function () {
+    it('should open the file picker with Alt+O', () => {
+      const click = jest.spyOn(HTMLInputElement.prototype, 'click').mockImplementation(() => undefined);
+
+      renderEntireApp();
+
+      fireEvent.keyDown(window, { key: 'o', code: 'KeyO', altKey: true });
+
+      expect(click).toHaveBeenCalled();
+      click.mockRestore();
+    });
+
+    it('should keep the upload input focusable', () => {
+      renderEntireApp();
+
+      const upload = screen.getByTestId('upload-json');
+      upload.focus();
+
+      expect(upload).toHaveFocus();
+      expect(upload).toHaveAttribute('aria-label', 'Upload JSON file');
+    });
     it('should format json from uploaded file', async () => {
       const file = new File(['{"a":"b"}'], 'hello.json', { type: 'application/json' });
 

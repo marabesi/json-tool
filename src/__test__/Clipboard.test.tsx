@@ -1,6 +1,6 @@
-import { waitFor, screen } from '@testing-library/react';
+import { waitFor, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { setUpClipboard, tearDownClipboard, writeTextToClipboard } from 'jest-clipboard';
+import { setUpClipboard, tearDownClipboard, writeTextToClipboard, readTextFromClipboard } from 'jest-clipboard';
 import { grabCurrentEditor } from './__testutilities__/editorQuery';
 import { emptyMatchMedia, matchMedia } from './__testutilities__/matchMedia';
 import { renderEntireApp } from './__testutilities__/builder';
@@ -35,7 +35,7 @@ describe('Clipboard', () => {
     it('should copy json string from result editor to transfer area on clicking the button', async () => {
       renderEntireApp();
 
-      jest.spyOn(global.navigator.clipboard, 'writeText');
+      const writeText = jest.spyOn(global.navigator.clipboard, 'writeText');
 
       const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
 
@@ -52,6 +52,36 @@ describe('Clipboard', () => {
         expect(global.navigator.clipboard.writeText).toHaveBeenCalledWith(await formatter.format());
       });
       expect(screen.getByText('Copied')).toBeInTheDocument();
+
+      writeText.mockRestore();
+    });
+
+    it('should paste json string with Alt+V', async () => {
+      renderEntireApp();
+
+      await writeTextToClipboard('{"from":"shortcut"}');
+
+      fireEvent.keyDown(window, { key: 'v', code: 'KeyV', altKey: true });
+
+      await waitFor(() => {
+        expect(screen.getByTestId('raw-json')).toHaveValue('{"from":"shortcut"}');
+      });
+    });
+
+    it('should copy json string with Alt+Shift+C', async () => {
+      renderEntireApp();
+
+      const editor = grabCurrentEditor(screen.getByTestId('editor-container'));
+      await userEvent.type(editor, '{{"a":"a"}', { delay: 100 });
+
+      await waitFor(() => expect(screen.getByTestId('raw-json')).toHaveValue('{"a":"a"}'));
+
+      fireEvent.keyDown(window, { key: 'c', code: 'KeyC', altKey: true, shiftKey: true });
+
+      await waitFor(async () => {
+        expect(await readTextFromClipboard()).toContain('"a": "a"');
+      });
+      expect(await screen.findByText('Copied')).toBeInTheDocument();
     });
   });
 

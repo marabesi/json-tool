@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { setUpClipboard, tearDownClipboard, writeTextToClipboard } from 'jest-clipboard';
 import { renderEntireApp } from './__testutilities__/builder';
@@ -67,5 +67,23 @@ describe('JSON shape page', () => {
 
     expect(await screen.findByTestId('schema-error')).toBeInTheDocument();
     expect(screen.getByTestId('schema-error')).toHaveTextContent('invalid json');
+  });
+
+  it('collapses and expands all nested shapes with the keyboard', async () => {
+    await openShapeWith('{"slideshows":[{"title":"a"},{"title":"b"}],"author":{"name":"x"}}');
+
+    expect(await screen.findByTestId('json-shape-nested')).toBeInTheDocument();
+
+    fireEvent.keyDown(window, { key: 'w', code: 'KeyW', altKey: true });
+
+    await waitFor(() => {
+      screen.getAllByTestId('json-shape-node').forEach((node) => expect(node).not.toHaveAttribute('open'));
+    });
+
+    fireEvent.keyDown(window, { key: 'e', code: 'KeyE', altKey: true });
+
+    await waitFor(() => {
+      screen.getAllByTestId('json-shape-node').forEach((node) => expect(node).toHaveAttribute('open'));
+    });
   });
 });

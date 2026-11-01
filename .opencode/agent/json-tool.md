@@ -112,6 +112,9 @@ update the keyboard docs and add Jest/Cypress coverage.
 
 # Testing conventions
 
+Tests are feature-first: keyboard coverage belongs to the feature it changes,
+not to a separate keyboard suite.
+
 Follow the existing test helpers; do not reach into the DOM with brittle index
 lookups.
 
@@ -133,16 +136,26 @@ lookups.
 - Keyboard Jest tests use `fireEvent.keyDown(window, ...)` or
   `userEvent.keyboard(...)`, then assert focus with `toHaveFocus()`.
 - Cypress keyboard steps must dispatch a native `KeyboardEvent` on the active
-  element (see `pressKey` in `KeyboardNavigationSteps.js`). Do not use
+  element (see `pressKey` in `cypress/support/keyboard.js`). Do not use
   `cy.get('body').trigger('keydown', ...)`; it does not reach the window
   listener reliably.
-- Add shortcut coverage to `src/__test__/KeyboardNavigation.test.tsx` and
-  `src/__test__/ActionShortcuts.test.tsx`, plus a scenario in
-  `cypress/e2e/KeyboardNavigation.feature` with steps in
-  `cypress/support/step_definitions/KeyboardNavigationSteps.js`.
+- Put keyboard scenarios in the owning Cypress feature (for example
+  `Clipboard.feature`, `JsonTable.feature`, `JsonShape.feature`,
+  `UserInterface.feature`) and add feature-specific assertions to that
+  feature's step definitions. `KeyPressSteps.js` only holds shared key-press
+  steps; do not put feature-specific assertions there.
+- Put Jest keyboard coverage in the test file for the feature being changed (for
+  example `Editors.test.tsx`, `Clipboard.test.tsx`, `CleanUpEditors.test.tsx`,
+  `CleanUpJsonString.test.tsx`, `CleanUpJsonNewLines.test.tsx`,
+  `CustomSpacing.test.tsx`, `JsonToTable.test.tsx`, `Shape.test.tsx`,
+  `UiElements.test.tsx`, `UsedJsonHistory.test.tsx`, `Documentation.test.tsx`,
+  `DarkMode.test.tsx`, `Settings.test.tsx` or `Diff.test.tsx`).
+- Do not create standalone keyboard test suites such as
+  `KeyboardNavigation.test.tsx` or `KeyboardNavigation.feature`. Add the
+  coverage to the feature that owns the action.
 - When changing keyboard behavior, update `docs/guide/keyboard.md` and the
   README shortcut section, then run `pnpm test`, `pnpm lint`, `pnpm build`,
-  `pnpm docs:build` and the keyboard Cypress feature.
+  `pnpm docs:build` and the affected Cypress features.
 
 # JSON shape and statistics feature
 

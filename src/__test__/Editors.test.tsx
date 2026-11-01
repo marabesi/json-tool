@@ -1,7 +1,7 @@
 import { waitFor, within, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { customType } from './__testutilities__/customTyping';
-import { grabCurrentEditor } from './__testutilities__/editorQuery';
+import { grabCurrentEditor, grabResultEditor } from './__testutilities__/editorQuery';
 import { renderEntireApp } from './__testutilities__/builder';
 
 describe('Editors', () => {
@@ -62,6 +62,42 @@ describe('Editors', () => {
     await userEvent.click (screen.getByTestId('search-result'));
 
     await waitFor(() => expect(within (screen.getByTestId('result')).getByText('×')).toBeInTheDocument());
+  });
+
+  it('opens the input search with Ctrl+F', async () => {
+    renderEntireApp();
+
+    fireEvent.keyDown(window, { key: 'f', code: 'KeyF', ctrlKey: true });
+
+    await waitFor(() => expect(within(screen.getByTestId('json')).getByText('×')).toBeInTheDocument());
+  });
+
+  it('opens the result search with Ctrl+Shift+F', async () => {
+    renderEntireApp();
+
+    fireEvent.keyDown(window, { key: 'f', code: 'KeyF', ctrlKey: true, shiftKey: true });
+
+    await waitFor(() => expect(within(screen.getByTestId('result')).getByText('×')).toBeInTheDocument());
+  });
+
+  it('focuses the working editor with Alt+Shift+W', () => {
+    renderEntireApp();
+
+    const workingEditor = grabCurrentEditor(screen.getByTestId('editor-container'));
+
+    fireEvent.keyDown(window, { key: 'w', code: 'KeyW', altKey: true, shiftKey: true });
+
+    expect(workingEditor).toHaveFocus();
+  });
+
+  it('focuses the result editor with Alt+Shift+R', () => {
+    renderEntireApp();
+
+    const resultEditor = grabResultEditor(screen.getByTestId('editor-container'));
+
+    fireEvent.keyDown(window, { key: 'r', code: 'KeyR', altKey: true, shiftKey: true });
+
+    expect(resultEditor).toHaveFocus();
   });
 
   describe('scroll synchronization', () => {

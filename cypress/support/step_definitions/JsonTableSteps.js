@@ -65,3 +65,11 @@ And(/^I enable exact match$/, function () {
 And(/^I disable exact match$/, function () {
   cy.get('[data-testid="table-exact-match"]').uncheck();
 });
+
+Then(/^the table search has focus$/, function () {
+  cy.get('[data-testid="table-search"]').should('have.focus');
+});
+
+Then(/^exact match is enabled$/, function () {
+  cy.get('[data-testid="table-exact-match"]').should('be.checked');
+});

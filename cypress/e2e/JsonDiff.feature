@@ -24,3 +24,9 @@ Feature: JSON diff
     And I go to the diff
     And I compare with an invalid json
     Then I see the diff error
+
+  Scenario: focus the compare editor with the keyboard
+    When I open json tool with the original json to diff
+    And I go to the diff
+    And I press the Alt+Shift+R shortcut
+    Then the compare editor has focus
