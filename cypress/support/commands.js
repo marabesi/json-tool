@@ -132,6 +132,25 @@ Cypress.Commands.add('withInputEditorScroller', () => {
   return cy.get('[data-testid="json"] .cm-scroller');
 });
 
+Cypress.Commands.add('grantClipboardAccess', () => {
+  if (Cypress.browser.family !== 'chromium' || Cypress.browser.name === 'electron') {
+    return;
+  }
+
+  cy.window({ log: false }).then((win) => {
+    return Cypress.automation('remote:debugger:protocol', {
+      command: 'Browser.grantPermissions',
+      params: {
+        permissions: ['clipboardReadWrite', 'clipboardSanitizedWrite'],
+        origin: win.location.origin,
+      },
+    }).then(() => Cypress.automation('remote:debugger:protocol', {
+      command: 'Emulation.setFocusEmulationEnabled',
+      params: { enabled: true },
+    }));
+  });
+});
+
 Cypress.Commands.add('withOutputEditorScroller', () => {
   return cy.get('[data-testid="result"] .cm-scroller');
 });

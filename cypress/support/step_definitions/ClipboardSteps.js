@@ -3,6 +3,10 @@ const { When, Then } = require('cypress-cucumber-preprocessor/steps');
 const inputJson = '{"name":"json from clipboard"}';
 const desiredJson = '{\n  "name": "json from clipboard"\n}';
 
+When(/^the browser allows clipboard access$/, function () {
+  cy.grantClipboardAccess();
+});
+
 When(/^I copy text into the clipboard$/, function () {
   cy.withInputEditor().focus();
 
