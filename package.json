@@ -59,7 +59,7 @@
     "@vitejs/plugin-react": "^6.2.1",
     "autoprefixer": "^10.6.2",
     "babel-jest": "^30.5.2",
-    "chromatic": "^18.13.9",
+    "chromatic": "^18.14.0",
     "concurrently": "^10.0.6",
     "coveralls-next": "^6.0.2",
     "cypress": "^16.2.1",
