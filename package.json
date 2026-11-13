@@ -62,7 +62,7 @@
     "chromatic": "^18.14.2",
     "concurrently": "^10.0.6",
     "coveralls-next": "^6.0.2",
-    "cypress": "^16.2.1",
+    "cypress": "^16.3.0",
     "cypress-cucumber-preprocessor": "^4.3.1",
     "cypress-file-upload": "^5.0.8",
     "electron": "^45.1.0",
