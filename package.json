@@ -57,7 +57,7 @@
     "@typescript-eslint/eslint-plugin": "^8.72.1",
     "@typescript-eslint/parser": "^8.72.2",
     "@vitejs/plugin-react": "^6.3.0",
-    "autoprefixer": "^10.6.2",
+    "autoprefixer": "^10.7.0",
     "babel-jest": "^30.5.2",
     "chromatic": "^18.14.6",
     "concurrently": "^10.0.7",
