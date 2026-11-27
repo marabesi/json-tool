@@ -19,7 +19,7 @@
     "@codemirror/state": "^6.7.6",
     "@codemirror/view": "^6.43.15",
     "@uiw/codemirror-theme-duotone": "^4.25.12",
-    "@uiw/react-codemirror": "^4.25.12",
+    "@uiw/react-codemirror": "^4.25.13",
     "format-to-json": "^4.0.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
